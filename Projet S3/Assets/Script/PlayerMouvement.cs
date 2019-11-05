@@ -18,9 +18,15 @@ public class PlayerMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Movement();
+    }
+
+    void Movement()
+    {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         transform.position += new Vector3(horizontal, 0, vertical).normalized * speedOfDeplacement * Time.deltaTime;
 
     }
+
 }
