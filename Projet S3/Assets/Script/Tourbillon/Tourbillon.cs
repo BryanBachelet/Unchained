@@ -29,7 +29,7 @@ public class Tourbillon : MonoBehaviour
         }
         if (!isArrived)
         {
-            AttractSkill();
+            TourbillonSkill();
             if (angleRotated >= angleToRotate)
             {
                 isArrived = true;
@@ -37,7 +37,7 @@ public class Tourbillon : MonoBehaviour
         }
     }
 
-    public void AttractSkill()
+    public void TourbillonSkill()
     {
         angleRotated += angleSpeed * Time.deltaTime;
         transform.RotateAround(otherPlayer.position, Vector3.up, angleSpeed * Time.deltaTime);
