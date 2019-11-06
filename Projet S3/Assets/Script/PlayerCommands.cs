@@ -44,6 +44,7 @@ public class PlayerCommands : MonoBehaviour
 
     public static void ChangePlayerState(GameObject player, PlayerState.StateOfPlayer state)
     {
+        
         PlayerState currentState = player.GetComponent<PlayerState>();
         currentState.playerState = state;
     }

@@ -38,12 +38,12 @@ public class Projection : MonoBehaviour
         Vector3 dir = GetAimDirection();
         if (dir != Vector3.zero)
         {
-            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Jet);
+            PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet);
 
         }
         else
         {
-            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free);
 
         }
     }
@@ -52,7 +52,7 @@ public class Projection : MonoBehaviour
     {
         if (playerHere && playerState.playerState == PlayerState.StateOfPlayer.Jet)
         {
-            PlayerCommands.ChangePlayerState(PlayerCommands.OtherPlayer(gameObject), PlayerState.StateOfPlayer.Free);
+            PlayerCommands.ChangePlayerState(PlayerCommands.OtherPlayer(transform.parent.gameObject), PlayerState.StateOfPlayer.Free);
             GetFly();
             playerHere = false;
         }

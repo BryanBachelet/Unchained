@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class Attract : MonoBehaviour
 {
+
+    public float speedOfAttrack;
     public Transform otherPlayer;
     public bool trigSkill = false;
     public bool isArrived = true;
+    public PlayerNumber playerNumber;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerNumber = GetComponent<PlayerNumber>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(trigSkill)
+        float hit = Input.GetAxis("Attract" + playerNumber.playerNumber.ToString());
+        if (hit != 0 && isArrived)
         {
-            trigSkill = false;
             isArrived = false;
-            GetComponent<Opportunity>().activeInput = true;
+            PlayerCommands.ActiveOpportunityWindow(gameObject);
         }
-        if(!isArrived)
+
+        if (!isArrived)
         {
             AttractSkill();
-            if(Vector3.Distance(transform.position, otherPlayer.position) < 1f)
+            if (Vector3.Distance(transform.position, otherPlayer.position) < 1f)
             {
                 isArrived = true;
             }
@@ -34,6 +41,6 @@ public class Attract : MonoBehaviour
 
     public void AttractSkill()
     {
-        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.position, 10f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.position, speedOfAttrack * Time.deltaTime);
     }
 }
