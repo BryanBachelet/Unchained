@@ -8,6 +8,9 @@ public class Projection : MonoBehaviour
     private GameObject playerContact;
     private PlayerNumber playerNumber;
     private PlayerState playerState;
+    private Opportunity opportunity;
+
+
 
     [Header("Caractéristiques de la projection")]
     public float speedOfFly;
@@ -19,6 +22,7 @@ public class Projection : MonoBehaviour
     {
         playerNumber = GetComponentInParent<PlayerNumber>();
         playerState = GetComponentInParent<PlayerState>();
+        opportunity = GetComponent<Opportunity>();
     }
 
     // Update is called once per frame
@@ -70,7 +74,7 @@ public class Projection : MonoBehaviour
             Fly flyScript = playerContact.AddComponent<Fly>();
             flyScript.direction = GetAimDirection();
             flyScript.timeToFlight = timeToFlight;
-            flyScript.speedOfFight = speedOfFly + ratioPerLevelOfPower;
+            flyScript.speedOfFight = speedOfFly + VitesseFunction.RatioAugmented(ratioPerLevelOfPower);
             flyScript.opportunityWindow = opportunityWindow;
         }
     }
