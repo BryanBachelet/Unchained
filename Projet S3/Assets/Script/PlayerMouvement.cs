@@ -6,13 +6,13 @@ public class PlayerMouvement : MonoBehaviour
 {
     private float horizontal;
     private float vertical;
-
+    private PlayerNumber playerNumber;
     public float speedOfDeplacement;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        playerNumber = GetComponent<PlayerNumber>();
     }
 
     // Update is called once per frame
@@ -23,8 +23,8 @@ public class PlayerMouvement : MonoBehaviour
 
     void Movement()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal" + playerNumber.playerNumber.ToString());
+        vertical = Input.GetAxis("Vertical" + playerNumber.playerNumber.ToString());
         transform.position += new Vector3(horizontal, 0, vertical).normalized * speedOfDeplacement * Time.deltaTime;
 
     }
