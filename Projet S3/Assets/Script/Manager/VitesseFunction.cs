@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class VitesseFunction : MonoBehaviour
 {
     public float currentLv;
@@ -20,6 +21,7 @@ public class VitesseFunction : MonoBehaviour
         myUIText.text = currentLv.ToString() + "," + (currentFloat * 100).ToString("F0");
         if(currentFloat > 0)
         {
+
             currentFloat -= Time.deltaTime / 15;
         }
 
