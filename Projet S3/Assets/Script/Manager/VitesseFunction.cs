@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class VitesseFunction : MonoBehaviour
 {
-    public float currentLv;
+    public static float currentLv;
     public float currentFloat;
     public Text myUIText;
 
