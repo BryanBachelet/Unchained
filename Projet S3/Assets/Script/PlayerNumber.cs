@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerNumber : MonoBehaviour
 {
-    public InputManager inputManager;
+    private InputManager inputManager;
     public int playerNumber;
-    public int manetteNumber;
+    [HideInInspector] public int manetteNumber;
 
     public void Awake()
     {
         inputManager = FindObjectOfType<InputManager>();
-        if(playerNumber== 1)
+        if (playerNumber == 1)
         {
             manetteNumber = inputManager.controllerOne;
         }
-        if(playerNumber == 2)
+        if (playerNumber == 2)
         {
             manetteNumber = inputManager.controllerTwo;
         }

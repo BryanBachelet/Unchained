@@ -8,8 +8,7 @@ public class PlayerMouvement : MonoBehaviour
     private float vertical;
     private PlayerNumber playerNumber;
     public float speedOfDeplacement;
-    public float deadZone;
-
+   
     // Start is called before the first frame update
     void Start()
     {
