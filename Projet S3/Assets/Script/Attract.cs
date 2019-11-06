@@ -20,6 +20,7 @@ public class Attract : MonoBehaviour
         {
             trigSkill = false;
             isArrived = false;
+            GetComponent<Opportunity>().activeInput = true;
         }
         if(!isArrived)
         {

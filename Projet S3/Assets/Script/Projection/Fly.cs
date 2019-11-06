@@ -24,6 +24,7 @@ public class Fly : MonoBehaviour
         if (compteurOfFlyTime > timeToFlight)
         {
             GetComponent<PlayerState>().playerState = PlayerState.StateOfPlayer.Free;
+            GetComponent<PlayerState>().opportunityState = PlayerState.OpportunityState.Out;
             Destroy(this);
         }
         else
@@ -31,5 +32,11 @@ public class Fly : MonoBehaviour
             transform.position += direction * speedOfFight * Time.deltaTime;
             compteurOfFlyTime += Time.deltaTime;
         }
+
+        if(compteurOfFlyTime/ timeToFlight >= opportunityWindow)
+        {
+            GetComponent<PlayerState>().opportunityState = PlayerState.OpportunityState.In;
+            
+        }   
     }
 }

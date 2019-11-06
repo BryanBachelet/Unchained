@@ -6,42 +6,45 @@ using UnityEngine.UI;
 public class VitesseFunction : MonoBehaviour
 {
     public static float currentLv;
-    public float currentFloat;
+    public static float currentFloat;
     public Text myUIText;
+
+    public float currentlvl;
+    public float currentPercent;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(myUIText != null)
+        if (myUIText != null)
         {
             myUIText.text = currentLv.ToString() + "," + (currentFloat * 100).ToString("F0");
         }
-
-        if(currentFloat > 0)
+        if (currentFloat > 0)
         {
 
             currentFloat -= Time.deltaTime / 15;
         }
 
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            vitesseChange(true);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            vitesseChange(false);
-        }
+        currentlvl = currentLv;
+        currentPercent = currentFloat;
     }
 
-    public void vitesseChange(bool isAdd)
+    public static float RatioAugmented(float ratio)
     {
-        if(isAdd)
+
+        return ratio * currentLv;
+
+    }
+
+    public static void VitesseChange(bool isAdd)
+    {
+        if (isAdd)
         {
             currentFloat += 1 - (currentLv - 1) / currentLv;
             if (currentFloat >= 1)
