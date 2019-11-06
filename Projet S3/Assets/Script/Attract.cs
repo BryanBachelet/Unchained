@@ -6,9 +6,6 @@ public class Attract : MonoBehaviour
 {
 
     public float speedOfAttrack;
-    public Transform otherPlayer;
-    public bool trigSkill = false;
-    public bool isArrived = true;
     public PlayerNumber playerNumber;
 
 
@@ -23,24 +20,28 @@ public class Attract : MonoBehaviour
     void Update()
     {
         float hit = Input.GetAxis("Attract" + playerNumber.playerNumber.ToString());
-        if (hit != 0 && isArrived)
+        if (hit != 0 && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
         {
-            isArrived = false;
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Attract);
             PlayerCommands.ActiveOpportunityWindow(gameObject);
         }
 
-        if (!isArrived)
+        if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Attract))
         {
             AttractSkill();
-            if (Vector3.Distance(transform.position, otherPlayer.position) < 1f)
-            {
-                isArrived = true;
-            }
+            
         }
     }
 
     public void AttractSkill()
     {
-        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.position, speedOfAttrack * Time.deltaTime);
+        GameObject otherPlayer = PlayerCommands.OtherPlayer(gameObject);
+        Debug.Log(otherPlayer);
+        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.transform.position, speedOfAttrack * Time.deltaTime);
+        if (Vector3.Distance(transform.position, otherPlayer.transform.position) < 1f)
+        {
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            
+        }
     }
 }

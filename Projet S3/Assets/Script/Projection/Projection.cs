@@ -36,12 +36,22 @@ public class Projection : MonoBehaviour
     public void ChangeState()
     {
         Vector3 dir = GetAimDirection();
-        if (dir != Vector3.zero)
+        bool takeInput;
+        if (dir.x < 0.2f && dir.z < 0.2f)
+        {
+            takeInput = false;
+        }
+        else
+        {
+            takeInput = true;
+        }
+
+        if (takeInput && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
         {
             PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet);
 
         }
-        else
+        if (!takeInput && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Jet))
         {
             PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free);
 
@@ -85,7 +95,7 @@ public class Projection : MonoBehaviour
         {
             playerHere = true;
             playerContact = other.gameObject;
-            
+
         }
     }
 

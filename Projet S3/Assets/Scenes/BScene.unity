@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 1519585624}
   - component: {fileID: 1519585623}
   - component: {fileID: 1519585625}
+  - component: {fileID: 1519585626}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -174,6 +175,20 @@ MonoBehaviour:
   myUIText: {fileID: 0}
   currentlvl: 0
   currentPercent: 0
+--- !u!114 &1519585626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519585622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1c74c0e3d6d6343ad3365e2d9ae146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOne: {fileID: 6281006797319259180}
+  PlayerTwo: {fileID: 1932146510778212224}
 --- !u!1 &1699553235
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +407,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1932146510778212225, guid: 3497c10d16ffc7842bfaea9b27f2a7b3,
+        type: 3}
+      propertyPath: speedOfFly
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3497c10d16ffc7842bfaea9b27f2a7b3, type: 3}
 --- !u!1 &1932146510778212224 stripped
@@ -425,15 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayer: {fileID: 6281006797319259190}
-  trigSkill: 0
-  isArrived: 1
---- !u!4 &1932146510778212227 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1932146510368897818, guid: 3497c10d16ffc7842bfaea9b27f2a7b3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1932146510778212223}
-  m_PrefabAsset: {fileID: 0}
+  speedOfAttrack: 0
+  playerNumber: {fileID: 0}
 --- !u!1001 &6281006797319259179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -506,6 +519,11 @@ PrefabInstance:
       propertyPath: opportunityWindow
       value: 0.486
       objectReference: {fileID: 0}
+    - target: {fileID: 6281006797319259181, guid: 33dc80b14a16b4b4bb22016095da5182,
+        type: 3}
+      propertyPath: speedOfFly
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33dc80b14a16b4b4bb22016095da5182, type: 3}
 --- !u!1 &6281006797319259180 stripped
@@ -539,12 +557,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayer: {fileID: 1932146510778212227}
-  trigSkill: 0
-  isArrived: 1
---- !u!4 &6281006797319259190 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6281006795787840221, guid: 33dc80b14a16b4b4bb22016095da5182,
-    type: 3}
-  m_PrefabInstance: {fileID: 6281006797319259179}
-  m_PrefabAsset: {fileID: 0}
+  speedOfAttrack: 10
+  playerNumber: {fileID: 0}
