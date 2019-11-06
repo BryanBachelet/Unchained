@@ -18,7 +18,11 @@ public class VitesseFunction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myUIText.text = currentLv.ToString() + "," + (currentFloat * 100).ToString("F0");
+        if(myUIText != null)
+        {
+            myUIText.text = currentLv.ToString() + "," + (currentFloat * 100).ToString("F0");
+        }
+
         if(currentFloat > 0)
         {
 
