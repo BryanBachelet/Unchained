@@ -7,24 +7,24 @@ public class Projection : MonoBehaviour
     private bool playerHere;
     private GameObject playerContact;
     private PlayerNumber playerNumber;
+    private PlayerState playerState;
 
     [Header("Caractéristiques de la projection")]
     public float speedOfFly;
     public float timeToFlight;
     [Range(0, 1)] public float opportunityWindow;
-
+    public float ratioPerLevelOfPower;
 
     void Start()
     {
         playerNumber = GetComponentInParent<PlayerNumber>();
+        playerState = GetComponentInParent<PlayerState>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
-
+        ChangeState();
         Jet();
     }
 
@@ -34,14 +34,21 @@ public class Projection : MonoBehaviour
         Vector3 dir = GetAimDirection();
         if (dir != Vector3.zero)
         {
+            playerState.playerState = PlayerState.StateOfPlayer.Jet;
+
+        }
+        else
+        {
+            playerState.playerState = PlayerState.StateOfPlayer.Free;
 
         }
     }
 
     public void Jet()
     {
-        if (playerHere)
+        if (playerHere && playerState.playerState == PlayerState.StateOfPlayer.Jet)
         {
+            playerContact.GetComponent<PlayerState>().playerState = PlayerState.StateOfPlayer.Fly;
             GetFly();
             playerHere = false;
         }
@@ -63,14 +70,14 @@ public class Projection : MonoBehaviour
             Fly flyScript = playerContact.AddComponent<Fly>();
             flyScript.direction = GetAimDirection();
             flyScript.timeToFlight = timeToFlight;
-            flyScript.speedOfFight = speedOfFly;
+            flyScript.speedOfFight = speedOfFly + ratioPerLevelOfPower;
             flyScript.opportunityWindow = opportunityWindow;
         }
     }
 
     private void OnContact(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && playerState.playerState == PlayerState.StateOfPlayer.Jet)
         {
             playerHere = true;
             playerContact = other.gameObject;

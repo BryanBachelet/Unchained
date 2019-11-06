@@ -9,19 +9,21 @@ public class Fly : MonoBehaviour
     [HideInInspector] public float speedOfFight;
     [HideInInspector] public float opportunityWindow;
 
-    public float compteurOfFlyTime;
-
-    // Start is called before the first frame update
-    void Start()
+    private float compteurOfFlyTime;
+    private float playerState;
+    
+    void Update()
     {
 
+        FlyBehavior();
+        
     }
 
-    // Update is called once per frame
-    void Update()
+   private void FlyBehavior()
     {
         if (compteurOfFlyTime > timeToFlight)
         {
+            GetComponent<PlayerState>().playerState = PlayerState.StateOfPlayer.Free;
             Destroy(this);
         }
         else
