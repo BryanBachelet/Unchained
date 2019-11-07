@@ -38,7 +38,7 @@ public class Tourbillon : MonoBehaviour
         }
         if (isRotate)
         {
-            AttractSkill();
+            TourbillonSkill();
             if (angleRotated >= angleToRotate)
             {
                 PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
@@ -47,7 +47,7 @@ public class Tourbillon : MonoBehaviour
         }
     }
 
-    public void AttractSkill()
+    public void TourbillonSkill()
     {
         angleRotated += angleSpeed * Time.deltaTime;
         transform.RotateAround(otherPlayer.position, Vector3.up, angleSpeed * Time.deltaTime);

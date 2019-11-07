@@ -30,7 +30,10 @@ public class VitesseFunction : MonoBehaviour
 
             currentFloat -= Time.deltaTime / 15;
         }
-
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            VitesseChange(true);
+        }
         currentlvl = currentLv;
         currentPercent = currentFloat;
     }
