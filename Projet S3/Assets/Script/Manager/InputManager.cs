@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     public int controllerOne;
     public int controllerTwo;
 
-    void Start()
+    void Awake()
     {
         this.inputNumber = Input.GetJoystickNames();
         for (int i = 0; i < inputNumber.Length; i++)

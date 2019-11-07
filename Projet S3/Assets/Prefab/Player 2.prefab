@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 1932146510368897822}
   - component: {fileID: 2435338829241164481}
   - component: {fileID: 321498515}
+  - component: {fileID: 1932146510778212225}
+  - component: {fileID: 1932146510778212226}
+  - component: {fileID: 1932146510778212235}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -109,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de88606888b706949af31983af760669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 0}
   playerNumber: 2
   manetteNumber: 0
 --- !u!114 &1932146510368897822
@@ -137,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
+  opportunityState: 1
 --- !u!54 &321498515
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,6 +158,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1932146510778212225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932146510368897823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b466a2a51cc356447ad8ef026c69c7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeInput: 0
+--- !u!114 &1932146510778212226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932146510368897823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedOfAttrack: 10
+  opportunityWindow: 0
+--- !u!114 &1932146510778212235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932146510368897823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e40c372d019a348af7f4d1a995eb5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleToRotateMinimum: 360
+  angleSpeed: 180
+  ratioAugmented: 50
+  opportunityWindow: 0.5
 --- !u!1 &2227263861230174350
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8576516657962113928}
   - component: {fileID: 1159865485077904894}
-  - component: {fileID: 1932146510778212225}
+  - component: {fileID: 3046662113049431853}
   m_Layer: 0
   m_Name: Jet Collider
   m_TagString: Untagged
@@ -198,7 +246,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1932146510778212225
+--- !u!114 &3046662113049431853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860f6cfdd69697341a2e226ebf3b9d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfFly: 10
+  speedOfFly: 20
   timeToFlight: 1
   opportunityWindow: 0
   ratioPerLevelOfPower: 0

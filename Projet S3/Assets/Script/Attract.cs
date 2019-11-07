@@ -4,36 +4,63 @@ using UnityEngine;
 
 public class Attract : MonoBehaviour
 {
-    public Transform otherPlayer;
-    public bool trigSkill = false;
-    public bool isArrived = true;
-    // Start is called before the first frame update
+
+    public float speedOfAttrack;
+    private PlayerNumber playerNumber;
+    private bool isAttract = false;
+    private GameObject otherPlayer;
+
+    [Range(0, 1f)] public float opportunityWindow;
+    private float startDistance;
+    private float currentDistance;
+    private Vector3 startPos;
+    private float percentDistance;
+
+
     void Start()
     {
-        
+        playerNumber = GetComponent<PlayerNumber>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(trigSkill)
+        float hit = Input.GetAxis("Attract" + playerNumber.playerNumber.ToString());
+        if (hit != 0 && !isAttract)
         {
-            trigSkill = false;
-            isArrived = false;
-            GetComponent<Opportunity>().activeInput = true;
+            isAttract = true;
+            PlayerCommands.ActiveOpportunityWindow(gameObject);
+
+            startPos = transform.position;
+            otherPlayer = PlayerCommands.OtherPlayer(gameObject);
+            startDistance = Vector3.Distance(transform.position, otherPlayer.transform.position);
+
         }
-        if(!isArrived)
+
+        if (isAttract)
         {
             AttractSkill();
-            if(Vector3.Distance(transform.position, otherPlayer.position) < 1f)
-            {
-                isArrived = true;
-            }
+
         }
     }
 
     public void AttractSkill()
     {
-        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.position, 10f * Time.deltaTime);
+        currentDistance = Vector3.Distance(startPos, transform.position);
+        percentDistance = currentDistance / (startDistance-1);
+
+        if (percentDistance > opportunityWindow)
+        {
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.In);
+        }
+
+
+        transform.position = Vector3.MoveTowards(transform.position, otherPlayer.transform.position, speedOfAttrack * Time.deltaTime);
+        if (Vector3.Distance(transform.position, otherPlayer.transform.position) < 1f)
+        {
+            isAttract = false;
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
+        }
+        
     }
 }

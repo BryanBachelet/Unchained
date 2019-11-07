@@ -58,12 +58,19 @@ public class VitesseFunction : MonoBehaviour
         }
         else
         {
-            if (currentFloat <= 0)
+            if (currentLv != 0)
             {
-                currentLv--;
-                currentFloat = 0.99f;
+                if (currentFloat <= 0)
+                {
+                    currentLv--;
+                    currentFloat = 0.99f;
+                }
             }
-            currentFloat -= 1 - (currentLv - 1) / currentLv;
+            if (currentLv != 0)
+            {
+
+                currentFloat -= 1 - (currentLv - 1) / currentLv;
+            }
         }
     }
 }
