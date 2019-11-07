@@ -46,12 +46,12 @@ public class Projection : MonoBehaviour
             takeInput = true;
         }
 
-        if (takeInput && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
+        if (takeInput && PlayerCommands.CheckPlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free))
         {
             PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet);
 
         }
-        if (!takeInput && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Jet))
+        if (!takeInput && PlayerCommands.CheckPlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet))
         {
             PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free);
 
