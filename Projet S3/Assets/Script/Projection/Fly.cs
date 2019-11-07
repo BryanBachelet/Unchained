@@ -23,8 +23,8 @@ public class Fly : MonoBehaviour
     {
         if (compteurOfFlyTime > timeToFlight)
         {
-            GetComponent<PlayerState>().playerState = PlayerState.StateOfPlayer.Free;
-            GetComponent<PlayerState>().opportunityState = PlayerState.OpportunityState.Out;
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
             Destroy(this);
         }
         else
@@ -35,8 +35,8 @@ public class Fly : MonoBehaviour
 
         if(compteurOfFlyTime/ timeToFlight >= opportunityWindow)
         {
-            GetComponent<PlayerState>().opportunityState = PlayerState.OpportunityState.In;
-            Debug.Break();
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.In);
+            
         }   
     }
 }

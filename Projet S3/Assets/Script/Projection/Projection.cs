@@ -36,14 +36,24 @@ public class Projection : MonoBehaviour
     public void ChangeState()
     {
         Vector3 dir = GetAimDirection();
-        if (dir != Vector3.zero)
+        bool takeInput;
+        if (dir.x < 0.2f && dir.z < 0.2f)
         {
-            playerState.playerState = PlayerState.StateOfPlayer.Jet;
-
+            takeInput = false;
         }
         else
         {
-            playerState.playerState = PlayerState.StateOfPlayer.Free;
+            takeInput = true;
+        }
+
+        if (takeInput && PlayerCommands.CheckPlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free))
+        {
+            PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet);
+
+        }
+        if (!takeInput && PlayerCommands.CheckPlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Jet))
+        {
+            PlayerCommands.ChangePlayerState(transform.parent.gameObject, PlayerState.StateOfPlayer.Free);
 
         }
     }
@@ -52,7 +62,7 @@ public class Projection : MonoBehaviour
     {
         if (playerHere && playerState.playerState == PlayerState.StateOfPlayer.Jet)
         {
-            playerContact.GetComponent<PlayerState>().playerState = PlayerState.StateOfPlayer.Fly;
+            PlayerCommands.ChangePlayerState(PlayerCommands.OtherPlayer(transform.parent.gameObject), PlayerState.StateOfPlayer.Free);
             GetFly();
             playerHere = false;
         }
@@ -85,6 +95,7 @@ public class Projection : MonoBehaviour
         {
             playerHere = true;
             playerContact = other.gameObject;
+
         }
     }
 

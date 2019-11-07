@@ -15,7 +15,8 @@ public class VitesseFunction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        currentLv = currentlvl;
+        currentFloat = currentPercent;
     }
 
     // Update is called once per frame
@@ -30,15 +31,18 @@ public class VitesseFunction : MonoBehaviour
 
             currentFloat -= Time.deltaTime / 15;
         }
-
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            VitesseChange(true);
+        }
         currentlvl = currentLv;
         currentPercent = currentFloat;
     }
 
     public static float RatioAugmented(float ratio)
     {
-
-        return ratio * currentLv;
+     
+            return ratio * currentLv;
 
     }
 
@@ -55,12 +59,19 @@ public class VitesseFunction : MonoBehaviour
         }
         else
         {
-            if (currentFloat <= 0)
+            if (currentLv != 0)
             {
-                currentLv--;
-                currentFloat = 0.99f;
+                if (currentFloat <= 0)
+                {
+                    currentLv--;
+                    currentFloat = 0.99f;
+                }
             }
-            currentFloat -= 1 - (currentLv - 1) / currentLv;
+            if (currentLv != 0)
+            {
+
+                currentFloat -= 1 - (currentLv - 1) / currentLv;
+            }
         }
     }
 }
