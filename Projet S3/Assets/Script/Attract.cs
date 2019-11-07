@@ -6,11 +6,15 @@ public class Attract : MonoBehaviour
 {
 
     public float speedOfAttrack;
-    public PlayerNumber playerNumber;
+    [Range(0, 1f)] public float opportunityWindow;
+    private PlayerNumber playerNumber;
+    private GameObject otherPlayer;
+    private float startDistance;
+    private float currentDistance;
+    private Vector3 startPos;
+    public float percentDistance;
 
 
-
-    // Start is called before the first frame update
     void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
@@ -24,24 +28,37 @@ public class Attract : MonoBehaviour
         {
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Attract);
             PlayerCommands.ActiveOpportunityWindow(gameObject);
+
+            startPos = transform.position;
+            otherPlayer = PlayerCommands.OtherPlayer(gameObject);
+            startDistance = Vector3.Distance(transform.position, otherPlayer.transform.position);
+
         }
 
         if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Attract))
         {
             AttractSkill();
-            
+
         }
     }
 
     public void AttractSkill()
     {
-        GameObject otherPlayer = PlayerCommands.OtherPlayer(gameObject);
-        Debug.Log(otherPlayer);
+        currentDistance = Vector3.Distance(startPos, transform.position);
+        percentDistance = currentDistance / (startDistance-1);
+
+        if (percentDistance > opportunityWindow)
+        {
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.In);
+        }
+
+
         transform.position = Vector3.MoveTowards(transform.position, otherPlayer.transform.position, speedOfAttrack * Time.deltaTime);
         if (Vector3.Distance(transform.position, otherPlayer.transform.position) < 1f)
         {
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
-            
+            PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
         }
+        
     }
 }
