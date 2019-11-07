@@ -38,6 +38,13 @@ public class PlayerCommands : MonoBehaviour
         }
     }
 
+    public static Vector3 DirectionBetweenPlayer()
+    {
+        Vector3 dir = player2.transform.position - player1.transform.position;
+
+        return dir.normalized;
+    }
+
 
     public static void ChangeOpportunityState(GameObject player, PlayerState.OpportunityState state)
     {

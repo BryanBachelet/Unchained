@@ -4,34 +4,43 @@ using UnityEngine;
 
 public class SMSkill : MonoBehaviour
 {
-    public Transform midPointOtherPlayer;
-    public bool trigSkill = false;
-    public bool isArrived = true;
-    public float angleToRotate;
-    public float angleRotated;
+
+    private bool isJumping = false;
+    private float angleToRotate;
+    private float angleRotated;
     public float angleSpeed;
-    // Start is called before the first frame update
-    void Start()
+    public float ratioAugmented = 0.05f;
+    public float distanceMinimum = 0.5f;
+
+    private PlayerNumber playerNumber;
+    private Vector3 pos;
+    private Vector3 normal;
+    private float Dist;
+    private Vector3 dir;
+
+    void Awake()
     {
+        playerNumber = GetComponent<PlayerNumber>();
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        if (trigSkill)
+        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5") && !isJumping)
         {
+            normal = Vector3.Cross(PlayerCommands.DirectionBetweenPlayer(), Vector3.up);
             angleRotated = 0;
-            trigSkill = false;
-            isArrived = false;
+            isJumping = true;
+            PointPivot();
         }
-        if (!isArrived)
+        if (isJumping)
         {
             SauteMSkill();
             if (angleRotated >= angleToRotate)
             {
-                isArrived = true;
+                isJumping = false;
             }
         }
     }
@@ -39,6 +48,13 @@ public class SMSkill : MonoBehaviour
     public void SauteMSkill()
     {
         angleRotated += angleSpeed * Time.deltaTime;
-        transform.RotateAround(midPointOtherPlayer.position, Vector3.back, angleSpeed * Time.deltaTime);
+        transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+    }
+    public void PointPivot()
+    {
+        dir = PlayerCommands.DirectionBetweenPlayer();
+        Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
+        pos = PlayerCommands.player1.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
+        pos = new Vector3(pos.x, 0, pos.z);
     }
 }

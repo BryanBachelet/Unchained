@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myUIText: {fileID: 0}
-  currentlvl: 0
+  currentlvl: 5
   currentPercent: 0
 --- !u!114 &1519585626
 MonoBehaviour:
@@ -333,13 +333,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994040966}
-  m_LocalRotation: {x: 0.38047323, y: 0, z: 0, w: 0.924792}
-  m_LocalPosition: {x: 0.35758916, y: 14.05978, z: -14.190279}
+  m_LocalRotation: {x: 0.31296495, y: 0, z: 0, w: 0.94976467}
+  m_LocalPosition: {x: 3.6, y: 27.011162, z: -30.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 44.726, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 36.476, y: 0, z: 0}
 --- !u!1001 &1932146510778212223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -407,11 +407,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1932146510778212225, guid: 3497c10d16ffc7842bfaea9b27f2a7b3,
-        type: 3}
-      propertyPath: speedOfFly
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3497c10d16ffc7842bfaea9b27f2a7b3, type: 3}
 --- !u!1 &1932146510778212224 stripped
@@ -420,7 +415,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1932146510778212223}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1932146510778212225
+--- !u!114 &1932146510778212236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -429,24 +424,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1932146510778212224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b466a2a51cc356447ad8ef026c69c7ae, type: 3}
+  m_Script: {fileID: 11500000, guid: f26fa7c663270174ea74ddf906fa689c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeInput: 0
---- !u!114 &1932146510778212226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932146510778212224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedOfAttrack: 10
-  playerNumber: {fileID: 0}
+  midPointOtherPlayer: {fileID: 0}
+  angleToRotate: 180
+  angleRotated: 0
+  angleSpeed: 90
+  ratioAugmented: 0
+  distanceMinimum: 0.5
 --- !u!1001 &6281006797319259179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,15 +500,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6281006797319259181, guid: 33dc80b14a16b4b4bb22016095da5182,
+    - target: {fileID: 6281006797319259191, guid: 33dc80b14a16b4b4bb22016095da5182,
+        type: 3}
+      propertyPath: ratioAugmented
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281006797319259191, guid: 33dc80b14a16b4b4bb22016095da5182,
+        type: 3}
+      propertyPath: angleSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281006797319259191, guid: 33dc80b14a16b4b4bb22016095da5182,
+        type: 3}
+      propertyPath: angleToRotateMinimum
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6281006797319259191, guid: 33dc80b14a16b4b4bb22016095da5182,
         type: 3}
       propertyPath: opportunityWindow
-      value: 0.486
-      objectReference: {fileID: 0}
-    - target: {fileID: 6281006797319259181, guid: 33dc80b14a16b4b4bb22016095da5182,
-        type: 3}
-      propertyPath: speedOfFly
-      value: 20
+      value: 0.285
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33dc80b14a16b4b4bb22016095da5182, type: 3}
@@ -532,7 +528,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6281006797319259179}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6281006797319259181
+--- !u!114 &6281006797319259192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -541,21 +537,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6281006797319259180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b466a2a51cc356447ad8ef026c69c7ae, type: 3}
+  m_Script: {fileID: 11500000, guid: f26fa7c663270174ea74ddf906fa689c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeInput: 0
---- !u!114 &6281006797319259182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6281006797319259180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedOfAttrack: 10
-  playerNumber: {fileID: 0}
+  midPointOtherPlayer: {fileID: 0}
+  angleToRotate: 180
+  angleRotated: 0
+  angleSpeed: 90
+  ratioAugmented: 0.05
+  distanceMinimum: 0.5

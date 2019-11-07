@@ -15,7 +15,8 @@ public class VitesseFunction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        currentLv = currentlvl;
+        currentFloat = currentPercent;
     }
 
     // Update is called once per frame
@@ -40,8 +41,8 @@ public class VitesseFunction : MonoBehaviour
 
     public static float RatioAugmented(float ratio)
     {
-
-        return ratio * currentLv;
+     
+            return ratio * currentLv;
 
     }
 
