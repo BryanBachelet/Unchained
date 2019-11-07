@@ -207,14 +207,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331904054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayer: {fileID: 489921767}
-  trigSkill: 0
-  isArrived: 1
+  speedOfAttrack: 0
+  opportunityWindow: 0
 --- !u!65 &331904056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -299,12 +298,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e40c372d019a348af7f4d1a995eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myGhost: {fileID: 7188226967989419785, guid: 1373b1dea2cbacf43a525f711f786f5e, type: 3}
+  newGhost: {fileID: 0}
   otherPlayer: {fileID: 489921767}
-  trigSkill: 0
-  isArrived: 1
-  angleToRotate: 0
-  angleRotated: 0
+  angleToRotateMinimum: 360
   angleSpeed: 140
+  ratioAugmented: 0
+  opportunityWindow: 0.5
 --- !u!114 &331904061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,17 +424,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489921763}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84e40c372d019a348af7f4d1a995eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayer: {fileID: 331904059}
-  trigSkill: 0
-  isArrived: 1
-  angleToRotate: 0
-  angleRotated: 0
+  myGhost: {fileID: 0}
+  newGhost: {fileID: 0}
+  otherPlayer: {fileID: 0}
+  angleToRotateMinimum: 360
   angleSpeed: 140
+  ratioAugmented: 0
+  opportunityWindow: 0.5
 --- !u!114 &489921769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,14 +461,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489921763}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6512e334f73537b4bb5775128db3a43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherPlayer: {fileID: 331904059}
-  trigSkill: 0
-  isArrived: 1
+  speedOfAttrack: 0
+  opportunityWindow: 0
 --- !u!1 &707161557
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 707161560}
   - component: {fileID: 707161559}
   - component: {fileID: 707161558}
+  - component: {fileID: 707161561}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -550,6 +551,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 48.192, y: 0, z: 0}
+--- !u!114 &707161561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707161557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c83fb306f3346f46b65dc320067b2eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {fileID: 331904059}
+  - {fileID: 489921767}
+  offset: {x: 0, y: 68.55, z: -63.3}
+  smoothTime: 0.5
+  minZoom: 40
+  maxZoom: 10
+  zoomLimiter: 50
 --- !u!1 &742741637
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,13 +656,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742741637}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8.5348, y: 8.5348, z: 8.5348}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 0}
 --- !u!1 &1113549999
 GameObject:
   m_ObjectHideFlags: 0
