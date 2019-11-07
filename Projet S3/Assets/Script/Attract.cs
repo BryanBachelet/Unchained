@@ -14,7 +14,7 @@ public class Attract : MonoBehaviour
     private float startDistance;
     private float currentDistance;
     private Vector3 startPos;
-    public float percentDistance;
+    private float percentDistance;
 
 
     void Start()
