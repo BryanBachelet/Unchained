@@ -6,9 +6,11 @@ public class Attract : MonoBehaviour
 {
 
     public float speedOfAttrack;
-    [Range(0, 1f)] public float opportunityWindow;
     private PlayerNumber playerNumber;
+    private bool isAttract = false;
     private GameObject otherPlayer;
+
+    [Range(0, 1f)] public float opportunityWindow;
     private float startDistance;
     private float currentDistance;
     private Vector3 startPos;
@@ -24,9 +26,9 @@ public class Attract : MonoBehaviour
     void Update()
     {
         float hit = Input.GetAxis("Attract" + playerNumber.playerNumber.ToString());
-        if (hit != 0 && PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
+        if (hit != 0 && !isAttract)
         {
-            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Attract);
+            isAttract = true;
             PlayerCommands.ActiveOpportunityWindow(gameObject);
 
             startPos = transform.position;
@@ -35,7 +37,7 @@ public class Attract : MonoBehaviour
 
         }
 
-        if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Attract))
+        if (isAttract)
         {
             AttractSkill();
 
@@ -56,7 +58,7 @@ public class Attract : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, otherPlayer.transform.position, speedOfAttrack * Time.deltaTime);
         if (Vector3.Distance(transform.position, otherPlayer.transform.position) < 1f)
         {
-            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            isAttract = false;
             PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
         }
         

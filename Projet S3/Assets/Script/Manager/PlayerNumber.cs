@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerNumber : MonoBehaviour
 {
-    private InputManager inputManager;
+    public InputManager inputManager;
     public int playerNumber;
-    [HideInInspector] public int manetteNumber;
+     public int manetteNumber;
 
-    public void Awake()
+    public void Start()
     {
         inputManager = FindObjectOfType<InputManager>();
         if (playerNumber == 1)
