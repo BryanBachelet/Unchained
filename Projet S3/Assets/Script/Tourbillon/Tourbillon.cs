@@ -31,6 +31,8 @@ public class Tourbillon : MonoBehaviour
         playerMouvement = GetComponent<PlayerMouvement>();
         otherPlayer = PlayerCommands.OtherPlayer(gameObject).transform;
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
+        nextPos = new GameObject();
+        nextPos.transform.parent = transform;
     }
 
     // Update is called once per frame
@@ -94,7 +96,7 @@ public class Tourbillon : MonoBehaviour
 
     public void CheckDeplacement()
     {
-
+       
         nextPos.transform.position = transform.position;
         nextPos.transform.rotation = Quaternion.identity;
         nextPos.transform.RotateAround(otherPlayer.position, Vector3.up, rotationSens * angleSpeed * Time.deltaTime);

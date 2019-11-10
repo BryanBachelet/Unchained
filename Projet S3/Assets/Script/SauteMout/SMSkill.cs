@@ -22,12 +22,17 @@ public class SMSkill : MonoBehaviour
     private string playerIdentity;
 
     public GameObject trail_Prefab;
+    private GameObject nextPos;
+
     private void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
 
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
+        nextPos = new GameObject();
+        nextPos.transform.parent = transform;
     }
+
 
     void Update()
     {
@@ -75,13 +80,20 @@ public class SMSkill : MonoBehaviour
 
     public void CheckNextDeplacement()
     {
-        Ray ray = new Ray(transform.position, -transform.up);
+
+        nextPos.transform.position = transform.position;
+        nextPos.transform.rotation = Quaternion.identity;
+        PointPivotActive();
+        nextPos.transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+        Vector3 direction = nextPos.transform.position - transform.position;
+        Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 2))
         {
             isJumping = false;
 
             transform.position = new Vector3(transform.position.x, hit.point.y + 1, transform.position.z);
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
         }
     }
     public void SauteMSkill()
@@ -97,8 +109,8 @@ public class SMSkill : MonoBehaviour
             {
                 CheckNextDeplacement();
             }
-            PointPivotActive();
             angleRotated += angleSpeed * Time.deltaTime;
+            PointPivotActive();
             transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
 
 
@@ -109,13 +121,13 @@ public class SMSkill : MonoBehaviour
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, 1, pos.z);
+        pos = new Vector3(pos.x, 1 , pos.z);
     }
     public void PointPivotActive()
     {
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, 1, pos.z);
+        pos = new Vector3(pos.x, -transform.position.y + 1, pos.z);
     }
     private void OnDrawGizmos()
     {

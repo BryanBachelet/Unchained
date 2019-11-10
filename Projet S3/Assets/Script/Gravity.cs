@@ -31,10 +31,7 @@ public class Gravity : MonoBehaviour
                 {
                     rigidbody.velocity = rigidbody.velocity + -transform.up * gravityForce;
                 }
-                else
-                {
-                    
-                }
+               
             }
 
         }
