@@ -27,7 +27,14 @@ public class Gravity : MonoBehaviour
             if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
             {
                 Debug.Log("1");
-                rigidbody.velocity = rigidbody.velocity + (-transform.up * gravityForce);
+                if (rigidbody.velocity.y > -2)
+                {
+                    rigidbody.velocity = rigidbody.velocity + -transform.up * gravityForce;
+                }
+                else
+                {
+                    
+                }
             }
 
         }
