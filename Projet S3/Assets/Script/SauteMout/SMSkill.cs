@@ -30,6 +30,7 @@ public class SMSkill : MonoBehaviour
 
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
         nextPos = new GameObject();
+        nextPos.transform.parent = transform;
     }
 
 

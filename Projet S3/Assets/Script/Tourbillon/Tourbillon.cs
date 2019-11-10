@@ -32,6 +32,7 @@ public class Tourbillon : MonoBehaviour
         otherPlayer = PlayerCommands.OtherPlayer(gameObject).transform;
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
         nextPos = new GameObject();
+        nextPos.transform.parent = transform;
     }
 
     // Update is called once per frame
