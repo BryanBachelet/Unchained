@@ -18,6 +18,7 @@ public class Tourbillon : MonoBehaviour
 
     [Range(0, 1f)] public float opportunityWindow = 0.5f;
     private string playerIdentity;
+    public GameObject nextPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,17 +77,36 @@ public class Tourbillon : MonoBehaviour
 
             rotationSens = 1;
         }
-        if(playerMouvement.horizontal<0)
+        if (playerMouvement.horizontal < 0)
         {
             rotationSens = -1;
         }
-        
-    } 
 
+    }
+
+    public void CheckDeplacement()
+    {
+
+        nextPos.transform.position = transform.position;
+        nextPos.transform.RotateAround(otherPlayer.position, Vector3.up, rotationSens * angleSpeed * Time.deltaTime);
+        Vector3 direction = nextPos.transform.position - transform.position;
+
+        Ray ray = new Ray(nextPos.transform.position, direction.normalized);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 2))
+        {
+            isRotate = false;
+        }
+
+    }
 
     public void TourbillonSkill()
     {
+
         angleRotated += angleSpeed * Time.deltaTime;
+
+        CheckDeplacement();
         transform.RotateAround(otherPlayer.position, Vector3.up, rotationSens * angleSpeed * Time.deltaTime);
 
         float currentDist = angleRotated / angleToRotate;
