@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerNumber : MonoBehaviour
 {
     public InputManager inputManager;
-    public int playerNumber;
-     public int manetteNumber;
+    public int playerNumber ;
+     public int manetteNumber = 1;
 
     public void Start()
     {

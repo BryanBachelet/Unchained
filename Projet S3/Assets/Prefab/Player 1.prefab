@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 6281006797319259181}
   - component: {fileID: 6281006797319259182}
   - component: {fileID: 6281006797319259191}
+  - component: {fileID: 6281006797319259192}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -189,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
   playerNumber: 1
-  manetteNumber: 0
+  manetteNumber: 1
 --- !u!114 &6281006795787840217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ea2359ada64414891a068306678974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontal: 0
+  vertical: 0
   speedOfDeplacement: 10
 --- !u!54 &2022896819
 Rigidbody:
@@ -214,10 +217,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 6
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &6281006797319259181
 MonoBehaviour:
@@ -258,7 +261,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e40c372d019a348af7f4d1a995eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleToRotateMinimum: 0
-  angleSpeed: 0
-  ratioAugmented: 0
-  opportunityWindow: 0
+  angleToRotateMinimum: 360
+  angleSpeed: 90
+  ratioAugmented: 50
+  opportunityWindow: 0.285
+--- !u!114 &6281006797319259192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281006795787840218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26fa7c663270174ea74ddf906fa689c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleToRotate: 180
+  angleRotated: 0
+  angleSpeed: 90
+  ratioAugmented: 0.05
+  distanceMinimum: 0.6
+  color: {r: 0, g: 0, b: 0, a: 0}

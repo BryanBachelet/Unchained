@@ -10,24 +10,30 @@ public class PlayerMouvement : MonoBehaviour
     public float vertical;
     private PlayerNumber playerNumber;
     public float speedOfDeplacement;
-
+    private Rigidbody rigidbody;
     // Start is called before the first frame update
     void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Movement();
+        if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
+        {
+            Movement();
+        }
     }
 
     void Movement()
     {
          horizontal = Input.GetAxis("Horizontal" + playerNumber.playerNumber.ToString());
          vertical = Input.GetAxis("Vertical" + playerNumber.playerNumber.ToString());
-        transform.position += GetDirection(playerNumber.playerNumber) * speedOfDeplacement * Time.deltaTime;
+        //transform.position += GetDirection(playerNumber.playerNumber) * speedOfDeplacement * Time.deltaTime;
+        rigidbody.velocity = rigidbody.velocity + GetDirection(playerNumber.playerNumber) * speedOfDeplacement ;
+      
     }
 
     public static Vector3 GetDirection(int player)
