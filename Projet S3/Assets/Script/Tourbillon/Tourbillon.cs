@@ -71,7 +71,7 @@ public class Tourbillon : MonoBehaviour
 
     public void CheckOrientation()
     {
-        Debug.Log(playerMouvement.horizontal);
+
         if (playerMouvement.horizontal >= 0)
         {
 
@@ -88,6 +88,7 @@ public class Tourbillon : MonoBehaviour
     {
 
         nextPos.transform.position = transform.position;
+        nextPos.transform.rotation = Quaternion.identity;
         nextPos.transform.RotateAround(otherPlayer.position, Vector3.up, rotationSens * angleSpeed * Time.deltaTime);
         Vector3 direction = nextPos.transform.position - transform.position;
 

@@ -21,7 +21,10 @@ public class PlayerMouvement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Movement();
+        if (PlayerCommands.CheckPlayerState(gameObject, PlayerState.StateOfPlayer.Free))
+        {
+            Movement();
+        }
     }
 
     void Movement()
@@ -29,7 +32,7 @@ public class PlayerMouvement : MonoBehaviour
          horizontal = Input.GetAxis("Horizontal" + playerNumber.playerNumber.ToString());
          vertical = Input.GetAxis("Vertical" + playerNumber.playerNumber.ToString());
         //transform.position += GetDirection(playerNumber.playerNumber) * speedOfDeplacement * Time.deltaTime;
-        rigidbody.velocity = GetDirection(playerNumber.playerNumber) * speedOfDeplacement ;
+        rigidbody.velocity = rigidbody.velocity + GetDirection(playerNumber.playerNumber) * speedOfDeplacement ;
       
     }
 
