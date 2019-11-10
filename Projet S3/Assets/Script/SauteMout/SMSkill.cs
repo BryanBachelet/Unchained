@@ -121,7 +121,7 @@ public class SMSkill : MonoBehaviour
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, 1, pos.z);
+        pos = new Vector3(pos.x, 1 , pos.z);
     }
     public void PointPivotActive()
     {
