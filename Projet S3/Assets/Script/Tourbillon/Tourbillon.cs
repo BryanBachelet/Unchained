@@ -16,24 +16,31 @@ public class Tourbillon : MonoBehaviour
     public float ratioAugmented;
 
     [Range(0, 1f)] public float opportunityWindow = 0.5f;
-
+    private string playerIdentity;
     // Start is called before the first frame update
     void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
         otherPlayer = PlayerCommands.OtherPlayer(gameObject).transform;
+        playerIdentity = "Player" + playerNumber.playerNumber.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 4") && !isRotate)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && playerIdentity == "Player1")
         {
-            angleRotated = 0;
-            angleToRotate = angleToRotateMinimum + VitesseFunction.RatioAugmented(ratioAugmented);
-            PlayerCommands.ActiveOpportunityWindow(gameObject);
-            isRotate = true;
+            LaunchTourbillon();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad2) && playerIdentity == "Player2")
+        {
+            LaunchTourbillon();
+        }
+
+
+        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 4"))
+        {
+            LaunchTourbillon();
 
         }
         if (isRotate)
@@ -44,6 +51,17 @@ public class Tourbillon : MonoBehaviour
                 PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
                 isRotate = false;
             }
+        }
+    }
+
+    public void LaunchTourbillon()
+    {
+        if (!isRotate)
+        {
+            angleRotated = 0;
+            angleToRotate = angleToRotateMinimum + VitesseFunction.RatioAugmented(ratioAugmented);
+            PlayerCommands.ActiveOpportunityWindow(gameObject);
+            isRotate = true;
         }
     }
 

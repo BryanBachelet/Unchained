@@ -19,27 +19,51 @@ public class SMSkill : MonoBehaviour
     private Vector3 normal;
     private float Dist;
     private Vector3 dir;
+    private string playerIdentity;
 
     private void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
 
+        playerIdentity = "Player" + playerNumber.playerNumber.ToString();
     }
 
     void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5") && !isJumping)
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) &&  playerIdentity == "Player1")
+        {
+            LaunchSM();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad1) && playerIdentity == "Player2")
+        {
+            LaunchSM();
+        }
+
+        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5"))
+        {
+            LaunchSM();
+        }
+
+
+        if (isJumping)
+        {
+            SauteMSkill();
+        }
+    }
+
+
+    public void LaunchSM()
+    {
+        if (!isJumping)
         {
             angleRotated = 0;
             dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
             normal = Vector3.Cross(-dir, Vector3.up);
             isJumping = true;
             PointPivot();
-        }
-        if (isJumping)
-        {
-            SauteMSkill();
         }
     }
 
