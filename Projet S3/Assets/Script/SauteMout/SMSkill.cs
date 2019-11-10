@@ -21,6 +21,7 @@ public class SMSkill : MonoBehaviour
     private Vector3 dir;
     private string playerIdentity;
 
+    public GameObject trail_Prefab;
     private void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
@@ -36,21 +37,25 @@ public class SMSkill : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1) &&  playerIdentity == "Player1")
         {
             LaunchSM();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
         }
         if (Input.GetKeyDown(KeyCode.Keypad1) && playerIdentity == "Player2")
         {
             LaunchSM();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
         }
 
         if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5"))
         {
             LaunchSM();
+
         }
 
 
         if (isJumping)
         {
             SauteMSkill();
+
         }
     }
 

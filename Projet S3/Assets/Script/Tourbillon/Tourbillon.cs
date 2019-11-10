@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tourbillon : MonoBehaviour
 {
+    public GameObject trail_Prefab;
     private Transform otherPlayer;
     private float angleRotated;
     private PlayerNumber playerNumber;
@@ -37,16 +38,19 @@ public class Tourbillon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2) && playerIdentity == "Player1")
         {
             LaunchTourbillon();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
         }
         if (Input.GetKeyDown(KeyCode.Keypad2) && playerIdentity == "Player2")
         {
             LaunchTourbillon();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
         }
 
 
         if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 4"))
         {
             LaunchTourbillon();
+
 
         }
         if (isRotate)
