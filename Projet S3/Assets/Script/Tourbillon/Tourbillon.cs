@@ -7,11 +7,12 @@ public class Tourbillon : MonoBehaviour
     private Transform otherPlayer;
     private float angleRotated;
     private PlayerNumber playerNumber;
+    private PlayerMouvement playerMouvement;
 
     private bool isRotate = false;
     public float angleToRotateMinimum = 360;
     private float angleToRotate;
-
+    private int rotationSens = 1;
     public float angleSpeed = 180;
     public float ratioAugmented;
 
@@ -21,6 +22,7 @@ public class Tourbillon : MonoBehaviour
     void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
+        playerMouvement = GetComponent<PlayerMouvement>();
         otherPlayer = PlayerCommands.OtherPlayer(gameObject).transform;
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
     }
@@ -62,13 +64,30 @@ public class Tourbillon : MonoBehaviour
             angleToRotate = angleToRotateMinimum + VitesseFunction.RatioAugmented(ratioAugmented);
             PlayerCommands.ActiveOpportunityWindow(gameObject);
             isRotate = true;
+            CheckOrientation();
         }
     }
+
+    public void CheckOrientation()
+    {
+        Debug.Log(playerMouvement.horizontal);
+        if (playerMouvement.horizontal >= 0)
+        {
+
+            rotationSens = 1;
+        }
+        if(playerMouvement.horizontal<0)
+        {
+            rotationSens = -1;
+        }
+        
+    } 
+
 
     public void TourbillonSkill()
     {
         angleRotated += angleSpeed * Time.deltaTime;
-        transform.RotateAround(otherPlayer.position, Vector3.up, angleSpeed * Time.deltaTime);
+        transform.RotateAround(otherPlayer.position, Vector3.up, rotationSens * angleSpeed * Time.deltaTime);
 
         float currentDist = angleRotated / angleToRotate;
         if (currentDist > opportunityWindow)

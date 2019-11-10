@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMouvement : MonoBehaviour
 {
-    private float horizontal;
-    private float vertical;
+    [HideInInspector]
+    public float horizontal;
+    [HideInInspector]
+    public float vertical;
     private PlayerNumber playerNumber;
     public float speedOfDeplacement;
 
@@ -23,6 +25,8 @@ public class PlayerMouvement : MonoBehaviour
 
     void Movement()
     {
+         horizontal = Input.GetAxis("Horizontal" + playerNumber.playerNumber.ToString());
+         vertical = Input.GetAxis("Vertical" + playerNumber.playerNumber.ToString());
         transform.position += GetDirection(playerNumber.playerNumber) * speedOfDeplacement * Time.deltaTime;
     }
 
