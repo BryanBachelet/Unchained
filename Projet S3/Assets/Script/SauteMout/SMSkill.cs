@@ -31,33 +31,38 @@ public class SMSkill : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5") && !isJumping)
         {
+            angleRotated = 0;
             dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
             normal = Vector3.Cross(-dir, Vector3.up);
-            angleRotated = 0;
             isJumping = true;
             PointPivot();
         }
         if (isJumping)
         {
             SauteMSkill();
-            if (angleRotated >= angleToRotate)
-            {
-                isJumping = false;
-            }
         }
     }
 
     public void SauteMSkill()
     {
-        angleRotated += angleSpeed * Time.deltaTime;
-        transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+        if (angleRotated >= angleToRotate)
+        {
+            isJumping = false;
+        }
+        else
+        {
+            angleRotated += angleSpeed * Time.deltaTime;
+            transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+            float prevision = angleRotated + angleSpeed * Time.deltaTime;
+
+        }
     }
     public void PointPivot()
     {
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, 0, pos.z);
+        pos = new Vector3(pos.x, 1, pos.z);
     }
     private void OnDrawGizmos()
     {
