@@ -16,25 +16,30 @@ public class Attract : MonoBehaviour
     private Vector3 startPos;
     private float percentDistance;
 
+    private string playerIdentity;
 
     void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
+        playerIdentity = "Player" + playerNumber.playerNumber.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
         float hit = Input.GetAxis("Attract" + playerNumber.playerNumber.ToString());
-        if (hit != 0 && !isAttract)
+        if (hit != 0)
         {
-            isAttract = true;
-            PlayerCommands.ActiveOpportunityWindow(gameObject);
+            LaunchAttract();
 
-            startPos = transform.position;
-            otherPlayer = PlayerCommands.OtherPlayer(gameObject);
-            startDistance = Vector3.Distance(transform.position, otherPlayer.transform.position);
-
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && playerIdentity == "Player1")
+        {
+            LaunchAttract();
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad3) && playerIdentity == "Player2")
+        {
+            LaunchAttract();
         }
 
         if (isAttract)
@@ -44,10 +49,22 @@ public class Attract : MonoBehaviour
         }
     }
 
+    public void LaunchAttract()
+    {
+        if (!isAttract)
+        {
+            isAttract = true;
+            PlayerCommands.ActiveOpportunityWindow(gameObject);
+
+            startPos = transform.position;
+            otherPlayer = PlayerCommands.OtherPlayer(gameObject);
+            startDistance = Vector3.Distance(transform.position, otherPlayer.transform.position);
+        }
+    }
     public void AttractSkill()
     {
         currentDistance = Vector3.Distance(startPos, transform.position);
-        percentDistance = currentDistance / (startDistance-1);
+        percentDistance = currentDistance / (startDistance - 1);
 
         if (percentDistance > opportunityWindow)
         {
@@ -61,6 +78,6 @@ public class Attract : MonoBehaviour
             isAttract = false;
             PlayerCommands.ChangeOpportunityState(gameObject, PlayerState.OpportunityState.Out);
         }
-        
+
     }
 }

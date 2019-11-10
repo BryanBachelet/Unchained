@@ -4,41 +4,93 @@ using UnityEngine;
 
 public class SMSkill : MonoBehaviour
 {
-    public Transform midPointOtherPlayer;
-    public bool trigSkill = false;
-    public bool isArrived = true;
+
+    private bool isJumping = false;
     public float angleToRotate;
     public float angleRotated;
     public float angleSpeed;
-    // Start is called before the first frame update
-    void Start()
-    {
+    public float ratioAugmented = 0.05f;
+    public float distanceMinimum = 0.5f;
 
+    public Color color;
+
+    private PlayerNumber playerNumber;
+    private Vector3 pos;
+    private Vector3 normal;
+    private float Dist;
+    private Vector3 dir;
+    private string playerIdentity;
+
+    private void Start()
+    {
+        playerNumber = GetComponent<PlayerNumber>();
+
+        playerIdentity = "Player" + playerNumber.playerNumber.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        if (trigSkill)
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) &&  playerIdentity == "Player1")
         {
-            angleRotated = 0;
-            trigSkill = false;
-            isArrived = false;
+            LaunchSM();
         }
-        if (!isArrived)
+        if (Input.GetKeyDown(KeyCode.Keypad1) && playerIdentity == "Player2")
+        {
+            LaunchSM();
+        }
+
+        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5"))
+        {
+            LaunchSM();
+        }
+
+
+        if (isJumping)
         {
             SauteMSkill();
-            if (angleRotated >= angleToRotate)
-            {
-                isArrived = true;
-            }
+        }
+    }
+
+
+    public void LaunchSM()
+    {
+        if (!isJumping)
+        {
+            angleRotated = 0;
+            dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
+            normal = Vector3.Cross(-dir, Vector3.up);
+            isJumping = true;
+            PointPivot();
         }
     }
 
     public void SauteMSkill()
     {
-        angleRotated += angleSpeed * Time.deltaTime;
-        transform.RotateAround(midPointOtherPlayer.position, Vector3.back, angleSpeed * Time.deltaTime);
+        if (angleRotated >= angleToRotate)
+        {
+            isJumping = false;
+        }
+        else
+        {
+            angleRotated += angleSpeed * Time.deltaTime;
+            transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+            float prevision = angleRotated + angleSpeed * Time.deltaTime;
+
+        }
+    }
+    public void PointPivot()
+    {
+        dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
+        Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
+        pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
+        pos = new Vector3(pos.x, 1, pos.z);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = color;
+        Gizmos.DrawCube(pos, Vector3.one);
     }
 }
