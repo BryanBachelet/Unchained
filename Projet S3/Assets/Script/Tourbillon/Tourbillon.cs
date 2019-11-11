@@ -105,7 +105,9 @@ public class Tourbillon : MonoBehaviour
         Ray ray = new Ray(nextPos.transform.position, direction.normalized);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 2))
+        LayerMask mob = LayerMask.GetMask("Mob");
+
+        if (Physics.Raycast(ray, out hit, 2, mob))
         {
             isRotate = false;
         }

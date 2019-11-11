@@ -140,21 +140,21 @@ namespace Klak.Motion
 
         void Update()
         {
-            if (_interpolator == Interpolator.Exponential)
+            if (_interpolator == Interpolator.Exponential && target != null)
             {
                 if (_positionSpeed > 0)
                     transform.position = ETween.Step(transform.position, target.position, _positionSpeed);
                 if (_rotationSpeed > 0)
                     transform.rotation = ETween.Step(transform.rotation, target.rotation, _rotationSpeed);
             }
-            else if (_interpolator == Interpolator.DampedSpring)
+            else if (_interpolator == Interpolator.DampedSpring && target != null)
             {
                 if (_positionSpeed > 0)
                     transform.position = DTween.Step(transform.position, target.position, ref _vposition, _positionSpeed);
                 if (_rotationSpeed > 0)
                     transform.rotation = DTween.Step(transform.rotation, target.rotation, ref _vrotation, _rotationSpeed);
             }
-            else
+            else if(target != null)
             {
                 if (_positionSpeed > 0)
                     transform.position = SpringPosition(transform.position, target.position);
