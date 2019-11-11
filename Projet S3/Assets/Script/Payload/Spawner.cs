@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public float timeOfSpawn;
-    private float compteur;
+    public float compteur;
     public GameObject objectToInstantiate;
     public GameObject parentToSpawn;
     public GameObject target;
@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            compteur += timeOfSpawn * Time.deltaTime;
+            compteur += Time.deltaTime;
         }
 
     }
