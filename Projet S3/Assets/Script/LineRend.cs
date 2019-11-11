@@ -10,7 +10,7 @@ public class LineRend : MonoBehaviour
     public BoxCollider box;
     public float dot;
     public float distance;
-    public PlayerState playerState;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +36,7 @@ public class LineRend : MonoBehaviour
         distance = Vector3.Distance(p1.transform.position, p2.transform.position);
         Vector3 dir = PlayerCommands.DirectionBetweenPlayer();
         dot = Vector3.SignedAngle(dir.normalized, Vector3.forward, Vector3.up);
-        transform.position = p2.transform.position + (PlayerCommands.DirectionBetweenPlayer()) / 2;
+        transform.position = p2.transform.position + (-PlayerCommands.DirectionBetweenPlayer() * distance) / 2;
         transform.rotation = Quaternion.Euler(0, -dot, 0);
         box.size = new Vector3(1, 1, distance);
     }
