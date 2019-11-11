@@ -10,9 +10,6 @@ public class Tourbillon : MonoBehaviour
     private PlayerNumber playerNumber;
     private PlayerMouvement playerMouvement;
 
-
-    private float ghostAngleRotated;  ///////////////////////
-
     private bool isRotate = false;
     private bool ghostIsRotate = false;  ///////////////////////
     public float angleToRotateMinimum = 360;
