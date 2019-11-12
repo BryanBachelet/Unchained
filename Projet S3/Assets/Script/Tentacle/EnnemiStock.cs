@@ -88,11 +88,17 @@ public class EnnemiStock : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1))
             {
+               // angleCompteur = 0;
+               // angleCurrentMax = angleMax;
+               // ChangeRotate = false;
                 rotateMe = true;
             }
         }
         else
         {
+            ChangeRotate = false;
+            rotate = false;
+            rotateMe = false;
             //lineRenderer.SetPosition(0, transform.position);
             //lineRenderer.SetPosition(1, transform.position);
         }
