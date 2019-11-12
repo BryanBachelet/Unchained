@@ -16,7 +16,7 @@ public class Payload : MonoBehaviour
     public int playerIn;
     public int agentIn;
     public List<GameObject> GoCapture;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,19 +27,19 @@ public class Payload : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerIn>=1 && agentIn>= 2)
+        if (playerIn >= 1 && agentIn >= 2)
         {
             state = StateOfPayload.Even;
         }
-        if (playerIn < 1 && agentIn <2)
+        if (playerIn < 1 && agentIn < 2)
         {
             state = StateOfPayload.Even;
         }
-        if (playerIn >= 1&& agentIn < 2)
+        if (playerIn >= 1 && agentIn < 2)
         {
             state = StateOfPayload.Good;
         }
-        if (playerIn <1 && agentIn >= 2)
+        if (playerIn < 1 && agentIn >= 2)
         {
             state = StateOfPayload.Bad;
         }
@@ -51,6 +51,18 @@ public class Payload : MonoBehaviour
         if (state == StateOfPayload.Bad)
         {
             transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, speed * Time.deltaTime);
+        }
+        if (GoCapture.Count > 0)
+        {
+            for (int i = 0; i < GoCapture.Count; i++)
+            {
+
+                if (GoCapture[i].tag != "Player" && GoCapture[i].tag != "Ennemi")
+                {
+                    GoCapture.RemoveAt(i);
+                    agentIn--;
+                }
+            }
         }
 
     }
@@ -80,8 +92,8 @@ public class Payload : MonoBehaviour
         if (other.tag == "Player")
         {
             int i = GoCapture.IndexOf(other.gameObject);
-            
-                GoCapture.RemoveAt(i);
+
+            GoCapture.RemoveAt(i);
             playerIn--;
         }
         if (other.tag == "Ennemi")
