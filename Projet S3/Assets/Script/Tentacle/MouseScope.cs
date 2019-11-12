@@ -33,10 +33,14 @@ public class MouseScope : MonoBehaviour
     private Vector3 DirectionSouris()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
         RaycastHit hit;
         Physics.Raycast(ray, out hit);
 
-        Vector3 hitPoint = new Vector3(hit.point.x, 1, hit.point.z);
+        Vector3 hitPoint =  hit.point;
+         hitPoint += (-ray.direction.normalized); // new Vector3(hit.point.x, 1, hit.point.z);
+   
         Vector3 dir = hitPoint - gameObject.transform.position;
 
         Debug.DrawRay(gameObject.transform.position, dir.normalized * 100, Color.red);

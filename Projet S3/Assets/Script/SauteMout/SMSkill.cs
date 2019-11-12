@@ -96,7 +96,7 @@ public class SMSkill : MonoBehaviour
 
             transform.position = new Vector3(transform.position.x, hit.transform.position.y + 1, transform.position.z);
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
-            plane.CreatePlane();
+            
             Debug.Log("KO");
         }
     }
@@ -106,7 +106,7 @@ public class SMSkill : MonoBehaviour
         {
             isJumping = false;
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
-            plane.CreatePlane();
+           
         }
         else
         {
