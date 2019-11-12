@@ -38,7 +38,7 @@ public class Projectils : MonoBehaviour
             other.tag = "Untagged";
             other.transform.position += dir.normalized * 3;
             Destroy(gameObject);
-           
         }
+       
     }
 }
