@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 1932146510778212225}
   - component: {fileID: 1932146510778212226}
   - component: {fileID: 1932146510778212235}
+  - component: {fileID: 1932146510778212236}
+  - component: {fileID: 1932146510778212237}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -114,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
   playerNumber: 2
-  manetteNumber: 0
+  manetteNumber: 1
 --- !u!114 &1932146510368897822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ea2359ada64414891a068306678974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontal: 0
+  vertical: 0
   speedOfDeplacement: 10
 --- !u!114 &2435338829241164481
 MonoBehaviour:
@@ -154,9 +158,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1932146510778212225
 MonoBehaviour:
@@ -197,10 +201,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e40c372d019a348af7f4d1a995eb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trail_Prefab: {fileID: 0}
   angleToRotateMinimum: 360
-  angleSpeed: 180
+  angleSpeed: 90
   ratioAugmented: 50
   opportunityWindow: 0.5
+  nextPos: {fileID: 0}
+--- !u!114 &1932146510778212236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932146510368897823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26fa7c663270174ea74ddf906fa689c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleToRotate: 180
+  angleRotated: 0
+  angleSpeed: 90
+  ratioAugmented: 0.05
+  distanceMinimum: 0.6
+  color: {r: 0, g: 0, b: 0, a: 0}
+  trail_Prefab: {fileID: 0}
+--- !u!114 &1932146510778212237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932146510368897823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9520f07638ac2264999e37c02fdbfa03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityForce: 8
 --- !u!1 &2227263861230174350
 GameObject:
   m_ObjectHideFlags: 0
