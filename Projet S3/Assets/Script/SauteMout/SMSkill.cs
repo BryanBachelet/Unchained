@@ -23,10 +23,12 @@ public class SMSkill : MonoBehaviour
 
     public GameObject trail_Prefab;
     private GameObject nextPos;
+    private Plane plane;
 
     private void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
+        plane = GetComponent<Plane>();
 
         playerIdentity = "Player" + playerNumber.playerNumber.ToString();
         nextPos = new GameObject();
@@ -83,17 +85,19 @@ public class SMSkill : MonoBehaviour
 
         nextPos.transform.position = transform.position;
         nextPos.transform.rotation = Quaternion.identity;
-        PointPivotActive();
+        //PointPivotActive();
         nextPos.transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
         Vector3 direction = nextPos.transform.position - transform.position;
         Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 2))
+        if (Physics.Raycast(ray, out hit, 1f))
         {
             isJumping = false;
 
-            transform.position = new Vector3(transform.position.x, hit.point.y + 1, transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.transform.position.y + 1, transform.position.z);
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            plane.CreatePlane();
+            Debug.Log("KO");
         }
     }
     public void SauteMSkill()
@@ -102,6 +106,7 @@ public class SMSkill : MonoBehaviour
         {
             isJumping = false;
             PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            plane.CreatePlane();
         }
         else
         {
@@ -110,7 +115,7 @@ public class SMSkill : MonoBehaviour
                 CheckNextDeplacement();
             }
             angleRotated += angleSpeed * Time.deltaTime;
-            PointPivotActive();
+          //  PointPivotActive();
             transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
 
 
@@ -121,13 +126,13 @@ public class SMSkill : MonoBehaviour
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, 1 , pos.z);
+        pos = new Vector3(pos.x, 0, pos.z);
     }
     public void PointPivotActive()
     {
         dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
-        pos = new Vector3(pos.x, -transform.position.y + 1, pos.z);
+        pos = new Vector3(pos.x, -1, pos.z);
     }
     private void OnDrawGizmos()
     {

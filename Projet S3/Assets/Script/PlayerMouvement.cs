@@ -32,6 +32,7 @@ public class PlayerMouvement : MonoBehaviour
          horizontal = Input.GetAxis("Horizontal" + playerNumber.playerNumber.ToString());
          vertical = Input.GetAxis("Vertical" + playerNumber.playerNumber.ToString());
         //transform.position += GetDirection(playerNumber.playerNumber) * speedOfDeplacement * Time.deltaTime;
+       
         rigidbody.velocity =  new Vector3( GetDirection(playerNumber.playerNumber).x * speedOfDeplacement, rigidbody.velocity.y, GetDirection(playerNumber.playerNumber).z * speedOfDeplacement);
       
     }
