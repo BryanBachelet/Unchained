@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectils : MonoBehaviour
+public class ProjectilsMassMob : MonoBehaviour
 {
     public GameObject player;
     public Vector3 dir;
@@ -31,13 +31,29 @@ public class Projectils : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ennemi")
+        if (other.tag == "jaune")
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
             other.tag = "Untagged";
             other.transform.position += dir.normalized * 3;
             Destroy(gameObject);
+
         }
-       
+        if (other.tag == "rouge")
+        {
+            player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+            other.tag = "Untagged";
+            other.transform.position += dir.normalized * 3;
+            Destroy(gameObject);
+
+        }
+        if (other.tag == "bleu")
+        {
+            player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+            other.tag = "Untagged";
+            other.transform.position += dir.normalized * 3;
+            Destroy(gameObject);
+
+        }
     }
 }
