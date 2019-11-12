@@ -17,7 +17,7 @@ public class EnnemiStock : MonoBehaviour
     void Start()
     {
 
-
+        angleCurrentMax = angleMax;
         lineRenderer.SetPosition(1, transform.position);
     }
 
