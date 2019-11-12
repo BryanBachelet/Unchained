@@ -9,11 +9,11 @@ public class Payload : MonoBehaviour
     public GameObject finishPoint;
     public float speed;
 
-    public enum StateOfPayload { Good, Even, Bad };
+    public enum StateOfPayload { Good, Bad };
     [Header("Capture")]
     public StateOfPayload state;
 
-    public int playerIn;
+   
     public int agentIn;
     public List<GameObject> GoCapture;
 
@@ -27,19 +27,13 @@ public class Payload : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerIn >= 1 && agentIn >= 2)
-        {
-            state = StateOfPayload.Even;
-        }
-        if (playerIn < 1 && agentIn < 2)
-        {
-            state = StateOfPayload.Even;
-        }
-        if (playerIn >= 1 && agentIn < 2)
+      
+       
+        if ( agentIn < 1)
         {
             state = StateOfPayload.Good;
         }
-        if (playerIn < 1 && agentIn >= 2)
+        if (agentIn >= 1)
         {
             state = StateOfPayload.Bad;
         }
@@ -50,7 +44,7 @@ public class Payload : MonoBehaviour
         }
         if (state == StateOfPayload.Bad)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, speed*4 * Time.deltaTime);
         }
         if (GoCapture.Count > 0)
         {
@@ -69,14 +63,7 @@ public class Payload : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            if (GoCapture.IndexOf(other.gameObject) == -1)
-            {
-                GoCapture.Add(other.gameObject);
-                playerIn++;
-            }
-        }
+      
         if (other.tag == "Ennemi")
         {
             if (GoCapture.IndexOf(other.gameObject) == -1)
@@ -89,13 +76,7 @@ public class Payload : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-        {
-            int i = GoCapture.IndexOf(other.gameObject);
-
-            GoCapture.RemoveAt(i);
-            playerIn--;
-        }
+       
         if (other.tag == "Ennemi")
         {
             int i = GoCapture.IndexOf(other.gameObject);

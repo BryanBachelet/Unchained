@@ -9,10 +9,13 @@ public class MouseScope : MonoBehaviour
     public Vector3 direction;
     public EnnemiStock ennemiStock;
     private GameObject instanceBullet;
+    private LineRenderer lineRenderer;
     // Start is called before the first frame update
     void Start()
     {
         ennemiStock = GetComponent<EnnemiStock>();
+        lineRenderer = GetComponent<LineRenderer>();
+
     }
 
     // Update is called once per frame
@@ -27,20 +30,41 @@ public class MouseScope : MonoBehaviour
             projectils.player = gameObject;
 
         }
+        if (ennemiStock.ennemiStock == null && instanceBullet != null)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, instanceBullet.transform.position);
+        }
+        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, transform.position);
+        }
 
     }
 
     private Vector3 DirectionSouris()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        //Vector2 mousePos = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
+        //Debug.Log(mousePos);
+        //Vector3 dir = new Vector3(mousePos.x, 0, mousePos.y);
 
-        Vector3 hitPoint = new Vector3(hit.point.x, 1, hit.point.z);
-        Vector3 dir = hitPoint - gameObject.transform.position;
+        Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane ground = new Plane(Vector3.up, Vector3.zero);
+        float rauEnter;
 
-        Debug.DrawRay(gameObject.transform.position, dir.normalized * 100, Color.red);
-        Debug.Log(dir.normalized);
-        return dir.normalized;
+        if (ground.Raycast(camera, out rauEnter))
+        {
+            Vector3 pointToLook = camera.GetPoint(rauEnter);
+            Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 dir = pointToLook - posPlayer;
+            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f,  dir.normalized * 100, Color.red);
+            Debug.Log(dir.normalized);
+            return dir;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
     }
 }
