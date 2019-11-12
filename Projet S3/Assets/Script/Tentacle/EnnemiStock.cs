@@ -7,6 +7,7 @@ public class EnnemiStock : MonoBehaviour
     public GameObject ennemiStock;
     public LineRenderer lineRenderer;
     public bool rotate;
+    public bool rotateMe;
     public bool ChangeRotate;
     public float angleSpeed = 45;
     public float angleMax = 45;
@@ -24,13 +25,14 @@ public class EnnemiStock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (rotate)
             {
-                if (Input.GetMouseButtonDown(0) && !ChangeRotate  )
+                if (Input.GetMouseButtonDown(0) && !ChangeRotate)
                 {
 
                     angleSpeed = -angleSpeed;
@@ -49,7 +51,33 @@ public class EnnemiStock : MonoBehaviour
                     ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
                     ennemiStock = null;
                     rotate = false;
-                    ChangeRotate = false    ;
+                    ChangeRotate = false;
+                    angleCurrentMax = angleMax;
+                    angleCompteur = 0;
+                }
+            }
+            else if (rotateMe)
+            {
+                if (Input.GetMouseButtonDown(1) && !ChangeRotate)
+                {
+
+                    angleSpeed = -angleSpeed;
+                    angleCurrentMax = angleMax + angleCompteur;
+                    angleCompteur = 0;
+                    ChangeRotate = true;
+                }
+                Vector3 previousPos = transform.position;
+                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
+                transform.RotateAround(ennemiStock.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
+                if (angleCompteur > angleCurrentMax)
+                {
+                    Vector3 newDir = transform.position - previousPos;
+                    //ennemiStock.tag = "Ennemi";
+                    gameObject.GetComponent<Rigidbody>().AddForce(newDir.normalized * 60, ForceMode.Impulse);
+                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
+                    ennemiStock = null;
+                    rotateMe = false;
+                    ChangeRotate = false;
                     angleCurrentMax = angleMax;
                     angleCompteur = 0;
                 }
@@ -57,6 +85,10 @@ public class EnnemiStock : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 rotate = true;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                rotateMe = true;
             }
         }
         else
