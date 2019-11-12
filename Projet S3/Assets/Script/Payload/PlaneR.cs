@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plane : MonoBehaviour
+public class PlaneR : MonoBehaviour
 {
     private float distance;
     private float dot;

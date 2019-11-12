@@ -61,8 +61,8 @@ public class EnnemiStock : MonoBehaviour
         }
         else
         {
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position);
+            //lineRenderer.SetPosition(0, transform.position);
+            //lineRenderer.SetPosition(1, transform.position);
         }
 
     }
