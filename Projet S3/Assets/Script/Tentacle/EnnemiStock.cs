@@ -22,6 +22,7 @@ public class EnnemiStock : MonoBehaviour
     Vector3 ennemyPosOnSlam;
     Vector3 dir;
     Vector3 normal;
+    public GameObject slameAOEPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -119,6 +120,7 @@ public class EnnemiStock : MonoBehaviour
                 }
                 else
                 {
+                    Instantiate(slameAOEPrefab, ennemiStock.transform.position, transform.rotation);
                     ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
                     slam = false;
                     ennemiStock = null;
@@ -143,6 +145,7 @@ public class EnnemiStock : MonoBehaviour
                 }
                 else
                 {
+                    Instantiate(slameAOEPrefab, transform.position, transform.rotation);
                     ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
                     slamMe = false;
                     ennemiStock = null;
