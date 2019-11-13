@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class LineRend : MonoBehaviour
 {
+    [HideInInspector]
     public bool active;
-    public GameObject p1;
-    public GameObject p2;
     public LineRenderer lineRenderer;
     public BoxCollider box;
+    private GameObject p1;
+    private GameObject p2;
     private float dot;
     private float distance;
     private EnnemiStock ennemiStock;

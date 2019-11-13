@@ -27,6 +27,7 @@ public class EnnemiStock : MonoBehaviour
 
     public bool onDrop;
     public bool onDropMe;
+    public RotationPlayer rotationPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,40 +38,14 @@ public class EnnemiStock : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (rotate && !slam)
-            {
-                if (Input.GetMouseButtonDown(0) && !ChangeRotate && !slam && !slamMe)
-                {
-
-                    angleSpeed = -angleSpeed;
-                    angleCurrentMax = angleMax + angleCompteur;
-                    angleCompteur = 0;
-                    ChangeRotate = true;
-                }
-                Vector3 previousPos = ennemiStock.transform.position;
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                ennemiStock.transform.RotateAround(gameObject.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (angleCompteur > angleCurrentMax)
-                {
-                    Vector3 newDir = ennemiStock.transform.position - previousPos;
-                    ennemiStock.tag = "Ennemi";
-                    ennemiStock.GetComponent<Rigidbody>().AddForce(newDir.normalized * 60, ForceMode.Impulse);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    ennemiStock = null;
-                    rotate = false;
-                    ChangeRotate = false;
-                    angleCurrentMax = angleMax;
-                    angleCompteur = 0;
-                }
-            }
-            else if (rotateMe)
+            if (rotateMe && !slam)
             {
                 if (Input.GetMouseButtonDown(1) && !ChangeRotate && !slam && !slamMe)
                 {
@@ -96,18 +71,17 @@ public class EnnemiStock : MonoBehaviour
                     angleCompteur = 0;
                 }
             }
-            if (Input.GetMouseButtonDown(0) && !slam && !slamMe)
+            if (Input.GetMouseButtonDown(0)&& !rotate && !slam && !slamMe)
             {
-                rotate = true;
+               rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
+                
             }
-            if (Input.GetMouseButtonDown(1) && !slam && !slamMe)
+            if (Input.GetMouseButtonDown(1) && !rotate &&!slam && !slamMe)
             {
-               // angleCompteur = 0;
-               // angleCurrentMax = angleMax;
-               // ChangeRotate = false;
-                rotateMe = true;
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
+               
             }
-            if(slam && !rotate && !rotateMe)
+            if(slam && !rotate )
             {
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 if (arriveOnSlam)
@@ -220,5 +194,11 @@ public class EnnemiStock : MonoBehaviour
             //lineRenderer.SetPosition(1, transform.position);
         }
 
+    }
+
+    public void StopRotate()
+    {
+        rotate = false;
+        ennemiStock = null;
     }
 }
