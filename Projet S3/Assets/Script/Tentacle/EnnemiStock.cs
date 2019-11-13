@@ -23,6 +23,10 @@ public class EnnemiStock : MonoBehaviour
     Vector3 dir;
     Vector3 normal;
     public GameObject slameAOEPrefab;
+    public LayerMask groundLayer;
+
+    public bool onDrop;
+    public bool onDropMe;
     // Start is called before the first frame update
     void Start()
     {
@@ -105,7 +109,8 @@ public class EnnemiStock : MonoBehaviour
             }
             if(slam && !rotate && !rotateMe)
             {
-                if(arriveOnSlam)
+                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
+                if (arriveOnSlam)
                 {
                     dir = ennemiStock.transform.position - gameObject.transform.position;
                     normal = Vector3.Cross(-dir, Vector3.up);
@@ -113,10 +118,22 @@ public class EnnemiStock : MonoBehaviour
                     myPosOnSlam = transform.position;
                     arriveOnSlam = false;
                 }
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                if (angleCompteur < 180)
+                if(Input.GetKeyDown(KeyCode.A))
                 {
-                    ennemiStock.transform.RotateAround(myPosOnSlam, normal, -angleSpeed * Time.deltaTime);                
+                    onDrop = true;
+                }
+                if(onDrop)
+                {
+                    ennemiStock.transform.position = Vector3.MoveTowards(ennemiStock.transform.position, new Vector3(ennemiStock.transform.position.x, 0, ennemiStock.transform.position.z), 80 * Time.deltaTime);
+                    if((ennemiStock.transform.position - new Vector3(ennemiStock.transform.position.x, 0, ennemiStock.transform.position.z)).magnitude < 1)
+                    {
+                        onDrop = false;
+                        angleCompteur = 180;
+                    }
+                }
+                else if (angleCompteur < 180 && !onDrop)
+                {
+                    ennemiStock.transform.RotateAround(myPosOnSlam, normal, -angleSpeed * Time.deltaTime);
                 }
                 else
                 {
@@ -130,6 +147,7 @@ public class EnnemiStock : MonoBehaviour
             }
             else if (slamMe && !rotate && !rotateMe)
             {
+                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 if (arriveOnSlam)
                 {
                     dir = ennemiStock.transform.position - gameObject.transform.position;
@@ -138,11 +156,39 @@ public class EnnemiStock : MonoBehaviour
                     myPosOnSlam = transform.position;
                     arriveOnSlam = false;
                 }
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                if (angleCompteur < 180)
+                if (Input.GetKeyDown(KeyCode.E))
                 {
+                    onDropMe = true;
+                }
+                if (onDropMe)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, 0, transform.position.z), 80 * Time.deltaTime);
+                    if ((transform.position - new Vector3(transform.position.x, 0, transform.position.z)).magnitude < 1)
+                    {
+                        onDropMe = false;
+                        angleCompteur = 180;
+                    }
+                }
+                else if (angleCompteur < 180 && !onDropMe)
+                {
+                    if(angleCompteur > 20)
+                    {
+                        RaycastHit hit;
+                        if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
+                        {
+                            Debug.Log((hit.point - transform.position).magnitude);
+                            if ((hit.point - transform.position).magnitude < 0.1)
+                            {
+                                angleCompteur = 180;
+                                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+                            }
+                            Debug.DrawRay(transform.position, -Vector3.up * Mathf.Infinity, Color.blue);
+                        }
+
+                    }
                     transform.RotateAround(ennemyPosOnSlam, normal, -angleSpeed * Time.deltaTime);
                 }
+                
                 else
                 {
                     Instantiate(slameAOEPrefab, transform.position, transform.rotation);

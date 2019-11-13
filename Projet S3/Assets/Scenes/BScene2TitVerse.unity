@@ -616,6 +616,11 @@ MonoBehaviour:
   myPosOnSlam: {x: 0, y: 0, z: 0}
   slameAOEPrefab: {fileID: 3908323225281329709, guid: d241abcb69c37a3468fe713af2d2f911,
     type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  onDrop: 0
+  onDropMe: 0
 --- !u!1001 &885574866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,7 +718,7 @@ GameObject:
   - component: {fileID: 928009934}
   - component: {fileID: 928009933}
   - component: {fileID: 928009937}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +907,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058063042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16228332, y: 0.88499355, z: 1.391309}
+  m_LocalPosition: {x: 0.16228332, y: 0.8, z: 1.391309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

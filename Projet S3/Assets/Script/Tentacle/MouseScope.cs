@@ -55,8 +55,8 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
-            Debug.Log(dir.normalized);
+            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f,  dir.normalized * 100, Color.red);
+            ///Debug.Log(dir.normalized);
             return dir;
         }
         else
