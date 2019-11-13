@@ -9,9 +9,9 @@ public class LineRend : MonoBehaviour
     public GameObject p2;
     public LineRenderer lineRenderer;
     public BoxCollider box;
-    public float dot;
-    public float distance;
-    public EnnemiStock ennemiStock;
+    private float dot;
+    private float distance;
+    private EnnemiStock ennemiStock;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +24,14 @@ public class LineRend : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(ennemiStock != null)
+        if (ennemiStock != null)
         {
-            if(ennemiStock.ennemiStock != null)
+            if (ennemiStock.ennemiStock != null)
             {
                 box.enabled = true;
                 active = true;
                 p2 = ennemiStock.ennemiStock;
-                p1 = transform.parent.gameObject; 
+                p1 = transform.parent.gameObject;
             }
             else
             {

@@ -320,13 +320,13 @@ PrefabInstance:
     - target: {fileID: 4640303611788378716, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: timeOfSpawn
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4640303611788378716, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: objectToInstantiate
       value: 
-      objectReference: {fileID: 6235209498070176796, guid: 82c84266f78aa2242bc79ab3739cbe6e,
+      objectReference: {fileID: 6235209498070176796, guid: cb34276b6940e094fa889663231dee6e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a265c504d657c68428ec8473698c8414, type: 3}
@@ -387,7 +387,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b9e762c504c18764ba32b8617b9b4bb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -418,7 +418,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.52816916
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -485,7 +485,7 @@ MonoBehaviour:
   slamMe: 0
   ChangeRotate: 0
   arriveOnSlam: 0
-  angleSpeed: 45
+  angleSpeed: 90
   angleMax: 90
   angleCompteur: 0
   angleCurrentMax: 0
@@ -519,8 +519,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4659203331834948054, guid: 9c3d4ccb3c018574893ae08245cb1904, type: 3}
   spawn: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
-  ennemiStock: {fileID: 0}
 --- !u!136 &215066792
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -992,13 +990,13 @@ PrefabInstance:
     - target: {fileID: 4640303611788378716, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: timeOfSpawn
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4640303611788378716, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: objectToInstantiate
       value: 
-      objectReference: {fileID: 6235209498070176796, guid: 82c84266f78aa2242bc79ab3739cbe6e,
+      objectReference: {fileID: 6235209498070176796, guid: cb34276b6940e094fa889663231dee6e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a265c504d657c68428ec8473698c8414, type: 3}
@@ -1182,7 +1180,7 @@ PrefabInstance:
         type: 3}
       propertyPath: objectToInstantiate
       value: 
-      objectReference: {fileID: 3711372720164266030, guid: 6cc8703fcf9084840ab47b427a034601,
+      objectReference: {fileID: 6235209498070176796, guid: 82c84266f78aa2242bc79ab3739cbe6e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a265c504d657c68428ec8473698c8414, type: 3}
