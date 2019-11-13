@@ -7,29 +7,21 @@ public class Payload : MonoBehaviour
     [Header("Deplacement")]
     public GameObject startPoint;
     public GameObject finishPoint;
-    public float speed;
+    public float normalSpeed;
+    public float ennemiSpeed;
 
     public enum StateOfPayload { Good, Bad };
     [Header("Capture")]
     public StateOfPayload state;
 
-   
-    public int agentIn;
+
+    private int agentIn;
     public List<GameObject> GoCapture;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    
     void Update()
-    {
-      
-       
-        if ( agentIn < 1)
+    { if (agentIn < 1)
         {
             state = StateOfPayload.Good;
         }
@@ -40,11 +32,11 @@ public class Payload : MonoBehaviour
 
         if (state == StateOfPayload.Good)
         {
-            transform.position = Vector3.MoveTowards(transform.position, finishPoint.transform.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, finishPoint.transform.position, normalSpeed * Time.deltaTime);
         }
         if (state == StateOfPayload.Bad)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, speed*4 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, ennemiSpeed  * Time.deltaTime);
         }
         if (GoCapture.Count > 0)
         {
@@ -63,7 +55,7 @@ public class Payload : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-      
+
         if (other.tag == "Ennemi")
         {
             if (GoCapture.IndexOf(other.gameObject) == -1)
@@ -76,7 +68,7 @@ public class Payload : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-       
+
         if (other.tag == "Ennemi")
         {
             int i = GoCapture.IndexOf(other.gameObject);
