@@ -17,6 +17,7 @@ public class EnnemiBehavior : MonoBehaviour
         if (GetComponentInParent<AgentFaction>())
         {
             agentFaction = GetComponent<AgentFaction>();
+            faction = true;
         }
         else
         {

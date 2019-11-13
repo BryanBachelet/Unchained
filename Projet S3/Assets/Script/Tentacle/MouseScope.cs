@@ -6,8 +6,8 @@ public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject spawn;
-    public Vector3 direction;
-    public EnnemiStock ennemiStock;
+    private EnnemiStock ennemiStock;
+    private Vector3 direction;
     private GameObject instanceBullet;
     private LineRenderer lineRenderer;
 
