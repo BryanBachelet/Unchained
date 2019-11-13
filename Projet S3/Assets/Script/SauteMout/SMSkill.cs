@@ -19,38 +19,107 @@ public class SMSkill : MonoBehaviour
     private Vector3 normal;
     private float Dist;
     private Vector3 dir;
+    private string playerIdentity;
+
+    public GameObject trail_Prefab;
+    private GameObject nextPos;
+    private Plane plane;
 
     private void Start()
     {
         playerNumber = GetComponent<PlayerNumber>();
+        plane = GetComponent<Plane>();
 
+        playerIdentity = "Player" + playerNumber.playerNumber.ToString();
+        nextPos = new GameObject();
+        nextPos.transform.parent = transform;
     }
+
 
     void Update()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5") && !isJumping)
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && playerIdentity == "Player1")
         {
-            dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
-            normal = Vector3.Cross(-dir, Vector3.up);
-            angleRotated = 0;
-            isJumping = true;
-            PointPivot();
+            LaunchSM();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
         }
+        if (Input.GetKeyDown(KeyCode.Keypad1) && playerIdentity == "Player2")
+        {
+            LaunchSM();
+            Instantiate(trail_Prefab, transform.position, transform.rotation, transform);
+        }
+
+        if (Input.GetKeyDown("joystick " + playerNumber.manetteNumber.ToString() + " button 5"))
+        {
+            LaunchSM();
+
+        }
+
+
         if (isJumping)
         {
             SauteMSkill();
-            if (angleRotated >= angleToRotate)
-            {
-                isJumping = false;
-            }
+
         }
     }
 
+
+    public void LaunchSM()
+    {
+        if (!isJumping)
+        {
+            angleRotated = 0;
+            dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
+            normal = Vector3.Cross(-dir, Vector3.up);
+            isJumping = true;
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Fly);
+            PointPivot();
+        }
+    }
+
+    public void CheckNextDeplacement()
+    {
+
+        nextPos.transform.position = transform.position;
+        nextPos.transform.rotation = Quaternion.identity;
+        //PointPivotActive();
+        nextPos.transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+        Vector3 direction = nextPos.transform.position - transform.position;
+        Ray ray = new Ray(transform.position, direction);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1f))
+        {
+            isJumping = false;
+
+            transform.position = new Vector3(transform.position.x, hit.transform.position.y + 1, transform.position.z);
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+            
+            Debug.Log("KO");
+        }
+    }
     public void SauteMSkill()
     {
-        angleRotated += angleSpeed * Time.deltaTime;
-        transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+        if (angleRotated >= angleToRotate)
+        {
+            isJumping = false;
+            PlayerCommands.ChangePlayerState(gameObject, PlayerState.StateOfPlayer.Free);
+           
+        }
+        else
+        {
+            if (angleRotated > 90)
+            {
+                CheckNextDeplacement();
+            }
+            angleRotated += angleSpeed * Time.deltaTime;
+          //  PointPivotActive();
+            transform.RotateAround(pos, normal, angleSpeed * Time.deltaTime);
+
+
+        }
     }
     public void PointPivot()
     {
@@ -58,6 +127,12 @@ public class SMSkill : MonoBehaviour
         Dist = Vector3.Distance(PlayerCommands.player1.transform.position, PlayerCommands.player2.transform.position);
         pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
         pos = new Vector3(pos.x, 0, pos.z);
+    }
+    public void PointPivotActive()
+    {
+        dir = PlayerCommands.OtherPlayer(gameObject).transform.position - gameObject.transform.position;
+        pos = gameObject.transform.position + (dir.normalized * (Dist * (distanceMinimum + VitesseFunction.RatioAugmented(ratioAugmented))));
+        pos = new Vector3(pos.x, -1, pos.z);
     }
     private void OnDrawGizmos()
     {

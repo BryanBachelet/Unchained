@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public enum StateOfPlayer { Free, Jet, Fly , Attract, Rotation }
+    public enum StateOfPlayer { Free, Jet, Fly , Attract, Rotation,ElastycityMouvement }
     public  StateOfPlayer playerState = StateOfPlayer.Free;
     public enum OpportunityState { In, Out }
     public OpportunityState opportunityState = OpportunityState.Out;
