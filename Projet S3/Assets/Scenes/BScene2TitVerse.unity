@@ -366,6 +366,8 @@ GameObject:
   - component: {fileID: 825738333}
   - component: {fileID: 825738337}
   - component: {fileID: 825738336}
+  - component: {fileID: 825738339}
+  - component: {fileID: 825738338}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Player
@@ -460,7 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee78977a3953db54eb0117d2e7df3d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 825738334}
   speed: 10
 --- !u!54 &825738334
 Rigidbody:
@@ -492,8 +493,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4659203331834948054, guid: 9c3d4ccb3c018574893ae08245cb1904, type: 3}
   spawn: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
-  ennemiStock: {fileID: 0}
 --- !u!120 &825738336
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -621,6 +620,41 @@ MonoBehaviour:
     m_Bits: 4096
   onDrop: 0
   onDropMe: 0
+--- !u!114 &825738338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825738328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e696e548a651f44afd88131849eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleSpeed: 90
+  fallSpeed: 40
+  slamAOEPrefab: {fileID: 3908323225281329709, guid: d241abcb69c37a3468fe713af2d2f911,
+    type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+--- !u!114 &825738339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825738328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1e64ca7077b8a4bb12c57c93be2ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotate: 0
+  angleSpeed: 70
+  angleMax: 90
+  changeSens: 0
 --- !u!1001 &885574866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1040,13 +1074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  p1: {fileID: 0}
-  p2: {fileID: 0}
   lineRenderer: {fileID: 825738336}
   box: {fileID: 1665296712}
-  dot: 0
-  distance: 0
-  ennemiStock: {fileID: 0}
 --- !u!65 &1665296712
 BoxCollider:
   m_ObjectHideFlags: 0

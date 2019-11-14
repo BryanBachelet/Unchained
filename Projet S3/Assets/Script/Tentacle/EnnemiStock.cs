@@ -48,17 +48,15 @@ public class EnnemiStock : MonoBehaviour
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (!slam && !rotateMe)
+            if (!slam && !rotate)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
-
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
                     rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-
                 }
 
                 if (Input.GetKeyDown(KeyCode.A))
@@ -77,9 +75,7 @@ public class EnnemiStock : MonoBehaviour
             rotate = false;
             rotateMe = false;
             angleSpeed = 120;
-
         }
-
     }
 
     public void StopRotate()
