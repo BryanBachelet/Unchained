@@ -15,8 +15,9 @@ public class SlamPlayer : MonoBehaviour
     private Vector3 normal;
     private Vector3 startPosPivot, startPosObjectSlam;
     private float angleCompteur;
-    private bool slam, onDrop;
+    public bool slam, onDrop;
 
+    private int i;
     private EnnemiStock ennemiStock;
 
     private void Start()
@@ -34,26 +35,31 @@ public class SlamPlayer : MonoBehaviour
             {
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 objectSlam.transform.RotateAround(startPosPivot, normal, -angleSpeed * Time.deltaTime);
-                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.E))
-                {
-                    onDrop = true;
-                }
-               
-                if (angleCompteur > 20)
+
+                if (angleCompteur > 80)
                 {
                     RaycastHit hit;
                     if (Physics.Raycast(objectSlam.transform.position, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
                     {
-                        float dist = Vector3.Distance(hit.point , objectSlam.transform.position);
-                        if (dist < 1.5f)
+                        float dist = Vector3.Distance(hit.point, objectSlam.transform.position);
+                        if (dist <2f)
                         {
-                           
+
                             StopSlam();
                             objectSlam.transform.position = new Vector3(objectSlam.transform.position.x, 1, objectSlam.transform.position.z);
                         }
 
                     }
 
+                }
+                i++;
+                if (i > 3)
+                {
+                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.E))
+                    {
+                        onDrop = true;
+                     
+                    }
                 }
             }
             else
@@ -73,7 +79,7 @@ public class SlamPlayer : MonoBehaviour
         }
         if (pointPivot.GetComponent<EnnemiDestroy>())
         {
-            objectSlam.GetComponent<EnnemiDestroy>().isDestroying = false;
+            pointPivot.GetComponent<EnnemiDestroy>().isDestroying = false;
         }
         StartSetUp();
         return slam = true;
@@ -100,10 +106,12 @@ public class SlamPlayer : MonoBehaviour
     {
         Instantiate(slamAOEPrefab, objectSlam.transform.position, transform.rotation);
         CheckEnnnemi();
+        objectSlam.transform.position = new Vector3(objectSlam.transform.position.x, 1, objectSlam.transform.position.z);
         slam = false;
         onDrop = false;
         angleCompteur = 0;
         ennemiStock.StopSlam();
+        i = 0;
     }
     private void CheckEnnnemi()
     {
@@ -114,7 +122,7 @@ public class SlamPlayer : MonoBehaviour
         }
         if (pointPivot.GetComponent<EnnemiDestroy>())
         {
-            objectSlam.GetComponent<EnnemiDestroy>().isDestroying = true;
+            pointPivot.GetComponent<EnnemiDestroy>().isDestroying = true;
         }
 
     }

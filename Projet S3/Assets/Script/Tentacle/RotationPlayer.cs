@@ -80,7 +80,7 @@ public class RotationPlayer : MonoBehaviour
 
     private void CheckEnnnemi()
     {
-
+        Vector3 newDir = objectToRotate.transform.position - previousPos;
         if (objectToRotate.GetComponent<EnnemiDestroy>())
         {
             objectToRotate.GetComponent<EnnemiDestroy>().isDestroying = true;
@@ -88,7 +88,7 @@ public class RotationPlayer : MonoBehaviour
         else
         {
             pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
-            objectToRotate.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
+            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie * 10, ForceMode.Impulse);
         }
     }
 }

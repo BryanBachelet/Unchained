@@ -48,12 +48,11 @@ public class EnnemiStock : MonoBehaviour
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (!slam && !rotateMe)
+            if (!slam && !rotate)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
-
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
@@ -75,7 +74,7 @@ public class EnnemiStock : MonoBehaviour
         {
             ChangeRotate = false;
             rotate = false;
-            rotateMe = false;
+            slam = false;
             angleSpeed = 120;
 
         }

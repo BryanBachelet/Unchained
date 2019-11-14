@@ -7,9 +7,10 @@ public class Payload : MonoBehaviour
     [Header("Deplacement")]
     public GameObject startPoint;
     public GameObject finishPoint;
+    public GameObject[] wayPoints;
     public float normalSpeed;
     public float ennemiSpeed;
-
+    private int i;
     public enum StateOfPayload { Good, Bad };
     [Header("Capture")]
     public StateOfPayload state;
@@ -52,6 +53,15 @@ public class Payload : MonoBehaviour
         }
 
     }
+
+    public void ChangePosition()
+    {
+        float distFinish = Vector3.Distance(transform.position, finishPoint.transform.position);
+        float distStart = Vector3.Distance(transform.position, startPoint.transform.position);
+       
+    }
+    
+
 
     public void OnTriggerEnter(Collider other)
     {
