@@ -345,6 +345,8 @@ GameObject:
   - component: {fileID: 215066791}
   - component: {fileID: 215066790}
   - component: {fileID: 215066789}
+  - component: {fileID: 215066796}
+  - component: {fileID: 215066797}
   - component: {fileID: 215066788}
   - component: {fileID: 215066795}
   m_Layer: 0
@@ -492,6 +494,11 @@ MonoBehaviour:
   myPosOnSlam: {x: 0, y: 0, z: 0}
   slameAOEPrefab: {fileID: 3908323225281329709, guid: d241abcb69c37a3468fe713af2d2f911,
     type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  onDrop: 0
+  onDropMe: 0
 --- !u!114 &215066790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +601,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &215066796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215066786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1e64ca7077b8a4bb12c57c93be2ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotate: 0
+  angleSpeed: 70
+  angleMax: 90
+  changeSens: 0
+--- !u!114 &215066797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215066786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e696e548a651f44afd88131849eda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleSpeed: 90
+  fallSpeed: 40
+  slamAOEPrefab: {fileID: 3908323225281329709, guid: d241abcb69c37a3468fe713af2d2f911,
+    type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &292576179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,13 +1290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  p1: {fileID: 0}
-  p2: {fileID: 0}
   lineRenderer: {fileID: 215066788}
   box: {fileID: 1548777819}
-  dot: 0
-  distance: 0
-  ennemiStock: {fileID: 0}
 --- !u!4 &1768857889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4640303611788378717, guid: a265c504d657c68428ec8473698c8414,
@@ -1273,7 +1310,7 @@ GameObject:
   - component: {fileID: 1922556758}
   - component: {fileID: 1922556757}
   - component: {fileID: 1922556756}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

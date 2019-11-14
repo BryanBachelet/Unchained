@@ -5,11 +5,12 @@ using UnityEngine;
 public class Payload : MonoBehaviour
 {
     [Header("Deplacement")]
-    public GameObject startPoint;
-    public GameObject finishPoint;
+    private GameObject startPoint;
+    private GameObject finishPoint;
+    public GameObject[] wayPoints;
     public float normalSpeed;
     public float ennemiSpeed;
-
+    private int i;
     public enum StateOfPayload { Good, Bad };
     [Header("Capture")]
     public StateOfPayload state;
@@ -18,10 +19,15 @@ public class Payload : MonoBehaviour
     private int agentIn;
     public List<GameObject> GoCapture;
 
+    private void Start()
+    {
+        startPoint = wayPoints[0];
+        finishPoint = wayPoints[1];
+    }
 
-    
     void Update()
-    { if (agentIn < 1)
+    {
+        if (agentIn < 1)
         {
             state = StateOfPayload.Good;
         }
@@ -36,7 +42,7 @@ public class Payload : MonoBehaviour
         }
         if (state == StateOfPayload.Bad)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, ennemiSpeed  * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, ennemiSpeed * Time.deltaTime);
         }
         if (GoCapture.Count > 0)
         {
@@ -50,8 +56,30 @@ public class Payload : MonoBehaviour
                 }
             }
         }
+        ChangePosition();
 
     }
+
+    public void ChangePosition()
+    {
+        float distFinish = Vector3.Distance(transform.position, finishPoint.transform.position);
+        
+        if (distFinish < 1f)
+        {
+            startPoint = finishPoint;
+            i++;
+            if (i == wayPoints.Length)
+            {
+                i = 0;
+            }
+            finishPoint = wayPoints[i];
+
+        }
+
+
+    }
+
+
 
     public void OnTriggerEnter(Collider other)
     {

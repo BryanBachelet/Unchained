@@ -73,7 +73,7 @@ public class EnnemiStock : MonoBehaviour
         {
             ChangeRotate = false;
             rotate = false;
-            rotateMe = false;
+            slam = false;
             angleSpeed = 120;
         }
     }
