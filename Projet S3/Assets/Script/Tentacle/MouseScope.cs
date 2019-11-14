@@ -6,10 +6,11 @@ public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
     public GameObject spawn;
-    public Vector3 direction;
-    public EnnemiStock ennemiStock;
+    private EnnemiStock ennemiStock;
+    private Vector3 direction;
     private GameObject instanceBullet;
     private LineRenderer lineRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +46,6 @@ public class MouseScope : MonoBehaviour
 
     private Vector3 DirectionSouris()
     {
-        //Vector2 mousePos = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
-        //Debug.Log(mousePos);
-        //Vector3 dir = new Vector3(mousePos.x, 0, mousePos.y);
-
         Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane ground = new Plane(Vector3.up, Vector3.zero);
         float rauEnter;

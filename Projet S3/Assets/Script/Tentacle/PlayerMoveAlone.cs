@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class PlayerMoveAlone : MonoBehaviour
 {
-    public Rigidbody rigidbody;
+    private Rigidbody playerRigid;
     public float speed;
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        playerRigid = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void FixedUpdate ()
+    void FixedUpdate()
     {
-        rigidbody.velocity = Direction() * speed;
+        playerRigid.velocity = Direction() * speed;
     }
 
-    Vector3 Direction()
+    private Vector3 Direction()
     {
         float horizontal = Input.GetAxis("Horizontal1");
         float vertical = Input.GetAxis("Vertical1");
-        Vector3 dir = new Vector3(horizontal,0, vertical);
+        Vector3 dir = new Vector3(horizontal, 0, vertical);
         return dir.normalized;
     }
 }
