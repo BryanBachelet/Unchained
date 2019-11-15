@@ -18,7 +18,7 @@ public class RotationPlayer : MonoBehaviour
     private string tagEnter;
     private Vector3 previousPos;
     public bool changeSens;
-
+    private int i;
     private void Start()
     {
         stocks = GetComponent<EnnemiStock>();
@@ -34,10 +34,14 @@ public class RotationPlayer : MonoBehaviour
                 previousPos = objectToRotate.transform.position;
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 objectToRotate.transform.RotateAround(pointPivot.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (Input.GetMouseButtonDown(0) && !changeSens || Input.GetMouseButtonDown(1) && !changeSens)
+                i++;
+                if (i > 3)
                 {
-                    ChangeRotationDirection();
+                    if (Input.GetMouseButtonDown(0) && !changeSens || Input.GetMouseButtonDown(1) && !changeSens)
+                    {
+                        ChangeRotationDirection();
 
+                    }
                 }
                 if (angleCompteur > currentAngleMax)
                 {
@@ -62,6 +66,7 @@ public class RotationPlayer : MonoBehaviour
         tagEnter = tag;
         forceOfSortie = forceSortie;
         changeSens = false;
+        i = 0;
         return rotate = true;
     }
 
