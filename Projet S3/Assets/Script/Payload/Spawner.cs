@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public float timeOfSpawn;
-    public float compteur;
+    private float compteur;
     public GameObject objectToInstantiate;
     public GameObject parentToSpawn;
+    public float timeOfSpawn;
+    [Header("Caractéristique du spawner")]
     public GameObject target;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
         SpawnObject();
     }
+
     void SpawnObject()
     {
         if (compteur > timeOfSpawn)
