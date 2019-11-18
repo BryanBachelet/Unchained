@@ -27,10 +27,13 @@ public class EnnemiStock : MonoBehaviour
 
     public bool onDrop;
     public bool onDropMe;
-    public RotationPlayer rotationPlayer;
+    private RotationPlayer rotationPlayer;
+    private SlamPlayer slamPlayer;
     // Start is called before the first frame update
     void Start()
     {
+        rotationPlayer = GetComponent<RotationPlayer>();
+        slamPlayer = GetComponent<SlamPlayer>();
 
         angleCurrentMax = angleMax;
         lineRenderer.SetPosition(1, transform.position);
@@ -38,167 +41,51 @@ public class EnnemiStock : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        
+    {
+
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (rotateMe && !slam)
+            if (!slam && !rotate)
             {
-                if (Input.GetMouseButtonDown(1) && !ChangeRotate && !slam && !slamMe)
+                if (Input.GetMouseButtonDown(0))
                 {
-
-                    angleSpeed = -angleSpeed;
-                    angleCurrentMax = angleMax + angleCompteur;
-                    angleCompteur = 0;
-                    ChangeRotate = true;
+                    rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
                 }
-                Vector3 previousPos = transform.position;
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                transform.RotateAround(ennemiStock.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (angleCompteur > angleCurrentMax)
+                if (Input.GetMouseButtonDown(1))
                 {
-                    Vector3 newDir = transform.position - previousPos;
-                    //ennemiStock.tag = "Ennemi";
-                    gameObject.GetComponent<Rigidbody>().AddForce(newDir.normalized * 60, ForceMode.Impulse);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    ennemiStock = null;
-                    rotateMe = false;
-                    ChangeRotate = false;
-                    angleCurrentMax = angleMax;
-                    angleCompteur = 0;
-                }
-            }
-            if (Input.GetMouseButtonDown(0)&& !rotate && !slam && !slamMe)
-            {
-               rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
-                
-            }
-            if (Input.GetMouseButtonDown(1) && !rotate &&!slam && !slamMe)
-            {
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-               
-            }
-            if(slam && !rotate )
-            {
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                if (arriveOnSlam)
-                {
-                    dir = ennemiStock.transform.position - gameObject.transform.position;
-                    normal = Vector3.Cross(-dir, Vector3.up);
-                    ennemyPosOnSlam = ennemiStock.transform.position;
-                    myPosOnSlam = transform.position;
-                    arriveOnSlam = false;
-                }
-                if(Input.GetKeyDown(KeyCode.A))
-                {
-                    onDrop = true;
-                }
-                if(onDrop)
-                {
-                    ennemiStock.transform.position = Vector3.MoveTowards(ennemiStock.transform.position, new Vector3(ennemiStock.transform.position.x, 0, ennemiStock.transform.position.z), 80 * Time.deltaTime);
-                    if((ennemiStock.transform.position - new Vector3(ennemiStock.transform.position.x, 0, ennemiStock.transform.position.z)).magnitude < 1)
-                    {
-                        onDrop = false;
-                        angleCompteur = 180;
-                    }
-                }
-                else if (angleCompteur < 180 && !onDrop)
-                {
-                    ennemiStock.transform.RotateAround(myPosOnSlam, normal, -angleSpeed * Time.deltaTime);
-                }
-                else
-                {
-                    Instantiate(slameAOEPrefab, ennemiStock.transform.position, transform.rotation);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    slam = false;
-                    ennemiStock = null;
-                    angleCompteur = 0;
+                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
                 }
 
-            }
-            else if (slamMe && !rotate && !rotateMe)
-            {
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                if (arriveOnSlam)
+                if (Input.GetKeyDown(KeyCode.A))
                 {
-                    dir = ennemiStock.transform.position - gameObject.transform.position;
-                    normal = Vector3.Cross(dir, Vector3.up);
-                    ennemyPosOnSlam = ennemiStock.transform.position;
-                    myPosOnSlam = transform.position;
-                    arriveOnSlam = false;
+                    slam = slamPlayer.StartSlam(ennemiStock, gameObject);
                 }
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    onDropMe = true;
+                    slam = slamPlayer.StartSlam(gameObject, ennemiStock);
                 }
-                if (onDropMe)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, 0, transform.position.z), 80 * Time.deltaTime);
-                    if ((transform.position - new Vector3(transform.position.x, 0, transform.position.z)).magnitude < 1)
-                    {
-                        onDropMe = false;
-                        angleCompteur = 180;
-                    }
-                }
-                else if (angleCompteur < 180 && !onDropMe)
-                {
-                    if(angleCompteur > 20)
-                    {
-                        RaycastHit hit;
-                        if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
-                        {
-                            Debug.Log((hit.point - transform.position).magnitude);
-                            if ((hit.point - transform.position).magnitude < 0.1)
-                            {
-                                angleCompteur = 180;
-                                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-                            }
-                            Debug.DrawRay(transform.position, -Vector3.up * Mathf.Infinity, Color.blue);
-                        }
-
-                    }
-                    transform.RotateAround(ennemyPosOnSlam, normal, -angleSpeed * Time.deltaTime);
-                }
-                
-                else
-                {
-                    Instantiate(slameAOEPrefab, transform.position, transform.rotation);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    slamMe = false;
-                    ennemiStock = null;
-                    angleCompteur = 0;
-                }
-
-            }
-            if (Input.GetKeyDown(KeyCode.A) && !slamMe && !slam)
-            {
-                arriveOnSlam = true;
-                slam = true;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && !slamMe && !slam)
-            {
-                arriveOnSlam = true;
-                slamMe = true;
             }
         }
         else
         {
             ChangeRotate = false;
             rotate = false;
-            rotateMe = false;
+            slam = false;
             angleSpeed = 120;
-            //lineRenderer.SetPosition(0, transform.position);
-            //lineRenderer.SetPosition(1, transform.position);
         }
-
     }
 
     public void StopRotate()
     {
         rotate = false;
+        ennemiStock = null;
+    }
+    public void StopSlam()
+    {
+        slam = false;
         ennemiStock = null;
     }
 }

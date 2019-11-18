@@ -112,6 +112,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &103451191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 103451192}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &103451192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103451191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 473008097}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &145190523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,8 +209,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: wayPoints.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: normalSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: ennemiSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: wayPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 190232401}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: wayPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 610733745}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: wayPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 103451191}
+    - target: {fileID: 3835439473857732923, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835439473857732923, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf05a44fbc4ee74e96d77550404761f, type: 3}
+--- !u!1 &190232401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3835439474062173833, guid: 8cf05a44fbc4ee74e96d77550404761f,
+    type: 3}
+  m_PrefabInstance: {fileID: 145190523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &227583909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -196,7 +272,7 @@ PrefabInstance:
     - target: {fileID: 4640303611788378718, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4640303611788378717, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
@@ -280,7 +356,7 @@ PrefabInstance:
     - target: {fileID: 4640303611788378718, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4640303611788378717, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
@@ -349,6 +425,18 @@ PrefabInstance:
       objectReference: {fileID: 1058063042}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a265c504d657c68428ec8473698c8414, type: 3}
+--- !u!4 &473008097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3835439473653369735, guid: 8cf05a44fbc4ee74e96d77550404761f,
+    type: 3}
+  m_PrefabInstance: {fileID: 145190523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &610733745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3835439473857732922, guid: 8cf05a44fbc4ee74e96d77550404761f,
+    type: 3}
+  m_PrefabInstance: {fileID: 145190523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &700825967
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee78977a3953db54eb0117d2e7df3d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 825738334}
   speed: 10
 --- !u!54 &825738334
 Rigidbody:
@@ -631,8 +718,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4659203331834948054, guid: 9c3d4ccb3c018574893ae08245cb1904, type: 3}
   spawn: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
-  ennemiStock: {fileID: 0}
 --- !u!120 &825738336
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -743,11 +828,22 @@ MonoBehaviour:
   ennemiStock: {fileID: 0}
   lineRenderer: {fileID: 825738336}
   rotate: 0
+  rotateMe: 0
+  slam: 0
+  slamMe: 0
   ChangeRotate: 0
+  arriveOnSlam: 0
   angleSpeed: 120
   angleMax: 90
   angleCompteur: 0
   angleCurrentMax: 0
+  myPosOnSlam: {x: 0, y: 0, z: 0}
+  slameAOEPrefab: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  onDrop: 0
+  onDropMe: 0
 --- !u!1001 &885574866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -763,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 4640303611788378718, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4640303611788378717, guid: a265c504d657c68428ec8473698c8414,
         type: 3}
@@ -1167,13 +1263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  p1: {fileID: 0}
-  p2: {fileID: 0}
   lineRenderer: {fileID: 825738336}
   box: {fileID: 1665296712}
-  dot: 0
-  distance: 0
-  ennemiStock: {fileID: 0}
 --- !u!65 &1665296712
 BoxCollider:
   m_ObjectHideFlags: 0

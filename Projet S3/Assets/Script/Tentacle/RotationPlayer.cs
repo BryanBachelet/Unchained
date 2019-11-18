@@ -18,12 +18,13 @@ public class RotationPlayer : MonoBehaviour
     private string tagEnter;
     private Vector3 previousPos;
     public bool changeSens;
-
+    private int i;
     private void Start()
     {
         stocks = GetComponent<EnnemiStock>();
         currentAngleMax = angleMax;
     }
+
     public void Update()
     {
         if (rotate)
@@ -33,13 +34,15 @@ public class RotationPlayer : MonoBehaviour
                 previousPos = objectToRotate.transform.position;
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 objectToRotate.transform.RotateAround(pointPivot.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (Input.GetMouseButtonDown(0) && !changeSens || Input.GetMouseButtonDown(1) && !changeSens)
+                i++;
+                if (i > 3)
                 {
-                    ChangeRotationDirection();
-                 
+                    if (Input.GetMouseButtonDown(0) && !changeSens || Input.GetMouseButtonDown(1) && !changeSens)
+                    {
+                        ChangeRotationDirection();
+
+                    }
                 }
-
-
                 if (angleCompteur > currentAngleMax)
                 {
                     StopRotation(previousPos, tagEnter);
@@ -47,8 +50,6 @@ public class RotationPlayer : MonoBehaviour
             }
         }
     }
-
-
 
     public void ChangeRotationDirection()
     {
@@ -65,44 +66,34 @@ public class RotationPlayer : MonoBehaviour
         tagEnter = tag;
         forceOfSortie = forceSortie;
         changeSens = false;
+        i = 0;
         return rotate = true;
-
-
     }
 
     public void StopRotation(Vector3 previousPos, string tag)
     {
+        Vector3 newDir = objectToRotate.transform.position - previousPos;
+        objectToRotate.tag = tag;
+        objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
+        CheckEnnnemi();
+        objectToRotate = null;
+        currentAngleMax = angleMax;
+        angleCompteur = 0;
+        rotate = false;
+        stocks.StopRotate();
+    }
+
+    private void CheckEnnnemi()
+    {
+        Vector3 newDir = objectToRotate.transform.position - previousPos;
         if (objectToRotate.GetComponent<EnnemiDestroy>())
         {
-
-            Vector3 newDir = objectToRotate.transform.position - previousPos;
-            objectToRotate.tag = tag;
-            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
             objectToRotate.GetComponent<EnnemiDestroy>().isDestroying = true;
-            objectToRotate = null;
-            currentAngleMax = angleMax;
-            angleCompteur = 0;
-            rotate = false;
-            stocks.StopRotate();
         }
         else
         {
-
-
-            Vector3 newDir = objectToRotate.transform.position - previousPos;
-            objectToRotate.tag = tag;
-            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
-            pointPivot.GetComponent<EnnemiDestroy>().isDestroying = true;
-            objectToRotate = null;
-            currentAngleMax = angleMax;
-            angleCompteur = 0;
-            rotate = false;
-            stocks.StopRotate();
+            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
+            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie * 10, ForceMode.Impulse);
         }
-
-
-
     }
-
-
 }
