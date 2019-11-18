@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RotationPlayer : MonoBehaviour
 {
-    public bool rotate = false;
     public float angleSpeed;
     public float angleMax;
 
@@ -17,7 +16,8 @@ public class RotationPlayer : MonoBehaviour
     private GameObject pointPivot;
     private string tagEnter;
     private Vector3 previousPos;
-    public bool changeSens;
+    private bool rotate = false;
+    private bool changeSens;
     private int i;
     private void Start()
     {

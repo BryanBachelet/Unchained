@@ -4,38 +4,20 @@ using UnityEngine;
 
 public class EnnemiStock : MonoBehaviour
 {
-    public GameObject ennemiStock;
-    public LineRenderer lineRenderer;
-    public bool rotate;
-    public bool rotateMe;
-    public bool slam;
-    public bool slamMe;
-    public bool ChangeRotate;
-    public bool arriveOnSlam;
-    public float angleSpeed = 45;
-    public float angleMax = 45;
-    public float angleCompteur;
-    public float angleCurrentMax;
-
-    EnnemiBehavior myEnnemiStockBhv;
-    public Vector3 myPosOnSlam;
-    Vector3 ennemyPosOnSlam;
-    Vector3 dir;
-    Vector3 normal;
-    public GameObject slameAOEPrefab;
-    public LayerMask groundLayer;
-
-    public bool onDrop;
-    public bool onDropMe;
+    [HideInInspector] public GameObject ennemiStock;
+    private LineRenderer lineRenderer;
+    private bool rotate;
+    private bool slam;
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
-
-        angleCurrentMax = angleMax;
+        lineRenderer = GetComponent<LineRenderer>();
+   
         lineRenderer.SetPosition(1, transform.position);
     }
 
@@ -71,10 +53,12 @@ public class EnnemiStock : MonoBehaviour
         }
         else
         {
-            ChangeRotate = false;
+           
             rotate = false;
             slam = false;
-            angleSpeed = 120;
+            
+
+        }
         }
     }
 

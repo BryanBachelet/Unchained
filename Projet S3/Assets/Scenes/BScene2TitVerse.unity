@@ -486,9 +486,9 @@ GameObject:
   - component: {fileID: 825738335}
   - component: {fileID: 825738333}
   - component: {fileID: 825738337}
-  - component: {fileID: 825738336}
   - component: {fileID: 825738339}
   - component: {fileID: 825738338}
+  - component: {fileID: 825738336}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Player
@@ -722,25 +722,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ennemiStock: {fileID: 0}
-  lineRenderer: {fileID: 825738336}
-  rotate: 0
-  rotateMe: 0
-  slam: 0
-  slamMe: 0
-  ChangeRotate: 0
-  arriveOnSlam: 0
-  angleSpeed: 120
-  angleMax: 90
-  angleCompteur: 0
-  angleCurrentMax: 0
-  myPosOnSlam: {x: 0, y: 0, z: 0}
-  slameAOEPrefab: {fileID: 3908323225281329709, guid: d241abcb69c37a3468fe713af2d2f911,
-    type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  onDrop: 0
-  onDropMe: 0
 --- !u!114 &825738338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,8 +741,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4096
-  slam: 0
-  onDrop: 0
 --- !u!114 &825738339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,10 +753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1e64ca7077b8a4bb12c57c93be2ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotate: 0
   angleSpeed: 70
   angleMax: 90
-  changeSens: 0
 --- !u!1001 &885574866
 PrefabInstance:
   m_ObjectHideFlags: 0
