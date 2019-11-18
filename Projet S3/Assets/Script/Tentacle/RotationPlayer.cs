@@ -67,13 +67,14 @@ public class RotationPlayer : MonoBehaviour
         forceOfSortie = forceSortie;
         changeSens = false;
         i = 0;
+        previousPos = objectToRotate.transform.position;
         return rotate = true;
     }
 
-    public void StopRotation(Vector3 previousPos, string tag)
+    public void StopRotation()
     {
         Vector3 newDir = objectToRotate.transform.position - previousPos;
-        objectToRotate.tag = tag;
+        objectToRotate.tag = tagEnter;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         CheckEnnnemi();
         objectToRotate = null;
@@ -93,7 +94,11 @@ public class RotationPlayer : MonoBehaviour
         else
         {
             pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
-            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie * 10, ForceMode.Impulse);
+            if (objectToRotate.GetComponent<PlayerMoveAlone>())
+            {
+                objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
+                objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie * 10;
+            }
         }
     }
 }
