@@ -11,21 +11,12 @@ public class EnnemiBehavior : MonoBehaviour
     public GameObject currentTarget;
     public float speed;
     public bool isOnSlam;
-    private AgentFaction agentFaction;
+
     private bool faction;
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponentInParent<AgentFaction>())
-        {
-            agentFaction = GetComponent<AgentFaction>();
-            faction = true;
-        }
-        else
-        {
-            faction = false;
-        }
-        currentTarget = target;
+          currentTarget = target;
         if (useNavMesh)
         {
             agent = GetComponent<NavMeshAgent>();
@@ -49,15 +40,6 @@ public class EnnemiBehavior : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (faction)
-        {
-            if (collision.gameObject.GetComponent<AgentFaction>() && collision.gameObject.GetComponent<AgentFaction>().factions != agentFaction.factions)
-            {
-                collision.gameObject.GetComponent<EnnemiDestroy>().isDestroying = true;
-            }
-        }
-    }
+
 }
 
