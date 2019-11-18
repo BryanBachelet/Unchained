@@ -15,10 +15,11 @@ public class EnnemiStock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
-   
+
         lineRenderer.SetPosition(1, transform.position);
     }
 
@@ -73,13 +74,12 @@ public class EnnemiStock : MonoBehaviour
         }
         else
         {
-           
+
             rotate = false;
             slam = false;
-            
+
 
         }
-        
     }
 
     public void StopRotate()
@@ -93,3 +93,4 @@ public class EnnemiStock : MonoBehaviour
         ennemiStock = null;
     }
 }
+
