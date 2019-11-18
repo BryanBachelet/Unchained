@@ -15,7 +15,7 @@ public class EnnemiStock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -32,11 +32,11 @@ public class EnnemiStock : MonoBehaviour
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if(Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-                if(Input.GetKeyDown(KeyCode.Mouse1))
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 6);
+                if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     rotationPlayer.ChangeRotationDirection();
                 }
@@ -50,6 +50,7 @@ public class EnnemiStock : MonoBehaviour
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
                 ennemiStock = null;
+                rotationPlayer.StopRotation();
             }
             //if (!slam && !rotate)
             //{

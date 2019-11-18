@@ -6,7 +6,8 @@ public class PlayerMoveAlone : MonoBehaviour
 {
     private Rigidbody playerRigid;
     public float speed;
-
+    public Vector3 DirProjection;
+    public float powerProjec;
     void Start()
     {
         playerRigid = GetComponent<Rigidbody>();
@@ -15,7 +16,11 @@ public class PlayerMoveAlone : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        playerRigid.velocity = Direction() * speed;
+        playerRigid.velocity =(Direction() * speed) + (DirProjection.normalized * powerProjec) ;
+        if (powerProjec > 0)
+        {
+            powerProjec -= 60 * Time.deltaTime;
+        }
     }
 
     private Vector3 Direction()

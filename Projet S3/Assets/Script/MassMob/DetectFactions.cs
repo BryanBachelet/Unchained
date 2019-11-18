@@ -14,11 +14,11 @@ public class DetectFactions : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<AgentFaction>() && other.GetComponent<AgentFaction>().factions != agentFaction.factions)
-        {
-            ennemiBehavior.currentTarget = other.gameObject;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.GetComponent<AgentFaction>() && other.GetComponent<AgentFaction>().factions != agentFaction.factions)
+    //    {
+    //        ennemiBehavior.currentTarget = other.gameObject;
+    //    }
+    //}
 }
