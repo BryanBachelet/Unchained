@@ -39,7 +39,6 @@ public class EnnemiStock : MonoBehaviour
                 if (Input.GetMouseButtonDown(1))
                 {
                     rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-
                 }
 
                 if (Input.GetKeyDown(KeyCode.A))
@@ -60,7 +59,7 @@ public class EnnemiStock : MonoBehaviour
             
 
         }
-
+        }
     }
 
     public void StopRotate()

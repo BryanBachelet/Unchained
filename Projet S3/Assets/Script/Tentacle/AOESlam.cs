@@ -34,6 +34,6 @@ public class AOESlam : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
