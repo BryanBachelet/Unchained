@@ -45,7 +45,7 @@ public class RotationPlayer : MonoBehaviour
                 }
                 if (angleCompteur > currentAngleMax)
                 {
-                    StopRotation(previousPos, tagEnter);
+                    angleCompteur = 0;
                 }
             }
         }

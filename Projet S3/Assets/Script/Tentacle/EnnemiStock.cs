@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnnemiStock : MonoBehaviour
 {
-    [HideInInspector] public GameObject ennemiStock;
+    public GameObject ennemiStock;
+    public Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
     private bool rotate;
     private bool slam;
@@ -31,26 +32,45 @@ public class EnnemiStock : MonoBehaviour
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (!slam && !rotate)
+            if(Input.GetKey(KeyCode.Mouse0))
             {
-                if (Input.GetMouseButtonDown(0))
+                mySmoothFollow.target = ennemiStock.gameObject.transform;
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
+                if(Input.GetKeyDown(KeyCode.Mouse1))
                 {
-                    rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
+                    rotationPlayer.ChangeRotationDirection();
                 }
-                if (Input.GetMouseButtonDown(1))
+                else if (Input.GetKeyUp(KeyCode.Mouse1))
                 {
-                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-                }
-
-                if (Input.GetKeyDown(KeyCode.A))
-                {
-                    slam = slamPlayer.StartSlam(ennemiStock, gameObject);
-                }
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    slam = slamPlayer.StartSlam(gameObject, ennemiStock);
+                    rotationPlayer.ChangeRotationDirection();
                 }
             }
+            else
+            {
+                ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+                mySmoothFollow.target = null;
+                ennemiStock = null;
+            }
+            //if (!slam && !rotate)
+            //{
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
+            //    }
+            //    if (Input.GetMouseButtonDown(1))
+            //    {
+            //        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
+            //    }
+            //
+            //    if (Input.GetKeyDown(KeyCode.A))
+            //    {
+            //        slam = slamPlayer.StartSlam(ennemiStock, gameObject);
+            //    }
+            //    if (Input.GetKeyDown(KeyCode.E))
+            //    {
+            //        slam = slamPlayer.StartSlam(gameObject, ennemiStock);
+            //    }
+            //}
         }
         else
         {
