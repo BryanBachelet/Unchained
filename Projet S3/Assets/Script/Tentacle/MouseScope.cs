@@ -14,6 +14,7 @@ public class MouseScope : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
 
