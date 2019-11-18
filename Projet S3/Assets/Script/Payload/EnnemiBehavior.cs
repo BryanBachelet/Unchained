@@ -13,9 +13,12 @@ public class EnnemiBehavior : MonoBehaviour
     public bool isOnSlam;
     private AgentFaction agentFaction;
     private bool faction;
+    GameObject player;
+    public bool imStock;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         if (GetComponentInParent<AgentFaction>())
         {
             agentFaction = GetComponent<AgentFaction>();
@@ -39,11 +42,20 @@ public class EnnemiBehavior : MonoBehaviour
         {
             currentTarget = target;
         }
-        if (!isOnSlam && !useNavMesh)
+        if (!useNavMesh)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+            if(imStock)
+            {
+                Vector3 direction = (transform.position - player.transform.position).normalized;
+                transform.Translate(direction * 10f * Time.deltaTime);
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+            }
+
         }
-        if (!isOnSlam && useNavMesh)
+        if (useNavMesh)
         {
             agent.SetDestination(currentTarget.transform.position);
         }
@@ -51,13 +63,13 @@ public class EnnemiBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (faction)
-        {
-            if (collision.gameObject.GetComponent<AgentFaction>() && collision.gameObject.GetComponent<AgentFaction>().factions != agentFaction.factions)
-            {
-                collision.gameObject.GetComponent<EnnemiDestroy>().isDestroying = true;
-            }
-        }
+        //if (faction)
+        //{
+        //    if (collision.gameObject.GetComponent<AgentFaction>() && collision.gameObject.GetComponent<AgentFaction>().factions != agentFaction.factions)
+        //    {
+        //        collision.gameObject.GetComponent<EnnemiDestroy>().isDestroying = true;
+        //    }
+        //}
     }
 }
 
