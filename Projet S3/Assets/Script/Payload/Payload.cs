@@ -21,7 +21,7 @@ public class Payload : MonoBehaviour
 
     private void Start()
     {
-    
+        startPoint = wayPoints[0];
         finishPoint = wayPoints[1];
     }
 

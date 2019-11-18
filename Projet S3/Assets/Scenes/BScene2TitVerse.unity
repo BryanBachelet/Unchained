@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -193,7 +193,17 @@ PrefabInstance:
         type: 3}
       propertyPath: wayPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 1713491685}
+      objectReference: {fileID: 926710934}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: normalSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3835439473018801075, guid: 8cf05a44fbc4ee74e96d77550404761f,
+        type: 3}
+      propertyPath: ennemiSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf05a44fbc4ee74e96d77550404761f, type: 3}
 --- !u!1001 &227583909
@@ -1058,12 +1068,6 @@ Transform:
   m_Father: {fileID: 825738332}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 47.133003, y: 0, z: 0}
---- !u!1 &1422519133 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3835439474062173833, guid: 8cf05a44fbc4ee74e96d77550404761f,
-    type: 3}
-  m_PrefabInstance: {fileID: 145190523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1665296709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,12 +1128,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1713491685 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3835439473857732922, guid: 8cf05a44fbc4ee74e96d77550404761f,
-    type: 3}
-  m_PrefabInstance: {fileID: 145190523}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1960333796 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3835439473018801072, guid: 8cf05a44fbc4ee74e96d77550404761f,
