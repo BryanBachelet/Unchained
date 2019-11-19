@@ -29,7 +29,7 @@ public class EnnemiBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentTarget == null)
+        if(transform.tag != "wall")
         {
             currentTarget = target;
         }

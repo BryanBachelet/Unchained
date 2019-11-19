@@ -40,6 +40,10 @@ public class Projectils : MonoBehaviour
             other.transform.position += dir.normalized * 3;
             Destroy(gameObject);
         }
+        else if(other.tag == "wall")
+        {
+            Destroy(gameObject);
+        }
        
     }
 }
