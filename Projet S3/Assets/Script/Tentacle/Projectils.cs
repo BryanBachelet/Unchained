@@ -34,10 +34,16 @@ public class Projectils : MonoBehaviour
         if (other.tag == "Ennemi")
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+            other.gameObject.GetComponent<EnnemiBehavior>().isOnSlam = true;
+            other.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
             other.tag = "Untagged";
             other.transform.position += dir.normalized * 3;
             Destroy(gameObject);
-           
         }
+        else if(other.tag == "wall")
+        {
+            Destroy(gameObject);
+        }
+       
     }
 }

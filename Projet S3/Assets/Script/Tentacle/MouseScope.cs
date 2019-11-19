@@ -5,14 +5,16 @@ using UnityEngine;
 public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
-    public GameObject spawn;
-    public Vector3 direction;
-    public EnnemiStock ennemiStock;
+   // public GameObject spawn;
+    private EnnemiStock ennemiStock;
+    private Vector3 direction;
     private GameObject instanceBullet;
     private LineRenderer lineRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
+
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
 
@@ -22,7 +24,7 @@ public class MouseScope : MonoBehaviour
     void Update()
     {
         direction = DirectionSouris();
-        if (Input.GetMouseButtonDown(0) && ennemiStock.ennemiStock == null && instanceBullet == null)
+        if (Input.GetMouseButtonDown(0) /*|| Input.GetMouseButtonDown(2)*/ && ennemiStock.ennemiStock == null && instanceBullet == null)
         {
             instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
             Projectils projectils = instanceBullet.GetComponent<Projectils>();
@@ -45,10 +47,6 @@ public class MouseScope : MonoBehaviour
 
     private Vector3 DirectionSouris()
     {
-        //Vector2 mousePos = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
-        //Debug.Log(mousePos);
-        //Vector3 dir = new Vector3(mousePos.x, 0, mousePos.y);
-
         Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane ground = new Plane(Vector3.up, Vector3.zero);
         float rauEnter;
@@ -59,7 +57,7 @@ public class MouseScope : MonoBehaviour
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
             Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f,  dir.normalized * 100, Color.red);
-            Debug.Log(dir.normalized);
+            ///Debug.Log(dir.normalized);
             return dir;
         }
         else

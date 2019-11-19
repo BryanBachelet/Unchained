@@ -5,103 +5,93 @@ using UnityEngine;
 public class EnnemiStock : MonoBehaviour
 {
     public GameObject ennemiStock;
-    public LineRenderer lineRenderer;
-    public bool rotate;
-    public bool rotateMe;
-    public bool ChangeRotate;
-    public float angleSpeed = 45;
-    public float angleMax = 45;
-    public float angleCompteur;
-    public float angleCurrentMax;
-
+    public Klak.Motion.SmoothFollow mySmoothFollow;
+    private LineRenderer lineRenderer;
+    private bool rotate;
+    private bool slam;
+    private RotationPlayer rotationPlayer;
+    private SlamPlayer slamPlayer;
+    [HideInInspector] public float powerOfProjection;
     // Start is called before the first frame update
     void Start()
     {
 
-        angleCurrentMax = angleMax;
+        rotationPlayer = GetComponent<RotationPlayer>();
+        slamPlayer = GetComponent<SlamPlayer>();
+        lineRenderer = GetComponent<LineRenderer>();
+
         lineRenderer.SetPosition(1, transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (rotate)
+            if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (Input.GetMouseButtonDown(0) && !ChangeRotate)
+                mySmoothFollow.target = ennemiStock.gameObject.transform;
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection);
+                if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
-
-                    angleSpeed = -angleSpeed;
-                    angleCurrentMax = angleMax + angleCompteur;
-                    angleCompteur = 0;
-                    ChangeRotate = true;
+                    rotationPlayer.ChangeRotationDirection();
                 }
-                Vector3 previousPos = ennemiStock.transform.position;
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                ennemiStock.transform.RotateAround(gameObject.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (angleCompteur > angleCurrentMax)
+                else if (Input.GetKeyUp(KeyCode.Mouse1))
                 {
-                    Vector3 newDir = ennemiStock.transform.position - previousPos;
-                    ennemiStock.tag = "Ennemi";
-                    ennemiStock.GetComponent<Rigidbody>().AddForce(newDir.normalized * 60, ForceMode.Impulse);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    ennemiStock = null;
-                    rotate = false;
-                    ChangeRotate = false;
-                    angleCurrentMax = angleMax;
-                    angleCompteur = 0;
+                    rotationPlayer.ChangeRotationDirection();
                 }
             }
-            else if (rotateMe)
+            else
             {
-                if (Input.GetMouseButtonDown(1) && !ChangeRotate)
-                {
-
-                    angleSpeed = -angleSpeed;
-                    angleCurrentMax = angleMax + angleCompteur;
-                    angleCompteur = 0;
-                    ChangeRotate = true;
-                }
-                Vector3 previousPos = transform.position;
-                angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                transform.RotateAround(ennemiStock.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
-                if (angleCompteur > angleCurrentMax)
-                {
-                    Vector3 newDir = transform.position - previousPos;
-                    //ennemiStock.tag = "Ennemi";
-                    gameObject.GetComponent<Rigidbody>().AddForce(newDir.normalized * 60, ForceMode.Impulse);
-                    ennemiStock.GetComponent<EnnemiDestroy>().isDestroying = true;
-                    ennemiStock = null;
-                    rotateMe = false;
-                    ChangeRotate = false;
-                    angleCurrentMax = angleMax;
-                    angleCompteur = 0;
-                }
+                ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+                mySmoothFollow.target = null;
+                ennemiStock = null;
+                rotationPlayer.StopRotation();
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                rotate = true;
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-               // angleCompteur = 0;
-               // angleCurrentMax = angleMax;
-               // ChangeRotate = false;
-                rotateMe = true;
-            }
+            //if (!slam && !rotate)
+            //{
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
+            //    }
+            //    if (Input.GetMouseButtonDown(1))
+            //    {
+            //        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
+            //    }
+            //
+            //    if (Input.GetKeyDown(KeyCode.A))
+            //    {
+            //        slam = slamPlayer.StartSlam(ennemiStock, gameObject);
+            //    }
+            //    if (Input.GetKeyDown(KeyCode.E))
+            //    {
+            //        slam = slamPlayer.StartSlam(gameObject, ennemiStock);
+            //    }
+            //}
         }
         else
         {
-            ChangeRotate = false;
-            rotate = false;
-            rotateMe = false;
-            //lineRenderer.SetPosition(0, transform.position);
-            //lineRenderer.SetPosition(1, transform.position);
-        }
 
+            rotate = false;
+            slam = false;
+
+
+        }
+    }
+
+    public void StopRotate()
+    {
+        rotate = false;
+        ennemiStock = null;
+    }
+    public void StopSlam()
+    {
+        slam = false;
+        ennemiStock = null;
     }
 }
+

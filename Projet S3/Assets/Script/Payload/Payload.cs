@@ -5,31 +5,29 @@ using UnityEngine;
 public class Payload : MonoBehaviour
 {
     [Header("Deplacement")]
-    public GameObject startPoint;
-    public GameObject finishPoint;
-    public float speed;
-
+    private GameObject startPoint;
+    private GameObject finishPoint;
+    public GameObject[] wayPoints;
+    public float normalSpeed;
+    public float ennemiSpeed;
+    private int i;
     public enum StateOfPayload { Good, Bad };
     [Header("Capture")]
     public StateOfPayload state;
 
-   
-    public int agentIn;
-    public List<GameObject> GoCapture;
 
+    private int agentIn;
+    [HideInInspector] public List<GameObject> GoCapture;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        startPoint = wayPoints[0];
+        finishPoint = wayPoints[1];
     }
 
-    // Update is called once per frame
     void Update()
     {
-      
-       
-        if ( agentIn < 1)
+        if (agentIn < 1)
         {
             state = StateOfPayload.Good;
         }
@@ -40,11 +38,11 @@ public class Payload : MonoBehaviour
 
         if (state == StateOfPayload.Good)
         {
-            transform.position = Vector3.MoveTowards(transform.position, finishPoint.transform.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, finishPoint.transform.position, normalSpeed * Time.deltaTime);
         }
         if (state == StateOfPayload.Bad)
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, speed*4 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, startPoint.transform.position, ennemiSpeed * Time.deltaTime);
         }
         if (GoCapture.Count > 0)
         {
@@ -58,12 +56,34 @@ public class Payload : MonoBehaviour
                 }
             }
         }
+        ChangePosition();
 
     }
 
+    public void ChangePosition()
+    {
+        float distFinish = Vector3.Distance(transform.position, finishPoint.transform.position);
+        
+        if (distFinish < 1f)
+        {
+            startPoint = finishPoint;
+            i++;
+            if (i == wayPoints.Length)
+            {
+                i = 0;
+            }
+            finishPoint = wayPoints[i];
+
+        }
+
+
+    }
+
+
+
     public void OnTriggerEnter(Collider other)
     {
-      
+
         if (other.tag == "Ennemi")
         {
             if (GoCapture.IndexOf(other.gameObject) == -1)
@@ -76,7 +96,7 @@ public class Payload : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-       
+
         if (other.tag == "Ennemi")
         {
             int i = GoCapture.IndexOf(other.gameObject);
