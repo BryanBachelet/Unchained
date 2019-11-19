@@ -24,6 +24,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             powerProjec -= deprojection * Time.deltaTime;
         }
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
     }
 
     private Vector3 Direction()
