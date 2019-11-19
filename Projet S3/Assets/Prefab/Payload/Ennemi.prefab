@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b6b0fa0e739657429ba01581ac4d9bc, type: 2}
+  - {fileID: 2100000, guid: c377c14ffa142ef418678deed2458dbe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,11 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb7e8b20a1e8864592157788fc714a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useNavMesh: 1
+  useNavMesh: 0
   target: {fileID: 0}
   currentTarget: {fileID: 0}
   speed: 4
   isOnSlam: 0
+  imStock: 0
 --- !u!54 &54796332942967348
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -173,7 +174,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3431385793930213716}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.25, y: 1, z: 0.25}
