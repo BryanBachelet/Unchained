@@ -17,7 +17,7 @@ public class Payload : MonoBehaviour
 
 
     private int agentIn;
-    public List<GameObject> GoCapture;
+    [HideInInspector] public List<GameObject> GoCapture;
 
     private void Start()
     {

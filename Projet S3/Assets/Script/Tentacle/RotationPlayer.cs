@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RotationPlayer : MonoBehaviour
 {
-    public bool rotate = false;
     public float angleSpeed;
     public float angleMax;
 
@@ -17,7 +16,8 @@ public class RotationPlayer : MonoBehaviour
     private GameObject pointPivot;
     private string tagEnter;
     private Vector3 previousPos;
-    public bool changeSens;
+    private bool rotate = false;
+    private bool changeSens;
     private int i;
     private void Start()
     {
@@ -45,7 +45,7 @@ public class RotationPlayer : MonoBehaviour
                 }
                 if (angleCompteur > currentAngleMax)
                 {
-                    StopRotation(previousPos, tagEnter);
+                    angleCompteur = 0;
                 }
             }
         }
@@ -67,13 +67,14 @@ public class RotationPlayer : MonoBehaviour
         forceOfSortie = forceSortie;
         changeSens = false;
         i = 0;
+        previousPos = objectToRotate.transform.position;
         return rotate = true;
     }
 
-    public void StopRotation(Vector3 previousPos, string tag)
+    public void StopRotation()
     {
         Vector3 newDir = objectToRotate.transform.position - previousPos;
-        objectToRotate.tag = tag;
+        objectToRotate.tag = tagEnter;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         CheckEnnnemi();
         objectToRotate = null;
@@ -92,8 +93,12 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
-            objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie * 10, ForceMode.Impulse);
+            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie , ForceMode.Impulse);
+            if (objectToRotate.GetComponent<PlayerMoveAlone>())
+            {
+                objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
+                objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
-    public GameObject spawn;
+   // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
     private GameObject instanceBullet;
@@ -14,6 +14,7 @@ public class MouseScope : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
 
@@ -23,7 +24,7 @@ public class MouseScope : MonoBehaviour
     void Update()
     {
         direction = DirectionSouris();
-        if (Input.GetMouseButtonDown(0) && ennemiStock.ennemiStock == null && instanceBullet == null)
+        if (Input.GetMouseButtonDown(0) /*|| Input.GetMouseButtonDown(2)*/ && ennemiStock.ennemiStock == null && instanceBullet == null)
         {
             instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
             Projectils projectils = instanceBullet.GetComponent<Projectils>();

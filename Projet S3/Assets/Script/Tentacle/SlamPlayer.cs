@@ -15,7 +15,7 @@ public class SlamPlayer : MonoBehaviour
     private Vector3 normal;
     private Vector3 startPosPivot, startPosObjectSlam;
     private float angleCompteur;
-    public bool slam, onDrop;
+    private bool slam, onDrop;
 
     private int i;
     private EnnemiStock ennemiStock;
