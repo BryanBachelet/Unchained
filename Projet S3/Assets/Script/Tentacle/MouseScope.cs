@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
-    public GameObject spawn;
+   // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
     private GameObject instanceBullet;

@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     [Header("Caractéristique du spawner")]
     public GameObject target;
     public float radius;
+    public float speedOfAgent;
 
     [Range(1, 10)]
     public int nbrEntiteeToSpawn;
@@ -27,8 +28,9 @@ public class Spawner : MonoBehaviour
             for(int i = 0; i < nbrEntiteeToSpawn; i++)
             {
                 Vector2 posToSpawn = Random.insideUnitCircle * radius;
-                GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 0, transform.position.z + posToSpawn.y), transform.rotation, parentToSpawn.transform);
+                GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation, parentToSpawn.transform);
                 add.GetComponent<EnnemiBehavior>().target = target;
+                add.GetComponent<EnnemiBehavior>().speed = speedOfAgent;
                 compteur = 0;
             }
 

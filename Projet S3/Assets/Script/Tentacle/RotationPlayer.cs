@@ -93,11 +93,11 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie * 10, ForceMode.Impulse);
+            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie , ForceMode.Impulse);
             if (objectToRotate.GetComponent<PlayerMoveAlone>())
             {
                 objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
-                objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie * 10;
+                objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
             }
         }
     }

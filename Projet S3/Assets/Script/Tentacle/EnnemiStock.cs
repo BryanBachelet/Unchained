@@ -11,7 +11,7 @@ public class EnnemiStock : MonoBehaviour
     private bool slam;
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
-
+    [HideInInspector] public float powerOfProjection;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +30,14 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
+            ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+            ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 6);
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection);
                 if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     rotationPlayer.ChangeRotationDirection();
