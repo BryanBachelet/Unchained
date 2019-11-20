@@ -30,6 +30,7 @@ public class MouseScope : MonoBehaviour
             Projectils projectils = instanceBullet.GetComponent<Projectils>();
             projectils.dir = direction;
             projectils.player = gameObject;
+            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
 
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
