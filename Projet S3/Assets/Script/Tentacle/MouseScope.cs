@@ -16,7 +16,7 @@ public class MouseScope : MonoBehaviour
     private Vector3 returnPos;
     private float distanceReturn;
     private Vector3 dirReturn;
-    public float returnSpeed;
+    public float returnSpeed = 50;
     // Start is called before the first frame update
     void Start()
     {
