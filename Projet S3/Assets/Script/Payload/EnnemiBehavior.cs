@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 public class EnnemiBehavior : MonoBehaviour
 {
     public bool useNavMesh;
@@ -18,8 +19,8 @@ public class EnnemiBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-          currentTarget = target;
+        player = GameObject.FindWithTag("Player");
+        currentTarget = target;
         if (useNavMesh)
         {
             agent = GetComponent<NavMeshAgent>();
@@ -29,7 +30,7 @@ public class EnnemiBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.tag != "wall")
+        if (currentTarget == null)
         {
             currentTarget = target;
         }
