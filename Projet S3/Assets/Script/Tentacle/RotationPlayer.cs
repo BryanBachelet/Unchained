@@ -16,7 +16,7 @@ public class RotationPlayer : MonoBehaviour
     private GameObject pointPivot;
     private string tagEnter;
     private Vector3 previousPos;
-    public bool rotate = false;
+    private bool rotate = false;
     private bool changeSens;
     private int i;
     private void Start()
