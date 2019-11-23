@@ -30,6 +30,8 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
+            ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+            ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))

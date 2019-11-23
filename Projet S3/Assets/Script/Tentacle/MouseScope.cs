@@ -5,12 +5,18 @@ using UnityEngine;
 public class MouseScope : MonoBehaviour
 {
     public GameObject bullet;
-   // public GameObject spawn;
+    // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
     private GameObject instanceBullet;
     private LineRenderer lineRenderer;
-
+    private bool returnLine;
+    private bool destructBool;
+    private Vector3 ballPos;
+    private Vector3 returnPos;
+    private float distanceReturn;
+    private Vector3 dirReturn;
+    public float returnSpeed = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,17 +36,62 @@ public class MouseScope : MonoBehaviour
             Projectils projectils = instanceBullet.GetComponent<Projectils>();
             projectils.dir = direction;
             projectils.player = gameObject;
+            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
 
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
+
+            ballPos = instanceBullet.transform.position;
             lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, instanceBullet.transform.position);
+            lineRenderer.SetPosition(1, ballPos);
+            returnLine = true;
+            destructBool = false;
+
         }
+
         if (ennemiStock.ennemiStock == null && instanceBullet == null)
         {
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position);
+            //Return de line renderer après le tir;
+            if (returnLine)
+            {
+                if (!destructBool)
+                {
+                    returnPos = ballPos;
+                    destructBool = true;
+                }
+                if (Vector3.Distance(transform.position, returnPos) > 3)
+                {
+
+                    float dis = Vector3.Distance(transform.position, returnPos);
+                    dirReturn = transform.position - returnPos;
+
+
+                    if (dis > returnSpeed)
+                    {
+                    returnPos = returnPos + dirReturn.normalized * dis * Time.deltaTime;
+
+                    }
+                    else
+                    {
+                        returnPos = returnPos + dirReturn.normalized * returnSpeed * Time.deltaTime;
+                    }
+
+                    lineRenderer.SetPosition(0, transform.position);
+                    lineRenderer.SetPosition(1, returnPos); 
+                }
+                else
+                {
+                    returnLine = false;
+                }
+            }
+            if (!returnLine)
+            {
+
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, transform.position);
+
+            }
         }
 
     }
@@ -56,7 +107,7 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f,  dir.normalized * 100, Color.red);
+            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
             ///Debug.Log(dir.normalized);
             return dir;
         }

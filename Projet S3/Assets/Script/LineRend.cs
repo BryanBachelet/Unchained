@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LineRend : MonoBehaviour
 {
+    public bool upProjection = true;
     [HideInInspector]
     public bool active;
     public LineRenderer lineRenderer;
@@ -69,7 +70,16 @@ public class LineRend : MonoBehaviour
     {
         if (collision.transform.tag == "Ennemi")
         {
-            collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
+            if (!upProjection)
+            {
+                float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
+
+                collision.GetComponent<Rigidbody>().AddForce(sign * transform.right * 50, ForceMode.Impulse);
+            }
+            else
+            {
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up* 50, ForceMode.Impulse);
+            }
             collision.GetComponent<EnnemiDestroy>().isDestroying = true;
         }
     }

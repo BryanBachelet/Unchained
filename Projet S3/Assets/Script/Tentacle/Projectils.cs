@@ -5,9 +5,10 @@ using UnityEngine;
 public class Projectils : MonoBehaviour
 {
     public GameObject player;
+    public PlayerMoveAlone moveAlone;
     public Vector3 dir;
     public float speed;
-    public float timerOfLife =5 ;
+    public float timerOfLife = 5;
     private float compteur;
     // Start is called before the first frame update
     void Start()
@@ -21,12 +22,13 @@ public class Projectils : MonoBehaviour
         if (compteur > timerOfLife)
         {
             Destroy(gameObject);
-        }else
+        }
+        else
         {
             compteur += Time.deltaTime;
         }
-      
-        transform.position += dir.normalized * speed * Time.deltaTime;
+
+        transform.position += dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,16 +36,16 @@ public class Projectils : MonoBehaviour
         if (other.tag == "Ennemi")
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-            other.gameObject.GetComponent<EnnemiBehavior>().isOnSlam = true;
-            other.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+
+
             other.tag = "Untagged";
-            other.transform.position += dir.normalized * 3;
+            other.transform.position += dir.normalized * 15;
             Destroy(gameObject);
         }
-        else if(other.tag == "wall")
+        else if (other.tag == "wall")
         {
             Destroy(gameObject);
         }
-       
+
     }
 }
