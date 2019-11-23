@@ -18,12 +18,26 @@ public class MouseScope : MonoBehaviour
     private float distanceReturn;
     private Vector3 dirReturn;
     public float returnSpeed = 50;
+    [Header("Tirer Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    public float volume = 10;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string returnSound;
+    private FMOD.Studio.EventInstance returnEvent;
+    public float returnVolume = 10;
     // Start is called before the first frame update
     void Start()
     {
 
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+        returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
+        returnEvent.setVolume(returnVolume);
 
     }
 
@@ -38,6 +52,9 @@ public class MouseScope : MonoBehaviour
             projectils.dir = direction;
             projectils.player = gameObject;
             projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+            contactSound.start();
 
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
@@ -59,6 +76,9 @@ public class MouseScope : MonoBehaviour
                 if (!destructBool)
                 {
                     returnPos = ballPos;
+                    returnEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+                    returnEvent.start();
                     destructBool = true;
                 }
                 if (Vector3.Distance(transform.position, returnPos) > 3)

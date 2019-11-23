@@ -47,7 +47,7 @@ public class EnnemiStock : MonoBehaviour
                 ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
 
                 contactSound.start();
-                //FMODUnity.RuntimeManager.PlayOneShot(contact);
+              
                
                 startBool = true;
             }

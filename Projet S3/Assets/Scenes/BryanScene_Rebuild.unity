@@ -1943,19 +1943,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 847181853309296812}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1214285443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214285441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ListenerNumber: -1
 --- !u!114 &1214285453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,6 +1961,19 @@ MonoBehaviour:
   _rotationSpeed: 0.25
   _jumpDistance: 1
   _jumpAngle: 60
+--- !u!114 &1214285454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214285441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!1001 &1245651367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4525,6 +4525,26 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 2100000, guid: a86867d02d5e28f46889993b497906d6, type: 2}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: contact
+      value: event:/Player/Lancer lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: volume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: returnSound
+      value: event:/Player/Retour lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: returnVolume
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 847181854321154544, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: upProjection
@@ -4538,7 +4558,7 @@ PrefabInstance:
     - target: {fileID: 847181854321154544, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: volume
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 847181853507569672, guid: fcc879748b371f8418298a684c116714,
         type: 3}

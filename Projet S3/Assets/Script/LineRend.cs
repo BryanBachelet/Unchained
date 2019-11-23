@@ -37,7 +37,7 @@ public class LineRend : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+       
         if (ennemiStock != null)
         {
             if (ennemiStock.ennemiStock != null)
@@ -89,6 +89,8 @@ public class LineRend : MonoBehaviour
             }
             else
             {
+                contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
+               
                 contactSound.start();
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up* 50, ForceMode.Impulse);
             }
