@@ -12,26 +12,45 @@ public class EnnemiStock : MonoBehaviour
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
     [HideInInspector] public float powerOfProjection;
+    [Header("Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    private bool startBool;
+    public float volume = 20;
     // Start is called before the first frame update
     void Start()
     {
+
 
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
 
         lineRenderer.SetPosition(1, transform.position);
+        //Sound
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
-            ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
-            ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+            if (!startBool)
+            {
+                ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+                ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+
+                contactSound.start();
+                //FMODUnity.RuntimeManager.PlayOneShot(contact);
+               
+                startBool = true;
+            }
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))
@@ -80,7 +99,7 @@ public class EnnemiStock : MonoBehaviour
 
             rotate = false;
             slam = false;
-
+            startBool = false;
 
         }
     }
