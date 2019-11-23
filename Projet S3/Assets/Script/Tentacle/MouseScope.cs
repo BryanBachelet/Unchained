@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseScope : MonoBehaviour
 {
+    public Material line;
     public GameObject bullet;
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
@@ -96,6 +97,18 @@ public class MouseScope : MonoBehaviour
 
     }
 
+    private void OnRenderObject()
+    {
+
+
+        GL.Begin(GL.LINES);
+        line.SetPass(0);
+        GL.Color(line.color);
+        GL.Vertex(transform.position);
+        GL.Vertex(transform.position + direction.normalized * 100);
+        GL.End();
+
+    }
     private Vector3 DirectionSouris()
     {
         Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -107,8 +120,10 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
-            ///Debug.Log(dir.normalized);
+          //  Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
+
+          
+
             return dir;
         }
         else
