@@ -11,7 +11,9 @@ public class EnnemiStock : MonoBehaviour
     private bool slam;
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
+    public GameObject onHitEnemy;
     [HideInInspector] public float powerOfProjection;
+    public bool onHitEnter = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,11 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
+            if(onHitEnter)
+            {
+                Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation/*, ennemiStock.transform*/);
+                onHitEnter = false;
+            }
             ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
             ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
             lineRenderer.SetPosition(0, transform.position);

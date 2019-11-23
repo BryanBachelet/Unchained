@@ -10,6 +10,7 @@ public class Projectils : MonoBehaviour
     public float speed;
     public float timerOfLife = 5;
     private float compteur;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class Projectils : MonoBehaviour
         if (other.tag == "Ennemi")
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+            player.GetComponent<EnnemiStock>().onHitEnter = true;
 
 
             other.tag = "Untagged";
