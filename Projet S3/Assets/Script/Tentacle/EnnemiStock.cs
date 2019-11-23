@@ -42,10 +42,10 @@ public class EnnemiStock : MonoBehaviour
                 {
                     rotationPlayer.ChangeRotationDirection();
                 }
-                else if (Input.GetKeyUp(KeyCode.Mouse1))
-                {
-                    rotationPlayer.ChangeRotationDirection();
-                }
+                //else if (Input.GetKeyUp(KeyCode.Mouse1))
+                //{
+                //    rotationPlayer.ChangeRotationDirection();
+                //}
             }
             else
             {
