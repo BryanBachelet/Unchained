@@ -97,13 +97,23 @@ public class MouseScope : MonoBehaviour
 
     }
 
-    private void OnRenderObject()
+    private void OnRenderObject ()
     {
 
 
         GL.Begin(GL.LINES);
         line.SetPass(0);
-        GL.Color(line.color);
+        GL.Color(Color.red);
+        GL.Vertex(transform.position);
+        GL.Vertex(transform.position + direction.normalized * 100);
+        GL.End();
+
+    }
+    private void OnDrawGizmos()
+    {
+        GL.Begin(GL.LINES);
+        line.SetPass(0);
+        GL.Color(Color.red);
         GL.Vertex(transform.position);
         GL.Vertex(transform.position + direction.normalized * 100);
         GL.End();
