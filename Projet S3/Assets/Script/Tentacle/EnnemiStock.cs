@@ -86,6 +86,7 @@ public class EnnemiStock : MonoBehaviour
                 mySmoothFollow.target = null;
                 ennemiStock = null;
                 rotationPlayer.StopRotation();
+                OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
             //if (!slam && !rotate)
             //{
