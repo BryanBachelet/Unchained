@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 7246462592625531266}
   - component: {fileID: 95960502659220650}
   - component: {fileID: 114434057993031422}
+  - component: {fileID: 114831231787484380}
   m_Layer: 0
   m_Name: Ennemi 2
   m_TagString: Ennemi
@@ -235,3 +236,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db6e6871ac33614ea06adb4fbfe464e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114831231787484380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235209498070176796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: Lien
+  Event: event:/Mob/Toucher par le lien
+  PlayEvent: 3
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10000
