@@ -12,40 +12,73 @@ public class EnnemiStock : MonoBehaviour
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
     [HideInInspector] public float powerOfProjection;
+    [Header("Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    private bool startBool;
+    public float volume = 20;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string OrbitSound;
+    private FMOD.Studio.EventInstance OrbitEvent;
+    public float OrbitVolume = 10;
     // Start is called before the first frame update
     void Start()
     {
+
 
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
 
         lineRenderer.SetPosition(1, transform.position);
+        //Sound
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+        OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
+        OrbitEvent.setVolume(volume);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
-            ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
-            ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+            if (!startBool)
+            {
+                ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+                ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+
+                contactSound.start();
+
+
+                startBool = true;
+            }
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))
             {
+                FMOD.Studio.PLAYBACK_STATE orbitState;
+                OrbitEvent.getPlaybackState(out orbitState);
+                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+                {
+                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                    OrbitEvent.start();
+                }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
                 rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection);
                 if (Input.GetKeyDown(KeyCode.Mouse1))
                 {
                     rotationPlayer.ChangeRotationDirection();
                 }
-                else if (Input.GetKeyUp(KeyCode.Mouse1))
-                {
-                    rotationPlayer.ChangeRotationDirection();
-                }
+                //else if (Input.GetKeyUp(KeyCode.Mouse1))
+                //{
+                //    rotationPlayer.ChangeRotationDirection();
+                //}
             }
             else
             {
@@ -53,6 +86,7 @@ public class EnnemiStock : MonoBehaviour
                 mySmoothFollow.target = null;
                 ennemiStock = null;
                 rotationPlayer.StopRotation();
+                OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
             //if (!slam && !rotate)
             //{
@@ -80,7 +114,7 @@ public class EnnemiStock : MonoBehaviour
 
             rotate = false;
             slam = false;
-
+            startBool = false;
 
         }
     }
