@@ -39,7 +39,7 @@ public class Projectils : MonoBehaviour
             player.GetComponent<EnnemiStock>().onHitEnter = true;
 
             other.tag = "Untagged";
-            other.transform.position += dir.normalized * 15;
+            other.transform.position += dir.normalized * 3;
             Destroy(gameObject);
         }
         else if (other.tag == "wall")
