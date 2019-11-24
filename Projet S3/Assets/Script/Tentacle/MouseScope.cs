@@ -131,6 +131,7 @@ public class MouseScope : MonoBehaviour
         }
 
     }
+
     private void OnDrawGizmos()
     {
         GL.Begin(GL.LINES);
@@ -139,7 +140,6 @@ public class MouseScope : MonoBehaviour
         GL.Vertex(transform.position);
         GL.Vertex(transform.position + direction.normalized * 100);
         GL.End();
-
     }
     private Vector3 DirectionSouris()
     {

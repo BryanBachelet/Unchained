@@ -25,9 +25,9 @@ public class CameraBhv : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(targets[0].GetComponent<EnnemiStock>().ennemiStock != null)
+        if(targets[0].GetComponent<EnnemiStock>().e != null)
         {
-            targets[1] = targets[0].GetComponent<EnnemiStock>().ennemiStock.transform;
+            targets[1].transform = targets[0].getComponent<EnnemiStock>().target.transform;
         }
 
     }
