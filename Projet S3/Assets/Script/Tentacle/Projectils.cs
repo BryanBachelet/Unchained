@@ -36,7 +36,7 @@ public class Projectils : MonoBehaviour
         if (other.tag == "Ennemi")
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-
+            player.GetComponent<EnnemiStock>().onHitEnter = true;
 
             other.tag = "Untagged";
             other.transform.position += dir.normalized * 3;

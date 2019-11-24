@@ -23,6 +23,11 @@ public class EnnemiStock : MonoBehaviour
     public string OrbitSound;
     private FMOD.Studio.EventInstance OrbitEvent;
     public float OrbitVolume = 10;
+
+    public bool onHitEnter;
+    public GameObject onHitEnemy;
+    public Material enemyStockMat;
+    public Texture ennemyStockTextChange;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,11 +53,16 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
+            if (onHitEnter)
+            {
+                Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
+                ennemiStock.gameObject.GetComponent<Renderer>().material.SetTexture("_MainTex", ennemyStockTextChange);
+                onHitEnter = false;
+            }
             if (!startBool)
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
                 ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
-
                 contactSound.start();
 
 
