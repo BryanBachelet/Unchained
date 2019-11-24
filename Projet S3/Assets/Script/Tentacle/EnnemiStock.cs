@@ -28,6 +28,7 @@ public class EnnemiStock : MonoBehaviour
     public GameObject onHitEnemy;
     public Material enemyStockMat;
     public Texture ennemyStockTextChange;
+    private Color baseColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +57,8 @@ public class EnnemiStock : MonoBehaviour
             if (onHitEnter)
             {
                 Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
-                ennemiStock.gameObject.GetComponent<Renderer>().material.SetTexture("_MainTex", ennemyStockTextChange);
+                baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
+                ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
             }
             if (!startBool)
@@ -94,6 +96,7 @@ public class EnnemiStock : MonoBehaviour
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
+                ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
                 ennemiStock = null;
                 rotationPlayer.StopRotation();
                 OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
