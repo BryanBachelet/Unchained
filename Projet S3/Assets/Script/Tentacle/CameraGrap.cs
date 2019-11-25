@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraGrap : MonoBehaviour
 {
     public float dot;
-    public float cameraOffset= 10;
+    public float cameraOffset = 10;
     Vector3 startPos;
     EnnemiStock ennemiStock;
     // Start is called before the first frame update
@@ -25,8 +25,8 @@ public class CameraGrap : MonoBehaviour
 
             Vector3 dir = target.transform.position - transform.position;
             dir = new Vector3(dir.x, 0, dir.z);
-            dot = -Vector3.Dot(dir.normalized,transform.parent.forward);
-           Vector3 newPos  = transform.parent.position + startPos + dir.normalized * (cameraOffset*(dot+1.5f));
+            dot = -Vector3.Dot(dir.normalized, transform.parent.forward);
+            Vector3 newPos = transform.parent.position + startPos + dir.normalized * (cameraOffset * (dot + 1.5f));
             transform.position = Vector3.Lerp(transform.position, newPos, t);
         }
         else
@@ -34,7 +34,7 @@ public class CameraGrap : MonoBehaviour
             float t = Time.deltaTime;
             Vector3 newPos = transform.parent.position + startPos;
             transform.position = Vector3.Lerp(transform.position, newPos, t);
-            
+
         }
     }
 }
