@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraGrap : MonoBehaviour
 {
     private float dot;
-  &
+  
     public float ennemiSpeedDezoom = 10;
     public float bulletSpeedDezoom = 2;
     public float speedZoom = 2;
