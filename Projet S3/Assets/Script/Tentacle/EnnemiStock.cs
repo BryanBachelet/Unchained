@@ -20,6 +20,17 @@ public class EnnemiStock : MonoBehaviour
     private FMOD.Studio.EventInstance contactSound;
     private bool startBool;
     public float volume = 20;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string OrbitSound;
+    private FMOD.Studio.EventInstance OrbitEvent;
+    public float OrbitVolume = 10;
+
+    public bool onHitEnter;
+    public GameObject onHitEnemy;
+    public Material enemyStockMat;
+    public Texture ennemyStockTextChange;
+    private Color baseColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +44,9 @@ public class EnnemiStock : MonoBehaviour
         //Sound
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(volume);
-       
+        OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
+        OrbitEvent.setVolume(volume);
+
     }
 
     // Update is called once per frame
@@ -43,21 +56,33 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
-           
+            if (onHitEnter)
+            {
+                Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
+                baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
+                ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                onHitEnter = false;
+            }
             if (!startBool)
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
                 ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
-
                 contactSound.start();
-              
-               
+
+
                 startBool = true;
             }
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))
             {
+                FMOD.Studio.PLAYBACK_STATE orbitState;
+                OrbitEvent.getPlaybackState(out orbitState);
+                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+                {
+                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                    OrbitEvent.start();
+                }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
                 rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection);
                 if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -73,8 +98,10 @@ public class EnnemiStock : MonoBehaviour
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
+                ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
                 ennemiStock = null;
                 rotationPlayer.StopRotation();
+                OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
             //if (!slam && !rotate)
             //{
