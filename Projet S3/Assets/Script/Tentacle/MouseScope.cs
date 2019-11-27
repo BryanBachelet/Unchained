@@ -9,7 +9,7 @@ public class MouseScope : MonoBehaviour
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
-    private GameObject instanceBullet;
+    [HideInInspector] public GameObject instanceBullet;
     private LineRenderer lineRenderer;
     private bool returnLine;
     private bool destructBool;
