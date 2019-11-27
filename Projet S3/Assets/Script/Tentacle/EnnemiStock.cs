@@ -14,31 +14,46 @@ public class EnnemiStock : MonoBehaviour
     public GameObject onHitEnemy;
     [HideInInspector] public float powerOfProjection;
     public bool onHitEnter = false;
+    [Header("Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    private bool startBool;
+    public float volume = 20;
     // Start is called before the first frame update
     void Start()
     {
+
 
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
 
         lineRenderer.SetPosition(1, transform.position);
+        //Sound
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
-            if(onHitEnter)
+           
+            if (!startBool)
             {
-                Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation/*, ennemiStock.transform*/);
-                onHitEnter = false;
+                ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+                ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+
+                contactSound.start();
+              
+               
+                startBool = true;
             }
-            ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
-            ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0))
@@ -49,10 +64,10 @@ public class EnnemiStock : MonoBehaviour
                 {
                     rotationPlayer.ChangeRotationDirection();
                 }
-                else if (Input.GetKeyUp(KeyCode.Mouse1))
-                {
-                    rotationPlayer.ChangeRotationDirection();
-                }
+                //else if (Input.GetKeyUp(KeyCode.Mouse1))
+                //{
+                //    rotationPlayer.ChangeRotationDirection();
+                //}
             }
             else
             {
@@ -87,7 +102,7 @@ public class EnnemiStock : MonoBehaviour
 
             rotate = false;
             slam = false;
-
+            startBool = false;
 
         }
     }

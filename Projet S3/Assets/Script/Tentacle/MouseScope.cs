@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseScope : MonoBehaviour
 {
+    public Material line;
     public GameObject bullet;
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
@@ -17,12 +18,26 @@ public class MouseScope : MonoBehaviour
     private float distanceReturn;
     private Vector3 dirReturn;
     public float returnSpeed = 50;
+    [Header("Tirer Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    public float volume = 10;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string returnSound;
+    private FMOD.Studio.EventInstance returnEvent;
+    public float returnVolume = 10;
     // Start is called before the first frame update
     void Start()
     {
 
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+        returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
+        returnEvent.setVolume(returnVolume);
 
     }
 
@@ -37,6 +52,9 @@ public class MouseScope : MonoBehaviour
             projectils.dir = direction;
             projectils.player = gameObject;
             projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+            contactSound.start();
 
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
@@ -58,6 +76,9 @@ public class MouseScope : MonoBehaviour
                 if (!destructBool)
                 {
                     returnPos = ballPos;
+                    returnEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+                    returnEvent.start();
                     destructBool = true;
                 }
                 if (Vector3.Distance(transform.position, returnPos) > 3)
@@ -96,6 +117,30 @@ public class MouseScope : MonoBehaviour
 
     }
 
+    private void OnRenderObject ()
+    {
+
+        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        {
+            GL.Begin(GL.LINES);
+            line.SetPass(0);
+            GL.Color(Color.red);
+            GL.Vertex(transform.position);
+            GL.Vertex(transform.position + direction.normalized * 100);
+            GL.End();
+        }
+
+    }
+    private void OnDrawGizmos()
+    {
+        GL.Begin(GL.LINES);
+        line.SetPass(0);
+        GL.Color(Color.red);
+        GL.Vertex(transform.position);
+        GL.Vertex(transform.position + direction.normalized * 100);
+        GL.End();
+
+    }
     private Vector3 DirectionSouris()
     {
         Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -107,8 +152,10 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-            Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
-            ///Debug.Log(dir.normalized);
+          //  Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
+
+          
+
             return dir;
         }
         else

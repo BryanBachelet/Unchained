@@ -1961,6 +1961,19 @@ MonoBehaviour:
   _rotationSpeed: 0.25
   _jumpDistance: 1
   _jumpAngle: 60
+--- !u!114 &1214285454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214285441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!1001 &1245651367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4344,13 +4357,23 @@ PrefabInstance:
     - target: {fileID: 847181853507569674, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: powerOfProjection
-      value: 120
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: mySmoothFollow
       value: 
       objectReference: {fileID: 1214285453}
+    - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: contact
+      value: event:/Player/Contact lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: volume
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 847181853507569664, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: angleMax
@@ -4497,10 +4520,55 @@ PrefabInstance:
       propertyPath: returnSpeed
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: line
+      value: 
+      objectReference: {fileID: 2100000, guid: a86867d02d5e28f46889993b497906d6, type: 2}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: contact
+      value: event:/Player/Lancer lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: volume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: returnSound
+      value: event:/Player/Retour lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: returnVolume
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 847181854321154544, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: upProjection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181854321154544, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: contact
+      value: event:/Mob/Toucher par le lien
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181854321154544, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: volume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569672, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.31689596
+      objectReference: {fileID: 0}
+    - target: {fileID: 847181853507569672, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0.114551544
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc879748b371f8418298a684c116714, type: 3}
