@@ -16,6 +16,7 @@ public class EnnemiBehavior : MonoBehaviour
     private bool faction;
     GameObject player;
     public bool imStock;
+
     // Start is called before the first frame update
     void Start()
     {
