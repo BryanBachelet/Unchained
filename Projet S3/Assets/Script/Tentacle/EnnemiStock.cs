@@ -11,9 +11,7 @@ public class EnnemiStock : MonoBehaviour
     private bool slam;
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
-    public GameObject onHitEnemy;
     [HideInInspector] public float powerOfProjection;
-    public bool onHitEnter = false;
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
