@@ -1974,6 +1974,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListenerNumber: -1
+--- !u!114 &1214285455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214285441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c4874a3bd74a9a478f0b9c9c940d16e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAME: {fileID: 1526892020}
 --- !u!1001 &1245651367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2838,9 +2851,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a401b05d03c9aa84dab2cdee2420fe15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dot: 0
-  cameraOffset: 20
---- !u!114 &1526892022
+  ennemiSpeedDezoom: 10
+  bulletSpeedDezoom: 2
+  speedZoom: 2
+--- !u!114 &1526892020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2848,6 +2862,38 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526892017}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390397f02bff7644ab045efd81d0d720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QualityLevel: 3
+  QualitySteps: 6
+  MotionScale: 283.87
+  CameraMotionMult: 74.26
+  ObjectMotionMult: 30.87
+  MinVelocity: 0
+  MaxVelocity: 3
+  DepthThreshold: 0.01
+  Noise: 1
+  OverlayCameras: []
+  CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  AutoRegisterObjs: 1
+  MinResetDeltaDist: 1000
+  ResetFrameDelay: 1
+  WorkerThreads: 2
+  SystemThreadPool: 0
+  ForceCPUOnly: 0
+  DebugMode: 0
+--- !u!114 &1526892022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526892017}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -2900,6 +2946,84 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1526892024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526892017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bc7030f5bb244b09b8037c2ded95f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveform:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.19900513
+      value: 1.0004044
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.40134132
+      value: -1.0037526
+      inSlope: 0.042407993
+      outSlope: 0.042407993
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5135246
+    - serializedVersion: 3
+      time: 0.5972347
+      value: 0.9978027
+      inSlope: -0.017509235
+      outSlope: -0.017509235
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.79901284
+      value: -0.99642813
+      inSlope: -0.010867908
+      outSlope: -0.010867908
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.7505261
+    - serializedVersion: 3
+      time: 1
+      value: 0.007075472
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  refractionStrength: 0.585
+  reflectionColor: {r: 0.8867924, g: 0.67393017, b: 0.04601282, a: 1}
+  reflectionStrength: 0.944
+  waveSpeed: 2.901
+  dropInterval: 0.5
+  shader: {fileID: 4800000, guid: 162fe242d486f4dab90ed53db15b9c19, type: 3}
 --- !u!1001 &1547445372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4424,7 +4548,7 @@ PrefabInstance:
     - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: contact
-      value: event:/Player/Contact lien
+      value: event:/Player/Contact Lien
       objectReference: {fileID: 0}
     - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -4447,6 +4571,11 @@ PrefabInstance:
       propertyPath: enemyStockMat
       value: 
       objectReference: {fileID: 2100000, guid: c377c14ffa142ef418678deed2458dbe, type: 2}
+    - target: {fileID: 847181853507569673, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: myRE
+      value: 
+      objectReference: {fileID: 1526892024}
     - target: {fileID: 847181853507569664, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: angleMax
@@ -4616,7 +4745,7 @@ PrefabInstance:
     - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: returnSound
-      value: event:/Player/Retour lien
+      value: event:/Player/Contact Lien2
       objectReference: {fileID: 0}
     - target: {fileID: 847181853507569675, guid: fcc879748b371f8418298a684c116714,
         type: 3}
