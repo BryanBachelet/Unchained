@@ -35,7 +35,7 @@ public class CameraGrap : MonoBehaviour
 
             Vector3 dir = target.transform.position - transform.parent.position;
             float distance = Vector3.Distance(transform.parent.position, target.transform.position);
-            Debug.Log(distance);
+
             if (distance > 25)
             {
                 i += Time.deltaTime;

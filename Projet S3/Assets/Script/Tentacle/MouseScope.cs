@@ -9,6 +9,7 @@ public class MouseScope : MonoBehaviour
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
+    private Vector3 directionManette;
     [HideInInspector] public GameObject instanceBullet;
     private LineRenderer lineRenderer;
     private bool returnLine;
@@ -45,19 +46,31 @@ public class MouseScope : MonoBehaviour
     void Update()
     {
         direction = DirectionSouris();
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        directionManette = DirectionManette();
+        if (directionManette != Vector3.zero)
         {
+            direction = Vector3.zero;
+        }
+        float input = Input.GetAxis("Attract1");
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
+        {
+
             if (ennemiStock.ennemiStock == null && instanceBullet == null)
             {
-                instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
+                if (!lineRenderer.enabled)
+                {
+                    lineRenderer.enabled = true;
+                }
+                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, transform.rotation);
                 Projectils projectils = instanceBullet.GetComponent<Projectils>();
-                projectils.dir = direction;
+                projectils.dir = (direction + directionManette);
                 projectils.player = gameObject;
                 projectils.moveAlone = GetComponent<PlayerMoveAlone>();
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
                 contactSound.start();
             }
+
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
@@ -92,34 +105,32 @@ public class MouseScope : MonoBehaviour
 
                     if (dis > returnSpeed)
                     {
-                    returnPos = returnPos + dirReturn.normalized * dis * Time.deltaTime;
+                        returnPos += dirReturn.normalized * dis * Time.deltaTime;
 
                     }
                     else
                     {
-                        returnPos = returnPos + dirReturn.normalized * returnSpeed * Time.deltaTime;
+                        returnPos += dirReturn.normalized * returnSpeed * Time.deltaTime;
                     }
 
                     lineRenderer.SetPosition(0, transform.position);
-                    lineRenderer.SetPosition(1, returnPos); 
+                    lineRenderer.SetPosition(1, returnPos);
                 }
                 else
                 {
                     returnLine = false;
+                    if (lineRenderer.enabled)
+                    {
+                        lineRenderer.enabled = false;
+                    }
                 }
             }
-            if (!returnLine)
-            {
 
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, transform.position);
-
-            }
         }
 
     }
 
-    private void OnRenderObject ()
+    private void OnRenderObject()
     {
 
         if (ennemiStock.ennemiStock == null && instanceBullet == null)
@@ -128,7 +139,7 @@ public class MouseScope : MonoBehaviour
             line.SetPass(0);
             GL.Color(Color.red);
             GL.Vertex(transform.position);
-            GL.Vertex(transform.position + direction.normalized * 100);
+            GL.Vertex(transform.position + (direction + directionManette) * 100);
             GL.End();
         }
 
@@ -140,7 +151,7 @@ public class MouseScope : MonoBehaviour
         line.SetPass(0);
         GL.Color(Color.red);
         GL.Vertex(transform.position);
-        GL.Vertex(transform.position + direction.normalized * 100);
+        GL.Vertex(transform.position + (direction + directionManette) * 100);
         GL.End();
     }
     private Vector3 DirectionSouris()
@@ -154,9 +165,8 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-          //  Debug.DrawRay(gameObject.transform.position + direction.normalized * 0.5f, dir.normalized * 100, Color.red);
 
-          
+
 
             return dir;
         }
@@ -164,5 +174,13 @@ public class MouseScope : MonoBehaviour
         {
             return Vector3.zero;
         }
+    }
+    private Vector3 DirectionManette()
+    {
+        float aimHorizontal = Input.GetAxis("AimHorizontal1");
+        float aimVertical = -Input.GetAxis("AimVertical1");
+
+        Vector3 dir = new Vector3(aimHorizontal, 0, aimVertical);
+        return dir.normalized;
     }
 }

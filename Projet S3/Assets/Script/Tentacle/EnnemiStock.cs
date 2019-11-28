@@ -50,6 +50,8 @@ public class EnnemiStock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float input = Input.GetAxis("Attract1");
+        Debug.Log(input);
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
@@ -72,7 +74,7 @@ public class EnnemiStock : MonoBehaviour
             }
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (Input.GetKey(KeyCode.Mouse0) )
+            if (Input.GetKey(KeyCode.Mouse0) || input < 0)
             {
                 FMOD.Studio.PLAYBACK_STATE orbitState;
                 OrbitEvent.getPlaybackState(out orbitState);
@@ -82,12 +84,12 @@ public class EnnemiStock : MonoBehaviour
                     OrbitEvent.start();
                 }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection,false);
-               
-                
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+
+
             }
-            
-            if (Input.GetKey(KeyCode.Mouse1))
+
+            if (Input.GetKey(KeyCode.Mouse1) || input > 0)
             {
                 FMOD.Studio.PLAYBACK_STATE orbitState;
                 OrbitEvent.getPlaybackState(out orbitState);
@@ -100,7 +102,7 @@ public class EnnemiStock : MonoBehaviour
                 rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
 
             }
-            if(!Input.GetKey(KeyCode.Mouse1) &&!Input.GetKey(KeyCode.Mouse0))
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input==0)
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
@@ -109,7 +111,7 @@ public class EnnemiStock : MonoBehaviour
                 rotationPlayer.StopRotation();
                 OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
-           
+
         }
         else
         {
