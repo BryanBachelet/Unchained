@@ -59,7 +59,7 @@ public class RotationPlayer : MonoBehaviour
         changeSens = true;
     }
 
-    public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie)
+    public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
         objectToRotate = objetRotate;
         pointPivot = positionPivot;
@@ -68,6 +68,13 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
         previousPos = objectToRotate.transform.position;
+        if (changeRotate)
+        {
+            if (angleSpeed > 0)
+            {
+                angleSpeed = -angleSpeed;
+            }
+        }
         return rotate = true;
     }
 

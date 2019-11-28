@@ -14,12 +14,13 @@ public class LineRend : MonoBehaviour
     private float dot;
     private float distance;
     private EnnemiStock ennemiStock;
+    public GameObject particuleContact;
 
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
     private FMOD.Studio.EventInstance contactSound;
-   
+
     public float volume = 20;
 
     // Start is called before the first frame update
@@ -37,7 +38,7 @@ public class LineRend : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-       
+
         if (ennemiStock != null)
         {
             if (ennemiStock.ennemiStock != null)
@@ -90,9 +91,14 @@ public class LineRend : MonoBehaviour
             else
             {
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
-               
+
                 contactSound.start();
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up* 50, ForceMode.Impulse);
+                Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
+                Transform transfChild = collision.transform.GetChild(0);
+                transfChild.gameObject.SetActive(true);
+                
+
             }
             collision.GetComponent<EnnemiDestroy>().isDestroying = true;
         }

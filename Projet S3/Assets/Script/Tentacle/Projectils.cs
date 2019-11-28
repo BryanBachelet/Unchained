@@ -10,6 +10,7 @@ public class Projectils : MonoBehaviour
     public float speed;
     public float timerOfLife = 5;
     private float compteur;
+
     // Start is called before the first frame update
     void Start()
     {
