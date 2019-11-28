@@ -72,7 +72,7 @@ public class EnnemiStock : MonoBehaviour
             }
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0) )
             {
                 FMOD.Studio.PLAYBACK_STATE orbitState;
                 OrbitEvent.getPlaybackState(out orbitState);
@@ -82,17 +82,25 @@ public class EnnemiStock : MonoBehaviour
                     OrbitEvent.start();
                 }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection);
-                if (Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                    rotationPlayer.ChangeRotationDirection();
-                }
-                //else if (Input.GetKeyUp(KeyCode.Mouse1))
-                //{
-                //    rotationPlayer.ChangeRotationDirection();
-                //}
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection,false);
+               
+                
             }
-            else
+            
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+                FMOD.Studio.PLAYBACK_STATE orbitState;
+                OrbitEvent.getPlaybackState(out orbitState);
+                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+                {
+                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                    OrbitEvent.start();
+                }
+                mySmoothFollow.target = ennemiStock.gameObject.transform;
+                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+
+            }
+            if(!Input.GetKey(KeyCode.Mouse1) &&!Input.GetKey(KeyCode.Mouse0))
             {
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
@@ -101,26 +109,7 @@ public class EnnemiStock : MonoBehaviour
                 rotationPlayer.StopRotation();
                 OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
-            //if (!slam && !rotate)
-            //{
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        rotate = rotationPlayer.StartRotation(ennemiStock, gameObject, "Ennemi", 60);
-            //    }
-            //    if (Input.GetMouseButtonDown(1))
-            //    {
-            //        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", 10);
-            //    }
-            //
-            //    if (Input.GetKeyDown(KeyCode.A))
-            //    {
-            //        slam = slamPlayer.StartSlam(ennemiStock, gameObject);
-            //    }
-            //    if (Input.GetKeyDown(KeyCode.E))
-            //    {
-            //        slam = slamPlayer.StartSlam(gameObject, ennemiStock);
-            //    }
-            //}
+           
         }
         else
         {

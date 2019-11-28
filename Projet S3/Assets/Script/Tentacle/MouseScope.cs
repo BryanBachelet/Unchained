@@ -45,17 +45,19 @@ public class MouseScope : MonoBehaviour
     void Update()
     {
         direction = DirectionSouris();
-        if (Input.GetMouseButtonDown(0) /*|| Input.GetMouseButtonDown(2)*/ && ennemiStock.ennemiStock == null && instanceBullet == null)
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
-            Projectils projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = direction;
-            projectils.player = gameObject;
-            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
-            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+            if (ennemiStock.ennemiStock == null && instanceBullet == null)
+            {
+                instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
+                Projectils projectils = instanceBullet.GetComponent<Projectils>();
+                projectils.dir = direction;
+                projectils.player = gameObject;
+                projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+                contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
-            contactSound.start();
-
+                contactSound.start();
+            }
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
