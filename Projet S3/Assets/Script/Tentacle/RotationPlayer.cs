@@ -75,6 +75,10 @@ public class RotationPlayer : MonoBehaviour
                 angleSpeed = -angleSpeed;
             }
         }
+        if (!changeRotate)
+        {
+            angleSpeed = Mathf.Abs(angleSpeed);
+        }
         return rotate = true;
     }
 
