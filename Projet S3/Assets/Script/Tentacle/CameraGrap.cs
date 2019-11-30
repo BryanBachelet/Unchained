@@ -26,6 +26,7 @@ public class CameraGrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (ennemiStock.ennemiStock != null)
         {
             k = 0;
@@ -40,14 +41,16 @@ public class CameraGrap : MonoBehaviour
                 i += Time.deltaTime;
 
                 Vector3 camPos = transform.parent.position + startPos + -transform.forward * (distance - 25);
-                transform.position = Vector3.Lerp(transform.position, camPos, i);
-
+                Vector3 dirtry = camPos - transform.position;
+                transform.position = dirtry.normalized*10 *Time.deltaTime ;
+                t = 0;
 
             }
             else
             {
                 Vector3 CamPos = transform.parent.position + startPos;
                 transform.position = Vector3.Lerp(transform.position, CamPos, t);
+                i = 0;
             }
 
 
@@ -55,8 +58,8 @@ public class CameraGrap : MonoBehaviour
             dot = -Vector3.Dot(dir.normalized, transform.parent.forward);
             dot = dot - 1;
 
-            Vector3 newPos = transform.parent.position + startPos + dir.normalized * (distance / 2);
-            transform.position = Vector3.Lerp(transform.position, newPos, t);
+            //Vector3 newPos = transform.parent.position + startPos + dir.normalized * (distance / 2);
+            //transform.position = Vector3.Lerp(transform.position, newPos, t);
 
         }
 
@@ -88,6 +91,7 @@ public class CameraGrap : MonoBehaviour
             }
 
         }
+       
 
     }
 }

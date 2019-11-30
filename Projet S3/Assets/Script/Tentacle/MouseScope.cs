@@ -6,6 +6,8 @@ public class MouseScope : MonoBehaviour
 {
     public Material line;
     public GameObject bullet;
+    public GameObject[] Ambout;
+    public int numberAmbout;
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
     private Vector3 direction;
@@ -45,6 +47,19 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (numberAmbout == Ambout.Length-1)
+            {
+                numberAmbout = 0;
+            }
+            else
+            {
+                numberAmbout++;
+            }
+        }
+
+
         direction = DirectionSouris();
         directionManette = DirectionManette();
         if (directionManette != Vector3.zero)
@@ -62,6 +77,8 @@ public class MouseScope : MonoBehaviour
                     lineRenderer.enabled = true;
                 }
                 instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, transform.rotation);
+                Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, instanceBullet.transform.rotation, instanceBullet.transform);
+               
                 Projectils projectils = instanceBullet.GetComponent<Projectils>();
                 projectils.dir = (direction + directionManette);
                 projectils.player = gameObject;
