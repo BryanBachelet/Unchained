@@ -34,6 +34,7 @@ public class MouseScope : MonoBehaviour
     public float speedOfBullet;
     public float timerOfBullet;
     private float _timerOfBullet;
+    private GameObject meshBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,12 +78,12 @@ public class MouseScope : MonoBehaviour
             {
 
                 instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, Quaternion.identity);
-                GameObject prefab = Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+                meshBullet = Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
                 float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
                 Vector3 eulers = new Vector3(Ambout[numberAmbout].transform.eulerAngles.x, angle, Ambout[numberAmbout].transform.eulerAngles.z);
-                prefab.transform.localRotation = Quaternion.Euler(eulers);
-                Vector3 test = prefab.transform.localRotation.eulerAngles;
+                meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+
                 _timerOfBullet = 0;
 
 
@@ -113,6 +114,9 @@ public class MouseScope : MonoBehaviour
 
                 }
                 projectils.dir = transform.position - instanceBullet.transform.position;
+                float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
+                Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
+                meshBullet.transform.localRotation = Quaternion.Euler(eulers);
 
             }
             else

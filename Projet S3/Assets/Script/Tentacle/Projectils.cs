@@ -37,19 +37,22 @@ public class Projectils : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ennemi")
+        if (!returnBall)
         {
-            player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-            player.GetComponent<EnnemiStock>().onHitEnter = true;
+            if (other.tag == "Ennemi")
+            {
+                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                player.GetComponent<EnnemiStock>().onHitEnter = true;
 
-            other.tag = "Untagged";
-            other.transform.position += dir.normalized * 3;
-            Destroy(gameObject);
-        }
-        else if (other.tag == "wall")
-        {
-            Debug.Break();
-            Destroy(gameObject);
+                other.tag = "Untagged";
+                other.transform.position += dir.normalized * 3;
+                Destroy(gameObject);
+            }
+            else if (other.tag == "wall")
+            {
+                Debug.Break();
+                Destroy(gameObject);
+            }
         }
 
     }
