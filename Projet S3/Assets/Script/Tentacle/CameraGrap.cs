@@ -41,8 +41,7 @@ public class CameraGrap : MonoBehaviour
                 i += Time.deltaTime;
 
                 Vector3 camPos = transform.parent.position + startPos + -transform.forward * (distance - 25);
-                Vector3 dirtry = camPos - transform.position;
-                transform.position = dirtry.normalized*10 *Time.deltaTime ;
+                transform.position = Vector3.Lerp(transform.position, camPos    , i);
                 t = 0;
 
             }
@@ -58,8 +57,8 @@ public class CameraGrap : MonoBehaviour
             dot = -Vector3.Dot(dir.normalized, transform.parent.forward);
             dot = dot - 1;
 
-            //Vector3 newPos = transform.parent.position + startPos + dir.normalized * (distance / 2);
-            //transform.position = Vector3.Lerp(transform.position, newPos, t);
+                Vector3 newPos = transform.parent.position + startPos + dir.normalized * (distance / 2);
+                transform.position = Vector3.Lerp(transform.position, newPos, t);
 
         }
 
