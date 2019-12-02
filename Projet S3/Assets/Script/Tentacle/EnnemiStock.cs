@@ -51,7 +51,7 @@ public class EnnemiStock : MonoBehaviour
     void Update()
     {
         float input = Input.GetAxis("Attract1");
-        Debug.Log(input);
+
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
@@ -65,8 +65,8 @@ public class EnnemiStock : MonoBehaviour
             }
             if (!startBool)
             {
-                ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
-                ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+               // ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+               ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
                 contactSound.start();
 
 

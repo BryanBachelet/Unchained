@@ -10,26 +10,29 @@ public class Projectils : MonoBehaviour
     public float speed;
     public float timerOfLife = 5;
     private float compteur;
+    public bool returnBall;
+    public Vector3 mouvement;
+    public LineRenderer lineRenderer;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+
+        if (!lineRenderer.enabled)
+        {
+            lineRenderer.enabled = true;
+        }
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, player.transform.position);
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (compteur > timerOfLife)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            compteur += Time.deltaTime;
-        }
-
+        mouvement = dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
         transform.position += dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, player.transform.position);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,6 +48,7 @@ public class Projectils : MonoBehaviour
         }
         else if (other.tag == "wall")
         {
+            Debug.Break();
             Destroy(gameObject);
         }
 

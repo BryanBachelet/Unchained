@@ -31,6 +31,9 @@ public class MouseScope : MonoBehaviour
     public string returnSound;
     private FMOD.Studio.EventInstance returnEvent;
     public float returnVolume = 10;
+    public float speedOfBullet;
+    public float timerOfBullet;
+    private float _timerOfBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +52,7 @@ public class MouseScope : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (numberAmbout == Ambout.Length-1)
+            if (numberAmbout == Ambout.Length - 1)
             {
                 numberAmbout = 0;
             }
@@ -72,16 +75,22 @@ public class MouseScope : MonoBehaviour
 
             if (ennemiStock.ennemiStock == null && instanceBullet == null)
             {
-                if (!lineRenderer.enabled)
-                {
-                    lineRenderer.enabled = true;
-                }
-                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, transform.rotation);
-                Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, instanceBullet.transform.rotation, instanceBullet.transform);
-               
+
+                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, Quaternion.identity);
+                GameObject prefab = Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+                float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
+
+                Vector3 eulers = new Vector3(Ambout[numberAmbout].transform.eulerAngles.x, angle, Ambout[numberAmbout].transform.eulerAngles.z);
+                prefab.transform.localRotation = Quaternion.Euler(eulers);
+                Vector3 test = prefab.transform.localRotation.eulerAngles;
+                _timerOfBullet = 0;
+
+
                 Projectils projectils = instanceBullet.GetComponent<Projectils>();
-                projectils.dir = (direction + directionManette);
+                projectils.dir = (direction + directionManette).normalized;
                 projectils.player = gameObject;
+                projectils.lineRenderer = lineRenderer;
+                speedOfBullet = projectils.speed;
                 projectils.moveAlone = GetComponent<PlayerMoveAlone>();
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
@@ -92,17 +101,34 @@ public class MouseScope : MonoBehaviour
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
 
-            ballPos = instanceBullet.transform.position;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, ballPos);
+            Projectils projectils = instanceBullet.GetComponent<Projectils>();
+
+            if (_timerOfBullet > timerOfBullet)
+            {
+                if (!projectils.returnBall)
+                {
+                    projectils.returnBall = true;
+                    projectils.dir = -projectils.dir;
+
+
+                }
+                projectils.dir = transform.position - instanceBullet.transform.position;
+
+            }
+            else
+            {
+                _timerOfBullet += Time.deltaTime;
+            }
             returnLine = true;
             destructBool = false;
+
+            ballPos = instanceBullet.transform.position;
 
         }
 
         if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        //Return de line renderer après le tir;
         {
-            //Return de line renderer après le tir;
             if (returnLine)
             {
                 if (!destructBool)
@@ -140,11 +166,19 @@ public class MouseScope : MonoBehaviour
                     {
                         lineRenderer.enabled = false;
                     }
+
                 }
             }
-
         }
+        if (ennemiStock.ennemiStock == null && instanceBullet != null)
+        {
+            Projectils projectils = instanceBullet.GetComponent<Projectils>();
 
+            if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 5 && projectils.returnBall)
+            {
+                Destroy(instanceBullet);
+            }
+        }
     }
 
     private void OnRenderObject()

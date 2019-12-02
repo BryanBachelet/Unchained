@@ -11,11 +11,8 @@ public class EnnemiBehavior : MonoBehaviour
     public GameObject target;
     public GameObject currentTarget;
     public float speed;
-    public bool isOnSlam;
-
-    private bool faction;
-    GameObject player;
-    public bool imStock;
+  GameObject player;
+    [HideInInspector]public bool imStock;
 
     // Start is called before the first frame update
     void Start()
