@@ -82,7 +82,6 @@ public class RippleEffect : MonoBehaviour
 
     void Awake()
     {
-        
         droplets = new Droplet[3];
         droplets[0] = new Droplet();
         droplets[1] = new Droplet();
