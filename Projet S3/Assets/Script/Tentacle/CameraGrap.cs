@@ -15,17 +15,19 @@ public class CameraGrap : MonoBehaviour
     float i;
     float k;
     MouseScope mouseScope;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.localPosition;
-        ennemiStock = GetComponentInParent<EnnemiStock>();
-        mouseScope = GetComponentInParent<MouseScope>();
+        ennemiStock = player.GetComponent<EnnemiStock>();
+        mouseScope = player.GetComponent<MouseScope>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (ennemiStock.ennemiStock != null)
         {
             k = 0;
@@ -41,13 +43,14 @@ public class CameraGrap : MonoBehaviour
 
                 Vector3 camPos = transform.parent.position + startPos + -transform.forward * (distance - 25);
                 transform.position = Vector3.Lerp(transform.position, camPos, i);
-
+                t = 0;
 
             }
             else
             {
                 Vector3 CamPos = transform.parent.position + startPos;
                 transform.position = Vector3.Lerp(transform.position, CamPos, t);
+                i = 0;
             }
 
 
@@ -88,6 +91,7 @@ public class CameraGrap : MonoBehaviour
             }
 
         }
+       
 
     }
 }
