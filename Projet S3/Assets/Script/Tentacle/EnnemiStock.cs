@@ -29,11 +29,14 @@ public class EnnemiStock : MonoBehaviour
     public Material enemyStockMat;
     public Texture ennemyStockTextChange;
     private Color baseColor;
+    float myFOV;
+    bool isOnZoom = false;
+    public RippleEffect myRE;
     // Start is called before the first frame update
     void Start()
     {
 
-
+        myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -50,6 +53,7 @@ public class EnnemiStock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    	Camera.main.fieldOfView = myFOV;
         float input = Input.GetAxis("Attract1");
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
@@ -58,6 +62,7 @@ public class EnnemiStock : MonoBehaviour
         {
             if (onHitEnter)
             {
+                isOnZoom = true;
                 Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -76,6 +81,10 @@ public class EnnemiStock : MonoBehaviour
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0) || input < 0)
             {
+                if(isOnZoom)
+                {
+                    zoomOnHit();
+                }
                 FMOD.Studio.PLAYBACK_STATE orbitState;
                 OrbitEvent.getPlaybackState(out orbitState);
                 if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
@@ -104,6 +113,9 @@ public class EnnemiStock : MonoBehaviour
             }
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input==0)
             {
+                myRE.Emit();
+                myFOV = 70;
+                isOnZoom = false;
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
                 mySmoothFollow.target = null;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
@@ -123,6 +135,22 @@ public class EnnemiStock : MonoBehaviour
         }
     }
 
+    public void zoomOnHit()
+    {
+        if(myFOV == 70)
+        {
+            myFOV = 90;
+        }
+        if(myFOV > 70)
+        {
+            myFOV -= Time.deltaTime * 20;
+        }
+        else if(myFOV < 70)
+        {
+            myFOV = 70;
+            isOnZoom = false;
+        }
+    }
     public void StopRotate()
     {
         rotate = false;

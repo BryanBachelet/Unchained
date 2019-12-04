@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LineRend : MonoBehaviour
 {
@@ -23,9 +24,19 @@ public class LineRend : MonoBehaviour
 
     public float volume = 20;
 
+    public int comboCompt = 0;
+    bool onCombo;
+    public float timeOnCombo;
+    float tempsEcouleCombo = 0;
+    int lastComboValue;
+    public Text comboComptTxt;
+    public Text lastComboTxt;
+    public Animator myAnimator;
     // Start is called before the first frame update
     void Start()
     {
+        comboComptTxt.enabled = false;
+        lastComboTxt.enabled = false;
         if (transform.parent.GetComponent<EnnemiStock>())
         {
             ennemiStock = transform.parent.GetComponent<EnnemiStock>();
@@ -61,6 +72,21 @@ public class LineRend : MonoBehaviour
             ColliderSize();
 
         }
+        if(onCombo)
+        {
+            tempsEcouleCombo += Time.deltaTime;
+            comboComptTxt.text = ("" + comboCompt);
+            if (tempsEcouleCombo > timeOnCombo)
+            {
+                myAnimator.SetBool("OnActivation", true);
+                lastComboValue = comboCompt;
+                onCombo = false;
+                comboCompt = 0;
+                lastComboTxt.text = (""+ lastComboValue);
+                lastComboTxt.enabled = true;
+                comboComptTxt.enabled = false;
+            }
+        }
     }
 
     void SetLine()
@@ -83,6 +109,11 @@ public class LineRend : MonoBehaviour
     {
         if (collision.transform.tag == "Ennemi")
         {
+            if(lastComboTxt.enabled == true)
+            {
+                lastComboTxt.enabled = false;
+            }
+            comboComptTxt.enabled = true;
             if (!upProjection)
             {
                 float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
@@ -91,15 +122,21 @@ public class LineRend : MonoBehaviour
             else
             {
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
-
+                float rndX = Random.Range(-15, 15);
                 contactSound.start();
                 Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX,0,0) , ForceMode.Impulse);
                 Transform transfChild = collision.transform.GetChild(0);
                 transfChild.gameObject.SetActive(true);
 
 
             }
+            comboCompt++;
+            if(!onCombo)
+            {
+                onCombo = true;
+            }
+            tempsEcouleCombo = 0;
             collision.GetComponent<EnnemiDestroy>().isDestroying = true;
         }
     }

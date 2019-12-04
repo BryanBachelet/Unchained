@@ -27,7 +27,7 @@ public class UI_Manager : MonoBehaviour
         
         if (rotationState == false)
         {
-            uI.SetActive (false);
+            uI.SetActive(false);
         }
 
         if (rotationState == true)
