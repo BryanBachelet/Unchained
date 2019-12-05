@@ -13,7 +13,8 @@ public class Projectils : MonoBehaviour
     public bool returnBall;
     public Vector3 mouvement;
     public LineRenderer lineRenderer;
-
+    public Vector3 hitWallPos;
+    public GameObject hitwallprefab;
     private void Start()
     {
 
@@ -50,10 +51,17 @@ public class Projectils : MonoBehaviour
             }
             else if (other.tag == "wall")
             {
-                Debug.Break();
+                //hitWallPos = transform.position;
+                hitWallPos = other.ClosestPoint(transform.position);
+                player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
+                GameObject hitGO = Instantiate(hitwallprefab, hitWallPos, transform.rotation);
+                player.GetComponent<WallRotate>().hitGOPos = hitGO;
+                player.GetComponent<WallRotate>().hasHitWall = true;
                 Destroy(gameObject);
             }
         }
 
     }
+
+    
 }
