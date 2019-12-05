@@ -113,7 +113,7 @@ public class EnnemiStock : MonoBehaviour
             }
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input==0)
             {
-                myRE.Emit();
+               // myRE.Emit();
                 myFOV = 70;
                 isOnZoom = false;
                 ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;

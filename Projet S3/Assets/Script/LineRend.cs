@@ -35,8 +35,14 @@ public class LineRend : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        comboComptTxt.enabled = false;
-        lastComboTxt.enabled = false;
+        if (comboComptTxt != null)
+        {
+            comboComptTxt.enabled = false;
+        }
+        if (lastComboTxt != null)
+        {
+            lastComboTxt.enabled = false;
+        }
         if (transform.parent.GetComponent<EnnemiStock>())
         {
             ennemiStock = transform.parent.GetComponent<EnnemiStock>();
@@ -72,7 +78,7 @@ public class LineRend : MonoBehaviour
             ColliderSize();
 
         }
-        if(onCombo)
+        if (onCombo)
         {
             tempsEcouleCombo += Time.deltaTime;
             comboComptTxt.text = ("" + comboCompt);
@@ -82,7 +88,7 @@ public class LineRend : MonoBehaviour
                 lastComboValue = comboCompt;
                 onCombo = false;
                 comboCompt = 0;
-                lastComboTxt.text = (""+ lastComboValue);
+                lastComboTxt.text = ("" + lastComboValue);
                 lastComboTxt.enabled = true;
                 comboComptTxt.enabled = false;
             }
@@ -109,7 +115,7 @@ public class LineRend : MonoBehaviour
     {
         if (collision.transform.tag == "Ennemi")
         {
-            if(lastComboTxt.enabled == true)
+            if (lastComboTxt.enabled == true)
             {
                 lastComboTxt.enabled = false;
             }
@@ -125,14 +131,14 @@ public class LineRend : MonoBehaviour
                 float rndX = Random.Range(-15, 15);
                 contactSound.start();
                 Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX,0,0) , ForceMode.Impulse);
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
                 Transform transfChild = collision.transform.GetChild(0);
                 transfChild.gameObject.SetActive(true);
 
 
             }
             comboCompt++;
-            if(!onCombo)
+            if (!onCombo)
             {
                 onCombo = true;
             }
