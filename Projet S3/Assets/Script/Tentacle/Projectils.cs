@@ -25,6 +25,7 @@ public class Projectils : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, player.transform.position);
 
+        
     }
 
     void Update()

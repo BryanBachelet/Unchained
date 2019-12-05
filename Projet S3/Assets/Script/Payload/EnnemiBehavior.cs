@@ -41,8 +41,11 @@ public class EnnemiBehavior : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
-                tag = "Ennemi";
+                if (Vector3.Distance(transform.position, currentTarget.transform.position) > 1.5f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+                    tag = "Ennemi";
+                }
             }
 
         }
@@ -54,4 +57,3 @@ public class EnnemiBehavior : MonoBehaviour
 
 
 }
-
