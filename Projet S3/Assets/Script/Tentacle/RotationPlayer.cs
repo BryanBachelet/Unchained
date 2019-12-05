@@ -13,7 +13,8 @@ public class RotationPlayer : MonoBehaviour
     private EnnemiStock stocks;
     private float forceOfSortie;
     private GameObject objectToRotate;
-    private GameObject pointPivot;
+    private GameObject gameObjectPointPivot;
+    private Vector3 pointPivot;
     private string tagEnter;
     private Vector3 previousPos;
     public bool rotate = false;
@@ -33,7 +34,7 @@ public class RotationPlayer : MonoBehaviour
             {
                 previousPos = objectToRotate.transform.position;
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-                objectToRotate.transform.RotateAround(pointPivot.transform.position, Vector3.up, angleSpeed * Time.deltaTime);
+                objectToRotate.transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
                 i++;
                 if (i > 3)
                 {
@@ -59,15 +60,16 @@ public class RotationPlayer : MonoBehaviour
         changeSens = true;
     }
 
-    public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
+    public bool StartRotation(GameObject objetRotate, GameObject positionPivot , string tag, float forceSortie, bool changeRotate)
     {
         objectToRotate = objetRotate;
-        pointPivot = positionPivot;
+        gameObjectPointPivot = positionPivot;
+        pointPivot = positionPivot.transform.position;
         tagEnter = tag;
         forceOfSortie = forceSortie;
         changeSens = false;
         i = 0;
-        previousPos = objectToRotate.transform.position;
+        previousPos = objetRotate.transform.position;
         if (changeRotate)
         {
             if (angleSpeed > 0)
@@ -82,17 +84,41 @@ public class RotationPlayer : MonoBehaviour
         return rotate = true;
     }
 
-    public void StopRotation()
+    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, bool changeRotate)
     {
+        objectToRotate = objetRotate;
+        pointPivot = positionPivotWall;
+        changeSens = false;
+        i = 0;
+        previousPos = objetRotate.transform.position;
+        if (changeRotate)
+        {
+            if (angleSpeed > 0)
+            {
+                angleSpeed = -angleSpeed;
+            }
+        }
+        if (!changeRotate)
+        {
+            angleSpeed = Mathf.Abs(angleSpeed);
+        }
+        return rotate = true;
+    }
+
+    public void StopRotation(bool isWall)
+    {
+        if (isWall)
+        {
+            objectToRotate.tag = tagEnter;
+            CheckEnnnemi();
+            stocks.StopRotate();
+        }
         Vector3 newDir = objectToRotate.transform.position - previousPos;
-        objectToRotate.tag = tagEnter;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
-        CheckEnnnemi();
         objectToRotate = null;
         currentAngleMax = angleMax;
         angleCompteur = 0;
         rotate = false;
-        stocks.StopRotate();
     }
 
     private void CheckEnnnemi()
@@ -104,7 +130,7 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-            pointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie , ForceMode.Impulse);
+            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie , ForceMode.Impulse);
             if (objectToRotate.GetComponent<PlayerMoveAlone>())
             {
                 objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;

@@ -120,7 +120,7 @@ public class EnnemiStock : MonoBehaviour
                 mySmoothFollow.target = null;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
                 ennemiStock = null;
-                rotationPlayer.StopRotation();
+                rotationPlayer.StopRotation(true);
                 OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
 
