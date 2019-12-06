@@ -107,10 +107,7 @@ public class RotationPlayer : MonoBehaviour
 
     public void StopRotation(bool isWall)
     {
-        if (isWall)
-        {
-            objectToRotate.tag = tagEnter;
-        }
+       
         CheckEnnnemi();
         stocks.StopRotate();
         Vector3 newDir = objectToRotate.transform.position - previousPos;
