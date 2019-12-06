@@ -32,9 +32,16 @@ public class LineRend : MonoBehaviour
     public Text comboComptTxt;
     public Text lastComboTxt;
     public Animator myAnimator;
+    private bool activeVelocity;
+    private Velocity velocity;
     // Start is called before the first frame update
     void Start()
     {
+        if (transform.parent.GetComponent<Velocity>())
+        {
+            activeVelocity = true;
+            velocity = transform.parent.GetComponent<Velocity>();
+        }
         if (comboComptTxt != null)
         {
             comboComptTxt.enabled = false;
@@ -84,7 +91,7 @@ public class LineRend : MonoBehaviour
             comboComptTxt.text = ("" + comboCompt);
             if (tempsEcouleCombo > timeOnCombo)
             {
-                myAnimator.SetBool("OnActivation", true);
+               // myAnimator.SetBool("OnActivation", true);
                 lastComboValue = comboCompt;
                 onCombo = false;
                 comboCompt = 0;
@@ -136,6 +143,23 @@ public class LineRend : MonoBehaviour
                 transfChild.gameObject.SetActive(true);
 
 
+            }
+            if (activeVelocity)
+            {
+               
+                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Blue)
+                {
+                    velocity.GetAddVelocityPoint(0);
+                }
+                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Orange)
+                {
+                    velocity.GetAddVelocityPoint(1);
+
+                }
+                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Violet)
+                {
+                    velocity.GetAddVelocityPoint(2);
+                }
             }
             comboCompt++;
             if (!onCombo)

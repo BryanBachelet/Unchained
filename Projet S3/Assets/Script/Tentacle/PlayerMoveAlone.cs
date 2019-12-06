@@ -6,10 +6,11 @@ public class PlayerMoveAlone : MonoBehaviour
 {
     private Rigidbody playerRigid;
     public float speed;
-    [HideInInspector] public Vector3 DirProjection;
-    [HideInInspector] public float powerProjec;
     public float powerOfProjection;
     public float deprojection = 60;
+    [HideInInspector] public Vector3 DirProjection;
+    [HideInInspector] public float powerProjec;
+   
     void Start()
     {
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;

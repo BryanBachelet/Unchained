@@ -4,23 +4,33 @@ using UnityEngine;
 
 public class CameraAction : MonoBehaviour
 {
-    public GameObject player;
-    private MouseScope playerMouseScope;
-    private EnnemiStock playerEnnemiStock;
-    public float startDistanceBulletDezoom;
+    
+    private GameObject player;
+    
+    [Header("Bullet")]
+    public float distanceOfStartDezoomBullet = 10;
+    public float speedDezoomBullet;
+
+    [Header("Agent")]
+    public float distanceOfStartDezoomAgent = 20;
+    public float speedDezoomAgent;
+
+    [Header("Zoom")]
+    public float speedZoomSpeed;
+
     private Vector3 ecartJoueur;
     private Vector3 basePosition;
+    private MouseScope playerMouseScope;
+    private EnnemiStock playerEnnemiStock;
     private float distanceBullet;
     private float distanceAgent;
     private float compteurDezoomBullet;
     private float compteurZoomBullet;
     private float competeur;
-    public float speedDezoomBullet;
-    public float speedDezoomEnnemi;
-    public float speedZoomSpeed;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         ecartJoueur = transform.position - player.transform.position;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
@@ -30,16 +40,15 @@ public class CameraAction : MonoBehaviour
     void Update()
     {
         basePosition = player.transform.position + ecartJoueur;
-        
+
         if (playerMouseScope.instanceBullet != null || playerEnnemiStock.ennemiStock != null)
         {
             if (playerMouseScope.instanceBullet != null)
             {
-               
                 distanceBullet = Vector3.Distance(player.transform.position, playerMouseScope.instanceBullet.transform.position);
-                if (distanceBullet > 10)
+                if (distanceBullet > distanceOfStartDezoomBullet)
                 {
-                    compteurDezoomBullet += Time.deltaTime /speedDezoomBullet;
+                    compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
                     compteurZoomBullet = 0;
                     Vector3 camPos = basePosition + -transform.forward * ((distanceBullet - 10) / 1.5f);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
@@ -53,14 +62,14 @@ public class CameraAction : MonoBehaviour
             if (playerEnnemiStock.ennemiStock != null)
             {
                 distanceAgent = Vector3.Distance(player.transform.position, playerEnnemiStock.ennemiStock.transform.position);
-                
-                Vector3 dir = playerEnnemiStock.ennemiStock.transform.position -  player.transform.position;
-                if (distanceAgent > startDistanceBulletDezoom)
+
+                Vector3 dir = playerEnnemiStock.ennemiStock.transform.position - player.transform.position;
+                if (distanceAgent > distanceOfStartDezoomAgent)
                 {
-                
-                    compteurDezoomBullet += Time.deltaTime/speedDezoomEnnemi;
+
+                    compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * (distanceAgent-startDistanceBulletDezoom);
+                    Vector3 camPos = basePosition + -transform.forward * (distanceAgent - distanceOfStartDezoomAgent);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -69,11 +78,11 @@ public class CameraAction : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
                     compteurDezoomBullet = 0;
                 }
-                
+
                 dir = new Vector3(dir.x, 0, dir.z);
                 float dot = Vector3.Dot(dir.normalized, player.transform.forward);
-             
-                
+
+
                 competeur += Time.deltaTime;
                 Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 + dot));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
@@ -83,7 +92,7 @@ public class CameraAction : MonoBehaviour
         }
         else
         {
-            compteurZoomBullet += Time.deltaTime/speedZoomSpeed;
+            compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
             transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
             competeur = 0;
             compteurDezoomBullet = 0;

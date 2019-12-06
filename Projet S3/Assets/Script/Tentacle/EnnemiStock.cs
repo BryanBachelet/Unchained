@@ -53,7 +53,7 @@ public class EnnemiStock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    	Camera.main.fieldOfView = myFOV;
+        Camera.main.fieldOfView = myFOV;
         float input = Input.GetAxis("Attract1");
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
@@ -70,8 +70,11 @@ public class EnnemiStock : MonoBehaviour
             }
             if (!startBool)
             {
-               // ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
-               ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+                // ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+                if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+                {
+                    ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+                }
                 contactSound.start();
 
 
@@ -81,7 +84,7 @@ public class EnnemiStock : MonoBehaviour
             lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0) || input < 0)
             {
-                if(isOnZoom)
+                if (isOnZoom)
                 {
                     zoomOnHit();
                 }
@@ -111,16 +114,27 @@ public class EnnemiStock : MonoBehaviour
                 rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
 
             }
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input==0)
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
             {
-               // myRE.Emit();
+                // myRE.Emit();
                 myFOV = 70;
                 isOnZoom = false;
-                ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+                if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+                {
+                    ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+                }
                 mySmoothFollow.target = null;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+                if (ennemiStock.tag == "wall")
+                {
+                    rotationPlayer.StopRotation(false);
+                }
+                else
+                {
+                    rotationPlayer.StopRotation(true);
+
+                }
                 ennemiStock = null;
-                rotationPlayer.StopRotation(true);
                 OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
 
@@ -137,15 +151,15 @@ public class EnnemiStock : MonoBehaviour
 
     public void zoomOnHit()
     {
-        if(myFOV == 70)
+        if (myFOV == 70)
         {
             myFOV = 90;
         }
-        if(myFOV > 70)
+        if (myFOV > 70)
         {
             myFOV -= Time.deltaTime * 20;
         }
-        else if(myFOV < 70)
+        else if (myFOV < 70)
         {
             myFOV = 70;
             isOnZoom = false;

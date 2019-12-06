@@ -52,7 +52,9 @@ public class Projectils : MonoBehaviour
             }
             else if (other.tag == "wall")
             {
-                //hitWallPos = transform.position;
+                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                player.GetComponent<EnnemiStock>().onHitEnter = true;
+                
                 hitWallPos = other.ClosestPoint(transform.position);
                 player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
                 GameObject hitGO = Instantiate(hitwallprefab, hitWallPos, transform.rotation);

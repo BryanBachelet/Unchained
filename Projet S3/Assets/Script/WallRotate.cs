@@ -30,18 +30,18 @@ public class WallRotate : MonoBehaviour
                 mySmoothFollow.target = hitGOPos.transform;
             }
 
-            if (Input.GetKey(KeyCode.Mouse0) || input > 0)
+            if (Input.GetKey(KeyCode.Mouse1) || input > 0)
             {
                 isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, powerOfProjection, true);
                 mySmoothFollow.target = hitGOPos.transform;
             }
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
-            {
-                mySmoothFollow.target = null;
-                rotationPlayer.StopRotation(false);
-                hasHitWall = false;
-            }
+            //if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
+            //{
+            //    mySmoothFollow.target = null;
+            //    rotationPlayer.StopRotation(false);
+            //    hasHitWall = false;
+            //}
 
         }
     }
