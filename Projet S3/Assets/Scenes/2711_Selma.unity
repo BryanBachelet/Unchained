@@ -471,7 +471,7 @@ Transform:
   - {fileID: 1314698537}
   - {fileID: 1131572326}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &625790402
 PrefabInstance:
@@ -523,7 +523,7 @@ PrefabInstance:
     - target: {fileID: 3431385793930213723, guid: d862a38bdb224584485e5e3501c7cdbe,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3431385793930213723, guid: d862a38bdb224584485e5e3501c7cdbe,
         type: 3}
@@ -818,6 +818,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131572325}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1273940308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1273940309}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1273940309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273940308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314698536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1886,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 68ca42b73f9e1624eafc50f486cd505b, type: 2}
+    - target: {fileID: 847181854321154549, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc879748b371f8418298a684c116714, type: 3}
 --- !u!1001 &8162055378627366085
@@ -1949,6 +1984,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 292643745160412147, guid: 6e53cc8662d6c3544a7fc9a09153adf6,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 427461920}
+    - target: {fileID: 292643745160412147, guid: 6e53cc8662d6c3544a7fc9a09153adf6,
+        type: 3}
+      propertyPath: LightsModule.ratio
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292643745160412147, guid: 6e53cc8662d6c3544a7fc9a09153adf6,
+        type: 3}
+      propertyPath: LightsModule.intensityCurve.scalar
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 393383559434030218, guid: 6e53cc8662d6c3544a7fc9a09153adf6,
         type: 3}

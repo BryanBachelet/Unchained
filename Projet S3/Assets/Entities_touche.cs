@@ -20,7 +20,7 @@ public class Entities_touche : MonoBehaviour
             {
                 anim.SetBool("Attrapé", true);
 
-        }
+            }
 
         
     }

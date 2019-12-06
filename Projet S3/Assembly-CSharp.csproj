@@ -146,6 +146,7 @@
     <Compile Include="Assets\Script\Elasticity.cs" />
     <Compile Include="Assets\Script\getMyVellocity.cs" />
     <Compile Include="Assets\Script\Gravity.cs" />
+    <Compile Include="Assets\Script\hitWallGizmo.cs" />
     <Compile Include="Assets\Script\LiaisonPlayer.cs" />
     <Compile Include="Assets\Script\LineRend.cs" />
     <Compile Include="Assets\Script\LineRendCrist.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Assets\Script\Payload\PlaneR.cs" />
     <Compile Include="Assets\Script\Payload\Spawner.cs" />
     <Compile Include="Assets\Script\PlayerMouvement.cs" />
+    <Compile Include="Assets\Script\Point D'interet\MouvementCenter.cs" />
     <Compile Include="Assets\Script\Projection\Fly.cs" />
     <Compile Include="Assets\Script\Projection\Projection.cs" />
     <Compile Include="Assets\Script\SauteMout\CalculPosMidPoint.cs" />
@@ -194,10 +196,12 @@
     <Compile Include="Assets\Script\TpOnLimite.cs" />
     <Compile Include="Assets\Script\TrailMouv.cs" />
     <Compile Include="Assets\Script\wallPosition.cs" />
+    <Compile Include="Assets\Script\WallRotate.cs" />
     <Compile Include="Assets\UI_Manager.cs" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{f0cbe5b7-3654-4583-9857-717100fffd07}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\BankFolder\{c911febb-4f43-4a69-8bdf-42eaf6d1aa01}.xml" />
     <None Include="Assets\Kvant\Kino\Bloom\Shader\Bloom.shader" />
+    <None Include="Assets\Script\AlwaysVisible.shader" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\MotionBlurSM2.shader" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Mixer.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{0843f108-c25d-4602-8ca9-5dbdf52bd18e}.xml" />
@@ -216,11 +220,15 @@
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{ec3ed8ee-3210-44b8-8f3d-9b40de151a10}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{0b7fcf6e-f371-4bed-9a29-bc28ecfb385f}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Bank\{b04fa920-df2f-45e6-b74b-e8de8e0e0f54}.xml" />
+    <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{f8cd12ca-b369-444e-8a6c-2c9f52008bd3}.xml" />
+    <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{c02f0787-7207-4f0e-8417-01086b8bfd1a}.xml" />
+    <None Include="Assets\fonts\Akronim\OFL.txt" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{c024a4c9-ab86-48d1-b0bb-b633b53cfa94}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\ParameterPresetFolder\{46916a87-c9db-42f9-b4d4-66ed4aae357d}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{fbb5f007-bc35-4e38-957d-ab56376a2c7a}.xml" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\Shared.cginc" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{2286a0b2-baba-41cf-a0d7-ed85317ab878}.xml" />
+    <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{4625b9e7-50d3-4a41-83b9-b85fcf1ee59b}.xml" />
     <None Include="Assets\Kvant\ColorSuite\Shader\ColorSuite.shader" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\MotionBlurSM3.shader" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\EventFolder\{ddef4891-aaa7-4bbf-9d61-d45a8e79d49e}.xml" />
@@ -267,12 +275,15 @@
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{cbdea914-ea73-444d-beca-f0a9b536a8da}.xml" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\SolidVectors.shader" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{cfcb6378-da98-47f6-90df-7fe52369f19c}.xml" />
+    <None Include="Assets\fonts\Germania_One\OFL.txt" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{047e3cde-043e-49aa-8c11-833245b5a9e6}.xml" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Readme.txt" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{a61d586f-fa01-49d5-a6cf-0aa419a7414b}.xml" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\Combine.shader" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{2c67adbe-9d2f-4d6a-817f-0f1da35bf5a5}.xml" />
+    <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{ae748d18-c7a2-408e-85fa-8ad139f5d2c3}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{4be79b38-d461-4375-920e-8c12edcb997e}.xml" />
+    <None Include="Assets\Sons\ProjetFmod3gd\Metadata\AudioFile\{4ebfd5ce-206e-4bba-b795-27cc51c27746}.xml" />
     <None Include="Assets\AmplifyMotion-master\AmplifyMotion-master\Assets\AmplifyMotion\Resources\GPUSkinDeform.shader" />
     <None Include="Assets\Kvant\Spray\Shaders\SimplexNoiseGrad3D.cginc" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{a5bf0282-76f4-4fd8-94cf-c9190b014ae3}.xml" />
@@ -282,37 +293,37 @@
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{f426bb58-fb10-403c-a946-0ce6f0d439c7}.xml" />
     <None Include="Assets\Sons\ProjetFmod3gd\Metadata\Event\{f3980644-ec9a-4c29-bc8c-ca118e99462f}.xml" />
     <Reference Include="Unity.ProBuilder">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -516,16 +527,16 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.9f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="AmplifyMotion">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Assets/AmplifyMotion-master/AmplifyMotion-master/Assets/AmplifyMotion/Plugins/AmplifyMotion.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Assets/AmplifyMotion-master/AmplifyMotion-master/Assets/AmplifyMotion/Plugins/AmplifyMotion.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/3GD/Projet 3ème année/Projet-3.git/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Titouan/Desktop/DanDanceRevolution/Projet S3/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.9f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

@@ -13,6 +13,7 @@ public class PlayerMoveAlone : MonoBehaviour
     void Start()
     {
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
+        GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
     }
 

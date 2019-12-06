@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EntitiesTypes : MonoBehaviour
 {
-    public enum EntityTypes {Classic, Chief}
+    public enum EntityTypes {Blue,Orange,Violet }
     public EntityTypes entitiesTypes;
 }

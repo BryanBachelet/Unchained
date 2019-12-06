@@ -37,11 +37,11 @@ public class CameraAction : MonoBehaviour
             {
                
                 distanceBullet = Vector3.Distance(player.transform.position, playerMouseScope.instanceBullet.transform.position);
-                if (distanceBullet > startDistanceBulletDezoom)
+                if (distanceBullet > 10)
                 {
                     compteurDezoomBullet += Time.deltaTime /speedDezoomBullet;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * ((distanceBullet - 25) / 2);
+                    Vector3 camPos = basePosition + -transform.forward * ((distanceBullet - 10) / 1.5f);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
