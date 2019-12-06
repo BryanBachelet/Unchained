@@ -20,6 +20,8 @@ public class RotationPlayer : MonoBehaviour
     public bool rotate = false;
     private bool changeSens;
     private int i;
+
+    public Vector3 newDir;
     private void Start()
     {
         stocks = GetComponent<EnnemiStock>();
@@ -125,7 +127,7 @@ public class RotationPlayer : MonoBehaviour
 
     private void CheckEnnnemi(bool isEnnemi)
     {
-        Vector3 newDir = objectToRotate.transform.position - previousPos;
+        newDir = objectToRotate.transform.position - previousPos;
         if (objectToRotate.GetComponent<EnnemiDestroy>())
         {
             objectToRotate.GetComponent<EnnemiDestroy>().isDestroying = true;
