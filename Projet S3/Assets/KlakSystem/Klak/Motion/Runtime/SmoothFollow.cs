@@ -122,7 +122,7 @@ namespace Klak.Motion
         {
             _vposition = ETween.Step(_vposition, Vector3.zero, 1 + _positionSpeed * Time.deltaTime);
             _vposition += (target - current) * (_positionSpeed * Time.deltaTime);
-            return current + _vposition * Time.deltaTime;
+            return current + _vposition * Time.deltaTime;   
         }
 
         Quaternion SpringRotation(Quaternion current, Quaternion target)

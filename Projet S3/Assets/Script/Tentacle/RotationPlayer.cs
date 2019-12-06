@@ -60,7 +60,7 @@ public class RotationPlayer : MonoBehaviour
         changeSens = true;
     }
 
-    public bool StartRotation(GameObject objetRotate, GameObject positionPivot , string tag, float forceSortie, bool changeRotate)
+    public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
         objectToRotate = objetRotate;
         gameObjectPointPivot = positionPivot;
@@ -110,9 +110,9 @@ public class RotationPlayer : MonoBehaviour
         if (isWall)
         {
             objectToRotate.tag = tagEnter;
-            CheckEnnnemi();
-            stocks.StopRotate();
         }
+        CheckEnnnemi();
+        stocks.StopRotate();
         Vector3 newDir = objectToRotate.transform.position - previousPos;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         objectToRotate = null;
@@ -130,7 +130,7 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie , ForceMode.Impulse);
+            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
             if (objectToRotate.GetComponent<PlayerMoveAlone>())
             {
                 objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
