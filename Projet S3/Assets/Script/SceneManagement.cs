@@ -11,7 +11,11 @@ public class SceneManagement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-       
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene(1);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
