@@ -115,6 +115,7 @@ public class RotationPlayer : MonoBehaviour
         stocks.StopRotate();
         Vector3 newDir = objectToRotate.transform.position - previousPos;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
+        objectToRotate.GetComponent<WallRotate>().hasHitWall = false;
         objectToRotate = null;
         currentAngleMax = angleMax;
         angleCompteur = 0;
