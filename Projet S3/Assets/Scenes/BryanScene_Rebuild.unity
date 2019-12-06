@@ -1291,18 +1291,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3179295920501793692}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1605515685 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
-    type: 3}
-  m_PrefabInstance: {fileID: 3179295920501793692}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605515681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e04f5e50cd25d4df6ad5fe43d1f88cca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1605515695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,14 +1300,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1605515681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8876a64e90bba8c4cbb2ace21644001b, type: 3}
+  m_Script: {fileID: 11500000, guid: 02a11c45a530eed499aac9afdccf29e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasHitWall: 0
-  isOnrotate: 0
-  rotationPoint: {x: 0, y: 0, z: 0}
-  mySmoothFollow: {fileID: 1605515685}
-  hitGOPos: {fileID: 0}
+  velocityStatOne: 0
+  velocityStatTwo: 0
+  velocityStatThree: 0
+  DecreaseOfVelocity: 0
 --- !u!1 &1861982087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +1919,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398652488247447168, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3398652488247447168, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: orthographic size
+      value: 24.53
       objectReference: {fileID: 0}
     - target: {fileID: 3398652488247447174, guid: fcc879748b371f8418298a684c116714,
         type: 3}
