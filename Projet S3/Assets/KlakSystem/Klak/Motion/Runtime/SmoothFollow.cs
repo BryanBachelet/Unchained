@@ -120,8 +120,8 @@ namespace Klak.Motion
 
         Vector3 SpringPosition(Vector3 current, Vector3 target)
         {
-            _vposition = ETween.Step(_vposition, Vector3.zero, 1 + _positionSpeed * 0.5f);
-            _vposition += (target - current) * (_positionSpeed * 0.1f);
+            _vposition = ETween.Step(_vposition, Vector3.zero, 1 + _positionSpeed * Time.deltaTime);
+            _vposition += (target - current) * (_positionSpeed * Time.deltaTime);
             return current + _vposition * Time.deltaTime;
         }
 
@@ -129,8 +129,8 @@ namespace Klak.Motion
         {
             var v_current = current.ToVector4();
             var v_target = target.ToVector4();
-            _vrotation = ETween.Step(_vrotation, Vector4.zero, 1 + _rotationSpeed * 0.5f);
-            _vrotation += (v_target - v_current) * (_rotationSpeed * 0.1f);
+            _vrotation = ETween.Step(_vrotation, Vector4.zero, 1 + _rotationSpeed * Time.deltaTime);
+            _vrotation += (v_target - v_current) * (_rotationSpeed * Time.deltaTime);
             return (v_current + _vrotation * Time.deltaTime).ToNormalizedQuaternion();
         }
 

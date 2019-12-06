@@ -1304,9 +1304,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityStatOne: 0
+  convertisseurStatOne: 10
+  realPointOne: 0
   velocityStatTwo: 0
+  convertisseurStatTwo: 10
+  realPointTwo: 0
   velocityStatThree: 0
-  DecreaseOfVelocity: 0
+  convertisseurStatThree: 10
+  realPointThree: 0
+  DecreaseOfTimerVelocity: 2
+  DecreaseOfVelocity: 1
 --- !u!1 &1861982087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,5 +1942,15 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1605515681}
+    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: _positionSpeed
+      value: 16.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 16.11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc879748b371f8418298a684c116714, type: 3}
