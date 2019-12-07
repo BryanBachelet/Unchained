@@ -11,6 +11,7 @@ public class WallRotate : MonoBehaviour
 
     private RotationPlayer rotationPlayer;
     public GameObject hitGOPos;
+    [HideInInspector] public float powerOfProjection;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +26,13 @@ public class WallRotate : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0) || input < 0)
             {
-                isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, false);
+                isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, powerOfProjection, false);
                 mySmoothFollow.target = hitGOPos.transform;
             }
 
             if (Input.GetKey(KeyCode.Mouse1) || input > 0)
             {
-                isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, true);
+                isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, powerOfProjection, true);
                 mySmoothFollow.target = hitGOPos.transform;
             }
 

@@ -45,6 +45,7 @@ public class Projectils : MonoBehaviour
             {
                 player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
                 player.GetComponent<EnnemiStock>().onHitEnter = true;
+                if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
 
                 other.tag = "Untagged";
                 other.transform.position += dir.normalized * 3;

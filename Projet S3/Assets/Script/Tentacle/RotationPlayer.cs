@@ -20,6 +20,8 @@ public class RotationPlayer : MonoBehaviour
     public bool rotate = false;
     private bool changeSens;
     private int i;
+
+    public Vector3 newDir;
     private void Start()
     {
         stocks = GetComponent<EnnemiStock>();
@@ -84,10 +86,11 @@ public class RotationPlayer : MonoBehaviour
         return rotate = true;
     }
 
-    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, bool changeRotate)
+    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
     {
         objectToRotate = objetRotate;
         pointPivot = positionPivotWall;
+        forceOfSortie = forceSortie;
         changeSens = false;
         i = 0;
         previousPos = objetRotate.transform.position;
@@ -107,9 +110,12 @@ public class RotationPlayer : MonoBehaviour
 
     public void StopRotation(bool isWall)
     {
-       
-        CheckEnnnemi();
-        stocks.StopRotate();
+        if (isWall)
+        {
+            objectToRotate.tag = tagEnter;
+            stocks.StopRotate();
+        }
+        CheckEnnnemi(isWall);
         Vector3 newDir = objectToRotate.transform.position - previousPos;
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         objectToRotate.GetComponent<WallRotate>().hasHitWall = false;
@@ -119,12 +125,13 @@ public class RotationPlayer : MonoBehaviour
         rotate = false;
     }
 
-    private void CheckEnnnemi()
+    private void CheckEnnnemi(bool isEnnemi)
     {
-        Vector3 newDir = objectToRotate.transform.position - previousPos;
+        newDir = objectToRotate.transform.position - previousPos;
         if (objectToRotate.GetComponent<EnnemiDestroy>())
         {
             objectToRotate.GetComponent<EnnemiDestroy>().isDestroying = true;
+            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
         }
         else
         {
