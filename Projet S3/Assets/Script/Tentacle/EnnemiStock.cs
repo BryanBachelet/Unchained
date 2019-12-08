@@ -127,7 +127,7 @@ public class EnnemiStock : MonoBehaviour
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
                 if (ennemiStock.tag == "wall")
                 {
-                    rotationPlayer.StopRotation(false);
+                    rotationPlayer.StopRotation(true);
                 }
                 else
                 {

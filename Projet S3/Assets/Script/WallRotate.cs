@@ -24,13 +24,13 @@ public class WallRotate : MonoBehaviour
         float input = Input.GetAxis("Attract1");
         if (hasHitWall)
         {
-            if (Input.GetKey(KeyCode.Mouse0) || input < 0)
+            if (Input.GetKeyDown(KeyCode.Mouse0) || input < 0)
             {
                 isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, powerOfProjection, false);
                 mySmoothFollow.target = hitGOPos.transform;
             }
 
-            if (Input.GetKey(KeyCode.Mouse1) || input > 0)
+            if (Input.GetKeyDown(KeyCode.Mouse1) || input > 0)
             {
                 isOnrotate = rotationPlayer.StartRotationWall(gameObject, rotationPoint, powerOfProjection, true);
                 mySmoothFollow.target = hitGOPos.transform;

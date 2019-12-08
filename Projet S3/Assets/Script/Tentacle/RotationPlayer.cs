@@ -16,7 +16,7 @@ public class RotationPlayer : MonoBehaviour
     private GameObject gameObjectPointPivot;
     private Vector3 pointPivot;
     private string tagEnter;
-    private Vector3 previousPos;
+    public Vector3 previousPos;
     public bool rotate = false;
     private bool changeSens;
     private int i;
@@ -89,6 +89,7 @@ public class RotationPlayer : MonoBehaviour
     public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
     {
         objectToRotate = objetRotate;
+      
         pointPivot = positionPivotWall;
         forceOfSortie = forceSortie;
         changeSens = false;
@@ -113,34 +114,29 @@ public class RotationPlayer : MonoBehaviour
         if (isWall)
         {
             objectToRotate.tag = tagEnter;
-            stocks.StopRotate();
         }
         CheckEnnnemi(isWall);
-        Vector3 newDir = objectToRotate.transform.position - previousPos;
+       
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         objectToRotate.GetComponent<WallRotate>().hasHitWall = false;
         objectToRotate = null;
         currentAngleMax = angleMax;
         angleCompteur = 0;
+        stocks.StopRotate();
         rotate = false;
     }
 
     private void CheckEnnnemi(bool isEnnemi)
     {
+        Debug.Log(previousPos +" / " +objectToRotate.transform.position);
         newDir = objectToRotate.transform.position - previousPos;
-        if (objectToRotate.GetComponent<EnnemiDestroy>())
+
+        gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
+        if (objectToRotate.GetComponent<PlayerMoveAlone>())
         {
-            objectToRotate.GetComponent<EnnemiDestroy>().isDestroying = true;
-            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
+            objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
+            objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
         }
-        else
-        {
-            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
-            if (objectToRotate.GetComponent<PlayerMoveAlone>())
-            {
-                objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
-                objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
-            }
-        }
+
     }
 }

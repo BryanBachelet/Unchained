@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraAction : MonoBehaviour
 {
-    
+
     private GameObject player;
-    
+
     [Header("Bullet")]
     public float distanceOfStartDezoomBullet = 10;
     public float speedDezoomBullet;
@@ -18,6 +18,9 @@ public class CameraAction : MonoBehaviour
     [Header("Zoom")]
     public float speedZoomSpeed;
 
+    [Header("Proposition")]
+    public bool decalageScope;
+    private bool supZero;
     private Vector3 ecartJoueur;
     private Vector3 basePosition;
     private MouseScope playerMouseScope;
@@ -92,10 +95,43 @@ public class CameraAction : MonoBehaviour
         }
         else
         {
-            compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
-            transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-            competeur = 0;
-            compteurDezoomBullet = 0;
+            if (decalageScope)
+            {
+                Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized ;
+                if (dir.z < 0)
+                {
+                    if (!supZero)
+                    {
+                        compteurZoomBullet = 0;
+                        supZero = true;
+                    }
+
+                    Vector3 posCamPlus = dir * 20;
+                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                    transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
+                    competeur = 0;
+                    compteurDezoomBullet = 0;
+                }
+                else
+                {
+                    if (supZero) {
+                        compteurZoomBullet = 0;
+                        supZero = false;
+                    }
+                    
+                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                    transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                    competeur = 0;
+                    compteurDezoomBullet = 0;
+                }
+            }
+            else
+            {
+                compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                competeur = 0;
+                compteurDezoomBullet = 0;
+            }
         }
 
     }

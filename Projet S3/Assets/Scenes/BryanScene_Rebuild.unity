@@ -1343,6 +1343,7 @@ MonoBehaviour:
   rotationPoint: {x: 0, y: 0, z: 0}
   mySmoothFollow: {fileID: 1605515685}
   hitGOPos: {fileID: 0}
+  powerOfProjection: 0
 --- !u!111 &1605515697
 Animation:
   m_ObjectHideFlags: 0
@@ -1375,6 +1376,85 @@ MonoBehaviour:
   animArray:
   - name: Walk
     animationClip: {fileID: 7400000, guid: 40a3b418f6bd55640bd83315cc88ff6e, type: 2}
+--- !u!1001 &1686169267
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2923953865884390351, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -33.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: distanceOfStartDezoomBullet
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: decalageScope
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63309d3e81ed6a1448edc70662a09f96, type: 3}
 --- !u!1 &1861982087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1816,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Playable
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: _positionSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: _rotationSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3179295921494892856, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2003,15 +2093,5 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1605515681}
-    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: _positionSpeed
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: _rotationSpeed
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc879748b371f8418298a684c116714, type: 3}
