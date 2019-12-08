@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LineRend : MonoBehaviour
 {
+    [Header("Options")]
+    public bool activeParticle = true;
     public bool upProjection = true;
     [HideInInspector]
     public bool active;
@@ -91,7 +93,7 @@ public class LineRend : MonoBehaviour
             comboComptTxt.text = ("" + comboCompt);
             if (tempsEcouleCombo > timeOnCombo)
             {
-               // myAnimator.SetBool("OnActivation", true);
+                // myAnimator.SetBool("OnActivation", true);
                 lastComboValue = comboCompt;
                 onCombo = false;
                 comboCompt = 0;
@@ -139,14 +141,16 @@ public class LineRend : MonoBehaviour
                 contactSound.start();
                 Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
-                Transform transfChild = collision.transform.GetChild(0);
-                transfChild.gameObject.SetActive(true);
-
+                if (activeParticle)
+                {
+                    Transform transfChild = collision.transform.GetChild(0);
+                    transfChild.gameObject.SetActive(true);
+                }
 
             }
             if (activeVelocity)
             {
-               
+
                 if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Blue)
                 {
                     velocity.GetAddVelocityPoint(0);
