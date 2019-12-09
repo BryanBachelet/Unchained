@@ -12,8 +12,8 @@ public class LineRend : MonoBehaviour
     public bool active;
     public LineRenderer lineRenderer;
     public BoxCollider box;
-    private GameObject p1;
-    private GameObject p2;
+    public Vector3 p1;
+    public Vector3 p2;
     private float dot;
     private float distance;
     private EnnemiStock ennemiStock;
@@ -39,6 +39,8 @@ public class LineRend : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
         if (transform.parent.GetComponent<Velocity>())
         {
             activeVelocity = true;
@@ -69,8 +71,12 @@ public class LineRend : MonoBehaviour
         {
             if (ennemiStock.ennemiStock != null)
             {
-                box.enabled = true;
-                active = true;
+                if (!active)
+                {
+                    box.enabled = true;
+                    active = true;
+
+                }
             }
             else
             {
@@ -81,10 +87,9 @@ public class LineRend : MonoBehaviour
 
         if (active)
         {
-            p2 = ennemiStock.ennemiStock;
-            p1 = transform.parent.gameObject;
+
             SetLine();
-            ColliderSize();
+           // ColliderSize();
 
         }
         if (onCombo)
@@ -106,17 +111,16 @@ public class LineRend : MonoBehaviour
 
     void SetLine()
     {
-        lineRenderer.SetPosition(0, p2.transform.position);
-        lineRenderer.SetPosition(1, p1.transform.position);
+        //lineRenderer.SetPosition(0, ennemiStock.ennemiStock.transform.position);
+        //lineRenderer.SetPosition(1, transform.parent.position);
 
     }
-
-    void ColliderSize()
+    public void ColliderSize()
     {
-        distance = Vector3.Distance(p1.transform.position, p2.transform.position);
-        Vector3 dir = p2.transform.position - p1.transform.position;
+        distance = Vector3.Distance(p1, p2);
+        Vector3 dir = p2 - p1;
         dot = Vector3.SignedAngle(dir.normalized, Vector3.forward, Vector3.up);
-        transform.position = p2.transform.position + (-dir.normalized * distance) / 2;
+        transform.position = p1 + (dir.normalized * distance) / 2;
         transform.rotation = Quaternion.Euler(0, -dot, 0);
         box.size = new Vector3(1, 1, distance);
     }

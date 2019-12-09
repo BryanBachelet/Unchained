@@ -72,7 +72,7 @@ public class CameraAction : MonoBehaviour
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * (distanceAgent - distanceOfStartDezoomAgent);
+                    Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent)/2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -98,7 +98,7 @@ public class CameraAction : MonoBehaviour
             if (decalageScope)
             {
                 Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized ;
-                if (dir.z < 0)
+                if (dir.z < 0.5f)
                 {
                     if (!supZero)
                     {
