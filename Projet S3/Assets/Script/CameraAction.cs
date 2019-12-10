@@ -98,15 +98,17 @@ public class CameraAction : MonoBehaviour
             if (decalageScope)
             {
                 Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized ;
-                if (dir.z < 0.5f)
+               
+                if (dir.z < 1f)
                 {
                     if (!supZero)
                     {
                         compteurZoomBullet = 0;
                         supZero = true;
                     }
-
-                    Vector3 posCamPlus = dir * 20;
+                    float test = dir.z - 1;
+                    Debug.Log(test);
+                    Vector3 posCamPlus = dir * 20 *Mathf.Abs(test);
                     compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
                     transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
                     competeur = 0;

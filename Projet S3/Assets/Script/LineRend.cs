@@ -89,7 +89,7 @@ public class LineRend : MonoBehaviour
         {
 
             SetLine();
-           // ColliderSize();
+            // ColliderSize();
 
         }
         if (onCombo)
@@ -128,55 +128,72 @@ public class LineRend : MonoBehaviour
     {
         if (collision.transform.tag == "Ennemi")
         {
-            if (lastComboTxt.enabled == true)
-            {
-                lastComboTxt.enabled = false;
-            }
-            comboComptTxt.enabled = true;
-            if (!upProjection)
-            {
-                float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
-                collision.GetComponent<Rigidbody>().AddForce(sign * transform.right * 50, ForceMode.Impulse);
-            }
-            else
-            {
-                contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
-                float rndX = Random.Range(-15, 15);
-                contactSound.start();
-                Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
-                if (activeParticle)
-                {
-                    Transform transfChild = collision.transform.GetChild(0);
-                    transfChild.gameObject.SetActive(true);
-                }
-
-            }
-            if (activeVelocity)
-            {
-
-                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Blue)
-                {
-                    velocity.GetAddVelocityPoint(0);
-                }
-                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Orange)
-                {
-                    velocity.GetAddVelocityPoint(1);
-
-                }
-                if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Violet)
-                {
-                    velocity.GetAddVelocityPoint(2);
-                }
-            }
-            comboCompt++;
-            if (!onCombo)
-            {
-                onCombo = true;
-            }
-            tempsEcouleCombo = 0;
-            collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+            Collision(collision);
+        }
+    }
+    public void OnTriggerStay(Collider collision)
+    {
+        if (collision.transform.tag == "Ennemi")
+        {
+            Collision(collision);
         }
     }
 
+
+    void Collision(Collider collision)
+    {
+        if (lastComboTxt.enabled == true)
+        {
+            lastComboTxt.enabled = false;
+        }
+        comboComptTxt.enabled = true;
+        if (!upProjection)
+        {
+            float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
+            collision.GetComponent<Rigidbody>().AddForce(sign * transform.right * 50, ForceMode.Impulse);
+        }
+        else
+        {
+            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
+            float rndX = Random.Range(-15, 15);
+            contactSound.start();
+            Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
+            if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
+            {
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+            }
+            if (activeParticle)
+            {
+                Transform transfChild = collision.transform.GetChild(0);
+                transfChild.gameObject.SetActive(true);
+            }
+
+        }
+        if (activeVelocity)
+        {
+
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Blue)
+            {
+                velocity.GetAddVelocityPoint(0);
+            }
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Orange)
+            {
+                velocity.GetAddVelocityPoint(1);
+
+            }
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Violet)
+            {
+                velocity.GetAddVelocityPoint(2);
+            }
+        }
+        comboCompt++;
+        if (!onCombo)
+        {
+            onCombo = true;
+        }
+        tempsEcouleCombo = 0;
+        collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+    }
 }
+
+
