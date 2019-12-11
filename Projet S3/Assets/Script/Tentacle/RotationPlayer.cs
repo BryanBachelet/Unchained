@@ -55,7 +55,7 @@ public class RotationPlayer : MonoBehaviour
                 }
             }
             lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, stocks.ennemiStock.transform.position);
+            lineRenderer.SetPosition(1, pointPivot);
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();

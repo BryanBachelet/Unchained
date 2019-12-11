@@ -19,7 +19,8 @@ public class CameraAction : MonoBehaviour
     public float speedZoomSpeed;
 
     [Header("Proposition")]
-    public bool decalageScope;
+    public bool decalageScope; 
+    public float decalageCamera = 0;
     private bool supZero;
     private Vector3 ecartJoueur;
     private Vector3 basePosition;
@@ -108,7 +109,7 @@ public class CameraAction : MonoBehaviour
                     }
                     float test = dir.z - 1;
                     Debug.Log(test);
-                    Vector3 posCamPlus = dir * 20 *Mathf.Abs(test);
+                    Vector3 posCamPlus = dir * decalageCamera *Mathf.Abs(test);
                     compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
                     transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
                     competeur = 0;
