@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraAction : MonoBehaviour
 {
-    
+
     private GameObject player;
-    
+
     [Header("Bullet")]
     public float distanceOfStartDezoomBullet = 10;
     public float speedDezoomBullet;
@@ -18,6 +18,10 @@ public class CameraAction : MonoBehaviour
     [Header("Zoom")]
     public float speedZoomSpeed;
 
+    [Header("Proposition")]
+    public bool decalageScope; 
+    public float decalageCamera = 0;
+    private bool supZero;
     private Vector3 ecartJoueur;
     private Vector3 basePosition;
     private MouseScope playerMouseScope;
@@ -69,7 +73,7 @@ public class CameraAction : MonoBehaviour
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * (distanceAgent - distanceOfStartDezoomAgent);
+                    Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent)/2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -92,10 +96,45 @@ public class CameraAction : MonoBehaviour
         }
         else
         {
-            compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
-            transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-            competeur = 0;
-            compteurDezoomBullet = 0;
+            if (decalageScope)
+            {
+                Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized ;
+               
+                if (dir.z < 1f)
+                {
+                    if (!supZero)
+                    {
+                        compteurZoomBullet = 0;
+                        supZero = true;
+                    }
+                    float test = dir.z - 1;
+                    Debug.Log(test);
+                    Vector3 posCamPlus = dir * decalageCamera *Mathf.Abs(test);
+                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                    transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
+                    competeur = 0;
+                    compteurDezoomBullet = 0;
+                }
+                else
+                {
+                    if (supZero) {
+                        compteurZoomBullet = 0;
+                        supZero = false;
+                    }
+                    
+                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                    transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                    competeur = 0;
+                    compteurDezoomBullet = 0;
+                }
+            }
+            else
+            {
+                compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                competeur = 0;
+                compteurDezoomBullet = 0;
+            }
         }
 
     }

@@ -47,7 +47,7 @@ public class Velocity : MonoBehaviour
 
         realPointOne = velocityStatOne / convertisseurStatOne;
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
-        Debug.Log(playerMove.powerOfProjection + realPointOne);
+
         realPointTwo = velocityStatTwo / convertisseurStatTwo;
         realPointThree = velocityStatThree / convertisseurStatThree;
 
@@ -86,7 +86,7 @@ public class Velocity : MonoBehaviour
         switch (i)
         {
             case 0:
-                Debug.Log("1");
+
                 velocityStatOne++;
                 compteurOne = 0;
 

@@ -10,8 +10,8 @@ public class MouseScope : MonoBehaviour
     public int numberAmbout;
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
-    private Vector3 direction;
-    private Vector3 directionManette;
+    [HideInInspector] public Vector3 direction;
+    [HideInInspector] public Vector3 directionManette;
     [HideInInspector] public GameObject instanceBullet;
     private LineRenderer lineRenderer;
     private bool returnLine;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnnemiStock : MonoBehaviour
 {
     public GameObject ennemiStock;
+    public Vector3 pos;
     public Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
     private bool rotate;
@@ -40,7 +41,7 @@ public class EnnemiStock : MonoBehaviour
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
         lineRenderer = GetComponent<LineRenderer>();
-
+        lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
         //Sound
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
@@ -60,6 +61,7 @@ public class EnnemiStock : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (ennemiStock != null)
         {
+
             if (onHitEnter)
             {
                 isOnZoom = true;
@@ -80,8 +82,6 @@ public class EnnemiStock : MonoBehaviour
 
                 startBool = true;
             }
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, ennemiStock.transform.position);
             if (Input.GetKey(KeyCode.Mouse0) || input < 0)
             {
                 if (isOnZoom)
@@ -96,7 +96,17 @@ public class EnnemiStock : MonoBehaviour
                     OrbitEvent.start();
                 }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+                if (ennemiStock.tag == "wall")
+                {
+                    rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, false);
+
+                }
+                else
+                {
+                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+
+                }
+
 
 
             }
@@ -114,6 +124,7 @@ public class EnnemiStock : MonoBehaviour
                 rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
 
             }
+
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
             {
                 // myRE.Emit();
