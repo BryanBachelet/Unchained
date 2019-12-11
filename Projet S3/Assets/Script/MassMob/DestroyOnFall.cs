@@ -9,8 +9,9 @@ public class DestroyOnFall : MonoBehaviour
     {
         if (collision.transform.tag == "Ennemi")
         {
-           // collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
-            collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+            // collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
+            Destroy(collision.gameObject);
+            Debug.Log("DESTROYYYY");
         }
     }
 

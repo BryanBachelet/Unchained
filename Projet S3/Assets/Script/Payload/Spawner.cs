@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public GameObject regionParent;
     private float compteur = 13;
     public GameObject objectToInstantiate;
     public GameObject parentToSpawn;
@@ -18,7 +19,19 @@ public class Spawner : MonoBehaviour
    
     void Update()
     {
-        SpawnObject();
+        if(regionParent != null)
+        {
+            if (regionParent.activeSelf)
+            {
+                SpawnObject();
+            }
+
+        }
+        else
+        {
+            SpawnObject();
+        }
+
     }
 
     void SpawnObject()

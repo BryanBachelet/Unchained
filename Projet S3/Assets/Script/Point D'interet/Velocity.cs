@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Velocity : MonoBehaviour
 {
     [Header("Projection Strengh Gain")]
@@ -30,6 +30,10 @@ public class Velocity : MonoBehaviour
     private EnnemiStock ennemiStock;
     private PlayerMoveAlone playerMove;
 
+
+    public Slider projectionSlider;
+    public Slider v2Slider;
+    public Slider v3Slider;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +51,7 @@ public class Velocity : MonoBehaviour
         realPointTwo = velocityStatTwo / convertisseurStatTwo;
         realPointThree = velocityStatThree / convertisseurStatThree;
 
-        if (compteurOne > DecreaseOfTimerVelocity)
+        if (compteurOne > DecreaseOfTimerVelocity && velocityStatOne > 0)
         {
             velocityStatOne -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -55,7 +59,7 @@ public class Velocity : MonoBehaviour
         {
             compteurOne += Time.deltaTime;
         }
-        if (compteurTwo > DecreaseOfTimerVelocity)
+        if (compteurTwo > DecreaseOfTimerVelocity && velocityStatTwo > 0)
         {
             velocityStatTwo -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -63,7 +67,7 @@ public class Velocity : MonoBehaviour
         {
             compteurTwo += Time.deltaTime;
         }
-        if (compteurThree > DecreaseOfTimerVelocity)
+        if (compteurThree > DecreaseOfTimerVelocity && velocityStatThree > 0)
         {
             velocityStatThree -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -72,6 +76,9 @@ public class Velocity : MonoBehaviour
             compteurThree += Time.deltaTime;
         }
 
+        if (projectionSlider != null) projectionSlider.value = realPointOne / 100;
+        if (v2Slider != null) v2Slider.value = realPointTwo / 100;
+        if (v3Slider != null) v3Slider.value = realPointThree / 100;
     }
 
     public void GetAddVelocityPoint(int i)
