@@ -31,8 +31,12 @@ public class MouseScope : MonoBehaviour
     public string returnSound;
     private FMOD.Studio.EventInstance returnEvent;
     public float returnVolume = 10;
+    [Header("Carateristique Bullet")]
+    public float distance = 75;
+    public float timerOfBullet = 0.5f;
     public float speedOfBullet;
-    public float timerOfBullet;
+    public float timeBetweenShoot=0.4f;
+    public bool distanceDestruct;
     private float _timerOfBullet;
     private GameObject meshBullet;
     // Start is called before the first frame update
@@ -45,7 +49,8 @@ public class MouseScope : MonoBehaviour
         contactSound.setVolume(volume);
         returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
         returnEvent.setVolume(returnVolume);
-
+        speedOfBullet = distance / timerOfBullet;
+        returnSpeed = distance / timeBetweenShoot;
     }
 
     // Update is called once per frame
@@ -77,7 +82,7 @@ public class MouseScope : MonoBehaviour
             if (ennemiStock.ennemiStock == null && instanceBullet == null)
             {
 
-                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette) * 0.5f, Quaternion.identity);
+                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
                 meshBullet = Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
                 float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
@@ -91,11 +96,12 @@ public class MouseScope : MonoBehaviour
                 projectils.dir = (direction + directionManette).normalized;
                 projectils.player = gameObject;
                 projectils.lineRenderer = lineRenderer;
-                speedOfBullet = projectils.speed;
+                projectils.speed = speedOfBullet;
                 projectils.moveAlone = GetComponent<PlayerMoveAlone>();
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
                 contactSound.start();
+                
             }
 
         }
@@ -103,25 +109,37 @@ public class MouseScope : MonoBehaviour
         {
 
             Projectils projectils = instanceBullet.GetComponent<Projectils>();
-
-            if (_timerOfBullet > timerOfBullet)
+            if (!distanceDestruct)
             {
-                if (!projectils.returnBall)
+                if (_timerOfBullet > timerOfBullet)
                 {
-                    projectils.returnBall = true;
-                    projectils.dir = -projectils.dir;
+                    if (!projectils.returnBall)
+                    {
+                        projectils.returnBall = true;
+                        projectils.dir = -projectils.dir;
+                        projectils.speed = returnSpeed;
 
+
+                    }
+                    projectils.dir = transform.position - instanceBullet.transform.position;
+                    float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
+                    Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
+                    meshBullet.transform.localRotation = Quaternion.Euler(eulers);
 
                 }
-                projectils.dir = transform.position - instanceBullet.transform.position;
-                float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
-                Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
-                meshBullet.transform.localRotation = Quaternion.Euler(eulers);
-
+                else
+                {
+                    _timerOfBullet += Time.deltaTime;
+                }
             }
             else
             {
-                _timerOfBullet += Time.deltaTime;
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distance && !projectils.returnBall)
+                {
+                    projectils.returnBall = true;
+                    projectils.dir = -projectils.dir;
+                    projectils.speed = returnSpeed;
+                }
             }
             returnLine = true;
             destructBool = false;
@@ -143,44 +161,27 @@ public class MouseScope : MonoBehaviour
                     returnEvent.start();
                     destructBool = true;
                 }
-                if (Vector3.Distance(transform.position, returnPos) > 3)
+
+
+                returnLine = false;
+                if (lineRenderer.enabled)
                 {
-
-                    float dis = Vector3.Distance(transform.position, returnPos);
-                    dirReturn = transform.position - returnPos;
-
-
-                    if (dis > returnSpeed)
-                    {
-                        returnPos += dirReturn.normalized * dis * Time.deltaTime;
-
-                    }
-                    else
-                    {
-                        returnPos += dirReturn.normalized * returnSpeed * Time.deltaTime;
-                    }
-
-                    lineRenderer.SetPosition(0, transform.position);
-                    lineRenderer.SetPosition(1, returnPos);
+                    lineRenderer.enabled = false;
                 }
-                else
-                {
-                    returnLine = false;
-                    if (lineRenderer.enabled)
-                    {
-                        lineRenderer.enabled = false;
-                    }
 
-                }
+
             }
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
             Projectils projectils = instanceBullet.GetComponent<Projectils>();
-
-            if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 5 && projectils.returnBall)
+            if (projectils.returnBall)
             {
-                Destroy(instanceBullet);
+                projectils.dir = -(projectils.transform.position - transform.position);
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 5)
+                {
+                    Destroy(instanceBullet);
+                }
             }
         }
     }
