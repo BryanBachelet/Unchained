@@ -112,7 +112,7 @@ public class RotationPlayer : MonoBehaviour
     {
         if (isWall)
         {
-            objectToRotate.tag = tagEnter;
+            //objectToRotate.tag = tagEnter;
             stocks.StopRotate();
         }
         CheckEnnnemi(isWall);
