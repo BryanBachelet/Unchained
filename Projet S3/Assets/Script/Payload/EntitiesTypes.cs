@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class EntitiesTypes : MonoBehaviour
 {
-    public enum EntityTypes {Blue,Orange,Violet }
-    public EntityTypes entitiesTypes;
+    public enum Types {Blue,Orange,Violet }
+    public Types entitiesTypes;
+
+    private void Start()
+    {
+        if (entitiesTypes == Types.Blue)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else if (entitiesTypes == Types.Orange)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (entitiesTypes == Types.Violet)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+        }
+    }
 }

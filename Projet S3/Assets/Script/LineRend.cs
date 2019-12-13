@@ -172,16 +172,16 @@ public class LineRend : MonoBehaviour
         if (activeVelocity)
         {
 
-            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Blue)
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.Types.Blue)
             {
                 velocity.GetAddVelocityPoint(0);
             }
-            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Orange)
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.Types.Orange)
             {
                 velocity.GetAddVelocityPoint(1);
 
             }
-            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.EntityTypes.Violet)
+            if (collision.GetComponent<EntitiesTypes>().entitiesTypes == EntitiesTypes.Types.Violet)
             {
                 velocity.GetAddVelocityPoint(2);
             }
