@@ -16,9 +16,28 @@ public class Spawner : MonoBehaviour
 
     [Range(1, 10)]
     public int nbrEntiteeToSpawn;
-   
+
+    CenterTag.Types typeToSpawn;
+    public Color colorToSpawn;
+    private void Start()
+    {
+        typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+        if(typeToSpawn == CenterTag.Types.Blue)
+        {
+            colorToSpawn = Color.blue;
+        }
+        else if (typeToSpawn == CenterTag.Types.Orange)
+        {
+            colorToSpawn = Color.yellow;
+        }
+        else if (typeToSpawn == CenterTag.Types.Violet)
+        {
+            colorToSpawn = Color.magenta;
+        }
+    }
     void Update()
     {
+
         if(regionParent != null)
         {
             if (regionParent.activeSelf)
@@ -42,6 +61,18 @@ public class Spawner : MonoBehaviour
             {
                 Vector2 posToSpawn = Random.insideUnitCircle * radius;
                 GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                if (typeToSpawn == CenterTag.Types.Blue)
+                {
+                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                }
+                else if (typeToSpawn == CenterTag.Types.Orange)
+                {
+                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+                }
+                else if (typeToSpawn == CenterTag.Types.Violet)
+                {
+                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
+                }
                 add.GetComponent<EnnemiBehavior>().target = target;
                 add.GetComponent<EnnemiBehavior>().speed = speedOfAgent;
                 compteur = 0;
