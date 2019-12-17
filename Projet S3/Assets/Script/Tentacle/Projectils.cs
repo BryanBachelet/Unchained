@@ -25,15 +25,27 @@ public class Projectils : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, player.transform.position);
 
-        
+
     }
 
     void Update()
     {
         mouvement = dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
         transform.position += dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
-        lineRenderer.SetPosition(0, transform.position);
+        if (returnBall)
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) < 5)
+            {
+                Destroy(gameObject);
+                lineRenderer.enabled = false;
+            }
+        }
+    }
+    private void LateUpdate()
+    {
         lineRenderer.SetPosition(1, player.transform.position);
+        lineRenderer.SetPosition(0, transform.position);
+
 
     }
 
@@ -55,7 +67,7 @@ public class Projectils : MonoBehaviour
             {
                 player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
                 player.GetComponent<EnnemiStock>().onHitEnter = true;
-                
+
                 hitWallPos = other.ClosestPoint(transform.position);
                 player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
                 player.GetComponent<EnnemiStock>().pos = hitWallPos;
@@ -65,8 +77,15 @@ public class Projectils : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if (returnBall)
+        {
+            if (other.tag == "Player")
+            {
+                Destroy(gameObject);
+            }
+        }
 
     }
 
-    
+
 }
