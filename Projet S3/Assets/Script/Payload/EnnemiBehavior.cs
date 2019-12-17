@@ -38,6 +38,7 @@ public class EnnemiBehavior : MonoBehaviour
             {
                 Vector3 direction = (transform.position - player.transform.position).normalized;
                 transform.Translate(direction * 10f * Time.deltaTime);
+                transform.position = new Vector3(transform.position.x, 1, transform.position.z);
             }
             else
             {
