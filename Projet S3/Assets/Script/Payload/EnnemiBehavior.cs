@@ -11,8 +11,11 @@ public class EnnemiBehavior : MonoBehaviour
     public GameObject target;
     public GameObject currentTarget;
     public float speed;
-  GameObject player;
-    [HideInInspector]public bool imStock;
+    GameObject player;
+    private float t = 0;
+    public float speedOfRotation = 1;
+    public float angle;
+    [HideInInspector] public bool imStock;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,7 @@ public class EnnemiBehavior : MonoBehaviour
         }
         if (!useNavMesh)
         {
-            if(imStock)
+            if (imStock)
             {
                 Vector3 direction = (transform.position - player.transform.position).normalized;
                 transform.Translate(direction * 10f * Time.deltaTime);
@@ -44,6 +47,25 @@ public class EnnemiBehavior : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) > 1.5f)
                 {
+                    Vector3 rot = transform.eulerAngles;
+                    if (rot.y > 180)
+                    {
+                        rot = new Vector3(0, (rot.y - 180) - 180, 0);
+                    }
+                    Debug.Log(rot);
+                    Vector3 dir = currentTarget.transform.position - transform.position;
+                    dir = new Vector3(dir.x, 0, dir.z);
+                    angle = Vector3.SignedAngle(transform.forward, dir.normalized,Vector3.up);
+                    Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+                    Debug.DrawRay(transform.position, dir.normalized * 10, Color.red);
+                    t += speedOfRotation * Time.deltaTime;
+                    Debug.Log(t);
+                    if (t >= 1)
+                    {
+                        t = 0;
+                    }
+                    transform.eulerAngles =Vector3.Lerp(rot,  rot+  new Vector3(0, angle, 0), t);
+                    
                     transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
                     tag = "Ennemi";
                 }
