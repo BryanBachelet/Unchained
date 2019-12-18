@@ -20,9 +20,11 @@ public class CameraAction : MonoBehaviour
     [Header("Zoom")]
     public float speedZoomSpeed;
 
+
     [Header("Proposition")]
     public bool decalageScope;
     public float decalageCamera = 0;
+    public float distanceMax= 100;
     private bool supZero;
     [HideInInspector] public Vector3 ecartJoueur;
     [HideInInspector] public Vector3 basePosition;
@@ -58,7 +60,8 @@ public class CameraAction : MonoBehaviour
                 {
                     compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * ((distanceBullet - 10) / 1.5f);
+                    float currentDezoom = Mathf.Clamp(((distanceBullet - 10) / 1.5f), 0, distanceMax);
+                    Vector3 camPos = basePosition + -transform.forward * currentDezoom;
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
