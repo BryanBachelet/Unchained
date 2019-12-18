@@ -195,7 +195,7 @@ public class MouseScope : MonoBehaviour
             line.SetPass(0);
             GL.Color(Color.red);
             GL.Vertex(transform.position);
-            GL.Vertex(transform.position + (direction + directionManette) * 100);
+            GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
             GL.End();
         }
 
@@ -207,7 +207,7 @@ public class MouseScope : MonoBehaviour
         line.SetPass(0);
         GL.Color(Color.red);
         GL.Vertex(transform.position);
-        GL.Vertex(transform.position + (direction + directionManette) * 100);
+        GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
         GL.End();
     }
     private Vector3 DirectionSouris()
