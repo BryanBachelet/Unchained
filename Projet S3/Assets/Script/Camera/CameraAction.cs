@@ -115,7 +115,7 @@ public class CameraAction : MonoBehaviour
                         supZero = true;
                     }
                     float test = dir.z - 1;
-                    Debug.Log(test);
+
                     Vector3 posCamPlus = dir * decalageCamera * Mathf.Abs(test);
                     compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
                     transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);

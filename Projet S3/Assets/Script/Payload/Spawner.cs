@@ -97,7 +97,7 @@ public class Spawner : MonoBehaviour
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
                         }
                         add.GetComponent<EnnemiBehavior>().target = target;
-                        add.GetComponent<EnnemiBehavior>().speed = speedOfAgent;
+                        add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
                         compteur = 0;
                     }
                 }
@@ -122,7 +122,7 @@ public class Spawner : MonoBehaviour
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
                     }
                     add.GetComponent<EnnemiBehavior>().target = target;
-                    add.GetComponent<EnnemiBehavior>().speed = speedOfAgent;
+                    add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
                     compteur = 0;
                 }
             }
