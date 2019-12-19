@@ -130,6 +130,13 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
+        if (collision.transform.tag == "wall")
+        {
+            if (ennemiStock.ennemiStock != collision.gameObject)
+            {
+                ennemiStock.DetachPlayer();
+            }
+        }
     }
     public void OnTriggerStay(Collider collision)
     {
@@ -137,8 +144,14 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
+        if (collision.transform.tag == "wall")
+        {
+            if (ennemiStock.ennemiStock != collision.gameObject)
+            {
+                ennemiStock.DetachPlayer();
+            }
+        }
     }
-
 
     void Collision(Collider collision)
     {
