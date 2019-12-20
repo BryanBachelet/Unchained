@@ -5,7 +5,9 @@ using UnityEngine;
 public class CameraAction : MonoBehaviour
 {
 
-    private GameObject player;
+    [HideInInspector] public GameObject player;
+    [Header("Profil")]
+    public ProfilCamera profil;
 
     [Header("Bullet")]
     public float distanceOfStartDezoomBullet = 10;
@@ -18,12 +20,14 @@ public class CameraAction : MonoBehaviour
     [Header("Zoom")]
     public float speedZoomSpeed;
 
+
     [Header("Proposition")]
-    public bool decalageScope; 
+    public bool decalageScope;
     public float decalageCamera = 0;
+    public float distanceMax= 100;
     private bool supZero;
-    private Vector3 ecartJoueur;
-    private Vector3 basePosition;
+    [HideInInspector] public Vector3 ecartJoueur;
+    [HideInInspector] public Vector3 basePosition;
     private MouseScope playerMouseScope;
     private EnnemiStock playerEnnemiStock;
     private float distanceBullet;
@@ -36,6 +40,8 @@ public class CameraAction : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        transform.position = player.transform.position+ profil.position;
+        transform.eulerAngles = profil.rotation;
         ecartJoueur = transform.position - player.transform.position;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
@@ -57,7 +63,8 @@ public class CameraAction : MonoBehaviour
                 {
                     compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * ((distanceBullet - 10) / 1.5f);
+                    float currentDezoom = Mathf.Clamp(((distanceBullet - 10) / 1.5f), 0, distanceMax);
+                    Vector3 camPos = basePosition + -transform.forward * currentDezoom;
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -76,7 +83,7 @@ public class CameraAction : MonoBehaviour
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
                     compteurZoomBullet = 0;
-                    Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent)/2);
+                    Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent) / 2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -101,8 +108,8 @@ public class CameraAction : MonoBehaviour
         {
             if (decalageScope)
             {
-                Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized ;
-               
+                Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
+
                 if (dir.z < 1f)
                 {
                     if (!supZero)
@@ -111,8 +118,8 @@ public class CameraAction : MonoBehaviour
                         supZero = true;
                     }
                     float test = dir.z - 1;
-                    Debug.Log(test);
-                    Vector3 posCamPlus = dir * decalageCamera *Mathf.Abs(test);
+
+                    Vector3 posCamPlus = dir * decalageCamera * Mathf.Abs(test);
                     compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
                     transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
                     competeur = 0;
@@ -120,11 +127,12 @@ public class CameraAction : MonoBehaviour
                 }
                 else
                 {
-                    if (supZero) {
+                    if (supZero)
+                    {
                         compteurZoomBullet = 0;
                         supZero = false;
                     }
-                    
+
                     compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
                     competeur = 0;

@@ -128,25 +128,7 @@ public class EnnemiStock : MonoBehaviour
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
             {
                 // myRE.Emit();
-                myFOV = 70;
-                isOnZoom = false;
-                if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
-                {
-                    ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-                }
-                mySmoothFollow.target = null;
-                ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-                if (ennemiStock.tag == "wall")
-                {
-                    rotationPlayer.StopRotation(false);
-                }
-                else
-                {
-                    rotationPlayer.StopRotation(true);
-
-                }
-                ennemiStock = null;
-                OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                DetachPlayer();
             }
 
         }
@@ -158,6 +140,30 @@ public class EnnemiStock : MonoBehaviour
             startBool = false;
 
         }
+    }
+
+
+    public void DetachPlayer()
+    {
+        myFOV = 70;
+        isOnZoom = false;
+        if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+        {
+            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+        }
+        mySmoothFollow.target = null;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        if (ennemiStock.tag == "wall")
+        {
+            rotationPlayer.StopRotation(false);
+        }
+        else
+        {
+            rotationPlayer.StopRotation(true);
+
+        }
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
     public void zoomOnHit()
