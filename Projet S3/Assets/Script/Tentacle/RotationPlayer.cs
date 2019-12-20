@@ -23,6 +23,7 @@ public class RotationPlayer : MonoBehaviour
     public LineRenderer lineRenderer;
     private LineRend line;
     public Vector3 newDir;
+    public GameObject vfxShockWave;
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -122,8 +123,15 @@ public class RotationPlayer : MonoBehaviour
         {
             objectToRotate.tag = tagEnter;
         }
-        CheckEnnnemi(isWall);
 
+        CheckEnnnemi(isWall);
+        if(vfxShockWave != null)
+        {
+            float angleToRotate = Vector3.Angle(transform.forward, newDir);
+            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleToRotate, 0));
+            //vfxSW.transform.eulerAngles = new Vector3(0, angleToRotate, 0);
+            //Debug.Break();
+        }
         objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         objectToRotate.GetComponent<WallRotate>().hasHitWall = false;
         objectToRotate = null;
