@@ -10,7 +10,7 @@ public class EnnemiBehavior : MonoBehaviour
 
     public GameObject target;
     public GameObject currentTarget;
-    public float speed;
+    public float speedClassic;
   GameObject player;
     [HideInInspector]public bool imStock;
 
@@ -43,7 +43,7 @@ public class EnnemiBehavior : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) > 1.5f)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speedClassic * Time.deltaTime);
                     tag = "Ennemi";
                 }
             }

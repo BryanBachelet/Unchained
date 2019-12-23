@@ -14,15 +14,24 @@ public class Spawner : MonoBehaviour
     public float radius;
     public float speedOfAgent;
 
+
+    public bool bigSpawn = false;
     [Range(1, 10)]
     public int nbrEntiteeToSpawn;
+    [Range(1, 10)]
+    public int nbrPointOfSpawn;
 
     CenterTag.Types typeToSpawn;
-    public Color colorToSpawn;
+    private Color colorToSpawn;
     private void Start()
     {
+        if (bigSpawn)
+        {
+            radius *= 10;
+        }
+
         typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
-        if(typeToSpawn == CenterTag.Types.Blue)
+        if (typeToSpawn == CenterTag.Types.Blue)
         {
             colorToSpawn = Color.blue;
         }
@@ -38,7 +47,7 @@ public class Spawner : MonoBehaviour
     void Update()
     {
 
-        if(regionParent != null)
+        if (regionParent != null)
         {
             if (regionParent.activeSelf)
             {
@@ -57,25 +66,65 @@ public class Spawner : MonoBehaviour
     {
         if (compteur > timeOfSpawn)
         {
-            for(int i = 0; i < nbrEntiteeToSpawn; i++)
+            if (bigSpawn)
             {
-                Vector2 posToSpawn = Random.insideUnitCircle * radius;
-                GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
-                if (typeToSpawn == CenterTag.Types.Blue)
+                for (int i = 0; i < nbrPointOfSpawn; i++)
                 {
-                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                    Vector2 posToSpawn = Vector2.zero;
+                    for (int j = 0; j < nbrEntiteeToSpawn; j++)
+                    {
+
+                        if (j == 0)
+                        {
+                            posToSpawn = Random.insideUnitCircle * radius;
+                        }
+                        else
+                        {
+                            posToSpawn = Random.insideUnitCircle * radius;
+                        }
+
+                        GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                        if (typeToSpawn == CenterTag.Types.Blue)
+                        {
+                            add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                        }
+                        else if (typeToSpawn == CenterTag.Types.Orange)
+                        {
+                            add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+                        }
+                        else if (typeToSpawn == CenterTag.Types.Violet)
+                        {
+                            add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
+                        }
+                        add.GetComponent<EnnemiBehavior>().target = target;
+                        add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
+                        compteur = 0;
+                    }
                 }
-                else if (typeToSpawn == CenterTag.Types.Orange)
+            }
+            else
+            {
+                for (int j = 0; j < nbrEntiteeToSpawn; j++)
                 {
-                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+
+                    Vector2 posToSpawn = Random.insideUnitCircle * radius;
+                    GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                    if (typeToSpawn == CenterTag.Types.Blue)
+                    {
+                        add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                    }
+                    else if (typeToSpawn == CenterTag.Types.Orange)
+                    {
+                        add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+                    }
+                    else if (typeToSpawn == CenterTag.Types.Violet)
+                    {
+                        add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
+                    }
+                    add.GetComponent<EnnemiBehavior>().target = target;
+                    add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
+                    compteur = 0;
                 }
-                else if (typeToSpawn == CenterTag.Types.Violet)
-                {
-                    add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
-                }
-                add.GetComponent<EnnemiBehavior>().target = target;
-                add.GetComponent<EnnemiBehavior>().speed = speedOfAgent;
-                compteur = 0;
             }
 
         }
