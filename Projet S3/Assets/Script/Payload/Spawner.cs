@@ -30,19 +30,23 @@ public class Spawner : MonoBehaviour
             radius *= 10;
         }
 
-        typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
-        if (typeToSpawn == CenterTag.Types.Blue)
+        if(target.GetComponent<CenterTag>())
         {
-            colorToSpawn = Color.blue;
+            typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+            if (typeToSpawn == CenterTag.Types.Blue)
+            {
+                colorToSpawn = Color.blue;
+            }
+            else if (typeToSpawn == CenterTag.Types.Orange)
+            {
+                colorToSpawn = Color.yellow;
+            }
+            else if (typeToSpawn == CenterTag.Types.Violet)
+            {
+                colorToSpawn = Color.magenta;
+            }
         }
-        else if (typeToSpawn == CenterTag.Types.Orange)
-        {
-            colorToSpawn = Color.yellow;
-        }
-        else if (typeToSpawn == CenterTag.Types.Violet)
-        {
-            colorToSpawn = Color.magenta;
-        }
+
     }
     void Update()
     {
