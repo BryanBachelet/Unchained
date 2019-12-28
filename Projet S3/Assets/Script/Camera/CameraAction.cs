@@ -40,8 +40,8 @@ public class CameraAction : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        transform.position = player.transform.position+ profil.position;
-        transform.eulerAngles = profil.rotation;
+        //transform.position = player.transform.position+ profil.position;
+        //transform.eulerAngles = profil.rotation;
         ecartJoueur = transform.position - player.transform.position;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();

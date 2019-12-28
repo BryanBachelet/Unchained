@@ -132,8 +132,9 @@ public class LineRend : MonoBehaviour
         }
         if (collision.transform.tag == "wall")
         {
-            if (ennemiStock.ennemiStock != collision.gameObject)
+            if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
             {
+                
                 ennemiStock.DetachPlayer();
             }
         }
@@ -146,7 +147,7 @@ public class LineRend : MonoBehaviour
         }
         if (collision.transform.tag == "wall")
         {
-            if (ennemiStock.ennemiStock != collision.gameObject)
+            if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
             {
                 ennemiStock.DetachPlayer();
             }

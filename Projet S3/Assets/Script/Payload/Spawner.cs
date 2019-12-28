@@ -33,18 +33,19 @@ public class Spawner : MonoBehaviour
         {
             typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
             if (typeToSpawn == CenterTag.Types.Blue)
-        typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
-        if (typeToSpawn == CenterTag.Types.Blue)
-        {
-            colorToSpawn = Color.blue;
-        }
-        else if (typeToSpawn == CenterTag.Types.Orange)
-        {
-            colorToSpawn = Color.yellow;
-        }
-        else if (typeToSpawn == CenterTag.Types.Violet)
-        {
-            colorToSpawn = Color.magenta;
+                typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+            if (typeToSpawn == CenterTag.Types.Blue)
+            {
+                colorToSpawn = Color.blue;
+            }
+            else if (typeToSpawn == CenterTag.Types.Orange)
+            {
+                colorToSpawn = Color.yellow;
+            }
+            else if (typeToSpawn == CenterTag.Types.Violet)
+            {
+                colorToSpawn = Color.magenta;
+            }
         }
     }
     void Update()
@@ -138,9 +139,13 @@ public class Spawner : MonoBehaviour
 
     }
 
+
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
+
+
