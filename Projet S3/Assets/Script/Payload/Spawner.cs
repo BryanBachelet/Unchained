@@ -30,6 +30,9 @@ public class Spawner : MonoBehaviour
             radius *= 10;
         }
 
+        {
+            typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+            if (typeToSpawn == CenterTag.Types.Blue)
         typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
         if (typeToSpawn == CenterTag.Types.Blue)
         {

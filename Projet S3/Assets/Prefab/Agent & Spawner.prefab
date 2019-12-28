@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -50,7 +51,10 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 10
+  bigSpawn: 0
+  nbrPointOfSpawn: 0
   nbrEntiteeToSpawn: 4
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8717336000859222618
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +83,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8717336001519502607}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717336000916416370
 GameObject:
@@ -124,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -131,7 +136,10 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 4
+  bigSpawn: 0
   nbrEntiteeToSpawn: 4
+    nbrPointOfSpawn: 0
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8717336001958556990
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -182,7 +191,10 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 4
+  bigSpawn: 0
   nbrEntiteeToSpawn: 4
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
+    nbrPointOfSpawn: 0
 --- !u!1 &8717336001970793982
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +223,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8717336001519502607}
-  m_RootOrder: 37
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717336002051847340
 GameObject:
@@ -256,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -263,7 +276,10 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 4
+  bigSpawn: 0
   nbrEntiteeToSpawn: 4
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
+      nbrPointOfSpawn: 0
 --- !u!1 &8717336002052552023
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,37 +313,8 @@ Transform:
   - {fileID: 8717336000916416371}
   - {fileID: 8717336002857901907}
   - {fileID: 8717336001958556991}
-  - {fileID: 8717336002360947459}
   - {fileID: 8717336000859222619}
-  - {fileID: 4080148445879194857}
-  - {fileID: 4080148445201801561}
-  - {fileID: 4080148444758489444}
-  - {fileID: 4080148444807886188}
-  - {fileID: 4080148444834227899}
-  - {fileID: 4080148444928237705}
-  - {fileID: 4080148445245883795}
-  - {fileID: 4080148445364622620}
-  - {fileID: 4080148445249512384}
-  - {fileID: 4080148444985647161}
-  - {fileID: 4080148445184609763}
-  - {fileID: 4080148445712072092}
-  - {fileID: 4080148444753467105}
-  - {fileID: 4080148445931159892}
-  - {fileID: 4080148445849900222}
-  - {fileID: 4080148445428516606}
-  - {fileID: 4080148446129120917}
-  - {fileID: 4080148444829138018}
-  - {fileID: 4080148444681414010}
-  - {fileID: 4080148444965261696}
-  - {fileID: 4080148444524017989}
-  - {fileID: 4080148444532433760}
-  - {fileID: 4080148444392131199}
-  - {fileID: 4080148445606436906}
-  - {fileID: 4080148445491780971}
-  - {fileID: 4080148445538298575}
-  - {fileID: 4080148444804337079}
-  - {fileID: 4080148446050587152}
-  - {fileID: 4080148445895007665}
+  - {fileID: 8717336002360947459}
   - {fileID: 8717336001970793983}
   - {fileID: 8717336002511388167}
   m_Father: {fileID: 0}
@@ -376,6 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -383,7 +371,10 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 4
+  bigSpawn: 0
   nbrEntiteeToSpawn: 4
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
+      nbrPointOfSpawn: 0
 --- !u!1 &8717336002360947458
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +403,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8717336001519502607}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717336002511388166
 GameObject:
@@ -442,7 +433,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8717336001519502607}
-  m_RootOrder: 38
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8717336002857901906
 GameObject:
@@ -487,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionParent: {fileID: 0}
   objectToInstantiate: {fileID: 3431385793930213716, guid: d862a38bdb224584485e5e3501c7cdbe,
     type: 3}
   parentToSpawn: {fileID: 8717336000859222618}
@@ -494,7 +486,9 @@ MonoBehaviour:
   target: {fileID: 8717336002360947458}
   radius: 8.33
   speedOfAgent: 4
+  bigSpawn: 0
   nbrEntiteeToSpawn: 4
+  colorToSpawn: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &8717336000887562852
 PrefabInstance:
   m_ObjectHideFlags: 0
