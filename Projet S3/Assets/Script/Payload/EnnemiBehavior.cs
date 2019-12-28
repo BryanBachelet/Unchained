@@ -10,6 +10,7 @@ public class EnnemiBehavior : MonoBehaviour
 
     public GameObject target;
     public GameObject currentTarget;
+<<<<<<< HEAD
     public float speedClassic = 4;
     public float speedLinks = 10;
     GameObject player;
@@ -17,6 +18,11 @@ public class EnnemiBehavior : MonoBehaviour
     public float speedOfRotation = 1;
     public float angle;
     [HideInInspector] public bool imStock;
+=======
+    public float speedClassic;
+  GameObject player;
+    [HideInInspector]public bool imStock;
+>>>>>>> origin/branch-7
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +54,7 @@ public class EnnemiBehavior : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) > 1.5f)
                 {
+<<<<<<< HEAD
                     Vector3 rot = transform.eulerAngles;
                     if (rot.y > 180)
                     {
@@ -67,6 +74,8 @@ public class EnnemiBehavior : MonoBehaviour
                     }
                     transform.eulerAngles = Vector3.Lerp(rot, rot + new Vector3(0, angle, 0), t);
 
+=======
+>>>>>>> origin/branch-7
                     transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speedClassic * Time.deltaTime);
                     tag = "Ennemi";
                 }

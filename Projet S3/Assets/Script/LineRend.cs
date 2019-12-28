@@ -170,7 +170,7 @@ public class LineRend : MonoBehaviour
             contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
             float rndX = Random.Range(-15, 15);
             contactSound.start();
-            Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
+            //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);

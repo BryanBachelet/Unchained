@@ -26,23 +26,36 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         if (bigSpawn)
+<<<<<<< HEAD
         {
             radius *= 10;
         }
 
         typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
         if (typeToSpawn == CenterTag.Types.Blue)
+=======
+>>>>>>> origin/branch-7
         {
-            colorToSpawn = Color.blue;
+            radius *= 10;
         }
-        else if (typeToSpawn == CenterTag.Types.Orange)
+
+        if(target.GetComponent<CenterTag>())
         {
-            colorToSpawn = Color.yellow;
+            typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+            if (typeToSpawn == CenterTag.Types.Blue)
+            {
+                colorToSpawn = Color.blue;
+            }
+            else if (typeToSpawn == CenterTag.Types.Orange)
+            {
+                colorToSpawn = Color.yellow;
+            }
+            else if (typeToSpawn == CenterTag.Types.Violet)
+            {
+                colorToSpawn = Color.magenta;
+            }
         }
-        else if (typeToSpawn == CenterTag.Types.Violet)
-        {
-            colorToSpawn = Color.magenta;
-        }
+
     }
     void Update()
     {
