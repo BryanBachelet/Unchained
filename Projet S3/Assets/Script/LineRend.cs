@@ -36,6 +36,7 @@ public class LineRend : MonoBehaviour
     public Animator myAnimator;
     private bool activeVelocity;
     private Velocity velocity;
+
     // Start is called before the first frame update
     void Start()
     {
