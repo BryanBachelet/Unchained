@@ -51,7 +51,7 @@ public class CameraAction : MonoBehaviour
     void Update()
     {
         orthoCam.orthographicSize = 15 * Vector3.Distance(transform.position, player.transform.position) / 25;
-        Debug.Log(Vector3.Distance(transform.position, player.transform.position) + " = Distance Avec Le player");
+
         basePosition = player.transform.position + ecartJoueur;
 
         if (playerMouseScope.instanceBullet != null || playerEnnemiStock.ennemiStock != null)

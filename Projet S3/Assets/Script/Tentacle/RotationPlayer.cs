@@ -10,6 +10,7 @@ public class RotationPlayer : MonoBehaviour
     private float angleCompteur;
     private float currentAngleMax;
 
+    public Material lineMat;
     private EnnemiStock stocks;
     private float forceOfSortie;
     private GameObject objectToRotate;
@@ -41,6 +42,12 @@ public class RotationPlayer : MonoBehaviour
                 previousPos = objectToRotate.transform.position;
                 angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
                 objectToRotate.transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
+                newDir = objectToRotate.transform.position - previousPos;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, pointPivot);
+                line.p1 = transform.position;
+                line.p2 = stocks.ennemiStock.transform.position;
+                line.ColliderSize();
                 i++;
                 if (i > 3)
                 {
@@ -55,11 +62,10 @@ public class RotationPlayer : MonoBehaviour
                     angleCompteur = 0;
                 }
             }
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, pointPivot);
-            line.p1 = transform.position;
-            line.p2 = stocks.ennemiStock.transform.position;
-            line.ColliderSize();
+        }
+        else
+        {
+            previousPos = transform.position;
         }
     }
 
@@ -121,19 +127,21 @@ public class RotationPlayer : MonoBehaviour
     {
         if (isWall)
         {
-            objectToRotate.tag = tagEnter;
+            transform.tag = tagEnter;
         }
 
         CheckEnnnemi(isWall);
-        if(vfxShockWave != null)
+        transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
+        transform.GetComponent<WallRotate>().hasHitWall = false;
+        if (vfxShockWave != null)
         {
-            float angleToRotate = Vector3.Angle(transform.forward, newDir);
+            newDir = transform.transform.position - previousPos;
+            float angleToRotate = Vector3.SignedAngle(transform.forward, newDir.normalized, Vector3.up);
+
             GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleToRotate, 0));
-            //vfxSW.transform.eulerAngles = new Vector3(0, angleToRotate, 0);
-            //Debug.Break();
+
+
         }
-        objectToRotate.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
-        objectToRotate.GetComponent<WallRotate>().hasHitWall = false;
         objectToRotate = null;
         currentAngleMax = angleMax;
         angleCompteur = 0;
@@ -144,15 +152,35 @@ public class RotationPlayer : MonoBehaviour
     private void CheckEnnnemi(bool isEnnemi)
     {
 
-        newDir = objectToRotate.transform.position - previousPos;
+        newDir = transform.position - previousPos;
         if (gameObjectPointPivot != null)
         {
             gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
         }
-        if (objectToRotate.GetComponent<PlayerMoveAlone>())
+        if (transform.GetComponent<PlayerMoveAlone>())
         {
-            objectToRotate.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
-            objectToRotate.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
+            transform.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
+            transform.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
+        }
+
+    }
+
+
+    private void OnRenderObject()
+    {
+        if (Camera.current.name == "Camera")
+        {
+            if (stocks.ennemiStock != null)
+            {
+                GL.Begin(GL.LINES);
+                lineMat.SetPass(0);
+
+                GL.Color(Color.blue);
+                GL.Vertex(transform.position);
+                GL.Vertex(transform.position + (newDir).normalized * 100);
+                GL.End();
+            }
+
         }
 
     }

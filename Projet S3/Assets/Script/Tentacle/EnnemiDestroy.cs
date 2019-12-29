@@ -20,30 +20,34 @@ public class EnnemiDestroy : MonoBehaviour
     {
         if (isDestroying)
         {
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        if (isDestroying)
-        {
-            if(!enter)
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            if (isDestroying)
             {
-                Instantiate(vfxBlueUp, transform.position, transform.rotation,Camera.main.transform);
-                enter = true;
-            }
-            if (compteur > timerToDestro)
-            {
+                if (!enter)
+                {
+                    if (vfxBlueUp != null)
+                    {
+                        Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
+                    }
+                    enter = true;
+                }
+                if (compteur > timerToDestro)
+                {
 
-                Destroy(gameObject);
-                //if(vfxBlueUp != null)
-                //{
+                    Destroy(gameObject);
+                    //if(vfxBlueUp != null)
+                    //{
 
-                    
-                //}
 
+                    //}
+
+                }
+                else
+                {
+                    compteur += Time.deltaTime;
+                }
             }
-            else
-            {
-                compteur += Time.deltaTime ;
-            }
+
         }
-        
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnnemiStock : MonoBehaviour
 {
+    
     public GameObject ennemiStock;
     public Vector3 pos;
     public Klak.Motion.SmoothFollow mySmoothFollow;
