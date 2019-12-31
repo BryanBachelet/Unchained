@@ -19,6 +19,7 @@ public class LineRend : MonoBehaviour
     private EnnemiStock ennemiStock;
     public GameObject particuleContact;
 
+    public bool activeDetach = false;
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
@@ -131,12 +132,15 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
-        if (collision.transform.tag == "wall")
+        if (activeDetach)
         {
-            if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+            if (collision.transform.tag == "wall")
             {
-                
-                ennemiStock.DetachPlayer();
+                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                {
+
+                    ennemiStock.DetachPlayer();
+                }
             }
         }
     }
@@ -146,11 +150,14 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
-        if (collision.transform.tag == "wall")
+        if (activeDetach)
         {
-            if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+            if (collision.transform.tag == "wall")
             {
-                ennemiStock.DetachPlayer();
+                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                {
+                    ennemiStock.DetachPlayer();
+                }
             }
         }
     }
