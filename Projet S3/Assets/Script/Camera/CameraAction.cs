@@ -24,7 +24,13 @@ public class CameraAction : MonoBehaviour
     [Header("Proposition")]
     public bool decalageScope;
     public float decalageCamera = 0;
-    public float distanceMax= 100;
+    public float speedbase = 10;
+    public float multiplicateurSpeedMax = 5;
+    [Range(0, 1)]
+    public float resetLerp = 0.3f;
+    private Vector3 previousMousePos;
+
+    public float distanceMax = 100;
     private bool supZero;
     [HideInInspector] public Vector3 ecartJoueur;
     [HideInInspector] public Vector3 basePosition;
@@ -45,6 +51,7 @@ public class CameraAction : MonoBehaviour
         ecartJoueur = transform.position - player.transform.position;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
+        previousMousePos = transform.position;
     }
 
 
@@ -112,16 +119,35 @@ public class CameraAction : MonoBehaviour
 
                 if (dir.z < 1f)
                 {
-                    if (!supZero)
+                    float test = dir.z - 1f;
+                    test = Mathf.Clamp(test, -1, 1);
+                    Vector3 currentDir = transform.position - basePosition;
+                    currentDir = new Vector3(currentDir.x, 0, currentDir.z);
+
+                    Vector3 posCamPlus = dir * decalageCamera * Mathf.Abs(test);
+                    Vector3 newDir = (basePosition + posCamPlus) - basePosition;
+                    Vector3 newPos = basePosition + posCamPlus;
+                    newDir = new Vector3(newDir.x, 0, newDir.z);
+                    float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
+                    float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
+                    //Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
+
+                    float distanceNextPos = Vector3.Distance(transform.position, basePosition + posCamPlus);
+                    float distanceMouseDistance = Vector3.Distance(newPos, previousMousePos);
+                    Debug.Log(distanceMouseDistance);
+                    previousMousePos = newPos;
+                       
+                    float speedGive = distanceNextPos / speedbase;
+                    speedGive = Mathf.Clamp(speedGive, 0f, multiplicateurSpeedMax);
+                    compteurZoomBullet += Time.deltaTime * speedGive;
+                    transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
+                    //Debug.Log(compteurZoomBullet);
+
+                    if (distanceNextPos < 3 || compteurZoomBullet > 1 || distanceNextPos > 3 && compteurZoomBullet > resetLerp && distanceMouseDistance>0.02f)
                     {
                         compteurZoomBullet = 0;
                         supZero = true;
                     }
-                    float test = dir.z - 1;
-
-                    Vector3 posCamPlus = dir * decalageCamera * Mathf.Abs(test);
-                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
-                    transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
                     competeur = 0;
                     compteurDezoomBullet = 0;
                 }
@@ -132,8 +158,19 @@ public class CameraAction : MonoBehaviour
                         compteurZoomBullet = 0;
                         supZero = false;
                     }
+                    Vector3 currentDir = transform.position - basePosition;
+                    currentDir = new Vector3(currentDir.x, 0, currentDir.z);
 
-                    compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
+                    Vector3 newDir = dir;
+                    newDir = new Vector3(newDir.x, 0, newDir.z);
+                    float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
+                    float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
+                    Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
+                    float distanceNextPos = Vector3.Distance(transform.position, basePosition);
+
+                    float speedGive = distanceNextPos / speedbase;
+                    compteurZoomBullet += Time.deltaTime * speedGive;
+
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
                     competeur = 0;
                     compteurDezoomBullet = 0;

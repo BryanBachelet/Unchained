@@ -122,7 +122,16 @@ public class EnnemiStock : MonoBehaviour
                     OrbitEvent.start();
                 }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+                if (ennemiStock.tag == "wall")
+                {
+                    rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, true);
+
+                }
+                else
+                {
+                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+
+                }
 
             }
 

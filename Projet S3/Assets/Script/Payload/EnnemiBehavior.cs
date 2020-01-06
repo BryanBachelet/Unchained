@@ -40,6 +40,7 @@ public class EnnemiBehavior : MonoBehaviour
         {
             if (imStock)
             {
+                transform.rotation = Quaternion.identity;
                 Vector3 direction = (transform.position - player.transform.position).normalized;
                 transform.Translate(direction * speedLinks * Time.deltaTime);
                 transform.position = new Vector3(transform.position.x, 1, transform.position.z);

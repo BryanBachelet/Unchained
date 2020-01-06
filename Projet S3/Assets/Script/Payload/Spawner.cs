@@ -21,9 +21,9 @@ public class Spawner : MonoBehaviour
     [Range(1, 10)]
     public int nbrPointOfSpawn;
 
-    public GameObject vfBlue;
-    public GameObject vfViolet;
-    public GameObject vfJauge;
+    public GameObject vfChargeBlue;
+    public GameObject vfChargeViolet;
+    public GameObject vfChargeJauge;
     CenterTag.Types typeToSpawn;
     private Color colorToSpawn;
 
@@ -96,17 +96,17 @@ public class Spawner : MonoBehaviour
                         if (typeToSpawn == CenterTag.Types.Blue)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
-                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfBlue;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
                         }
                         else if (typeToSpawn == CenterTag.Types.Orange)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
-                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfJauge;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
                         }
                         else if (typeToSpawn == CenterTag.Types.Violet)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
-                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfViolet;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
                         }
                         add.GetComponent<EnnemiBehavior>().target = target;
                         add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
@@ -124,17 +124,17 @@ public class Spawner : MonoBehaviour
                     if (typeToSpawn == CenterTag.Types.Blue)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
-                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfBlue;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
                     }
                     else if (typeToSpawn == CenterTag.Types.Orange)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
-                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfJauge;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
                     }
                     else if (typeToSpawn == CenterTag.Types.Violet)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
-                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfViolet;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
                     }
                     add.GetComponent<EnnemiBehavior>().target = target;
                     add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;

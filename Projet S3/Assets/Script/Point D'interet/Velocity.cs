@@ -9,12 +9,12 @@ public class Velocity : MonoBehaviour
     public float convertisseurStatOne = 10;
     public float realPointOne;
 
-    [Header("V2")]
+    [Header("Distance of bullet")]
     public float velocityStatTwo;
     public float convertisseurStatTwo = 10;
     public float realPointTwo;
 
-    [Header("V3")]
+    [Header("Rotation Distance")]
     public float velocityStatThree = 0;
     public float convertisseurStatThree = 10;
     public float realPointThree ;
@@ -28,6 +28,10 @@ public class Velocity : MonoBehaviour
     private float compteurThree;
 
     private EnnemiStock ennemiStock;
+    private MouseScope mouse;
+    private float startDistance;
+    private RotationPlayer rotationPlayer;
+    private float startAngleSpeed;
     private PlayerMoveAlone playerMove;
 
 
@@ -39,6 +43,10 @@ public class Velocity : MonoBehaviour
     {
         playerMove = GetComponent<PlayerMoveAlone>();
         ennemiStock = GetComponent<EnnemiStock>();
+        mouse = GetComponent<MouseScope>();
+        startDistance = mouse.distance;
+        rotationPlayer = GetComponent<RotationPlayer>();
+        startAngleSpeed = rotationPlayer.angleSpeed;
     }
 
     // Update is called once per frame
@@ -49,7 +57,11 @@ public class Velocity : MonoBehaviour
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
 
         realPointTwo = velocityStatTwo / convertisseurStatTwo;
+        mouse.distance += startDistance + realPointTwo;  
+
         realPointThree = velocityStatThree / convertisseurStatThree;
+        
+        rotationPlayer.angleSpeed = (startAngleSpeed  + realPointThree) * Mathf.Sign(rotationPlayer.angleSpeed);
 
         if (compteurOne > DecreaseOfTimerVelocity && velocityStatOne > 0)
         {

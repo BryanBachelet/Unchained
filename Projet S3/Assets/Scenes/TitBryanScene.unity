@@ -1321,7 +1321,7 @@ MonoBehaviour:
   convertisseurStatTwo: 20
   realPointTwo: 0
   velocityStatThree: 0
-  convertisseurStatThree: 20
+  convertisseurStatThree: 10
   realPointThree: 0
   DecreaseOfTimerVelocity: 1.5
   DecreaseOfVelocity: 5
@@ -3599,6 +3599,12 @@ MonoBehaviour:
   bigSpawn: 0
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
+  vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+    type: 3}
+  vfChargeViolet: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+    type: 3}
+  vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+    type: 3}
 --- !u!1 &357324385
 GameObject:
   m_ObjectHideFlags: 0
@@ -4541,13 +4547,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 2051200859}
+  shadowMapRenderTexture: {fileID: 1306191837}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 2130858210}
+  shadowDataRenderTexture: {fileID: 675735262}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -6763,6 +6769,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652278235}
   m_CullTransparentMesh: 0
+--- !u!84 &675735262
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &676040977
 GameObject:
   m_ObjectHideFlags: 0
@@ -11840,6 +11878,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292397517}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &1306191837
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 512
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1314698536
 GameObject:
   m_ObjectHideFlags: 0
@@ -12435,6 +12505,12 @@ MonoBehaviour:
   bigSpawn: 0
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
+  vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+    type: 3}
+  vfChargeViolet: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+    type: 3}
+  vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+    type: 3}
 --- !u!1 &1377108427
 GameObject:
   m_ObjectHideFlags: 0
@@ -14006,6 +14082,12 @@ MonoBehaviour:
   bigSpawn: 0
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
+  vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+    type: 3}
+  vfChargeViolet: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+    type: 3}
+  vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+    type: 3}
 --- !u!1 &1574726385
 GameObject:
   m_ObjectHideFlags: 0
@@ -14732,6 +14814,12 @@ MonoBehaviour:
   bigSpawn: 0
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
+  vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+    type: 3}
+  vfChargeViolet: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+    type: 3}
+  vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+    type: 3}
 --- !u!1 &1711989765
 GameObject:
   m_ObjectHideFlags: 0
@@ -17959,7 +18047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748145755a1b0244abab3b5c4646866f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerTypes: 0
+  centerTypes: 2
 --- !u!1 &2039823414
 GameObject:
   m_ObjectHideFlags: 0
@@ -18194,38 +18282,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &2051200859
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &2058395054
 GameObject:
   m_ObjectHideFlags: 0
@@ -18419,6 +18475,12 @@ MonoBehaviour:
   bigSpawn: 0
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
+  vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+    type: 3}
+  vfChargeViolet: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+    type: 3}
+  vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+    type: 3}
 --- !u!1 &2114350241
 GameObject:
   m_ObjectHideFlags: 0
@@ -18651,7 +18713,7 @@ PrefabInstance:
     - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
       propertyPath: decalageCamera
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
@@ -18663,6 +18725,21 @@ PrefabInstance:
       propertyPath: orthoCam
       value: 
       objectReference: {fileID: 1970119998}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: speedbase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: resetLerp
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: multiplicateurSpeedMax
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63309d3e81ed6a1448edc70662a09f96, type: 3}
 --- !u!1 &2126177456
@@ -18701,38 +18778,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!84 &2130858210
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &2133366659
 GameObject:
   m_ObjectHideFlags: 0
@@ -19201,7 +19246,7 @@ PrefabInstance:
     - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: _positionSpeed
-      value: 1.1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921439188241, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -19234,6 +19279,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921218684920, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295920540171365, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295920540171365, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -19985,16 +20040,6 @@ PrefabInstance:
     - target: {fileID: 2436290421964328136, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295920540171365, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295920540171365, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436290423108357410, guid: fcc879748b371f8418298a684c116714,
@@ -20931,7 +20976,7 @@ PrefabInstance:
     - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -20942,16 +20987,52 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1575339752}
+      objectReference: {fileID: 2034709521}
     - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: timeOfSpawn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -20967,7 +21048,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 295342528}
+      objectReference: {fileID: 2034709521}
     - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: objectToInstantiate
@@ -20984,6 +21065,47 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: speedOfAgent
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295922166187126, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 3179295921149693689, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -21007,7 +21129,7 @@ PrefabInstance:
     - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -21023,7 +21145,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 601452141}
+      objectReference: {fileID: 2034709521}
     - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: objectToInstantiate
@@ -21040,10 +21162,51 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: speedOfAgent
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921029420964, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -21059,7 +21222,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1816609789}
+      objectReference: {fileID: 2034709521}
     - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: objectToInstantiate
@@ -21076,10 +21239,51 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: speedOfAgent
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921129002554, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -21095,7 +21299,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 295342528}
+      objectReference: {fileID: 2034709521}
     - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: objectToInstantiate
@@ -21112,10 +21316,51 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: speedOfAgent
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921218684922, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: radius
-      value: 134.49
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -21136,7 +21381,43 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 621993742}
+      objectReference: {fileID: 2034709521}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 3179295921961693628, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 7816713240372424983, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: nbrPointOfSpawn
@@ -21242,6 +21523,29 @@ PrefabInstance:
       propertyPath: nbrPointOfSpawn
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7816713241349158894, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816713241349158894, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 7816713241349158894, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 7816713241349158894, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 7816713241378584505, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: nbrPointOfSpawn
@@ -21322,6 +21626,34 @@ PrefabInstance:
       propertyPath: nbrEntiteeToSpawn
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7816713241753879134, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816713241753879134, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 2034709521}
+    - target: {fileID: 7816713241753879134, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeBlue
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
+        type: 3}
+    - target: {fileID: 7816713241753879134, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeViolet
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: f9b4656558cf0224da50d95250bc5a09,
+        type: 3}
+    - target: {fileID: 7816713241753879134, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: vfChargeJauge
+      value: 
+      objectReference: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
+        type: 3}
     - target: {fileID: 7816713241825555995, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: nbrPointOfSpawn

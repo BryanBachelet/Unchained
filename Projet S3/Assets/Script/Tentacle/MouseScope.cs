@@ -6,7 +6,7 @@ public class MouseScope : MonoBehaviour
 {
     public Material line;
     public GameObject bullet;
-    public GameObject[] Ambout;
+    public GameObject Ambout;
     public int numberAmbout;
     // public GameObject spawn;
     private EnnemiStock ennemiStock;
@@ -35,7 +35,7 @@ public class MouseScope : MonoBehaviour
     public float distance = 75;
     public float timerOfBullet = 0.5f;
     public float speedOfBullet;
-    public float timeBetweenShoot=0.4f;
+    public float timeBetweenShoot = 0.4f;
     public bool distanceDestruct;
     private float _timerOfBullet;
     private GameObject meshBullet;
@@ -56,18 +56,7 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (numberAmbout == Ambout.Length - 1)
-            {
-                numberAmbout = 0;
-            }
-            else
-            {
-                numberAmbout++;
-            }
-        }
-
+      
 
         direction = DirectionSouris();
         directionManette = DirectionManette();
@@ -83,10 +72,10 @@ public class MouseScope : MonoBehaviour
             {
 
                 instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
-                meshBullet = Instantiate(Ambout[numberAmbout], instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+                meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
                 float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
-                Vector3 eulers = new Vector3(Ambout[numberAmbout].transform.eulerAngles.x, angle, Ambout[numberAmbout].transform.eulerAngles.z);
+                Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
                 meshBullet.transform.localRotation = Quaternion.Euler(eulers);
 
                 _timerOfBullet = 0;
@@ -101,7 +90,7 @@ public class MouseScope : MonoBehaviour
                 contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
                 contactSound.start();
-                
+
             }
 
         }
@@ -200,20 +189,12 @@ public class MouseScope : MonoBehaviour
                 GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
                 GL.End();
             }
-           
+
         }
 
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    GL.Begin(GL.LINES);
-    //    line.SetPass(0);
-    //    GL.Color(Color.red);
-    //    GL.Vertex(transform.position);
-    //    GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
-    //    GL.End();
-    //}
+
     private Vector3 DirectionSouris()
     {
         Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -225,9 +206,6 @@ public class MouseScope : MonoBehaviour
             Vector3 pointToLook = camera.GetPoint(rauEnter);
             Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 dir = pointToLook - posPlayer;
-
-
-
             return dir;
         }
         else
