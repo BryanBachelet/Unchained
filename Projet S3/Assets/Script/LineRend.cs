@@ -19,6 +19,7 @@ public class LineRend : MonoBehaviour
     private EnnemiStock ennemiStock;
     public GameObject particuleContact;
 
+    public bool activeDetach = false;
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
@@ -36,6 +37,7 @@ public class LineRend : MonoBehaviour
     public Animator myAnimator;
     private bool activeVelocity;
     private Velocity velocity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -130,6 +132,17 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
+        if (activeDetach)
+        {
+            if (collision.transform.tag == "wall")
+            {
+                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                {
+
+                    ennemiStock.DetachPlayer();
+                }
+            }
+        }
     }
     public void OnTriggerStay(Collider collision)
     {
@@ -137,8 +150,17 @@ public class LineRend : MonoBehaviour
         {
             Collision(collision);
         }
+        if (activeDetach)
+        {
+            if (collision.transform.tag == "wall")
+            {
+                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                {
+                    ennemiStock.DetachPlayer();
+                }
+            }
+        }
     }
-
 
     void Collision(Collider collision)
     {
@@ -157,7 +179,7 @@ public class LineRend : MonoBehaviour
             contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
             float rndX = Random.Range(-15, 15);
             contactSound.start();
-            Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
+            //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);

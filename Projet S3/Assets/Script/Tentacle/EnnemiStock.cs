@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnnemiStock : MonoBehaviour
 {
+    
     public GameObject ennemiStock;
     public Vector3 pos;
     public Klak.Motion.SmoothFollow mySmoothFollow;
@@ -121,32 +122,23 @@ public class EnnemiStock : MonoBehaviour
                     OrbitEvent.start();
                 }
                 mySmoothFollow.target = ennemiStock.gameObject.transform;
-                rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+                if (ennemiStock.tag == "wall")
+                {
+                    rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, true);
+
+                }
+                else
+                {
+                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+
+                }
 
             }
 
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
             {
                 // myRE.Emit();
-                myFOV = 70;
-                isOnZoom = false;
-                if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
-                {
-                    ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-                }
-                mySmoothFollow.target = null;
-                ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-                if (ennemiStock.tag == "wall")
-                {
-                    rotationPlayer.StopRotation(false);
-                }
-                else
-                {
-                    rotationPlayer.StopRotation(true);
-
-                }
-                ennemiStock = null;
-                OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                DetachPlayer();
             }
 
         }
@@ -158,6 +150,30 @@ public class EnnemiStock : MonoBehaviour
             startBool = false;
 
         }
+    }
+
+
+    public void DetachPlayer()
+    {
+        myFOV = 70;
+        isOnZoom = false;
+        if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+        {
+            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+        }
+        mySmoothFollow.target = null;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        if (ennemiStock.tag == "wall")
+        {
+            rotationPlayer.StopRotation(false);
+        }
+        else
+        {
+            rotationPlayer.StopRotation(true);
+
+        }
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
     public void zoomOnHit()
