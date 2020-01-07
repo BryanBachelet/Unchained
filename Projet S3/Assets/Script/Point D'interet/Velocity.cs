@@ -57,7 +57,7 @@ public class Velocity : MonoBehaviour
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
 
         realPointTwo = velocityStatTwo / convertisseurStatTwo;
-        mouse.distance += startDistance + realPointTwo;  
+        mouse.distance = startDistance + realPointTwo;  
 
         realPointThree = velocityStatThree / convertisseurStatThree;
         

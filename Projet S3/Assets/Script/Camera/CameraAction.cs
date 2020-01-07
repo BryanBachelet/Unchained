@@ -130,20 +130,20 @@ public class CameraAction : MonoBehaviour
                     newDir = new Vector3(newDir.x, 0, newDir.z);
                     float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
                     float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
-                    //Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
+
 
                     float distanceNextPos = Vector3.Distance(transform.position, basePosition + posCamPlus);
                     float distanceMouseDistance = Vector3.Distance(newPos, previousMousePos);
-                    Debug.Log(distanceMouseDistance);
+
                     previousMousePos = newPos;
-                       
+
                     float speedGive = distanceNextPos / speedbase;
                     speedGive = Mathf.Clamp(speedGive, 0f, multiplicateurSpeedMax);
                     compteurZoomBullet += Time.deltaTime * speedGive;
                     transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
-                    //Debug.Log(compteurZoomBullet);
 
-                    if (distanceNextPos < 3 || compteurZoomBullet > 1 || distanceNextPos > 3 && compteurZoomBullet > resetLerp && distanceMouseDistance>0.02f)
+
+                    if (distanceNextPos < 3 || compteurZoomBullet > 1 || distanceNextPos > 3 && compteurZoomBullet > resetLerp && distanceMouseDistance > 0.02f)
                     {
                         compteurZoomBullet = 0;
                         supZero = true;
@@ -165,7 +165,7 @@ public class CameraAction : MonoBehaviour
                     newDir = new Vector3(newDir.x, 0, newDir.z);
                     float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
                     float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
-                    Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
+
                     float distanceNextPos = Vector3.Distance(transform.position, basePosition);
 
                     float speedGive = distanceNextPos / speedbase;
