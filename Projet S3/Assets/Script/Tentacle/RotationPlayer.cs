@@ -28,6 +28,7 @@ public class RotationPlayer : MonoBehaviour
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        forceOfSortie = transform.GetComponent<PlayerMoveAlone>().powerOfProjection;
         line = GetComponentInChildren<LineRend>();
         stocks = GetComponent<EnnemiStock>();
         currentAngleMax = angleMax;
@@ -65,7 +66,8 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-            previousPos = transform.position;
+            previousPos = transform.position - transform.forward;
+            newDir = transform.position - previousPos;
         }
     }
 
@@ -131,6 +133,7 @@ public class RotationPlayer : MonoBehaviour
         }
 
         CheckEnnnemi(isWall);
+       
         transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
