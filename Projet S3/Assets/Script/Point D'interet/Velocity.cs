@@ -52,8 +52,8 @@ public class Velocity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        realPointOne = velocityStatOne / convertisseurStatOne;
+       
+        realPointOne = velocityStatOne/ convertisseurStatOne;
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
 
         realPointTwo = velocityStatTwo / convertisseurStatTwo;

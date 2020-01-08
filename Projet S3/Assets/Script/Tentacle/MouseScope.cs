@@ -39,6 +39,7 @@ public class MouseScope : MonoBehaviour
     private float _timerOfBullet;
     private GameObject meshBullet;
     Projectils projectils;
+    [HideInInspector] public bool lastInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +68,16 @@ public class MouseScope : MonoBehaviour
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
         {
             InstantiateProjectile();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastInput = true;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            lastInput = false;
         }
 
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
