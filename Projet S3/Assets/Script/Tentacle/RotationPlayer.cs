@@ -51,15 +51,13 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
-            i++;
-            if (i > 3)
-            {
-                if (Input.GetMouseButtonDown(0) && !changeSens || Input.GetMouseButtonDown(1) && !changeSens)
-                {
-                    ChangeRotationDirection();
 
-                }
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                ChangeRotationDirection();
+
             }
+
             if (angleCompteur > currentAngleMax)
             {
                 angleCompteur = 0;
@@ -72,6 +70,8 @@ public class RotationPlayer : MonoBehaviour
     public void ChangeRotationDirection()
     {
         angleSpeed = -angleSpeed;
+       
+        stocks.inputNeed = !stocks.inputNeed;
         currentAngleMax = angleMax + angleCompteur;
         angleCompteur = 0;
         changeSens = true;

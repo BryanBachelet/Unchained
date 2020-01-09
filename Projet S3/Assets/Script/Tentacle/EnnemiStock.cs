@@ -35,6 +35,7 @@ public class EnnemiStock : MonoBehaviour
     bool isOnZoom = false;
     private RippleEffect myRE;
     private MouseScope mouse;
+    [HideInInspector] public bool inputNeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +74,7 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
+                inputNeed = mouse.lastInput;
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
@@ -108,6 +110,8 @@ public class EnnemiStock : MonoBehaviour
                 contactSound.start();
 
             }
+            
+
             if (isOnZoom)
             {
                 zoomOnHit();
@@ -123,7 +127,7 @@ public class EnnemiStock : MonoBehaviour
 
 
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed )
             {
                 // myRE.Emit();
                 DetachPlayer();
