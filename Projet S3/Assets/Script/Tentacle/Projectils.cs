@@ -86,6 +86,42 @@ public class Projectils : MonoBehaviour
         }
 
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!returnBall)
+        {
+            if (other.tag == "Ennemi")
+            {
+                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                player.GetComponent<EnnemiStock>().onHitEnter = true;
+                if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
+
+                other.tag = "Untagged";
+                other.transform.position += dir.normalized * 3;
+                Destroy(gameObject);
+            }
+            else if (other.tag == "wall")
+            {
+                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                player.GetComponent<EnnemiStock>().onHitEnter = true;
+
+                hitWallPos = other.ClosestPoint(transform.position);
+                player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
+                player.GetComponent<EnnemiStock>().pos = hitWallPos;
+                GameObject hitGO = Instantiate(hitwallprefab, hitWallPos, transform.rotation);
+                player.GetComponent<WallRotate>().hitGOPos = hitGO;
+                player.GetComponent<WallRotate>().hasHitWall = true;
+                Destroy(gameObject);
+            }
+        }
+        if (returnBall)
+        {
+            if (other.tag == "Player")
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 
 
 }

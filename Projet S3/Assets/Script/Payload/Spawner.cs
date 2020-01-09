@@ -21,18 +21,24 @@ public class Spawner : MonoBehaviour
     [Range(1, 10)]
     public int nbrPointOfSpawn;
 
+    public GameObject vfChargeBlue;
+    public GameObject vfChargeViolet;
+    public GameObject vfChargeJauge;
     CenterTag.Types typeToSpawn;
     private Color colorToSpawn;
+
+
+
     private void Start()
     {
-        if (bigSpawn)
-        {
-            radius *= 10;
-        }
+        //if (bigSpawn)
+        //{
+        //    radius *= 10;
+        //}
 
-        if(target.GetComponent<CenterTag>())
         {
             typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
+            
             if (typeToSpawn == CenterTag.Types.Blue)
             {
                 colorToSpawn = Color.blue;
@@ -46,7 +52,6 @@ public class Spawner : MonoBehaviour
                 colorToSpawn = Color.magenta;
             }
         }
-
     }
     void Update()
     {
@@ -91,14 +96,17 @@ public class Spawner : MonoBehaviour
                         if (typeToSpawn == CenterTag.Types.Blue)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
                         }
                         else if (typeToSpawn == CenterTag.Types.Orange)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
                         }
                         else if (typeToSpawn == CenterTag.Types.Violet)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
+                            add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
                         }
                         add.GetComponent<EnnemiBehavior>().target = target;
                         add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
@@ -116,14 +124,17 @@ public class Spawner : MonoBehaviour
                     if (typeToSpawn == CenterTag.Types.Blue)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
                     }
                     else if (typeToSpawn == CenterTag.Types.Orange)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
                     }
                     else if (typeToSpawn == CenterTag.Types.Violet)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
+                        add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
                     }
                     add.GetComponent<EnnemiBehavior>().target = target;
                     add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;
@@ -139,9 +150,13 @@ public class Spawner : MonoBehaviour
 
     }
 
+
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
+
+
