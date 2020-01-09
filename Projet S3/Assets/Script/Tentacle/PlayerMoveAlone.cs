@@ -9,7 +9,7 @@ public class PlayerMoveAlone : MonoBehaviour
     public float powerOfProjection;
     public float deprojection = 60;
     [HideInInspector] public Vector3 DirProjection;
-    [HideInInspector] public float powerProjec;
+   public float powerProjec;
     static public Vector3 playerPos;
     static public GameObject Player1 ;
     private void Awake()
@@ -27,6 +27,7 @@ public class PlayerMoveAlone : MonoBehaviour
     void FixedUpdate()
     {
         playerPos = transform.position;
+        powerProjec = Mathf.Clamp(powerProjec,0, 1000);
         playerRigid.velocity = (Direction() * speed) + (DirProjection.normalized * powerProjec);
        
         if (powerProjec > 0)
