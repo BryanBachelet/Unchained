@@ -103,7 +103,7 @@ public class RotationPlayer : MonoBehaviour
 
     public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
     {
-
+        tagEnter = null;
         pointPivot = positionPivotWall;
         forceOfSortie = forceSortie;
         changeSens = false;
