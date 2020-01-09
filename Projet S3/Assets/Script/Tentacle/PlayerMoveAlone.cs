@@ -10,7 +10,12 @@ public class PlayerMoveAlone : MonoBehaviour
     public float deprojection = 60;
     [HideInInspector] public Vector3 DirProjection;
     [HideInInspector] public float powerProjec;
-   
+    static public Vector3 playerPos;
+    static public GameObject Player1 ;
+    private void Awake()
+    {
+        Player1 = gameObject;
+    }
     void Start()
     {
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
@@ -21,16 +26,18 @@ public class PlayerMoveAlone : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        playerPos = transform.position;
         playerRigid.velocity = (Direction() * speed) + (DirProjection.normalized * powerProjec);
+       
         if (powerProjec > 0)
         {
             powerProjec -= deprojection * Time.deltaTime;
         }
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+       // transform.position = new Vector3(transform.position.x, 1, transform.position.z);
      
     }
 
-    private Vector3 Direction()
+    public Vector3 Direction()
     {
         float horizontal = Input.GetAxis("Horizontal1");
         float vertical = Input.GetAxis("Vertical1");

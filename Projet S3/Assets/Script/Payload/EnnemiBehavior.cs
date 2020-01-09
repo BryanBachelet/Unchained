@@ -21,7 +21,7 @@ public class EnnemiBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = PlayerMoveAlone.Player1;
         currentTarget = target;
         if (useNavMesh)
         {
@@ -87,5 +87,17 @@ public class EnnemiBehavior : MonoBehaviour
         }
     }
 
+    //private void OnBecameVisible()
+    //{
+    //    enabled = true;
+    //}
+    //private void OnBecameInvisible()
+    //{
+    //    Debug.Log("1");
+    //    enabled = false;
+    //    if (Vector3.Distance(transform.position, PlayerMoveAlone.playerPos) > 100)
+    //    {
+    //    }
+    //}
 
 }

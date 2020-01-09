@@ -7,8 +7,7 @@ public class MouseScope : MonoBehaviour
     public Material line;
     public GameObject bullet;
     public GameObject Ambout;
-    public int numberAmbout;
-    // public GameObject spawn;
+
     private EnnemiStock ennemiStock;
     [HideInInspector] public Vector3 direction;
     [HideInInspector] public Vector3 directionManette;
@@ -39,6 +38,8 @@ public class MouseScope : MonoBehaviour
     public bool distanceDestruct;
     private float _timerOfBullet;
     private GameObject meshBullet;
+    Projectils projectils;
+    [HideInInspector] public bool lastInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,8 +57,6 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-
         direction = DirectionSouris();
         directionManette = DirectionManette();
         if (directionManette != Vector3.zero)
@@ -65,55 +64,39 @@ public class MouseScope : MonoBehaviour
             direction = Vector3.zero;
         }
         float input = Input.GetAxis("Attract1");
+
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
         {
-
-            if (ennemiStock.ennemiStock == null && instanceBullet == null)
-            {
-
-                instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
-                meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
-                float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
-
-                Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
-                meshBullet.transform.localRotation = Quaternion.Euler(eulers);
-
-                _timerOfBullet = 0;
-
-
-                Projectils projectils = instanceBullet.GetComponent<Projectils>();
-                projectils.dir = (direction + directionManette).normalized;
-                projectils.player = gameObject;
-                projectils.lineRenderer = lineRenderer;
-                projectils.speed = speedOfBullet;
-                projectils.moveAlone = GetComponent<PlayerMoveAlone>();
-                contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-
-                contactSound.start();
-
-            }
-
+            InstantiateProjectile();
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastInput = true;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            lastInput = false;
+        }
+
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
 
-            Projectils projectils = instanceBullet.GetComponent<Projectils>();
+
             if (!distanceDestruct)
             {
                 if (_timerOfBullet > timerOfBullet)
                 {
                     if (!projectils.returnBall)
                     {
-                        projectils.returnBall = true;
-                        projectils.dir = -projectils.dir;
-                        projectils.speed = returnSpeed;
-
-
+                        ReturnState();
                     }
-                    projectils.dir = transform.position - instanceBullet.transform.position;
-                    float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
-                    Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
-                    meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+                    else
+                    {
+                        ReturnOrientation();
+                    }
+
 
                 }
                 else
@@ -125,9 +108,11 @@ public class MouseScope : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distance && !projectils.returnBall)
                 {
-                    projectils.returnBall = true;
-                    projectils.dir = -projectils.dir;
-                    projectils.speed = returnSpeed;
+                    ReturnState();
+                }
+                if (projectils.returnBall)
+                {
+                    ReturnOrientation();
                 }
             }
             returnLine = true;
@@ -163,11 +148,11 @@ public class MouseScope : MonoBehaviour
         }
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
-            Projectils projectils = instanceBullet.GetComponent<Projectils>();
+
             if (projectils.returnBall)
             {
                 projectils.dir = -(projectils.transform.position - transform.position);
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 5)
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 10)
                 {
                     Destroy(instanceBullet);
                 }
@@ -194,6 +179,50 @@ public class MouseScope : MonoBehaviour
 
     }
 
+
+    private void ReturnState()
+    {
+        projectils.returnBall = true;
+        projectils.dir = -projectils.dir;
+        projectils.speed = returnSpeed;
+    }
+    private void ReturnOrientation()
+    {
+        projectils.dir = transform.position - instanceBullet.transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
+        Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
+        meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+    }
+
+
+    private void InstantiateProjectile()
+    {
+        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        {
+
+            instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
+            meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+            float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
+
+            Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
+            meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+
+            _timerOfBullet = 0;
+
+
+            projectils = instanceBullet.GetComponent<Projectils>();
+            projectils.dir = (direction + directionManette).normalized;
+            projectils.player = gameObject;
+            projectils.lineRenderer = lineRenderer;
+            projectils.speed = speedOfBullet;
+            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+            contactSound.start();
+
+        }
+
+    }
 
     private Vector3 DirectionSouris()
     {

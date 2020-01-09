@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnnemiStock : MonoBehaviour
 {
-    
+
     public GameObject ennemiStock;
-    public Vector3 pos;
-    public Klak.Motion.SmoothFollow mySmoothFollow;
+    [HideInInspector] public Vector3 pos;
+    private Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
     private bool rotate;
     private bool slam;
@@ -26,18 +26,21 @@ public class EnnemiStock : MonoBehaviour
     private FMOD.Studio.EventInstance OrbitEvent;
     public float OrbitVolume = 10;
 
-    public bool onHitEnter;
+    [HideInInspector] public bool onHitEnter;
     public GameObject onHitEnemy;
-    public Material enemyStockMat;
-    public Texture ennemyStockTextChange;
+    private Material enemyStockMat;
+    private Texture ennemyStockTextChange;
     private Color baseColor;
     float myFOV;
     bool isOnZoom = false;
-    public RippleEffect myRE;
+    private RippleEffect myRE;
+    private MouseScope mouse;
     // Start is called before the first frame update
     void Start()
     {
 
+        mouse = GetComponent<MouseScope>();
+        mySmoothFollow = GetComponent<Klak.Motion.SmoothFollow>();
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
         slamPlayer = GetComponent<SlamPlayer>();
@@ -70,70 +73,55 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
-            }
-            if (!startBool)
-            {
-                // ennemiStock.GetComponent<EnnemiBehavior>().isOnSlam = true;
+                if (mouse.lastInput)
+                {
+                    if (ennemiStock.tag == "wall")
+                    {
+                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, false);
+
+                    }
+                    else
+                    {
+                        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+
+                    }
+                }
+                else
+                {
+                    if (ennemiStock.tag == "wall")
+                    {
+                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, true);
+
+                    }
+                    else
+                    {
+                        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+
+                    }
+
+                }
                 if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
                 {
                     ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
+                    ennemiStock.GetComponent<Autodestroy>().enabled = false;
                 }
                 contactSound.start();
 
-
-                startBool = true;
             }
-            if (Input.GetKey(KeyCode.Mouse0) || input < 0)
+            if (isOnZoom)
             {
-                if (isOnZoom)
-                {
-                    zoomOnHit();
-                }
-                FMOD.Studio.PLAYBACK_STATE orbitState;
-                OrbitEvent.getPlaybackState(out orbitState);
-                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-                {
-                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                    OrbitEvent.start();
-                }
-                mySmoothFollow.target = ennemiStock.gameObject.transform;
-                if (ennemiStock.tag == "wall")
-                {
-                    rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, false);
-
-                }
-                else
-                {
-                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
-
-                }
-
-
-
+                zoomOnHit();
             }
-
-            if (Input.GetKey(KeyCode.Mouse1) || input > 0)
+            FMOD.Studio.PLAYBACK_STATE orbitState;
+            OrbitEvent.getPlaybackState(out orbitState);
+            if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
             {
-                FMOD.Studio.PLAYBACK_STATE orbitState;
-                OrbitEvent.getPlaybackState(out orbitState);
-                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-                {
-                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                    OrbitEvent.start();
-                }
-                mySmoothFollow.target = ennemiStock.gameObject.transform;
-                if (ennemiStock.tag == "wall")
-                {
-                    rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, true);
-
-                }
-                else
-                {
-                    rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
-
-                }
-
+                OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                OrbitEvent.start();
             }
+            mySmoothFollow.target = ennemiStock.gameObject.transform;
+
+
 
             if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
             {
@@ -160,6 +148,7 @@ public class EnnemiStock : MonoBehaviour
         if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
         {
             ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+            ennemiStock.GetComponent<Autodestroy>().enabled = true;
         }
         mySmoothFollow.target = null;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
