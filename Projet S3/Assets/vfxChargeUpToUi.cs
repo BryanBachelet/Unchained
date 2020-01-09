@@ -5,10 +5,11 @@ using UnityEngine;
 public class vfxChargeUpToUi : MonoBehaviour
 {
     public GameObject target;
+    public int number; // 1= blue, 2 = orange, 3 = violet
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("UiBarre");
+        target = GameObject.FindGameObjectWithTag("UiBarre" + number);
     }
 
     // Update is called once per frame

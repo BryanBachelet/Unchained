@@ -31,10 +31,10 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        if (bigSpawn)
-        {
-            radius *= 10;
-        }
+        //if (bigSpawn)
+        //{
+        //    radius *= 10;
+        //}
 
         {
             typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
