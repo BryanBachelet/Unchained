@@ -19,7 +19,7 @@ public class vfxChargeUpToUi : MonoBehaviour
         if(Vector3.Distance(transform.position, target.transform.position) < 0.1f)
         {
             target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
-            Debug.Log("APPLYEFFECT");
+          
             Destroy(gameObject);
         }
     }

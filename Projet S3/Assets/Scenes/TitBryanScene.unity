@@ -2293,7 +2293,7 @@ GameObject:
   - component: {fileID: 206113471}
   m_Layer: 5
   m_Name: Fill
-  m_TagString: UiBarre1
+  m_TagString: UiBarre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2306,7 +2306,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206113467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1619799467}
@@ -2316,7 +2316,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_SizeDelta: {x: 10, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206113469
 MonoBehaviour:
@@ -2336,8 +2336,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2369,8 +2369,13 @@ MonoBehaviour:
   toScaleY: 2
   timeToPlayAnim: 0.5
   isPlayingAnim: 0
-  col1: {r: 0, g: 0.4627451, b: 1, a: 1}
-  col2: {r: 0.48584908, g: 0.72376996, b: 1, a: 1}
+  secondVersion: 1
+  image: {fileID: 0}
+  baseColor: {r: 0, g: 0.46274513, b: 1, a: 1}
+  increaseColor: {r: 0.36320752, g: 0.6578802, b: 1, a: 1}
+  slider: {fileID: 0}
+  timeOfFeedback: 0.5
+  gainDeScale: 4
 --- !u!1 &235156401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4663,13 +4668,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 1451987549}
+  shadowMapRenderTexture: {fileID: 1868655112}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 2110714628}
+  shadowDataRenderTexture: {fileID: 1711235473}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -5570,7 +5575,7 @@ GameObject:
   - component: {fileID: 572033814}
   m_Layer: 5
   m_Name: Fill
-  m_TagString: UiBarre2
+  m_TagString: UiBarre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5646,8 +5651,13 @@ MonoBehaviour:
   toScaleY: 2
   timeToPlayAnim: 0.5
   isPlayingAnim: 0
-  col1: {r: 1, g: 0.4156863, b: 0, a: 1}
-  col2: {r: 1, g: 0.46666667, b: 0.29411766, a: 1}
+  secondVersion: 0
+  image: {fileID: 0}
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  increaseColor: {r: 0, g: 0, b: 0, a: 0}
+  slider: {fileID: 0}
+  timeOfFeedback: 0.5
+  gainDeScale: 0
 --- !u!1 &576002303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5754,6 +5764,7 @@ GameObject:
   - component: {fileID: 583869736}
   - component: {fileID: 583869735}
   - component: {fileID: 583869734}
+  - component: {fileID: 583869738}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -5834,6 +5845,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!111 &583869738
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583869733}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f526b0954dc595b468700a9a440edda8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f526b0954dc595b468700a9a440edda8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &585620932
 GameObject:
   m_ObjectHideFlags: 0
@@ -12659,7 +12686,7 @@ MonoBehaviour:
   target: {fileID: 1575339752}
   radius: 34.42
   speedOfAgent: 4
-  bigSpawn: 0
+  bigSpawn: 1
   nbrEntiteeToSpawn: 7
   nbrPointOfSpawn: 7
   vfChargeBlue: {fileID: 3622932514658480404, guid: 0c3d129b21d1cec4fbe152ade40273f0,
@@ -13282,38 +13309,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448787123}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!84 &1451987549
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1461296223
 GameObject:
   m_ObjectHideFlags: 0
@@ -14658,7 +14653,7 @@ GameObject:
   - component: {fileID: 1619799467}
   m_Layer: 5
   m_Name: UiBarreBlue
-  m_TagString: UiBarre
+  m_TagString: UiBarre1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15158,6 +15153,38 @@ MonoBehaviour:
     type: 3}
   vfChargeJauge: {fileID: 3622932514658480404, guid: d6db3b7c426938340abb4d1fa4aaaa00,
     type: 3}
+--- !u!84 &1711235473
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1711989765
 GameObject:
   m_ObjectHideFlags: 0
@@ -15795,7 +15822,7 @@ GameObject:
   - component: {fileID: 1757142950}
   m_Layer: 5
   m_Name: Fill
-  m_TagString: UiBarre3
+  m_TagString: UiBarre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15871,8 +15898,13 @@ MonoBehaviour:
   toScaleY: 2
   timeToPlayAnim: 0.5
   isPlayingAnim: 0
-  col1: {r: 1, g: 0, b: 0.79215693, a: 1}
-  col2: {r: 1, g: 0.34117648, b: 0.79215693, a: 1}
+  secondVersion: 0
+  image: {fileID: 0}
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  increaseColor: {r: 0, g: 0, b: 0, a: 0}
+  slider: {fileID: 0}
+  timeOfFeedback: 0.5
+  gainDeScale: 0
 --- !u!1 &1757573045
 GameObject:
   m_ObjectHideFlags: 0
@@ -17104,6 +17136,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861982087}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &1868655112
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 512
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1874657009
 GameObject:
   m_ObjectHideFlags: 0
@@ -18762,38 +18826,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058395054}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!84 &2110714628
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &2113421551
 GameObject:
   m_ObjectHideFlags: 0
@@ -19697,11 +19729,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3179295921129002552, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3179295921439188253, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_Layer
@@ -19737,22 +19764,7 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.14
       objectReference: {fileID: 0}
-    - target: {fileID: 3179295921961693570, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295922166187124, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3179295920607108352, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295921218684920, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -19777,17 +19789,37 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3179295920457650180, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921129002552, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921961693570, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295922166187124, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179295921218684920, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3179295920761683028, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3179295921029420970, guid: fcc879748b371f8418298a684c116714,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3179295920457650180, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
