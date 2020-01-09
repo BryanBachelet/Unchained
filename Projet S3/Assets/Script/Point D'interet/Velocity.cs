@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Velocity : MonoBehaviour
 {
     [Header("Projection Strengh Gain")]
@@ -9,12 +9,12 @@ public class Velocity : MonoBehaviour
     public float convertisseurStatOne = 10;
     public float realPointOne;
 
-    [Header("V2")]
+    [Header("Distance of bullet")]
     public float velocityStatTwo;
     public float convertisseurStatTwo = 10;
     public float realPointTwo;
 
-    [Header("V3")]
+    [Header("Rotation Distance")]
     public float velocityStatThree = 0;
     public float convertisseurStatThree = 10;
     public float realPointThree ;
@@ -28,26 +28,42 @@ public class Velocity : MonoBehaviour
     private float compteurThree;
 
     private EnnemiStock ennemiStock;
+    private MouseScope mouse;
+    private float startDistance;
+    private RotationPlayer rotationPlayer;
+    private float startAngleSpeed;
     private PlayerMoveAlone playerMove;
 
+
+    public Slider projectionSlider;
+    public Slider v2Slider;
+    public Slider v3Slider;
     // Start is called before the first frame update
     void Start()
     {
         playerMove = GetComponent<PlayerMoveAlone>();
         ennemiStock = GetComponent<EnnemiStock>();
+        mouse = GetComponent<MouseScope>();
+        startDistance = mouse.distance;
+        rotationPlayer = GetComponent<RotationPlayer>();
+        startAngleSpeed = rotationPlayer.angleSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        realPointOne = velocityStatOne / convertisseurStatOne;
+       
+        realPointOne = velocityStatOne/ convertisseurStatOne;
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
-        Debug.Log(playerMove.powerOfProjection + realPointOne);
-        realPointTwo = velocityStatTwo / convertisseurStatTwo;
-        realPointThree = velocityStatThree / convertisseurStatThree;
 
-        if (compteurOne > DecreaseOfTimerVelocity)
+        realPointTwo = velocityStatTwo / convertisseurStatTwo;
+        mouse.distance = startDistance + realPointTwo;  
+
+        realPointThree = velocityStatThree / convertisseurStatThree;
+        
+        rotationPlayer.angleSpeed = (startAngleSpeed  + realPointThree) * Mathf.Sign(rotationPlayer.angleSpeed);
+
+        if (compteurOne > DecreaseOfTimerVelocity && velocityStatOne > 0)
         {
             velocityStatOne -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -55,7 +71,7 @@ public class Velocity : MonoBehaviour
         {
             compteurOne += Time.deltaTime;
         }
-        if (compteurTwo > DecreaseOfTimerVelocity)
+        if (compteurTwo > DecreaseOfTimerVelocity && velocityStatTwo > 0)
         {
             velocityStatTwo -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -63,7 +79,7 @@ public class Velocity : MonoBehaviour
         {
             compteurTwo += Time.deltaTime;
         }
-        if (compteurThree > DecreaseOfTimerVelocity)
+        if (compteurThree > DecreaseOfTimerVelocity && velocityStatThree > 0)
         {
             velocityStatThree -= DecreaseOfVelocity * Time.deltaTime;
         }
@@ -72,6 +88,9 @@ public class Velocity : MonoBehaviour
             compteurThree += Time.deltaTime;
         }
 
+        if (projectionSlider != null) projectionSlider.value = realPointOne / 100;
+        if (v2Slider != null) v2Slider.value = realPointTwo / 100;
+        if (v3Slider != null) v3Slider.value = realPointThree / 100;
     }
 
     public void GetAddVelocityPoint(int i)
@@ -79,7 +98,7 @@ public class Velocity : MonoBehaviour
         switch (i)
         {
             case 0:
-                Debug.Log("1");
+
                 velocityStatOne++;
                 compteurOne = 0;
 

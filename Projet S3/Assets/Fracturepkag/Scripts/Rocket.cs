@@ -6,6 +6,7 @@ using UnityEngine.Profiling;
 namespace GK {
 	public class Rocket : MonoBehaviour {
 
+        public CameraShake myCS;
 		public float ExplosionRadius = 0.5f;
 		public float ExplosionForce = 10.0f;
 
@@ -34,6 +35,7 @@ namespace GK {
 
 				Profiler.EndSample();
 
+                myCS.shakeDuration = 1;
 				StartCoroutine(Stupid(world));
 			}
 		}
