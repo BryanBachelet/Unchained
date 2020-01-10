@@ -18,6 +18,10 @@ public class EnnemiBehavior : MonoBehaviour
     public float angle;
     [HideInInspector] public bool imStock;
     private int i;
+<<<<<<< HEAD
+=======
+    private EnnemiDestroy destroy;
+>>>>>>> origin/BryanWork2
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +31,10 @@ public class EnnemiBehavior : MonoBehaviour
         {
             agent = GetComponent<NavMeshAgent>();
         }
+<<<<<<< HEAD
+=======
+        destroy = GetComponent<EnnemiDestroy>();
+>>>>>>> origin/BryanWork2
     }
 
     // Update is called once per frame
@@ -38,6 +46,14 @@ public class EnnemiBehavior : MonoBehaviour
         }
         if (!useNavMesh)
         {
+<<<<<<< HEAD
+=======
+            if (!destroy.isDestroying)
+            {
+                transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+            }
+
+>>>>>>> origin/BryanWork2
             if (imStock)
             {
                 transform.rotation = Quaternion.identity;

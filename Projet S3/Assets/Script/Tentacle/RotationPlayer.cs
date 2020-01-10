@@ -51,6 +51,7 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
+<<<<<<< HEAD
             i++;
             if (i > 3)
             {
@@ -60,6 +61,15 @@ public class RotationPlayer : MonoBehaviour
 
                 }
             }
+=======
+
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                ChangeRotationDirection();
+
+            }
+
+>>>>>>> origin/BryanWork2
             if (angleCompteur > currentAngleMax)
             {
                 angleCompteur = 0;
@@ -72,6 +82,11 @@ public class RotationPlayer : MonoBehaviour
     public void ChangeRotationDirection()
     {
         angleSpeed = -angleSpeed;
+<<<<<<< HEAD
+=======
+       
+        stocks.inputNeed = !stocks.inputNeed;
+>>>>>>> origin/BryanWork2
         currentAngleMax = angleMax + angleCompteur;
         angleCompteur = 0;
         changeSens = true;
@@ -103,7 +118,11 @@ public class RotationPlayer : MonoBehaviour
 
     public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
     {
+<<<<<<< HEAD
 
+=======
+        tagEnter = null;
+>>>>>>> origin/BryanWork2
         pointPivot = positionPivotWall;
         forceOfSortie = forceSortie;
         changeSens = false;

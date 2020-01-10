@@ -129,7 +129,11 @@ public class CameraAction : MonoBehaviour
                 }
                     float orientationOnScreen = Mathf.Abs(Mathf.Clamp(0f, -1f, checkDir.z - 1));
                     basePosition = player.transform.position + ecartJoueur;
+<<<<<<< HEAD
                     Debug.Log(dirDot);
+=======
+
+>>>>>>> origin/BryanWork2
                     Vector3 newPos = basePosition + (checkDir * decalageCamera * orientationOnScreen);
 
                     transform.position = Vector3.Lerp(transform.position, newPos, compteurZoomBullet);

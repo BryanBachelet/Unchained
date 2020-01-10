@@ -35,6 +35,10 @@ public class EnnemiStock : MonoBehaviour
     bool isOnZoom = false;
     private RippleEffect myRE;
     private MouseScope mouse;
+<<<<<<< HEAD
+=======
+    [HideInInspector] public bool inputNeed;
+>>>>>>> origin/BryanWork2
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +77,10 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
+<<<<<<< HEAD
+=======
+                inputNeed = mouse.lastInput;
+>>>>>>> origin/BryanWork2
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
@@ -108,6 +116,7 @@ public class EnnemiStock : MonoBehaviour
                 contactSound.start();
 
             }
+<<<<<<< HEAD
             if (isOnZoom)
             {
                 zoomOnHit();
@@ -165,6 +174,67 @@ public class EnnemiStock : MonoBehaviour
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
+=======
+            
+
+            if (isOnZoom)
+            {
+                zoomOnHit();
+            }
+            FMOD.Studio.PLAYBACK_STATE orbitState;
+            OrbitEvent.getPlaybackState(out orbitState);
+            if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+            {
+                OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                OrbitEvent.start();
+            }
+            mySmoothFollow.target = ennemiStock.gameObject.transform;
+
+
+
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed )
+            {
+                // myRE.Emit();
+                DetachPlayer();
+            }
+
+        }
+        else
+        {
+
+            rotate = false;
+            slam = false;
+            startBool = false;
+
+        }
+    }
+
+
+    public void DetachPlayer()
+    {
+        myFOV = 70;
+        isOnZoom = false;
+        if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+        {
+            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
+            ennemiStock.GetComponent<Autodestroy>().enabled = true;
+        }
+        mySmoothFollow.target = null;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        if (ennemiStock.tag == "wall")
+        {
+            rotationPlayer.StopRotation(false);
+        }
+        else
+        {
+            rotationPlayer.StopRotation(true);
+
+        }
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+>>>>>>> origin/BryanWork2
     public void zoomOnHit()
     {
         if (myFOV == 70)
