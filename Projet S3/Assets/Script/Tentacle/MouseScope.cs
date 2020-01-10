@@ -4,27 +4,221 @@ using UnityEngine;
 
 public class MouseScope : MonoBehaviour
 {
+    public Material line;
     public GameObject bullet;
-    public GameObject spawn;
-    public Vector3 direction;
-    public EnnemiStock ennemiStock;
-    private GameObject instanceBullet;
+    public GameObject Ambout;
+
+    private EnnemiStock ennemiStock;
+    [HideInInspector] public Vector3 direction;
+    [HideInInspector] public Vector3 directionManette;
+    [HideInInspector] public GameObject instanceBullet;
+    private LineRenderer lineRenderer;
+    private bool returnLine;
+    private bool destructBool;
+    private Vector3 ballPos;
+    private Vector3 returnPos;
+    private float distanceReturn;
+    private Vector3 dirReturn;
+    public float returnSpeed = 50;
+    [Header("Tirer Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    public float volume = 10;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string returnSound;
+    private FMOD.Studio.EventInstance returnEvent;
+    public float returnVolume = 10;
+    [Header("Carateristique Bullet")]
+    public float distance = 75;
+    public float timerOfBullet = 0.5f;
+    public float speedOfBullet;
+    public float timeBetweenShoot = 0.4f;
+    public bool distanceDestruct;
+    private float _timerOfBullet;
+    private GameObject meshBullet;
+    Projectils projectils;
+    [HideInInspector] public bool lastInput;
     // Start is called before the first frame update
     void Start()
     {
+
         ennemiStock = GetComponent<EnnemiStock>();
+        lineRenderer = GetComponent<LineRenderer>();
+        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        contactSound.setVolume(volume);
+        returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
+        returnEvent.setVolume(returnVolume);
+        speedOfBullet = distance / timerOfBullet;
+        returnSpeed = distance / timeBetweenShoot;
     }
 
     // Update is called once per frame
     void Update()
     {
         direction = DirectionSouris();
-        if (Input.GetMouseButtonDown(0) && ennemiStock.ennemiStock == null && instanceBullet == null)
+        directionManette = DirectionManette();
+        if (directionManette != Vector3.zero)
         {
-            instanceBullet = Instantiate(bullet, transform.position + direction.normalized * 0.5f, transform.rotation);
-            Projectils projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = direction;
+            direction = Vector3.zero;
+        }
+        float input = Input.GetAxis("Attract1");
+
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
+        {
+            InstantiateProjectile();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastInput = true;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            lastInput = false;
+        }
+
+        if (ennemiStock.ennemiStock == null && instanceBullet != null)
+        {
+
+
+            if (!distanceDestruct)
+            {
+                if (_timerOfBullet > timerOfBullet)
+                {
+                    if (!projectils.returnBall)
+                    {
+                        ReturnState();
+                    }
+                    else
+                    {
+                        ReturnOrientation();
+                    }
+
+
+                }
+                else
+                {
+                    _timerOfBullet += Time.deltaTime;
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distance && !projectils.returnBall)
+                {
+                    ReturnState();
+                }
+                if (projectils.returnBall)
+                {
+                    ReturnOrientation();
+                }
+            }
+            returnLine = true;
+            destructBool = false;
+
+            ballPos = instanceBullet.transform.position;
+
+        }
+
+        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        //Return de line renderer après le tir;
+        {
+            if (returnLine)
+            {
+                if (!destructBool)
+                {
+                    returnPos = ballPos;
+                    returnEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+                    returnEvent.start();
+                    destructBool = true;
+                }
+
+
+                returnLine = false;
+                if (lineRenderer.enabled)
+                {
+                    lineRenderer.enabled = false;
+                }
+
+
+            }
+        }
+        if (ennemiStock.ennemiStock == null && instanceBullet != null)
+        {
+
+            if (projectils.returnBall)
+            {
+                projectils.dir = -(projectils.transform.position - transform.position);
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 10)
+                {
+                    Destroy(instanceBullet);
+                }
+            }
+        }
+    }
+
+    private void OnRenderObject()
+    {
+        if (Camera.current.name == "Camera")
+        {
+            if (ennemiStock.ennemiStock == null && instanceBullet == null)
+            {
+                GL.Begin(GL.LINES);
+                line.SetPass(0);
+
+                GL.Color(Color.red);
+                GL.Vertex(transform.position);
+                GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
+                GL.End();
+            }
+
+        }
+
+    }
+
+
+    private void ReturnState()
+    {
+        projectils.returnBall = true;
+        projectils.dir = -projectils.dir;
+        projectils.speed = returnSpeed;
+    }
+    private void ReturnOrientation()
+    {
+        projectils.dir = transform.position - instanceBullet.transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
+        Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
+        meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+    }
+
+
+    private void InstantiateProjectile()
+    {
+        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+        {
+
+            instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
+            meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+            float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
+
+            Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
+            meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+
+            _timerOfBullet = 0;
+
+
+            projectils = instanceBullet.GetComponent<Projectils>();
+            projectils.dir = (direction + directionManette).normalized;
             projectils.player = gameObject;
+            projectils.lineRenderer = lineRenderer;
+            projectils.speed = speedOfBullet;
+            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+            contactSound.start();
 
         }
 
@@ -32,15 +226,28 @@ public class MouseScope : MonoBehaviour
 
     private Vector3 DirectionSouris()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane ground = new Plane(Vector3.up, Vector3.zero);
+        float rauEnter;
 
-        Vector3 hitPoint = new Vector3(hit.point.x, 1, hit.point.z);
-        Vector3 dir = hitPoint - gameObject.transform.position;
+        if (ground.Raycast(camera, out rauEnter))
+        {
+            Vector3 pointToLook = camera.GetPoint(rauEnter);
+            Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
+            Vector3 dir = pointToLook - posPlayer;
+            return dir;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
+    private Vector3 DirectionManette()
+    {
+        float aimHorizontal = Input.GetAxis("AimHorizontal1");
+        float aimVertical = -Input.GetAxis("AimVertical1");
 
-        Debug.DrawRay(gameObject.transform.position, dir.normalized * 100, Color.red);
-        Debug.Log(dir.normalized);
+        Vector3 dir = new Vector3(aimHorizontal, 0, aimVertical);
         return dir.normalized;
     }
 }

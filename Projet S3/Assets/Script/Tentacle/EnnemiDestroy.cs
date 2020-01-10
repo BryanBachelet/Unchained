@@ -7,6 +7,8 @@ public class EnnemiDestroy : MonoBehaviour
     public bool isDestroying;
     public float timerToDestro = 2;
     private float compteur;
+    bool enter = false;
+    public GameObject vfxBlueUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +20,34 @@ public class EnnemiDestroy : MonoBehaviour
     {
         if (isDestroying)
         {
-            if (compteur > timerToDestro)
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            if (isDestroying)
             {
-                Destroy(gameObject);
+                if (!enter)
+                {
+                    if (vfxBlueUp != null)
+                    {
+                        Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
+                    }
+                    enter = true;
+                }
+                if (compteur > timerToDestro)
+                {
+
+                    Destroy(gameObject);
+                    //if(vfxBlueUp != null)
+                    //{
+
+
+                    //}
+
+                }
+                else
+                {
+                    compteur += Time.deltaTime;
+                }
             }
-            else
-            {
-                compteur += Time.deltaTime ;
-            }
+
         }
-        
     }
 }
