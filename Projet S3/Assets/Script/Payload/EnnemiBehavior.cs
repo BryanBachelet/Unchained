@@ -18,7 +18,9 @@ public class EnnemiBehavior : MonoBehaviour
     public float angle;
     [HideInInspector] public bool imStock;
     private int i;
+
     private EnnemiDestroy destroy;
+
     // Start is called before the first frame update
     void Start()
     {
