@@ -35,6 +35,7 @@ public class EnnemiStock : MonoBehaviour
     bool isOnZoom = false;
     private RippleEffect myRE;
     private MouseScope mouse;
+    [HideInInspector] public bool inputNeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,17 +63,22 @@ public class EnnemiStock : MonoBehaviour
         float input = Input.GetAxis("Attract1");
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+       
         if (ennemiStock != null)
         {
 
             if (onHitEnter)
             {
+                if (StateAnim.state == StateAnim.CurrentState.Tir)
+                {
+                    StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
+                }
                 isOnZoom = true;
                 Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
+                inputNeed = mouse.lastInput;
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
@@ -108,6 +114,8 @@ public class EnnemiStock : MonoBehaviour
                 contactSound.start();
 
             }
+            
+
             if (isOnZoom)
             {
                 zoomOnHit();
@@ -123,7 +131,7 @@ public class EnnemiStock : MonoBehaviour
 
 
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0)
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed )
             {
                 // myRE.Emit();
                 DetachPlayer();

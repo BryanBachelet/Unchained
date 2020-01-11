@@ -20,8 +20,8 @@ public class vfxChargeUpToUi : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speedParticle * Time.deltaTime);
         if(Vector3.Distance(transform.position, target.transform.position) < 0.1f)
         {
-            //target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
-            Debug.Log("APPLYEFFECT");
+            target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
+          
             Destroy(gameObject);
         }
     }
