@@ -73,15 +73,15 @@ public class CameraAction : MonoBehaviour
                 if (distanceBullet > distanceOfStartDezoomBullet)
                 {
                     compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
-                    compteurZoomBullet = 0;
+                  
                     float currentDezoom = Mathf.Clamp(((distanceBullet - 10) / 1.5f), 0, distanceMax);
                     Vector3 camPos = basePosition + -transform.forward * currentDezoom;
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
                 {
-                    compteurZoomBullet += Time.deltaTime;
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                    compteurZoomBullet += Time.deltaTime;
                 }
             }
             if (playerEnnemiStock.ennemiStock != null)
@@ -93,7 +93,7 @@ public class CameraAction : MonoBehaviour
                 {
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
-                    compteurZoomBullet = 0;
+                   
                     Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent) / 2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
@@ -101,16 +101,16 @@ public class CameraAction : MonoBehaviour
                 {
                     compteurZoomBullet += Time.deltaTime;
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-                    compteurDezoomBullet = 0;
+
                 }
 
                 dir = new Vector3(dir.x, 0, dir.z);
                 float dot = Vector3.Dot(dir.normalized, player.transform.forward);
 
 
-                competeur += Time.deltaTime;
                 Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 + dot));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
+                competeur += Time.deltaTime;
 
             }
 
