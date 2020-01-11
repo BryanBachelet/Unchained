@@ -117,8 +117,7 @@ public class CameraAction : MonoBehaviour
         }
         else
         {
-            if (decalageScope)
-            {
+          
                 Vector3 checkDir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
                 basePosition = player.transform.position + ecartJoueur;
                 Vector3 newPos = basePosition;
@@ -145,14 +144,7 @@ public class CameraAction : MonoBehaviour
                 competeur = 0;
                 Debug.DrawRay(player.transform.position, currentDir * 100, Color.green);
 
-            }
-            else
-            {
-                compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
-                transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-                competeur = 0;
-                compteurDezoomBullet = 0;
-            }
+          
         }
 
     }

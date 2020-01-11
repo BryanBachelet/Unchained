@@ -12,35 +12,42 @@ public class StateAnim : MonoBehaviour
     public float speedOfTransistionAnimaiton = 4;
     public void Start()
     {
-        animator = GetComponent<Animator>();
+        if (GetComponent<Animator>())
+        {
+            animator = GetComponent<Animator>();
+        }
     }
     public void Update()
     {
-        switch (state)
+        if (animator != null)
         {
-            case CurrentState.Idle:
-                speed = Mathf.Lerp(speed, 0, t);
-                animator.SetFloat("Vitesse", speed);
-                break;
 
-            case CurrentState.Walk:
-                speed = Mathf.Lerp(speed, 0.1875f, t);
-                animator.SetFloat("Vitesse", speed);
-                break;
-            case CurrentState.Tir:
-                speed = Mathf.Lerp(speed, 0.375f, t);
-                animator.SetFloat("Vitesse", speed);
-                break;
-            case CurrentState.Rotate:
-                speed = Mathf.Lerp(speed, 0.5625f, t);
-                animator.SetFloat("Vitesse", speed);
-                break;
-            case CurrentState.Projection:
-                speed = Mathf.Lerp(speed, 0.75f, t);
-                animator.SetFloat("Vitesse", speed);
-                break;
+            switch (state)
+            {
+                case CurrentState.Idle:
+                    speed = Mathf.Lerp(speed, 0, t);
+                    animator.SetFloat("Vitesse", speed);
+                    break;
+
+                case CurrentState.Walk:
+                    speed = Mathf.Lerp(speed, 0.1875f, t);
+                    animator.SetFloat("Vitesse", speed);
+                    break;
+                case CurrentState.Tir:
+                    speed = Mathf.Lerp(speed, 0.375f, t);
+                    animator.SetFloat("Vitesse", speed);
+                    break;
+                case CurrentState.Rotate:
+                    speed = Mathf.Lerp(speed, 0.5625f, t);
+                    animator.SetFloat("Vitesse", speed);
+                    break;
+                case CurrentState.Projection:
+                    speed = Mathf.Lerp(speed, 0.75f, t);
+                    animator.SetFloat("Vitesse", speed);
+                    break;
+            }
+            t += speedOfTransistionAnimaiton * Time.deltaTime;
         }
-        t += speedOfTransistionAnimaiton * Time.deltaTime;
     }
 
 
