@@ -9,10 +9,11 @@ public class EnnemiDestroy : MonoBehaviour
     private float compteur;
     bool enter = false;
     public GameObject vfxBlueUp;
+    public GameObject players;
     // Start is called before the first frame update
     void Start()
     {
-        
+        players = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -27,7 +28,8 @@ public class EnnemiDestroy : MonoBehaviour
                 {
                     if (vfxBlueUp != null)
                     {
-                        Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
+                        //Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
+                        Instantiate(vfxBlueUp, transform.position, transform.rotation, players.transform);
                     }
                     enter = true;
                 }
