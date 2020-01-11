@@ -63,12 +63,16 @@ public class EnnemiStock : MonoBehaviour
         float input = Input.GetAxis("Attract1");
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+       
         if (ennemiStock != null)
         {
 
             if (onHitEnter)
             {
+                if (StateAnim.state == StateAnim.CurrentState.Tir)
+                {
+                    StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
+                }
                 isOnZoom = true;
                 Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;

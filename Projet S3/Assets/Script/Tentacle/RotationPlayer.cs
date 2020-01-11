@@ -45,7 +45,7 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
-
+            
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, pointPivot);
             line.p1 = transform.position;
@@ -125,6 +125,10 @@ public class RotationPlayer : MonoBehaviour
 
     public void StopRotation(bool isWall)
     {
+        if (StateAnim.state == StateAnim.CurrentState.Rotate)
+        {
+            StateAnim.ChangeState(StateAnim.CurrentState.Projection);
+        }
         if (isWall)
         {
             transform.tag = tagEnter;
