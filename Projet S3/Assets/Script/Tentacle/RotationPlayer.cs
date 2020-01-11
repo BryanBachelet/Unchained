@@ -45,7 +45,8 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
-            
+            float angleAvatar = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAvatar, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, pointPivot);
             line.p1 = transform.position;
@@ -70,7 +71,7 @@ public class RotationPlayer : MonoBehaviour
     public void ChangeRotationDirection()
     {
         angleSpeed = -angleSpeed;
-       
+
         stocks.inputNeed = !stocks.inputNeed;
         currentAngleMax = angleMax + angleCompteur;
         angleCompteur = 0;
@@ -172,9 +173,9 @@ public class RotationPlayer : MonoBehaviour
 
     }
 
-    private void GetDirection()
+    private Vector3 GetDirection()
     {
-        newDir = pointPivot - transform.position;
+        newDir = (pointPivot - transform.position).normalized;
         if (angleSpeed > 0)
         {
             newDir = Quaternion.Euler(0, -90, 0) * newDir;
@@ -184,6 +185,8 @@ public class RotationPlayer : MonoBehaviour
 
             newDir = Quaternion.Euler(0, 90, 0) * newDir;
         }
+
+        return newDir;
     }
 
     private void OnRenderObject()

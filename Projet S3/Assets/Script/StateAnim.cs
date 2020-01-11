@@ -6,10 +6,10 @@ public class StateAnim : MonoBehaviour
 {
     public enum CurrentState { Idle, Walk, Tir, Rotate, Projection };
     public static CurrentState state;
-    public float speed;
+    private float speed;
     public static float t;
     public Animator animator;
-
+    public float speedOfTransistionAnimaiton = 4;
     public void Start()
     {
         animator = GetComponent<Animator>();
@@ -40,7 +40,7 @@ public class StateAnim : MonoBehaviour
                 animator.SetFloat("Vitesse", speed);
                 break;
         }
-        t += 3 * Time.deltaTime;
+        t += speedOfTransistionAnimaiton * Time.deltaTime;
     }
 
 
