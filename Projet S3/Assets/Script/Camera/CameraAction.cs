@@ -73,7 +73,7 @@ public class CameraAction : MonoBehaviour
                 if (distanceBullet > distanceOfStartDezoomBullet)
                 {
                     compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
-                  
+
                     float currentDezoom = Mathf.Clamp(((distanceBullet - 10) / 1.5f), 0, distanceMax);
                     Vector3 camPos = basePosition + -transform.forward * currentDezoom;
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
@@ -83,6 +83,7 @@ public class CameraAction : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
                     compteurZoomBullet += Time.deltaTime;
                 }
+                competeur = 0;
             }
             if (playerEnnemiStock.ennemiStock != null)
             {
@@ -93,7 +94,7 @@ public class CameraAction : MonoBehaviour
                 {
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
-                   
+
                     Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent) / 2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
@@ -111,40 +112,41 @@ public class CameraAction : MonoBehaviour
                 Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 + dot));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
                 competeur += Time.deltaTime;
+                compteurZoomBullet = 0;
 
             }
 
         }
         else
         {
-          
-                Vector3 checkDir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
-                basePosition = player.transform.position + ecartJoueur;
-                Vector3 newPos = basePosition;
 
-                if (checkDir != Vector3.zero)
-                {
-                    float dirDot = Vector3.Dot(checkDir, currentDir);
-                    Debug.DrawRay(player.transform.position, checkDir * 100, Color.blue);
-                    if (dirDot < 0.85f)
-                    {
-                        currentDir = checkDir;
-                        compteurZoomBullet = 0;
-                    }
-                    float orientationOnScreen = Mathf.Abs(Mathf.Clamp(0f, -1f, checkDir.z - 1));
-                    newPos = basePosition + (checkDir * decalageCamera * orientationOnScreen);
-                    transform.position = Vector3.Lerp(transform.position, newPos, compteurZoomBullet);
-                    compteurZoomBullet += Time.deltaTime * speedDecalage;
-                }
-                else
-                {
-                    transform.position = newPos;
-                }
-                compteurDezoomBullet = 0;
-                competeur = 0;
-                Debug.DrawRay(player.transform.position, currentDir * 100, Color.green);
+            Vector3 checkDir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
+            basePosition = player.transform.position + ecartJoueur;
+            Vector3 newPos = basePosition;
 
-          
+            if (checkDir != Vector3.zero)
+            {
+                float dirDot = Vector3.Dot(checkDir, currentDir);
+                Debug.DrawRay(player.transform.position, checkDir * 100, Color.blue);
+                if (dirDot < 0.85f)
+                {
+                    currentDir = checkDir;
+                    compteurZoomBullet = 0;
+                }
+                float orientationOnScreen = Mathf.Abs(Mathf.Clamp(0f, -1f, checkDir.z - 1));
+                newPos = basePosition + (checkDir * decalageCamera * orientationOnScreen);
+                transform.position = Vector3.Lerp(transform.position, newPos, compteurZoomBullet);
+                compteurZoomBullet += Time.deltaTime * speedDecalage;
+            }
+            else
+            {
+                transform.position = newPos;
+            }
+            compteurDezoomBullet = 0;
+            competeur = 0;
+            Debug.DrawRay(player.transform.position, currentDir * 100, Color.green);
+
+
         }
 
     }
