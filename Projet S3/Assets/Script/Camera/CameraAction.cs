@@ -24,7 +24,7 @@ public class CameraAction : MonoBehaviour
     [Header("Proposition")]
     public bool decalageScope;
     public float decalageCamera = 0;
-    public float speedbase = 10;
+    public float speedDecalage = 10;
     public float multiplicateurSpeedMax = 5;
     [Range(0, 1)]
     public float resetLerp = 0.3f;
@@ -38,16 +38,20 @@ public class CameraAction : MonoBehaviour
     private EnnemiStock playerEnnemiStock;
     private float distanceBullet;
     private float distanceAgent;
-    private float compteurDezoomBullet;
+    public float compteurDezoomBullet;
     private float compteurZoomBullet;
     private float competeur;
     public Camera orthoCam;
+    public PlayerMoveAlone moveAlone;
+
+    private Vector3 currentDir = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        //transform.position = player.transform.position+ profil.position;
-        //transform.eulerAngles = profil.rotation;
+        player = PlayerMoveAlone.Player1;
+        moveAlone = player.GetComponent<PlayerMoveAlone>();
+
         ecartJoueur = transform.position - player.transform.position;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
@@ -69,15 +73,15 @@ public class CameraAction : MonoBehaviour
                 if (distanceBullet > distanceOfStartDezoomBullet)
                 {
                     compteurDezoomBullet += Time.deltaTime / speedDezoomBullet;
-                    compteurZoomBullet = 0;
+                  
                     float currentDezoom = Mathf.Clamp(((distanceBullet - 10) / 1.5f), 0, distanceMax);
                     Vector3 camPos = basePosition + -transform.forward * currentDezoom;
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
                 {
-                    compteurZoomBullet += Time.deltaTime;
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+                    compteurZoomBullet += Time.deltaTime;
                 }
             }
             if (playerEnnemiStock.ennemiStock != null)
@@ -89,7 +93,7 @@ public class CameraAction : MonoBehaviour
                 {
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
-                    compteurZoomBullet = 0;
+                   
                     Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent) / 2);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
@@ -97,92 +101,50 @@ public class CameraAction : MonoBehaviour
                 {
                     compteurZoomBullet += Time.deltaTime;
                     transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-                    compteurDezoomBullet = 0;
+
                 }
 
                 dir = new Vector3(dir.x, 0, dir.z);
                 float dot = Vector3.Dot(dir.normalized, player.transform.forward);
 
 
-                competeur += Time.deltaTime;
                 Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 + dot));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
+                competeur += Time.deltaTime;
 
             }
 
         }
         else
         {
-            if (decalageScope)
-            {
-                Vector3 dir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
+          
+                Vector3 checkDir = (playerMouseScope.direction + playerMouseScope.directionManette).normalized;
+                basePosition = player.transform.position + ecartJoueur;
+                Vector3 newPos = basePosition;
 
-                if (dir.z < 1f)
+                if (checkDir != Vector3.zero)
                 {
-                    float test = dir.z - 1f;
-                    test = Mathf.Clamp(test, -1, 1);
-                    Vector3 currentDir = transform.position - basePosition;
-                    currentDir = new Vector3(currentDir.x, 0, currentDir.z);
-
-                    Vector3 posCamPlus = dir * decalageCamera * Mathf.Abs(test);
-                    Vector3 newDir = (basePosition + posCamPlus) - basePosition;
-                    Vector3 newPos = basePosition + posCamPlus;
-                    newDir = new Vector3(newDir.x, 0, newDir.z);
-                    float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
-                    float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
-                    //Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
-
-                    float distanceNextPos = Vector3.Distance(transform.position, basePosition + posCamPlus);
-                    float distanceMouseDistance = Vector3.Distance(newPos, previousMousePos);
-                    Debug.Log(distanceMouseDistance);
-                    previousMousePos = newPos;
-                       
-                    float speedGive = distanceNextPos / speedbase;
-                    speedGive = Mathf.Clamp(speedGive, 0f, multiplicateurSpeedMax);
-                    compteurZoomBullet += Time.deltaTime * speedGive;
-                    transform.position = Vector3.Lerp(transform.position, basePosition + posCamPlus, compteurZoomBullet);
-                    //Debug.Log(compteurZoomBullet);
-
-                    if (distanceNextPos < 3 || compteurZoomBullet > 1 || distanceNextPos > 3 && compteurZoomBullet > resetLerp && distanceMouseDistance>0.02f)
+                    float dirDot = Vector3.Dot(checkDir, currentDir);
+                    Debug.DrawRay(player.transform.position, checkDir * 100, Color.blue);
+                    if (dirDot < 0.85f)
                     {
+                        currentDir = checkDir;
                         compteurZoomBullet = 0;
-                        supZero = true;
                     }
-                    competeur = 0;
-                    compteurDezoomBullet = 0;
+                    float orientationOnScreen = Mathf.Abs(Mathf.Clamp(0f, -1f, checkDir.z - 1));
+                    newPos = basePosition + (checkDir * decalageCamera * orientationOnScreen);
+                    transform.position = Vector3.Lerp(transform.position, newPos, compteurZoomBullet);
+                    compteurZoomBullet += Time.deltaTime * speedDecalage;
                 }
                 else
                 {
-                    if (supZero)
-                    {
-                        compteurZoomBullet = 0;
-                        supZero = false;
-                    }
-                    Vector3 currentDir = transform.position - basePosition;
-                    currentDir = new Vector3(currentDir.x, 0, currentDir.z);
-
-                    Vector3 newDir = dir;
-                    newDir = new Vector3(newDir.x, 0, newDir.z);
-                    float dot1 = Vector3.Dot(Vector3.forward, currentDir.normalized);
-                    float dot2 = Vector3.Dot(Vector3.forward, newDir.normalized);
-                    Debug.Log("dot1 = " + dot1 + " / " + "dot2 =" + dot2);
-                    float distanceNextPos = Vector3.Distance(transform.position, basePosition);
-
-                    float speedGive = distanceNextPos / speedbase;
-                    compteurZoomBullet += Time.deltaTime * speedGive;
-
-                    transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-                    competeur = 0;
-                    compteurDezoomBullet = 0;
+                    transform.position = newPos;
                 }
-            }
-            else
-            {
-                compteurZoomBullet += Time.deltaTime / speedZoomSpeed;
-                transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-                competeur = 0;
                 compteurDezoomBullet = 0;
-            }
+                competeur = 0;
+                Debug.DrawRay(player.transform.position, currentDir * 100, Color.green);
+
+          
         }
 
     }

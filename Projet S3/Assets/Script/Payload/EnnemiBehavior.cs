@@ -18,15 +18,19 @@ public class EnnemiBehavior : MonoBehaviour
     public float angle;
     [HideInInspector] public bool imStock;
     private int i;
+
+    private EnnemiDestroy destroy;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = PlayerMoveAlone.Player1;
         currentTarget = target;
         if (useNavMesh)
         {
             agent = GetComponent<NavMeshAgent>();
         }
+        destroy = GetComponent<EnnemiDestroy>();
     }
 
     // Update is called once per frame
@@ -38,6 +42,11 @@ public class EnnemiBehavior : MonoBehaviour
         }
         if (!useNavMesh)
         {
+            if (!destroy.isDestroying)
+            {
+                transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+            }
+
             if (imStock)
             {
                 transform.rotation = Quaternion.identity;
@@ -87,5 +96,17 @@ public class EnnemiBehavior : MonoBehaviour
         }
     }
 
+    //private void OnBecameVisible()
+    //{
+    //    enabled = true;
+    //}
+    //private void OnBecameInvisible()
+    //{
+    //    Debug.Log("1");
+    //    enabled = false;
+    //    if (Vector3.Distance(transform.position, PlayerMoveAlone.playerPos) > 100)
+    //    {
+    //    }
+    //}
 
 }
