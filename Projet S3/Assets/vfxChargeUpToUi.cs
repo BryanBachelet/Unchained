@@ -11,16 +11,18 @@ public class vfxChargeUpToUi : MonoBehaviour
     void Start()
     {
         //target = GameObject.FindGameObjectWithTag("UiBarre" + number);
-        target = GameObject.Find("Player");
+        target = PlayerMoveAlone.Player1;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speedParticle * Time.deltaTime);
+        //transform.Rotate(transform.GetChild(0).position, 50);
+        //transform.RotateAround(transform.GetChild(0).position, Vector3.forward, 50f);
         if(Vector3.Distance(transform.position, target.transform.position) < 0.1f)
         {
-            target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
+            //target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
           
             Destroy(gameObject);
         }
