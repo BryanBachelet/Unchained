@@ -48,6 +48,7 @@ public class StateAnim : MonoBehaviour
             }
             t += speedOfTransistionAnimaiton * Time.deltaTime;
         }
+        transform.localPosition = Vector3.zero; 
     }
 
 

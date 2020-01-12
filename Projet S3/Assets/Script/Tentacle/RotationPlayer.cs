@@ -34,7 +34,7 @@ public class RotationPlayer : MonoBehaviour
         currentAngleMax = angleMax;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (rotate)
         {
