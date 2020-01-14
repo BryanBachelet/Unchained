@@ -159,8 +159,10 @@ MonoBehaviour:
   useNavMesh: 0
   target: {fileID: 0}
   currentTarget: {fileID: 0}
-  speed: 4
-  isOnSlam: 0
+  speedClassic: 4
+  speedLinks: 10
+  speedOfRotation: 1
+  angle: 0
   imStock: 0
 --- !u!54 &2079930861430512462
 Rigidbody:
@@ -192,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDestroying: 0
   timerToDestro: 2
+  vfxBlueUp: {fileID: 0}
 --- !u!114 &114279416631389616
 MonoBehaviour:
   m_ObjectHideFlags: 0

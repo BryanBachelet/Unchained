@@ -95,7 +95,7 @@ public class CameraAction : MonoBehaviour
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
 
-                    Vector3 camPos = basePosition + -transform.forward * ((distanceAgent - distanceOfStartDezoomAgent) / 2);
+                    Vector3 camPos = basePosition + -transform.forward *  (distanceAgent/1.5f);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else
@@ -109,7 +109,7 @@ public class CameraAction : MonoBehaviour
                 float dot = Vector3.Dot(dir.normalized, player.transform.forward);
 
 
-                Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 + dot));
+                Vector3 newPos = transform.position + dir.normalized * (distanceAgent / (2 /*+ dot*/));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
                 competeur += Time.deltaTime;
                 compteurZoomBullet = 0;
