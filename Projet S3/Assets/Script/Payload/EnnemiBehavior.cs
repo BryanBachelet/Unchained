@@ -18,12 +18,13 @@ public class EnnemiBehavior : MonoBehaviour
     public float angle;
     [HideInInspector] public bool imStock;
     private int i;
-
+    private Rigidbody rigidbody;
     private EnnemiDestroy destroy;
 
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
         currentTarget = target;
         if (useNavMesh)
@@ -86,6 +87,13 @@ public class EnnemiBehavior : MonoBehaviour
 
                     transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speedClassic * Time.deltaTime);
                     tag = "Ennemi";
+                    //Test///////////////////////////////////////////////////// 
+                    if (rigidbody.velocity.magnitude > 0)
+                    {
+                        rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.zero, Time.deltaTime);
+
+                    }
+                    //////////////////////////////////////////////////
                 }
             }
 
