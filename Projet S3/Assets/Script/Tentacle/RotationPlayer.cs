@@ -23,8 +23,14 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
+    [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
+    [HideInInspector] public Vector3 nextDir;
+    
     public GameObject vfxShockWave;
+
+
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -34,7 +40,7 @@ public class RotationPlayer : MonoBehaviour
         currentAngleMax = angleMax;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (rotate)
         {
@@ -45,7 +51,8 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
-
+            float angleAvatar = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAvatar, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, pointPivot);
             line.p1 = transform.position;
@@ -70,7 +77,7 @@ public class RotationPlayer : MonoBehaviour
     public void ChangeRotationDirection()
     {
         angleSpeed = -angleSpeed;
-       
+
         stocks.inputNeed = !stocks.inputNeed;
         currentAngleMax = angleMax + angleCompteur;
         angleCompteur = 0;
@@ -125,6 +132,10 @@ public class RotationPlayer : MonoBehaviour
 
     public void StopRotation(bool isWall)
     {
+        if (StateAnim.state == StateAnim.CurrentState.Rotate)
+        {
+            StateAnim.ChangeState(StateAnim.CurrentState.Projection);
+        }
         if (isWall)
         {
             transform.tag = tagEnter;
@@ -168,9 +179,9 @@ public class RotationPlayer : MonoBehaviour
 
     }
 
-    private void GetDirection()
+    private Vector3 GetDirection()
     {
-        newDir = pointPivot - transform.position;
+        newDir = (pointPivot - transform.position).normalized;
         if (angleSpeed > 0)
         {
             newDir = Quaternion.Euler(0, -90, 0) * newDir;
@@ -179,6 +190,40 @@ public class RotationPlayer : MonoBehaviour
         {
 
             newDir = Quaternion.Euler(0, 90, 0) * newDir;
+        }
+
+        return newDir;
+    }
+
+    private Vector3 GetNextDirection()
+    {
+        Vector3 ecartPointPivot = transform.position - pointPivot;
+        Vector3 posIntermediaire= pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
+        nextDir = (pointPivot - posIntermediaire).normalized;
+
+        if (angleSpeed > 0)
+        {
+            nextDir = Quaternion.Euler(0, -90, 0) * nextDir;
+        }
+        else
+        {
+
+            nextDir = Quaternion.Euler(0, 90, 0) * nextDir;
+        }
+
+        return nextDir;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (Camera.current.name == "Camera")
+        {
+            if (stocks.ennemiStock != null)
+            {
+                Vector3 ecartPointPivot = transform.position - pointPivot;
+                Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
+                Gizmos.DrawWireSphere(spherePos, 10);
+            }
         }
     }
 
@@ -191,10 +236,10 @@ public class RotationPlayer : MonoBehaviour
                 GL.Begin(GL.LINES);
                 lineMat.SetPass(0);
 
-                GL.Color(Color.blue);
+                GL.Color(Color.yellow);
                 GL.Vertex(transform.position);
-                GetDirection();
-                GL.Vertex(transform.position + (newDir).normalized * 100);
+                GetNextDirection();
+                GL.Vertex(transform.position + (nextDir).normalized * 100);
                 GL.End();
             }
 

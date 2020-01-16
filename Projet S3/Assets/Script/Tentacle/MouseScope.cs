@@ -152,8 +152,10 @@ public class MouseScope : MonoBehaviour
             if (projectils.returnBall)
             {
                 projectils.dir = -(projectils.transform.position - transform.position);
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < 10)
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed *Time.deltaTime)
                 {
+                    
+                    StateAnim.ChangeState(StateAnim.CurrentState.Idle);
                     Destroy(instanceBullet);
                 }
             }
@@ -200,6 +202,7 @@ public class MouseScope : MonoBehaviour
         if (ennemiStock.ennemiStock == null && instanceBullet == null)
         {
 
+            StateAnim.ChangeState(StateAnim.CurrentState.Tir);
             instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
             meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
             float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
@@ -217,7 +220,6 @@ public class MouseScope : MonoBehaviour
             projectils.speed = speedOfBullet;
             projectils.moveAlone = GetComponent<PlayerMoveAlone>();
             contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-
             contactSound.start();
 
         }

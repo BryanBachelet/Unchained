@@ -31,7 +31,7 @@ namespace GK {
 				Profiler.BeginSample("Do fracture call");
 
 				//fracture.DoFracture(local);
-				fracture.DoFracture(myRotPlay.newDir * ExplosionForce);
+				fracture.DoFracture(myRotPlay.newDir.normalized * ExplosionForce);
 
 				Profiler.EndSample();
 
