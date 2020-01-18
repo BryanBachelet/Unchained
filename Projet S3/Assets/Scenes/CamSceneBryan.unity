@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -187,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
       propertyPath: decalageCamera
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
@@ -213,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: multiplicateurSpeedMax
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: speedDecalage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63309d3e81ed6a1448edc70662a09f96, type: 3}
@@ -308,6 +313,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &962366366 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6917806481449010536, guid: 6394fff4d6065524694b9d19799eecc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655766648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &962366368 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6917806481441601192, guid: 6394fff4d6065524694b9d19799eecc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655766648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &962366369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962366366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537bd63f2c2e985408bb8fa077ef2da1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current: 0
+  animator: {fileID: 962366368}
+  speedOfTransistionAnimaiton: 4
 --- !u!1 &1145322163
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +493,68 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: Ambout
+      value: 
+      objectReference: {fileID: 4659203331834948054, guid: 225f5d18d048b26408b55f75b097dcaa,
+        type: 3}
+    - target: {fileID: 6917806481441601192, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 52b123eeac113784080aeee069bea6bc, type: 2}
+    - target: {fileID: 6917806481441601192, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed by
+        Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+        'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'rotation_anim_02'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310568, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000036237605
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310568, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.05721203
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310586, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0005289505
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310586, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.07368334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310486, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0000031174372
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310486, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.013620305
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310556, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000029877201
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917806481449310556, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.007230905
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
