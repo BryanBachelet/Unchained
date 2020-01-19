@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5522854144940205528}
   - component: {fileID: 4830232379732025001}
   - component: {fileID: 9084949104375660843}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: vfx_trailEntity_V5
-  m_TagString: Untagged
+  m_TagString: vfx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4570,7 +4570,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speedParticle: 15
+  goUp: 100
   number: 2
+  step: 1
+  moveTo: {x: 0, y: 0, z: 0}
+  listVfxProx: []
+  recupVfxProx: []
+  lMvfx:
+    serializedVersion: 2
+    m_Bits: 65536
+  radiusProx: 5
+  moyennePos: {x: 0, y: 0, z: 0}
 --- !u!1 &3913125020080086759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,13 +4590,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2403544353273980550}
-  m_Layer: 0
+  - component: {fileID: 697814600666519641}
+  m_Layer: 16
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: vfx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2403544353273980550
 Transform:
   m_ObjectHideFlags: 0
@@ -4595,9 +4606,22 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3913125020080086759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 2, z: 0}
+  m_LocalPosition: {x: 1.5, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4232914710495803003}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &697814600666519641
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3913125020080086759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
