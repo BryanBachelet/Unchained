@@ -83,7 +83,7 @@ public class EnnemiStock : MonoBehaviour
                 {
                     if (ennemiStock.tag == "wall")
                     {
-                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, false);
+                        rotate = rotationPlayer.StartRotationWall(gameObject, pos,ennemiStock, powerOfProjection, false);
 
                     }
                     else
@@ -96,7 +96,7 @@ public class EnnemiStock : MonoBehaviour
                 {
                     if (ennemiStock.tag == "wall")
                     {
-                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, powerOfProjection, true);
+                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, ennemiStock, powerOfProjection, true);
 
                     }
                     else
@@ -131,7 +131,7 @@ public class EnnemiStock : MonoBehaviour
 
 
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed )
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed && ennemiStock != null )
             {
                 // myRE.Emit();
                 DetachPlayer();

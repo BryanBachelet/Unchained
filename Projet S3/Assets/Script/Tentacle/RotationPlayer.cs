@@ -26,7 +26,7 @@ public class RotationPlayer : MonoBehaviour
     [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
-    
+
     public GameObject vfxShockWave;
 
 
@@ -58,6 +58,7 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
+    
 
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
@@ -108,9 +109,10 @@ public class RotationPlayer : MonoBehaviour
         return rotate = true;
     }
 
-    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
+    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, GameObject positionPivot, float forceSortie, bool changeRotate)
     {
         tagEnter = null;
+        gameObjectPointPivot = positionPivot;
         pointPivot = positionPivotWall;
         forceOfSortie = forceSortie;
         changeSens = false;
@@ -198,7 +200,7 @@ public class RotationPlayer : MonoBehaviour
     private Vector3 GetNextDirection()
     {
         Vector3 ecartPointPivot = transform.position - pointPivot;
-        Vector3 posIntermediaire= pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
+        Vector3 posIntermediaire = pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
         nextDir = (pointPivot - posIntermediaire).normalized;
 
         if (angleSpeed > 0)
@@ -213,6 +215,15 @@ public class RotationPlayer : MonoBehaviour
 
         return nextDir;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(gameObjectPointPivot == collision.gameObject && tagEnter == null)
+        {
+            stocks.DetachPlayer();
+        } 
+    }
+
 
     private void OnDrawGizmosSelected()
     {
