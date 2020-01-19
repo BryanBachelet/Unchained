@@ -23,8 +23,14 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
+    [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
+    [HideInInspector] public Vector3 nextDir;
+    
     public GameObject vfxShockWave;
+
+
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -189,6 +195,38 @@ public class RotationPlayer : MonoBehaviour
         return newDir;
     }
 
+    private Vector3 GetNextDirection()
+    {
+        Vector3 ecartPointPivot = transform.position - pointPivot;
+        Vector3 posIntermediaire= pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
+        nextDir = (pointPivot - posIntermediaire).normalized;
+
+        if (angleSpeed > 0)
+        {
+            nextDir = Quaternion.Euler(0, -90, 0) * nextDir;
+        }
+        else
+        {
+
+            nextDir = Quaternion.Euler(0, 90, 0) * nextDir;
+        }
+
+        return nextDir;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (Camera.current.name == "Camera")
+        {
+            if (stocks.ennemiStock != null)
+            {
+                Vector3 ecartPointPivot = transform.position - pointPivot;
+                Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
+                Gizmos.DrawWireSphere(spherePos, 10);
+            }
+        }
+    }
+
     private void OnRenderObject()
     {
         if (Camera.current.name == "Camera")
@@ -198,10 +236,10 @@ public class RotationPlayer : MonoBehaviour
                 GL.Begin(GL.LINES);
                 lineMat.SetPass(0);
 
-                GL.Color(Color.blue);
+                GL.Color(Color.yellow);
                 GL.Vertex(transform.position);
-                GetDirection();
-                GL.Vertex(transform.position + (newDir).normalized * 100);
+                GetNextDirection();
+                GL.Vertex(transform.position + (nextDir).normalized * 100);
                 GL.End();
             }
 

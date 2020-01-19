@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject regionParent;
     private float compteur = 13;
-    public GameObject objectToInstantiate;
+    public List<GameObject> objectToInstantiate;
     public GameObject parentToSpawn;
     public float timeOfSpawn;
     [Header("Caractéristique du spawner")]
@@ -91,8 +91,8 @@ public class Spawner : MonoBehaviour
                         {
                             posToSpawn = Random.insideUnitCircle * radius;
                         }
-
-                        GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                        int numberAgent = Random.Range(0, objectToInstantiate.Count);
+                        GameObject add = Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
                         if (typeToSpawn == CenterTag.Types.Blue)
                         {
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
@@ -120,7 +120,8 @@ public class Spawner : MonoBehaviour
                 {
 
                     Vector2 posToSpawn = Random.insideUnitCircle * radius;
-                    GameObject add = Instantiate(objectToInstantiate, new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                    int numberAgent = Random.Range(0, objectToInstantiate.Count);
+                    GameObject add = Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
                     if (typeToSpawn == CenterTag.Types.Blue)
                     {
                         add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;

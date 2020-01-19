@@ -6,6 +6,7 @@ public class StateAnim : MonoBehaviour
 {
     public enum CurrentState { Idle, Walk, Tir, Rotate, Projection };
     public static CurrentState state;
+    public CurrentState current;
     private float speed;
     public static float t;
     public Animator animator;
@@ -19,6 +20,7 @@ public class StateAnim : MonoBehaviour
     }
     public void Update()
     {
+        current = state;
         if (animator != null)
         {
 
