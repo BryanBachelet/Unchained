@@ -2892,7 +2892,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &295342530
 MonoBehaviour:
@@ -2907,6 +2907,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerTypes: 0
+  centerVFX: []
+  finVfxSeries: 0
 --- !u!1 &300128878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,7 +3723,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &356595957
 MeshRenderer:
@@ -4823,13 +4825,13 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 1, g: 1, b: 1, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 633739328}
+  shadowMapRenderTexture: {fileID: 1055544914}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
-  shadowDataRenderTexture: {fileID: 1007653211}
+  shadowDataRenderTexture: {fileID: 1756512070}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
@@ -6392,7 +6394,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &601452143
 MonoBehaviour:
@@ -6407,6 +6409,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerTypes: 1
+  centerVFX: []
+  finVfxSeries: 0
 --- !u!1 &602343892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6619,25 +6623,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621923464}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &621993742 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3179295920607108352, guid: fcc879748b371f8418298a684c116714,
-    type: 3}
-  m_PrefabInstance: {fileID: 847181853309296812}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &621993744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 621993742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748145755a1b0244abab3b5c4646866f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerTypes: 2
 --- !u!1 &622345501
 GameObject:
   m_ObjectHideFlags: 0
@@ -6729,38 +6714,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622345501}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!84 &633739328
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &643619134
 GameObject:
   m_ObjectHideFlags: 0
@@ -9961,6 +9914,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8518233472068035723, guid: c98d6613945b84546b61b8699e5afee2,
+        type: 3}
+      propertyPath: m_Name
+      value: P_Interet_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518233472068035723, guid: c98d6613945b84546b61b8699e5afee2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2206430782862876642, guid: c98d6613945b84546b61b8699e5afee2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10015,11 +9978,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8518233472068035723, guid: c98d6613945b84546b61b8699e5afee2,
-        type: 3}
-      propertyPath: m_Name
-      value: P_Interet_02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c98d6613945b84546b61b8699e5afee2, type: 3}
@@ -10132,38 +10090,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004211104}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!84 &1007653211
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Data Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1010745008
 GameObject:
   m_ObjectHideFlags: 0
@@ -10693,7 +10619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: cba57bef3130466468a8a177f808a5c0, type: 2}
+  sharedProfile: {fileID: 11400000, guid: dc1e1eac46194db499480f88d7fe6cd4, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -10852,6 +10778,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054802885}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &1055544914
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 512
+  m_Height: 512
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1060539371
 GameObject:
   m_ObjectHideFlags: 0
@@ -15303,6 +15261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: trail_Fire Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1832105230701334342, guid: d0be423b04235554297477c6e2f03657,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8775479162345219274, guid: d0be423b04235554297477c6e2f03657,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16049,7 +16012,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1556862928
 MeshRenderer:
@@ -16239,25 +16202,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574726385}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1575339752 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3179295921149693688, guid: fcc879748b371f8418298a684c116714,
-    type: 3}
-  m_PrefabInstance: {fileID: 847181853309296812}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1575339754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575339752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748145755a1b0244abab3b5c4646866f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerTypes: 0
 --- !u!1 &1586640999
 GameObject:
   m_ObjectHideFlags: 0
@@ -16755,7 +16699,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1662146239
 MonoBehaviour:
@@ -16770,6 +16714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerTypes: 2
+  centerVFX: []
+  finVfxSeries: 0
 --- !u!1 &1684922611
 GameObject:
   m_ObjectHideFlags: 0
@@ -17095,7 +17041,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1710438310
 MeshRenderer:
@@ -17769,6 +17715,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749831285}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!84 &1756512070
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Data Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 32
+  m_Height: 1
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1757142946
 GameObject:
   m_ObjectHideFlags: 0
@@ -17987,7 +17965,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1767147699
 MonoBehaviour:
@@ -18002,6 +17980,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerTypes: 0
+  centerVFX: []
+  finVfxSeries: 0
 --- !u!1 &1768596842
 GameObject:
   m_ObjectHideFlags: 0
@@ -18442,7 +18422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1816609791
 MonoBehaviour:
@@ -18457,6 +18437,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerTypes: 2
+  centerVFX: []
+  finVfxSeries: 0
 --- !u!1 &1818898094
 GameObject:
   m_ObjectHideFlags: 0
@@ -20387,25 +20369,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013016263}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2034709521 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3179295920457650180, guid: fcc879748b371f8418298a684c116714,
-    type: 3}
-  m_PrefabInstance: {fileID: 847181853309296812}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2034709523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034709521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748145755a1b0244abab3b5c4646866f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerTypes: 0
 --- !u!1 &2039823414
 GameObject:
   m_ObjectHideFlags: 0
@@ -20835,7 +20798,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 107756368}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2113421554
 MeshRenderer:
@@ -22550,7 +22513,7 @@ PrefabInstance:
     - target: {fileID: 2436290421964328136, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3179295920540171365, guid: fcc879748b371f8418298a684c116714,
         type: 3}
@@ -23507,7 +23470,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1575339752}
+      objectReference: {fileID: 0}
     - target: {fileID: 3179295920761683030, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: timeOfSpawn
@@ -23701,7 +23664,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 621993742}
+      objectReference: {fileID: 0}
     - target: {fileID: 7816713240372424983, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: nbrPointOfSpawn
@@ -23796,7 +23759,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 2034709521}
+      objectReference: {fileID: 0}
     - target: {fileID: 7816713241349158894, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: nbrEntiteeToSpawn
@@ -24037,6 +24000,18 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 52b123eeac113784080aeee069bea6bc, type: 2}
+    - target: {fileID: 7498014637197859305, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed by
+        Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+        'mixamorig:LeftHandPinky2'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+        'mixamorig:RightArm'\n\tand more ...\n\tFrom animation clip 'Idle_anim'\n\tFrom
+        animation clip 'walk_dance'\n\tFrom animation clip 'rotation_anim_02'"
+      objectReference: {fileID: 0}
     - target: {fileID: 7498014637188544029, guid: fcc879748b371f8418298a684c116714,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -24076,6 +24051,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.013620305
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655262214765465079, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821318624204526048, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943557652490871047, guid: fcc879748b371f8418298a684c116714,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcc879748b371f8418298a684c116714, type: 3}
