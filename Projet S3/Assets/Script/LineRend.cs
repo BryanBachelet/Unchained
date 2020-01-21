@@ -180,10 +180,10 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             contactSound.start();
             //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
-            if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
-            {
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
-            }
+            //if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
+            //{
+            //    collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+            //}
             if (activeParticle)
             {
                 Transform transfChild = collision.transform.GetChild(0);
@@ -214,6 +214,7 @@ public class LineRend : MonoBehaviour
             onCombo = true;
         }
         tempsEcouleCombo = 0;
+        collision.attachedRigidbody.detectCollisions =false;
         collision.GetComponent<EnnemiDestroy>().isDestroying = true;
     }
 }

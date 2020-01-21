@@ -22,6 +22,7 @@ public class EnnemiDestroy : MonoBehaviour
         if (isDestroying)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            transform.Translate(0, 50 * Time.deltaTime, 0);
             if (isDestroying)
             {
                 if (!enter)
