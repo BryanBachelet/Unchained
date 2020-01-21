@@ -2,7 +2,7 @@
 
 Shader "Effects/Explosions/Distortion/CullBack" {
 Properties {
-        _TintColor ("Tint Color", Color) = (1,1,1,1)
+        _EmissionColor ("Emission Color", Color) = (1,1,1,1)
 		_MainTex ("Base (RGB) Gloss (A)", 2D) = "black" {}
         _DuDvMap ("DuDv Map", 2D) = "black" {}
 		_ColorStrength ("Color Strength", Float) = 1
@@ -58,7 +58,7 @@ float _BumpAmt;
 float _ColorStrength;
 sampler2D _GrabTexture;
 float4 _GrabTexture_TexelSize;
-float4 _TintColor;
+float4 _EmissionColor;
 
 
 float4 _DuDvMap_ST;
@@ -112,7 +112,7 @@ half4 frag( v2f i ) : COLOR
 	half4 col = tex2Dproj( _GrabTexture, UNITY_PROJ_COORD(i.uvgrab));
 	fixed4 tex = tex2D(_MainTex, i.uvmain) * i.color;
 	col.rgb *= i.color.rgb;
-	fixed4 res = col + tex * _ColorStrength * _TintColor * i.color.a;
+	fixed4 res = col + tex * _ColorStrength * _EmissionColor * i.color.a;
     res.a = saturate(res.a);
 	return res;
 }

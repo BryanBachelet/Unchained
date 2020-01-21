@@ -41,12 +41,9 @@ public class EnnemiBehavior : MonoBehaviour
         {
             currentTarget = target;
         }
-        if (!useNavMesh)
+        if (!useNavMesh && destroy.isDestroying == false)
         {
-            if (!destroy.isDestroying)
-            {
-                transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-            }
+            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
 
             if (imStock)
             {
@@ -88,11 +85,11 @@ public class EnnemiBehavior : MonoBehaviour
                     transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speedClassic * Time.deltaTime);
                     tag = "Ennemi";
                     //Test///////////////////////////////////////////////////// 
-                    if (rigidbody.velocity.magnitude > 0)
-                    {
-                        rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.zero, Time.deltaTime);
+                    //if (rigidbody.velocity.magnitude > 0)
+                    //{
+                    //    rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.zero, Time.deltaTime);
 
-                    }
+                    //}
                     //////////////////////////////////////////////////
                 }
             }

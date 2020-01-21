@@ -13,7 +13,7 @@ public class EnnemiStock : MonoBehaviour
     private bool slam;
     private RotationPlayer rotationPlayer;
     private SlamPlayer slamPlayer;
-    [HideInInspector] public float powerOfProjection;
+     public float powerOfProjection;
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
@@ -36,6 +36,9 @@ public class EnnemiStock : MonoBehaviour
     private RippleEffect myRE;
     private MouseScope mouse;
     [HideInInspector] public bool inputNeed;
+
+    public AnimationCurve curveVolumeOrbitation;
+    float tempsEcoule;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,13 +55,20 @@ public class EnnemiStock : MonoBehaviour
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(volume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
-        OrbitEvent.setVolume(volume);
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        tempsEcoule += Time.deltaTime;
+
+        if (tempsEcoule > 1.2)
+        {
+            tempsEcoule = 0;
+        }
+        OrbitEvent.setVolume(curveVolumeOrbitation.Evaluate(tempsEcoule));
         Camera.main.fieldOfView = myFOV;
         float input = Input.GetAxis("Attract1");
 

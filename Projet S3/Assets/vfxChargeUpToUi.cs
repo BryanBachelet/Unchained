@@ -24,7 +24,7 @@ public class vfxChargeUpToUi : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         recupVfxProx = Physics.OverlapSphere(transform.position, radiusProx, lMvfx);
         listVfxProx = recupVfxProx;
