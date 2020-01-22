@@ -37,33 +37,33 @@ public class EnnemiDestroy : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             transform.Translate(0, 50 * Time.deltaTime, 0);
-            
-                if (!enter)
+
+            if (!enter)
+            {
+                if (vfxBlueUp != null)
                 {
-                    if (vfxBlueUp != null)
-                    {
-                        //Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
-                        Instantiate(vfxBlueUp, transform.position, transform.rotation, players.transform);
-                    }
-                    enter = true;
+                    //Instantiate(vfxBlueUp, transform.position, transform.rotation, Camera.main.transform);
+                    Instantiate(vfxBlueUp, transform.position, transform.rotation, players.transform);
                 }
-                if (compteur > timerToDestro)
-                {
-
-                    Destroy(gameObject);
-                    //if(vfxBlueUp != null)
-                    //{
-
-
-                    //}
-
-                }
-                else
-                {
-                    compteur += Time.deltaTime;
-                }
+                enter = true;
             }
+            if (compteur > timerToDestro)
+            {
 
+                Destroy(gameObject);
+                //if(vfxBlueUp != null)
+                //{
+
+
+                //}
+
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
         }
+
     }
 }
+
