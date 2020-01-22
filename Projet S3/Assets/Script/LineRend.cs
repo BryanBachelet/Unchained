@@ -210,10 +210,10 @@ public class LineRend : MonoBehaviour
             //{
             //contactSound.getParameterByName("Entitipersec2", out paramValue);
             //contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
-            if(timeKill.Count < 40)
-            {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
-            }
+            //if(timeKill.Count < 40)
+            //{
+            //    FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
+            //}
 
                 //contactSound.start();
             //}
@@ -303,6 +303,7 @@ public class LineRend : MonoBehaviour
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 35 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+                collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
             {
