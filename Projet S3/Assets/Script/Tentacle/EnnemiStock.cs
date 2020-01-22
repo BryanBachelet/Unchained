@@ -79,6 +79,7 @@ public class EnnemiStock : MonoBehaviour
 
             if (onHitEnter)
             {
+               
                 if (StateAnim.state == StateAnim.CurrentState.Tir)
                 {
                     StateAnim.ChangeState(StateAnim.CurrentState.Rotate);

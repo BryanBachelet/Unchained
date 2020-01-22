@@ -51,6 +51,7 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
+            Debug.Log("turn");
             float angleAvatar = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAvatar, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
@@ -71,6 +72,7 @@ public class RotationPlayer : MonoBehaviour
                 angleCompteur = 0;
             }
 
+            GetNextDirection();
         }
 
     }
@@ -225,36 +227,36 @@ public class RotationPlayer : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
-    {
-        if (Camera.current.name == "Camera")
-        {
-            if (stocks.ennemiStock != null)
-            {
-                Vector3 ecartPointPivot = transform.position - pointPivot;
-                Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
-                Gizmos.DrawWireSphere(spherePos, 10);
-            }
-        }
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if (Camera.current.name == "Camera")
+    //    {
+    //        if (stocks.ennemiStock != null)
+    //        {
+    //            Vector3 ecartPointPivot = transform.position - pointPivot;
+    //            Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
+    //            Gizmos.DrawWireSphere(spherePos, 10);
+    //        }
+    //    }
+    //}
 
-    private void OnRenderObject()
-    {
-        if (Camera.current.name == "Camera")
-        {
-            if (stocks.ennemiStock != null)
-            {
-                GL.Begin(GL.LINES);
-                lineMat.SetPass(0);
+    //private void OnRenderObject()
+    //{
+    //    if (Camera.current.name == "Camera")
+    //    {
+    //        if (stocks.ennemiStock != null)
+    //        {
+    //            GL.Begin(GL.LINES);
+    //            lineMat.SetPass(0);
 
-                GL.Color(Color.yellow);
-                GL.Vertex(transform.position);
-                GetNextDirection();
-                GL.Vertex(transform.position + (nextDir).normalized * 100);
-                GL.End();
-            }
+    //            GL.Color(Color.yellow);
+    //            GL.Vertex(transform.position);
+    //            GetNextDirection();
+    //            GL.Vertex(transform.position + (nextDir).normalized * 100);
+    //            GL.End();
+    //        }
 
-        }
+    //    }
 
-    }
+    //}
 }

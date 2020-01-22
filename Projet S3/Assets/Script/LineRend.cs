@@ -82,11 +82,11 @@ public class LineRend : MonoBehaviour
             if(timeEcoule > timeKill[i] +3)
             {
                 timeKill.RemoveAt(i);
-                Debug.Log("DEGAGE");
+                //Debug.Log("DEGAGE");
             }
             else
             {
-                Debug.Log("RESTE");
+                //Debug.Log("RESTE");
             }
 
         }
@@ -210,12 +210,12 @@ public class LineRend : MonoBehaviour
             //{
             //contactSound.getParameterByName("Entitipersec2", out paramValue);
             //contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
-            if(timeKill.Count < 40)
+            if (timeKill.Count < 40)
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
             }
 
-                //contactSound.start();
+            //contactSound.start();
             //}
             //else
             //{

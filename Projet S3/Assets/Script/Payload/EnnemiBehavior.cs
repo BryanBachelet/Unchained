@@ -41,7 +41,7 @@ public class EnnemiBehavior : MonoBehaviour
         {
             currentTarget = target;
         }
-        if (!useNavMesh && destroy.isDestroying == false)
+        if (!useNavMesh && destroy.isDestroying == false)   
         {
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
 
@@ -51,6 +51,8 @@ public class EnnemiBehavior : MonoBehaviour
                 Vector3 direction = (transform.position - player.transform.position).normalized;
                 transform.Translate(direction * speedLinks * Time.deltaTime);
                 transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                Debug.DrawRay(transform.position, direction * 100, Color.blue);
             }
             else
             {
