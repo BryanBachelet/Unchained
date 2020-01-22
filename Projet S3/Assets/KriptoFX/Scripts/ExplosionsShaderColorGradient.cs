@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ExplosionsShaderColorGradient : MonoBehaviour
 {
-    public string ShaderProperty = "_TintColor";
+    public string ShaderProperty = "_EmissionColor";
     public int MaterialID = 0;
     public Gradient Color = new Gradient();
     public float TimeMultiplier = 1;

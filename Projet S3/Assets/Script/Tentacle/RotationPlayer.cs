@@ -152,7 +152,7 @@ public class RotationPlayer : MonoBehaviour
 
             float angleToRotate = Vector3.SignedAngle(transform.forward, newDir.normalized, Vector3.up);
 
-            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleToRotate, 0));
+            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, -angleToRotate, 0));
 
 
         }

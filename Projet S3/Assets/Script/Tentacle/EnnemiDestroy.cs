@@ -10,10 +10,24 @@ public class EnnemiDestroy : MonoBehaviour
     bool enter = false;
     public GameObject vfxBlueUp;
     public GameObject players;
+
+    [Header("Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    //private FMOD.Studio.EventInstance contactSound;
+
+    public float volume = 20;
+    public float angleRotate;
+    public int offset;
+    public Transform pivotTransform;
+    Vector3 deltaRotation;
     // Start is called before the first frame update
     void Start()
     {
         players = PlayerMoveAlone.Player1;
+        //Sound
+        //contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
+        //contactSound.setVolume(volume);
     }
 
     // Update is called once per frame
@@ -23,8 +37,7 @@ public class EnnemiDestroy : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             transform.Translate(0, 50 * Time.deltaTime, 0);
-            if (isDestroying)
-            {
+            
                 if (!enter)
                 {
                     if (vfxBlueUp != null)

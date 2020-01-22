@@ -25,6 +25,7 @@ public class LineRend : MonoBehaviour
     public string contact;
     private FMOD.Studio.EventInstance contactSound;
 
+
     public float volume = 20;
 
     public int comboCompt = 0;
@@ -32,12 +33,18 @@ public class LineRend : MonoBehaviour
     public float timeOnCombo;
     float tempsEcouleCombo = 0;
     int lastComboValue;
+    int lastFramCombo;
     public Text comboComptTxt;
     public Text lastComboTxt;
+    public Text killPerTxt;
     public Animator myAnimator;
     private bool activeVelocity;
     private Velocity velocity;
 
+    public float killPerSec;
+    public List<float> timeKill = new List<float>();
+    public float timeEcoule;
+    public float paramValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,8 +70,29 @@ public class LineRend : MonoBehaviour
         //Sound
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(volume);
+
     }
 
+    void Update()
+    {
+
+        timeEcoule = Time.time;
+        for(int i = 0; i < timeKill.Count; i ++)
+        {
+            if(timeEcoule > timeKill[i] +3)
+            {
+                timeKill.RemoveAt(i);
+                Debug.Log("DEGAGE");
+            }
+            else
+            {
+                Debug.Log("RESTE");
+            }
+
+        }
+        killPerTxt.text = ("" + timeKill.Count);
+
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -100,6 +128,7 @@ public class LineRend : MonoBehaviour
             comboComptTxt.text = ("" + comboCompt);
             if (tempsEcouleCombo > timeOnCombo)
             {
+                contactSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 // myAnimator.SetBool("OnActivation", true);
                 lastComboValue = comboCompt;
                 onCombo = false;
@@ -164,6 +193,7 @@ public class LineRend : MonoBehaviour
 
     void Collision(Collider collision)
     {
+        //contactSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         if (lastComboTxt.enabled == true)
         {
             lastComboTxt.enabled = false;
@@ -172,18 +202,108 @@ public class LineRend : MonoBehaviour
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
-            collision.GetComponent<Rigidbody>().AddForce(sign * transform.right * 50, ForceMode.Impulse);
+            collision.GetComponent<Rigidbody>().AddForce(sign * transform.right * 35, ForceMode.Impulse);
         }
         else
         {
-            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
-            float rndX = Random.Range(-15, 15);
-            contactSound.start();
-            //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
-            //if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
+            //if(lastFramCombo < 6)
             //{
-            //    collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 50 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+            //contactSound.getParameterByName("Entitipersec2", out paramValue);
+            //contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
+            if(timeKill.Count < 40)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
+            }
+
+                //contactSound.start();
             //}
+            //else
+            //{
+            //    if(lastFramCombo < 10 && timeKill.Count >= 10)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 20 && timeKill.Count >= 20)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if(lastFramCombo < 30 && timeKill.Count >= 30)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 40 && timeKill.Count >= 40)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 50 && timeKill.Count >= 50)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 60 && timeKill.Count >= 60)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 70 && timeKill.Count >= 70)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 80 && timeKill.Count >= 80)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 90 && timeKill.Count >= 90)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 100 && timeKill.Count >= 100)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 110 && timeKill.Count >= 110)
+            //    {
+            //        contactSound.start();
+            //    }
+            //    else if (lastFramCombo < 120 && timeKill.Count >= 120)
+            //    {
+            //        contactSound.start();
+            //    }
+            //}
+            //if (lastFramCombo <= 0 && timeKill.Count > 0)
+            //{
+            //    contactSound.getParameterByName("Entitipersec2", out paramValue);
+            //    contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
+            //    contactSound.start();
+            //
+            //}
+            //else if (lastFramCombo < 30 && timeKill.Count >= 30)
+            //{
+            //    contactSound.getParameterByName("Entitipersec2", out paramValue);
+            //    contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
+            //    contactSound.start();
+            //
+            //}
+            //else if (lastFramCombo < 60 && timeKill.Count >= 60)
+            //{
+            //    contactSound.getParameterByName("Entitipersec2", out paramValue);
+            //    contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
+            //    contactSound.start();
+            //}
+            //else if (lastFramCombo >= 30 && timeKill.Count < 30)
+            //{
+            //    contactSound.getParameterByName("Entitipersec2", out paramValue);
+            //    contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
+            //    contactSound.start();
+            //}
+
+            //contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(collision.gameObject));
+            float rndX = Random.Range(-15, 15);
+
+
+            //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
+            if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
+            {
+                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 35 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+            }
             if (activeParticle)
             {
                 Transform transfChild = collision.transform.GetChild(0);
@@ -208,6 +328,7 @@ public class LineRend : MonoBehaviour
                 velocity.GetAddVelocityPoint(2);
             }
         }
+
         comboCompt++;
         if (!onCombo)
         {
@@ -216,6 +337,8 @@ public class LineRend : MonoBehaviour
         tempsEcouleCombo = 0;
         collision.attachedRigidbody.detectCollisions =false;
         collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+        lastFramCombo = timeKill.Count;
+        timeKill.Add(Time.time);
     }
 }
 
