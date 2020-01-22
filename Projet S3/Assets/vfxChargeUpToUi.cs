@@ -16,6 +16,8 @@ public class vfxChargeUpToUi : MonoBehaviour
     public LayerMask lMvfx;
     public float radiusProx;
     public Vector3 moyennePos = Vector3.zero;
+
+    public Transform pivotPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,8 @@ public class vfxChargeUpToUi : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        recupVfxProx = Physics.OverlapSphere(transform.position, radiusProx, lMvfx);
-        listVfxProx = recupVfxProx;
+        //recupVfxProx = Physics.OverlapSphere(transform.position, radiusProx, lMvfx);
+        //listVfxProx = recupVfxProx;
         //////////////////////CalculPivotPos(listVfxProx);
 
         if (step > 0)
@@ -57,7 +59,7 @@ public class vfxChargeUpToUi : MonoBehaviour
         ////////////////////transform.position = Vector3.MoveTowards(transform.position, transform.GetChild(0).position, speedParticle * Time.deltaTime);
         ////////////////////transform.GetChild(0).position = Vector3.MoveTowards(transform.GetChild(0).position, moveTo, speedParticle * Time.deltaTime);
         //transform.Rotate(transform.GetChild(0).position, 50);
-        transform.RotateAround(transform.GetChild(0).position, Vector3.forward, 5f);
+        transform.RotateAround(pivotPos.position, Vector3.forward, 5f);
         if(Vector3.Distance(transform.position, target.transform.position) < 2f)
         {
             //target.transform.parent.GetComponent<FillGrowEffect>().isPlayingAnim = true;
@@ -72,9 +74,9 @@ public class vfxChargeUpToUi : MonoBehaviour
         {
             for(int i = 0; i < listVFX.Length; i++)
             {
-                if(listVFX[i].transform.position != transform.GetChild(0).position)
+                if(listVFX[i].transform.position != pivotPos.position)
                 {
-                    moyennePos += transform.GetChild(0).position - listVFX[i].transform.position;
+                    moyennePos += pivotPos.position - listVFX[i].transform.position;
                 }
 
             }

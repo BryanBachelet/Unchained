@@ -303,6 +303,7 @@ public class LineRend : MonoBehaviour
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
                 collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 35 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+                collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
             {
