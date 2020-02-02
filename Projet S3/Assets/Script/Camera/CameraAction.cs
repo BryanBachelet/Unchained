@@ -95,7 +95,7 @@ public class CameraAction : MonoBehaviour
 
                     compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
 
-                    Vector3 camPos = basePosition + -transform.forward *  (distanceAgent/2f);
+                    Vector3 camPos = basePosition + -transform.forward *  (distanceAgent/1.8f);
                     transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                 }
                 else

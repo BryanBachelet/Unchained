@@ -7,6 +7,7 @@ public class LineColor : MonoBehaviour
     public LineRenderer line;
     public Color colorShoot;
     public Color colorRotate;
+    public float intensity;
     public float speedOfChangeColor = 1;
 
     private Color currentColor;
@@ -22,7 +23,7 @@ public class LineColor : MonoBehaviour
     {
         if(StateAnim.state != StateAnim.CurrentState.Rotate)
         {
-            ChangeColor(colorShoot);
+            currentColor = colorShoot;
 
         }
         else
@@ -36,7 +37,7 @@ public class LineColor : MonoBehaviour
     {
         if (currentColor != colorTaget)
         {
-            currentColor = Color.Lerp(currentColor, colorTaget, t);
+            currentColor = Color.Lerp(currentColor, colorTaget *intensity, t);
             t = speedOfChangeColor * Time.deltaTime;
         }
         else

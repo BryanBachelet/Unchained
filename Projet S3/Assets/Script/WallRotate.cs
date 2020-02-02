@@ -10,7 +10,7 @@ public class WallRotate : MonoBehaviour
     public Klak.Motion.SmoothFollow mySmoothFollow;
 
     private RotationPlayer rotationPlayer;
-    public GameObject hitGOPos;
+ 
     [HideInInspector] public float powerOfProjection;
     // Start is called before the first frame update
     void Start()

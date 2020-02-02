@@ -89,7 +89,7 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
-                inputNeed = mouse.lastInput;
+               
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
@@ -120,7 +120,7 @@ public class EnnemiStock : MonoBehaviour
                 if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
                 {
                     ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
-                    ennemiStock.GetComponent<Autodestroy>().enabled = false;
+
                 }
                 contactSound.start();
 
@@ -142,7 +142,7 @@ public class EnnemiStock : MonoBehaviour
 
 
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0||mouse.lastInput != inputNeed && ennemiStock != null )
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0 )
             {
                 // myRE.Emit();
                 DetachPlayer();
@@ -167,7 +167,7 @@ public class EnnemiStock : MonoBehaviour
         if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
         {
             ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-            ennemiStock.GetComponent<Autodestroy>().enabled = true;
+           
         }
         mySmoothFollow.target = null;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;

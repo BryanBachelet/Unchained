@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public ManagerEntites managerEntites;
     public GameObject regionParent;
     private float compteur = 13;
     public List<GameObject> objectToInstantiate;
@@ -92,21 +93,34 @@ public class Spawner : MonoBehaviour
                             posToSpawn = Random.insideUnitCircle * radius;
                         }
                         int numberAgent = Random.Range(0, objectToInstantiate.Count);
-                        GameObject add = Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                        GameObject add = new GameObject(); 
+                         //   Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
                         if (typeToSpawn == CenterTag.Types.Blue)
                         {
+                            add = managerEntites.RemoveEntites(managerEntites.entitiesBlue);
+                            add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
+                            add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
+                            add.GetComponent<EnnemiDestroy>().i = 1;
                         }
                         else if (typeToSpawn == CenterTag.Types.Orange)
                         {
+                            add = managerEntites.RemoveEntites(managerEntites.entitiesOrange);
+                            add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
+                            add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
+                            add.GetComponent<EnnemiDestroy>().i = 2;
                         }
                         else if (typeToSpawn == CenterTag.Types.Violet)
                         {
+                            add = managerEntites.RemoveEntites(managerEntites.entitiesViolet);
+                            add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
+                        add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
+                            add.GetComponent<EnnemiDestroy>().i = 3;
                         }
                         add.GetComponent<EnnemiBehavior>().target = target;
                         add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;

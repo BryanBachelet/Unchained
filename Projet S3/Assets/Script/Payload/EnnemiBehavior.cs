@@ -20,6 +20,7 @@ public class EnnemiBehavior : MonoBehaviour
     private int i;
     private Rigidbody rigidbody;
     private EnnemiDestroy destroy;
+    public bool isUse;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,8 @@ public class EnnemiBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
         if (currentTarget == null)
         {
             currentTarget = target;
@@ -47,7 +50,7 @@ public class EnnemiBehavior : MonoBehaviour
 
             if (imStock)
             {
-                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y,0) ;
+                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
                 Vector3 direction = (transform.position - player.transform.position).normalized;
                 transform.Translate(direction * speedLinks * Time.deltaTime);
                 transform.position = new Vector3(transform.position.x, 1, transform.position.z);
@@ -58,7 +61,7 @@ public class EnnemiBehavior : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) > 1.5f)
                 {
-                    if (i > 20)
+                    if (i > 10)
                     {
                         i = 0;
                         Vector3 rot = transform.eulerAngles;
@@ -102,6 +105,8 @@ public class EnnemiBehavior : MonoBehaviour
             agent.SetDestination(currentTarget.transform.position);
         }
     }
+
+
 
     //private void OnBecameVisible()
     //{

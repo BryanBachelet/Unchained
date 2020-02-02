@@ -90,7 +90,7 @@ public class LineRend : MonoBehaviour
             }
 
         }
-        killPerTxt.text = ("" + timeKill.Count);
+        //killPerTxt.text = ("" + timeKill.Count);
 
     }
     // Update is called once per frame
@@ -302,7 +302,7 @@ public class LineRend : MonoBehaviour
             //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 35 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+               
                 collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
