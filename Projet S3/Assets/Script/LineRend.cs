@@ -82,15 +82,15 @@ public class LineRend : MonoBehaviour
             if(timeEcoule > timeKill[i] +3)
             {
                 timeKill.RemoveAt(i);
-                Debug.Log("DEGAGE");
+                //Debug.Log("DEGAGE");
             }
             else
             {
-                Debug.Log("RESTE");
+                //Debug.Log("RESTE");
             }
 
         }
-        killPerTxt.text = ("" + timeKill.Count);
+        //killPerTxt.text = ("" + timeKill.Count);
 
     }
     // Update is called once per frame
@@ -210,12 +210,12 @@ public class LineRend : MonoBehaviour
             //{
             //contactSound.getParameterByName("Entitipersec2", out paramValue);
             //contactSound.setParameterByName("Entitipersec2", timeKill.Count / 100);
-            //if(timeKill.Count < 40)
-            //{
-            //    FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
-            //}
+            if (timeKill.Count < 40)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Mob/Toucher par le lien2", transform.parent.position);
+            }
 
-                //contactSound.start();
+            //contactSound.start();
             //}
             //else
             //{
@@ -302,7 +302,7 @@ public class LineRend : MonoBehaviour
             //Instantiate(particuleContact, collision.transform.position, Quaternion.identity);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-                collision.GetComponent<Rigidbody>().AddForce(Vector3.up * 35 + new Vector3(rndX, 0, 0), ForceMode.Impulse);
+               
                 collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
@@ -336,6 +336,7 @@ public class LineRend : MonoBehaviour
             onCombo = true;
         }
         tempsEcouleCombo = 0;
+        collision.attachedRigidbody.detectCollisions =false;
         collision.GetComponent<EnnemiDestroy>().isDestroying = true;
         lastFramCombo = timeKill.Count;
         timeKill.Add(Time.time);

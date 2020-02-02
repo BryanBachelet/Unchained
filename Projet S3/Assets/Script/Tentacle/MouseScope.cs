@@ -162,24 +162,24 @@ public class MouseScope : MonoBehaviour
         }
     }
 
-    private void OnRenderObject()
-    {
-        if (Camera.current.name == "Camera")
-        {
-            if (ennemiStock.ennemiStock == null && instanceBullet == null)
-            {
-                GL.Begin(GL.LINES);
-                line.SetPass(0);
+    //private void OnRenderObject()
+    //{
+    //    if (Camera.current.name == "Camera")
+    //    {
+    //        if (ennemiStock.ennemiStock == null && instanceBullet == null)
+    //        {
+    //            GL.Begin(GL.LINES);
+    //            line.SetPass(0);
 
-                GL.Color(Color.red);
-                GL.Vertex(transform.position);
-                GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
-                GL.End();
-            }
+    //            GL.Color(Color.red);
+    //            GL.Vertex(transform.position);
+    //            GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
+    //            GL.End();
+    //        }
 
-        }
+    //    }
 
-    }
+    //}
 
 
     private void ReturnState()

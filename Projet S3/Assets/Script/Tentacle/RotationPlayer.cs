@@ -26,7 +26,10 @@ public class RotationPlayer : MonoBehaviour
     [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
-    
+    public GameObject Chara;
+    public float angleAvatar = 0;
+
+    public float speedRotationAnim = 70;
     public GameObject vfxShockWave;
 
 
@@ -42,6 +45,7 @@ public class RotationPlayer : MonoBehaviour
 
     public void FixedUpdate()
     {
+
         if (rotate)
         {
 
@@ -51,13 +55,18 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
-            float angleAvatar = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, angleAvatar, transform.eulerAngles.z);
+            Debug.Log("turn");
+
+            angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
+            Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
+            float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, pointPivot);
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
+
 
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
@@ -70,8 +79,13 @@ public class RotationPlayer : MonoBehaviour
                 angleCompteur = 0;
             }
 
+            GetNextDirection();
         }
+        else
+        {
 
+            angleAvatar = 0;
+        }
     }
 
     public void ChangeRotationDirection()
@@ -108,9 +122,10 @@ public class RotationPlayer : MonoBehaviour
         return rotate = true;
     }
 
-    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, float forceSortie, bool changeRotate)
+    public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, GameObject positionPivot, float forceSortie, bool changeRotate)
     {
         tagEnter = null;
+        gameObjectPointPivot = positionPivot;
         pointPivot = positionPivotWall;
         forceOfSortie = forceSortie;
         changeSens = false;
@@ -148,9 +163,26 @@ public class RotationPlayer : MonoBehaviour
         if (vfxShockWave != null)
         {
 
-            float angleToRotate = Vector3.SignedAngle(transform.forward, newDir.normalized, Vector3.up);
+            float angleConversion = transform.eulerAngles.y;
+            angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
+            float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
+            if( angleAvatar >0 && angleAvatar<90)
+            {
+                angleAvatar = 180 - angleAvatar;
+            }
+            if(angleAvatar<0 && angleAvatar > -90)
+            {
+                angleAvatar = -180 - angleAvatar;
+            }
 
-            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, -angleToRotate, 0));
+
+            //if (angleConversion < 0 && angleAvatar == 180)
+            //{
+            //    angleAvatar = -180;
+            //}
+           
+
+            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0,angleAvatar, 0));
 
 
         }
@@ -172,7 +204,7 @@ public class RotationPlayer : MonoBehaviour
         if (transform.GetComponent<PlayerMoveAlone>())
         {
             GetDirection();
-
+            Chara.transform.localEulerAngles = Vector3.zero;
             transform.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
             transform.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
         }
@@ -198,7 +230,7 @@ public class RotationPlayer : MonoBehaviour
     private Vector3 GetNextDirection()
     {
         Vector3 ecartPointPivot = transform.position - pointPivot;
-        Vector3 posIntermediaire= pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
+        Vector3 posIntermediaire = pointPivot + (Quaternion.Euler(0, angleSpeed * predictionMvtRotate, 0) * ecartPointPivot);
         nextDir = (pointPivot - posIntermediaire).normalized;
 
         if (angleSpeed > 0)
@@ -214,36 +246,45 @@ public class RotationPlayer : MonoBehaviour
         return nextDir;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Camera.current.name == "Camera")
+        if(gameObjectPointPivot == collision.gameObject && tagEnter == null)
         {
-            if (stocks.ennemiStock != null)
-            {
-                Vector3 ecartPointPivot = transform.position - pointPivot;
-                Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
-                Gizmos.DrawWireSphere(spherePos, 10);
-            }
-        }
+            stocks.DetachPlayer();
+        } 
     }
 
-    private void OnRenderObject()
-    {
-        if (Camera.current.name == "Camera")
-        {
-            if (stocks.ennemiStock != null)
-            {
-                GL.Begin(GL.LINES);
-                lineMat.SetPass(0);
 
-                GL.Color(Color.yellow);
-                GL.Vertex(transform.position);
-                GetNextDirection();
-                GL.Vertex(transform.position + (nextDir).normalized * 100);
-                GL.End();
-            }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if (Camera.current.name == "Camera")
+    //    {
+    //        if (stocks.ennemiStock != null)
+    //        {
+    //            Vector3 ecartPointPivot = transform.position - pointPivot;
+    //            Vector3 spherePos = pointPivot + (Quaternion.Euler(0, angleSpeed * 0.5f, 0) * ecartPointPivot);
+    //            Gizmos.DrawWireSphere(spherePos, 10);
+    //        }
+    //    }
+    //}
 
-        }
+    //private void OnRenderObject()
+    //{
+    //    if (Camera.current.name == "Camera")
+    //    {
+    //        if (stocks.ennemiStock != null)
+    //        {
+    //            GL.Begin(GL.LINES);
+    //            lineMat.SetPass(0);
 
-    }
+    //            GL.Color(Color.yellow);
+    //            GL.Vertex(transform.position);
+    //            GetNextDirection();
+    //            GL.Vertex(transform.position + (nextDir).normalized * 100);
+    //            GL.End();
+    //        }
+
+    //    }
+
+    //}
 }

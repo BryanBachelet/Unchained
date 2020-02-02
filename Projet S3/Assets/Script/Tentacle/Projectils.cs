@@ -14,7 +14,7 @@ public class Projectils : MonoBehaviour
     public Vector3 mouvement;
     public LineRenderer lineRenderer;
     public Vector3 hitWallPos;
-    public GameObject hitwallprefab;
+  
     private void Start()
     {
 
@@ -64,9 +64,8 @@ public class Projectils : MonoBehaviour
                 hitWallPos = other.ClosestPoint(transform.position);
                 player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
                 player.GetComponent<EnnemiStock>().pos = hitWallPos;
-                GameObject hitGO = Instantiate(hitwallprefab, hitWallPos, transform.rotation);
-                player.GetComponent<WallRotate>().hitGOPos = hitGO;
-                player.GetComponent<WallRotate>().hasHitWall = true;
+               
+              
                 Destroy(gameObject);
             }
         }
