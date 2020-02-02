@@ -79,7 +79,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3431385793930213716}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3431385793930213721
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -188,12 +188,13 @@ MonoBehaviour:
   players: {fileID: 0}
   tpsDestroy: 90
   tpsEcoule: 0
-  contact: event:/Mob/Toucher par le lien
+  contact: event:/Mob/Toucher par le lien2
   volume: 20
   angleRotate: 0
   offset: 4
   pivotTransform: {fileID: 4647278109051938024}
   destroyDir: {x: 0, y: 0, z: 0}
+  activePull: 0
 --- !u!195 &195436938166133348
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -389,6 +390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Entity_Blue_Low_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170638212101288235, guid: 1f8592c98a2afe54ca3423a477726b9b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3170638212101319947, guid: 1f8592c98a2afe54ca3423a477726b9b,
         type: 3}
