@@ -55,10 +55,10 @@ public class RotationPlayer : MonoBehaviour
             }
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
-            Debug.Log("turn");
+
 
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
-            Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
+            //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
             float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
@@ -176,23 +176,14 @@ public class RotationPlayer : MonoBehaviour
                 angleAvatar = -180 - angleAvatar;
             }
 
-<<<<<<< HEAD
 
-            //if (angleConversion < 0 && angleAvatar == 180)
-            //{
-            //    angleAvatar = -180;
-            //}
-           
+            if (angleConversion < 0 && angleAvatar == 180)
+            {
+                angleAvatar = -180;
+            }
 
-=======
 
-            //if (angleConversion < 0 && angleAvatar == 180)
-            //{
-            //    angleAvatar = -180;
-            //}
-           
 
->>>>>>> origin/branch-5
             GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0,angleAvatar, 0));
 
 
@@ -215,7 +206,7 @@ public class RotationPlayer : MonoBehaviour
         if (transform.GetComponent<PlayerMoveAlone>())
         {
             GetDirection();
-            Chara.transform.localEulerAngles = Vector3.zero;
+            //Chara.transform.localEulerAngles = Vector3.zero;
             transform.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
             transform.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
         }

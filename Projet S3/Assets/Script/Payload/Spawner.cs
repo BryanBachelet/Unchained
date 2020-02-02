@@ -28,6 +28,7 @@ public class Spawner : MonoBehaviour
     CenterTag.Types typeToSpawn;
     private Color colorToSpawn;
 
+    public bool instantiate;
 
 
     private void Start()
@@ -39,7 +40,7 @@ public class Spawner : MonoBehaviour
 
         {
             typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
-            
+
             if (typeToSpawn == CenterTag.Types.Blue)
             {
                 colorToSpawn = Color.blue;
@@ -92,35 +93,51 @@ public class Spawner : MonoBehaviour
                         {
                             posToSpawn = Random.insideUnitCircle * radius;
                         }
+
+                        GameObject add = new GameObject();
                         int numberAgent = Random.Range(0, objectToInstantiate.Count);
-                        GameObject add = new GameObject(); 
-                         //   Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                        if (instantiate)
+                        {
+                            add = Instantiate(objectToInstantiate[numberAgent], new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y), transform.rotation);
+                        }
                         if (typeToSpawn == CenterTag.Types.Blue)
                         {
-                            add = managerEntites.RemoveEntites(managerEntites.entitiesBlue);
+                            if (!instantiate)
+                            {
+                                add = managerEntites.RemoveEntites(managerEntites.entitiesBlue);
+                            }
                             add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Blue;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeBlue;
                             add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
                             add.GetComponent<EnnemiDestroy>().i = 1;
+                            add.GetComponent<EnnemiDestroy>().activePull = instantiate;
                         }
                         else if (typeToSpawn == CenterTag.Types.Orange)
                         {
-                            add = managerEntites.RemoveEntites(managerEntites.entitiesOrange);
+                            if (!instantiate)
+                            {
+                                add = managerEntites.RemoveEntites(managerEntites.entitiesBlue);
+                            }
                             add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Orange;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeJauge;
                             add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
                             add.GetComponent<EnnemiDestroy>().i = 2;
+                            add.GetComponent<EnnemiDestroy>().activePull = instantiate;
                         }
                         else if (typeToSpawn == CenterTag.Types.Violet)
                         {
-                            add = managerEntites.RemoveEntites(managerEntites.entitiesViolet);
+                            if (!instantiate)
+                            {
+                                add = managerEntites.RemoveEntites(managerEntites.entitiesBlue);
+                            }
                             add.transform.position = new Vector3(transform.position.x + posToSpawn.x, 1, transform.position.z + posToSpawn.y);
                             add.GetComponent<EntitiesTypes>().entitiesTypes = EntitiesTypes.Types.Violet;
                             add.GetComponent<EnnemiDestroy>().vfxBlueUp = vfChargeViolet;
-                        add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
+                            add.GetComponent<EnnemiDestroy>().managerEntites = managerEntites;
                             add.GetComponent<EnnemiDestroy>().i = 3;
+                            add.GetComponent<EnnemiDestroy>().activePull = instantiate;
                         }
                         add.GetComponent<EnnemiBehavior>().target = target;
                         add.GetComponent<EnnemiBehavior>().speedClassic = speedOfAgent;

@@ -45,6 +45,8 @@ public class LineRend : MonoBehaviour
     public List<float> timeKill = new List<float>();
     public float timeEcoule;
     public float paramValue;
+
+    public bool activeUI = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,20 +124,24 @@ public class LineRend : MonoBehaviour
             // ColliderSize();
 
         }
-        if (onCombo)
+        if (activeUI)
         {
-            tempsEcouleCombo += Time.deltaTime;
-            comboComptTxt.text = ("" + comboCompt);
-            if (tempsEcouleCombo > timeOnCombo)
+
+            if (onCombo)
             {
-                contactSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                // myAnimator.SetBool("OnActivation", true);
-                lastComboValue = comboCompt;
-                onCombo = false;
-                comboCompt = 0;
-                lastComboTxt.text = ("" + lastComboValue);
-                lastComboTxt.enabled = true;
-                comboComptTxt.enabled = false;
+                tempsEcouleCombo += Time.deltaTime;
+                comboComptTxt.text = ("" + comboCompt);
+                if (tempsEcouleCombo > timeOnCombo)
+                {
+                    contactSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                    // myAnimator.SetBool("OnActivation", true);
+                    lastComboValue = comboCompt;
+                    onCombo = false;
+                    comboCompt = 0;
+                    lastComboTxt.text = ("" + lastComboValue);
+                    lastComboTxt.enabled = true;
+                    comboComptTxt.enabled = false;
+                }
             }
         }
     }
@@ -194,11 +200,14 @@ public class LineRend : MonoBehaviour
     void Collision(Collider collision)
     {
         //contactSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        if (lastComboTxt.enabled == true)
+        if (activeUI)
         {
-            lastComboTxt.enabled = false;
+            if (lastComboTxt.enabled == true)
+            {
+                lastComboTxt.enabled = false;
+            }
+            comboComptTxt.enabled = true;
         }
-        comboComptTxt.enabled = true;
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));

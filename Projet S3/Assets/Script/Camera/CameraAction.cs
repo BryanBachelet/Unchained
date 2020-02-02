@@ -45,7 +45,7 @@ public class CameraAction : MonoBehaviour
     public PlayerMoveAlone moveAlone;
 
     private Vector3 currentDir = Vector3.zero;
-
+    public bool newBehavior = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +61,7 @@ public class CameraAction : MonoBehaviour
 
     void Update()
     {
-        orthoCam.orthographicSize = 15* Vector3.Distance(transform.position, player.transform.position) / 25;
+        orthoCam.orthographicSize = 15 * Vector3.Distance(transform.position, player.transform.position) / 25;
 
         basePosition = player.transform.position + ecartJoueur;
 
@@ -89,27 +89,42 @@ public class CameraAction : MonoBehaviour
             {
                 distanceAgent = Vector3.Distance(player.transform.position, playerEnnemiStock.ennemiStock.transform.position);
 
-                Vector3 dir = playerEnnemiStock.ennemiStock.transform.position - player.transform.position;
-                if (distanceAgent > distanceOfStartDezoomAgent)
+                Vector3 newPos = Vector3.zero;
+                if (!newBehavior)
                 {
+                    Vector3 dir = playerEnnemiStock.ennemiStock.transform.position - player.transform.position;
+                    if (distanceAgent > distanceOfStartDezoomAgent)
+                    {
 
-                    compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
+                        compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
 
-                    Vector3 camPos = basePosition + -transform.forward *  (distanceAgent/1.8f);
-                    transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
+                        Vector3 camPos = basePosition + -transform.forward * (distanceAgent / 1);
+                        transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
+                    }
+                    else
+                    {
+                        compteurZoomBullet += Time.deltaTime;
+                        transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
+
+                    }
+
+                    dir = new Vector3(dir.x, 0, dir.z);
+                    float dot = Vector3.Dot(dir.normalized, player.transform.forward);
+
+                    newPos = transform.position + dir.normalized * (distanceAgent * (0.8f+ dot));
                 }
                 else
                 {
-                    compteurZoomBullet += Time.deltaTime;
-                    transform.position = Vector3.Lerp(transform.position, basePosition, compteurZoomBullet);
-
+                    if (distanceAgent > distanceOfStartDezoomAgent)
+                    {
+                        Debug.Log("Plus");
+                        newPos = playerEnnemiStock.ennemiStock.transform.position + -transform.forward * (distanceAgent*1.5f);
+                    }
+                    else
+                    {
+                        newPos = playerEnnemiStock.ennemiStock.transform.position + -transform.forward * (distanceOfStartDezoomAgent*1.5f);
+                    }
                 }
-
-                dir = new Vector3(dir.x, 0, dir.z);
-                float dot = Vector3.Dot(dir.normalized, player.transform.forward);
-
-
-                Vector3 newPos = transform.position + dir.normalized * (distanceAgent / ( 2+ dot));
                 transform.position = Vector3.Lerp(transform.position, newPos, competeur);
                 competeur += Time.deltaTime;
                 compteurZoomBullet = 0;

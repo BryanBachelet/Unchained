@@ -35,6 +35,7 @@ public class EnnemiDestroy : MonoBehaviour
     private EnnemiBehavior ennemiBehavior;
     float rndX;
     public Vector3 destroyDir;
+    [HideInInspector] public bool activePull;
     void Start()
     {   ennemiBehavior = GetComponent<EnnemiBehavior>();
     players = PlayerMoveAlone.Player1;
@@ -57,12 +58,9 @@ public class EnnemiDestroy : MonoBehaviour
                     Instantiate(vfxBlueUp, transform.position, transform.rotation, players.transform);
                 }
                 enter = true;
-<<<<<<< HEAD
             }
             if (compteur > timerToDestro)
             {
-=======
->>>>>>> origin/branch-5
 
             }
 
@@ -94,23 +92,30 @@ public class EnnemiDestroy : MonoBehaviour
 
    private void EndAgent()
     {
-        Transform transfChild = transform.GetChild(0) ;
-        transfChild.gameObject.SetActive(false);
-        enter = false;
-        isDestroying = false;
-        compteur = 0;
-        tpsEcoule = 0;
-        if (i == 1)
+        if (!activePull)
         {
-            managerEntites.AddEntites(gameObject, managerEntites.entitiesBlue);
+            Transform transfChild = transform.GetChild(0);
+            transfChild.gameObject.SetActive(false);
+            enter = false;
+            isDestroying = false;
+            compteur = 0;
+            tpsEcoule = 0;
+            if (i == 1)
+            {
+                managerEntites.AddEntites(gameObject, managerEntites.entitiesBlue);
+            }
+            if (i == 2)
+            {
+                managerEntites.AddEntites(gameObject, managerEntites.entitiesOrange);
+            }
+            if (i == 3)
+            {
+                managerEntites.AddEntites(gameObject, managerEntites.entitiesViolet);
+            }
         }
-        if (i == 2)
+        else
         {
-            managerEntites.AddEntites(gameObject, managerEntites.entitiesOrange);
-        }
-        if (i == 3)
-        {
-            managerEntites.AddEntites(gameObject, managerEntites.entitiesViolet);
+            Destroy(gameObject);
         }
     }
 }
