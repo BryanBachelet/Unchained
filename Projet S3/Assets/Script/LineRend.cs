@@ -69,7 +69,7 @@ public class LineRend : MonoBehaviour
         {
             ennemiStock = transform.parent.GetComponent<EnnemiStock>();
         }
-        //Sound
+        
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(volume);
 
@@ -84,18 +84,18 @@ public class LineRend : MonoBehaviour
             if(timeEcoule > timeKill[i] +3)
             {
                 timeKill.RemoveAt(i);
-                //Debug.Log("DEGAGE");
+              
             }
             else
             {
-                //Debug.Log("RESTE");
+                
             }
 
         }
         //killPerTxt.text = ("" + timeKill.Count);
 
     }
-    // Update is called once per frame
+   
     void FixedUpdate()
     {
 

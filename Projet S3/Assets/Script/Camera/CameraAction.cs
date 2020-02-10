@@ -43,6 +43,8 @@ public class CameraAction : MonoBehaviour
     private float competeur;
     public Camera orthoCam;
     public PlayerMoveAlone moveAlone;
+    public float pointFocusCame = 1;
+
 
     private Vector3 currentDir = Vector3.zero;
     public bool newBehavior = true;
@@ -98,7 +100,7 @@ public class CameraAction : MonoBehaviour
 
                         compteurDezoomBullet += Time.deltaTime / speedDezoomAgent;
 
-                        Vector3 camPos = basePosition + -transform.forward * (distanceAgent / 1);
+                        Vector3 camPos = basePosition + -transform.forward * (distanceAgent / 1f);
                         transform.position = Vector3.Lerp(transform.position, camPos, compteurDezoomBullet);
                     }
                     else
@@ -110,8 +112,10 @@ public class CameraAction : MonoBehaviour
 
                     dir = new Vector3(dir.x, 0, dir.z);
                     float dot = Vector3.Dot(dir.normalized, player.transform.forward);
+                    pointFocusCame = distanceAgent/50;
+                    pointFocusCame = Mathf.Clamp(pointFocusCame, 0f, 1);
 
-                    newPos = transform.position + dir.normalized * (distanceAgent * (0.8f+ dot));
+                    newPos = transform.position + dir.normalized * (distanceAgent * (pointFocusCame+ dot));
                 }
                 else
                 {
