@@ -12,7 +12,7 @@ public class EnnemiStock : MonoBehaviour
     private bool rotate;
     private bool slam;
     private RotationPlayer rotationPlayer;
-    private SlamPlayer slamPlayer;
+    
      public float powerOfProjection;
     [Header("Sound")]
     [FMODUnity.EventRef]
@@ -33,7 +33,7 @@ public class EnnemiStock : MonoBehaviour
     private Color baseColor;
     float myFOV;
     bool isOnZoom = false;
-    private RippleEffect myRE;
+ 
     private MouseScope mouse;
     [HideInInspector] public bool inputNeed;
 
@@ -47,7 +47,7 @@ public class EnnemiStock : MonoBehaviour
         mySmoothFollow = GetComponent<Klak.Motion.SmoothFollow>();
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
-        slamPlayer = GetComponent<SlamPlayer>();
+       
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
