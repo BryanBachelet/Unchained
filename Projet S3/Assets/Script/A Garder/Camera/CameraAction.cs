@@ -6,8 +6,7 @@ public class CameraAction : MonoBehaviour
 {
 
     [HideInInspector] public GameObject player;
-    [Header("Profil")]
-    public ProfilCamera profil;
+    
 
     [Header("Bullet")]
     public float distanceOfStartDezoomBullet = 10;
