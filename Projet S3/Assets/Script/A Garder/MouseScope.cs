@@ -40,6 +40,7 @@ public class MouseScope : MonoBehaviour
     private GameObject meshBullet;
     Projectils projectils;
     [HideInInspector] public bool lastInput;
+    public bool activePC;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,12 +58,19 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = DirectionSouris();
-        directionManette = DirectionManette();
-        if (directionManette != Vector3.zero)
+        if (activePC)
         {
-            direction = Vector3.zero;
+            direction = DirectionSouris();
         }
+        Debug.Log(DirectionManette());
+        if (DirectionManette() != Vector3.zero)
+        {
+            directionManette = DirectionManette();
+        }
+        //if (directionManette != Vector3.zero)
+        //{
+        //    direction = Vector3.zero;
+        //}
         float input = Input.GetAxis("Attract1");
 
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
@@ -152,9 +160,9 @@ public class MouseScope : MonoBehaviour
             if (projectils.returnBall)
             {
                 projectils.dir = -(projectils.transform.position - transform.position);
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed *Time.deltaTime)
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
                 {
-                    
+
                     StateAnim.ChangeState(StateAnim.CurrentState.Idle);
                     Destroy(instanceBullet);
                 }
@@ -193,7 +201,7 @@ public class MouseScope : MonoBehaviour
         projectils.dir = transform.position - instanceBullet.transform.position;
         float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
         //Vector3 eulers = new Vector3(meshBullet.transform.eulerAngles.x, angle, meshBullet.transform.eulerAngles.z);
-       // meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+        // meshBullet.transform.localRotation = Quaternion.Euler(eulers);
     }
 
 
@@ -204,11 +212,11 @@ public class MouseScope : MonoBehaviour
 
             StateAnim.ChangeState(StateAnim.CurrentState.Tir);
             instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
-          //  meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
+            //  meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
             float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
-           // Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
-           // meshBullet.transform.localRotation = Quaternion.Euler(eulers);
+            // Vector3 eulers = new Vector3(Ambout.transform.eulerAngles.x, angle, Ambout.transform.eulerAngles.z);
+            // meshBullet.transform.localRotation = Quaternion.Euler(eulers);
 
             _timerOfBullet = 0;
 

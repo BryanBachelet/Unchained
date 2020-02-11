@@ -14,6 +14,8 @@ public class PlayerMoveAlone : MonoBehaviour
     public float speedOfRotation = 10f;
     float angleAvatar;
 
+    public bool activeDeplacement;
+
     static public Vector3 playerPos;
     static public GameObject Player1;
     private void Awake()
@@ -32,7 +34,14 @@ public class PlayerMoveAlone : MonoBehaviour
     {
         playerPos = transform.position;
         powerProjec = Mathf.Clamp(powerProjec, 0, 1000);
-        playerRigid.velocity = (Direction() * speed) + (DirProjection.normalized * powerProjec);
+        if (activeDeplacement)
+        {
+            playerRigid.velocity = (Direction() * speed) + (DirProjection.normalized * powerProjec);
+        }
+        else
+        {
+            playerRigid.velocity =  (DirProjection.normalized * powerProjec);
+        }
         AnimationAvatar();
         if (powerProjec > 0)
         {
@@ -42,6 +51,13 @@ public class PlayerMoveAlone : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        {
+            activeDeplacement = !activeDeplacement;
+        }
+    }
 
     public void AnimationAvatar()
     {

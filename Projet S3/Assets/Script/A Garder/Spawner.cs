@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour
                             posToSpawn = Random.insideUnitCircle * radius;
                         }
 
-                        GameObject add = new GameObject();
+                        GameObject add = null ;
                         int numberAgent = Random.Range(0, objectToInstantiate.Count);
                         if (instantiate)
                         {
