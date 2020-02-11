@@ -208,7 +208,7 @@ public class RotationPlayer : MonoBehaviour
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
             transform.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
-            transform.GetComponent<PlayerMoveAlone>().powerProjec = forceOfSortie;
+            transform.GetComponent<PlayerMoveAlone>().currentPowerOfProjection = forceOfSortie;
         }
 
     }

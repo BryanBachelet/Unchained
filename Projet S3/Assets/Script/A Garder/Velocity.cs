@@ -44,7 +44,7 @@ public class Velocity : MonoBehaviour
         playerMove = GetComponent<PlayerMoveAlone>();
         ennemiStock = GetComponent<EnnemiStock>();
         mouse = GetComponent<MouseScope>();
-        startDistance = mouse.distance;
+        startDistance = mouse.distanceMaxOfShoot;
         rotationPlayer = GetComponent<RotationPlayer>();
         startAngleSpeed = rotationPlayer.angleSpeed;
     }
@@ -57,7 +57,7 @@ public class Velocity : MonoBehaviour
         ennemiStock.powerOfProjection = playerMove.powerOfProjection + realPointOne;
 
         realPointTwo = velocityStatTwo / convertisseurStatTwo;
-        mouse.distance = startDistance + realPointTwo;  
+        mouse.distanceMaxOfShoot = startDistance + realPointTwo;  
 
         realPointThree = velocityStatThree / convertisseurStatThree;
         

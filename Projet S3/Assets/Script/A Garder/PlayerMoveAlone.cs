@@ -5,16 +5,19 @@ using UnityEngine;
 public class PlayerMoveAlone : MonoBehaviour
 {
     private Rigidbody playerRigid;
-    public float speed;
+    private float speedOfDeplacement = 10;
+    [Header("Projection")]
     public float powerOfProjection;
-    public float deprojection = 60;
+    public float DecelerationOfProjection = 60;
     [HideInInspector] public Vector3 DirProjection;
-    public float powerProjec;
+    [HideInInspector] public float currentPowerOfProjection;
+    [Header("Options ")]
+    public bool activeDeplacement;
+
     [Header("Animation")]
     public float speedOfRotation = 10f;
     float angleAvatar;
 
-    public bool activeDeplacement;
 
     static public Vector3 playerPos;
     static public GameObject Player1;
@@ -33,19 +36,19 @@ public class PlayerMoveAlone : MonoBehaviour
     void FixedUpdate()
     {
         playerPos = transform.position;
-        powerProjec = Mathf.Clamp(powerProjec, 0, 1000);
+        currentPowerOfProjection = Mathf.Clamp(currentPowerOfProjection, 0, 1000);
         if (activeDeplacement)
         {
-            playerRigid.velocity = (Direction() * speed) + (DirProjection.normalized * powerProjec);
+            playerRigid.velocity = (Direction() * speedOfDeplacement) + (DirProjection.normalized * currentPowerOfProjection);
         }
         else
         {
-            playerRigid.velocity =  (DirProjection.normalized * powerProjec);
+            playerRigid.velocity = (DirProjection.normalized * currentPowerOfProjection);
         }
         AnimationAvatar();
-        if (powerProjec > 0)
+        if (currentPowerOfProjection > 0)
         {
-            powerProjec -= deprojection * Time.deltaTime;
+            currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
         }
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
 
@@ -79,11 +82,11 @@ public class PlayerMoveAlone : MonoBehaviour
             }
         }
 
-        if (StateAnim.state == StateAnim.CurrentState.Projection && powerProjec == 0)
+        if (StateAnim.state == StateAnim.CurrentState.Projection && currentPowerOfProjection == 0)
         {
             StateAnim.ChangeState(StateAnim.CurrentState.Idle);
         }
-        
+
         if (StateAnim.state == StateAnim.CurrentState.Idle && Direction() != Vector3.zero)
         {
             StateAnim.ChangeState(StateAnim.CurrentState.Walk);

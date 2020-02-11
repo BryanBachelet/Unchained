@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MouseScope : MonoBehaviour
 {
+
     public Material line;
     public GameObject bullet;
-    public GameObject Ambout;
+    [HideInInspector] public GameObject Ambout;
 
     private EnnemiStock ennemiStock;
     [HideInInspector] public Vector3 direction;
@@ -19,28 +20,29 @@ public class MouseScope : MonoBehaviour
     private Vector3 returnPos;
     private float distanceReturn;
     private Vector3 dirReturn;
+    [Header("Carateristique Bullet")]
+    public float timerOfBullet = 0.5f;
+    public float speedOfBullet;
+    public float timeBetweenShoot = 0.4f;
+    private float _timerOfBullet;
     public float returnSpeed = 50;
-    [Header("Tirer Sound")]
-    [FMODUnity.EventRef]
-    public string contact;
-    private FMOD.Studio.EventInstance contactSound;
-    public float volume = 10;
+    public float distanceMaxOfShoot = 75;
+    private GameObject meshBullet;
+    Projectils projectils;
+    [Header("Options")]
+    public bool distanceDestruct;
+    public bool activePC;
     [Header("Retour Sound")]
     [FMODUnity.EventRef]
     public string returnSound;
     private FMOD.Studio.EventInstance returnEvent;
     public float returnVolume = 10;
-    [Header("Carateristique Bullet")]
-    public float distance = 75;
-    public float timerOfBullet = 0.5f;
-    public float speedOfBullet;
-    public float timeBetweenShoot = 0.4f;
-    public bool distanceDestruct;
-    private float _timerOfBullet;
-    private GameObject meshBullet;
-    Projectils projectils;
     [HideInInspector] public bool lastInput;
-    public bool activePC;
+    [Header("Tirer Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    public float volume = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,8 +53,8 @@ public class MouseScope : MonoBehaviour
         contactSound.setVolume(volume);
         returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
         returnEvent.setVolume(returnVolume);
-        speedOfBullet = distance / timerOfBullet;
-        returnSpeed = distance / timeBetweenShoot;
+        speedOfBullet = distanceMaxOfShoot / timerOfBullet;
+        returnSpeed = distanceMaxOfShoot / timeBetweenShoot;
     }
 
     // Update is called once per frame
@@ -114,7 +116,7 @@ public class MouseScope : MonoBehaviour
             }
             else
             {
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distance && !projectils.returnBall)
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
                 {
                     ReturnState();
                 }
@@ -181,7 +183,7 @@ public class MouseScope : MonoBehaviour
 
                 GL.Color(Color.red);
                 GL.Vertex(transform.position);
-                GL.Vertex(transform.position + (direction + directionManette).normalized * distance);
+                GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
                 GL.End();
             }
 

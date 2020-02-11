@@ -30,8 +30,8 @@ public class Projectils : MonoBehaviour
 
     void Update()
     {
-        mouvement = dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
-        transform.position += dir.normalized * (speed + moveAlone.powerProjec) * Time.deltaTime;
+        mouvement = dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
+        transform.position += dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
        
     }
     private void LateUpdate()

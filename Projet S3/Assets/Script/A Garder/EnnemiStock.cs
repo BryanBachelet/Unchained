@@ -5,28 +5,17 @@ using UnityEngine;
 public class EnnemiStock : MonoBehaviour
 {
 
-    public GameObject ennemiStock;
+    [HideInInspector] public GameObject ennemiStock;
     [HideInInspector] public Vector3 pos;
     private Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
     private bool rotate;
     private bool slam;
     private RotationPlayer rotationPlayer;
-    
-     public float powerOfProjection;
-    [Header("Sound")]
-    [FMODUnity.EventRef]
-    public string contact;
-    private FMOD.Studio.EventInstance contactSound;
-    private bool startBool;
-    public float volume = 20;
-    [Header("Retour Sound")]
-    [FMODUnity.EventRef]
-    public string OrbitSound;
-    private FMOD.Studio.EventInstance OrbitEvent;
-    public float OrbitVolume = 10;
 
+    [HideInInspector] public float powerOfProjection;
     [HideInInspector] public bool onHitEnter;
+    [Header("Feedback")]
     public GameObject onHitEnemy;
     private Material enemyStockMat;
     private Texture ennemyStockTextChange;
@@ -36,6 +25,18 @@ public class EnnemiStock : MonoBehaviour
  
     private MouseScope mouse;
     [HideInInspector] public bool inputNeed;
+
+    [Header("Contact Sound")]
+    [FMODUnity.EventRef]
+    public string contact;
+    private FMOD.Studio.EventInstance contactSound;
+    private bool startBool;
+    public float ContactVolume = 20;
+    [Header("Retour Sound")]
+    [FMODUnity.EventRef]
+    public string OrbitSound;
+    private FMOD.Studio.EventInstance OrbitEvent;
+    public float OrbitVolume = 10;
 
     public AnimationCurve curveVolumeOrbitation;
     float tempsEcoule;
@@ -53,7 +54,7 @@ public class EnnemiStock : MonoBehaviour
         lineRenderer.SetPosition(1, transform.position);
         //Sound
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
-        contactSound.setVolume(volume);
+        contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
 
 
