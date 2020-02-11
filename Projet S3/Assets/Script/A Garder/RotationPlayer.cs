@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RotationPlayer : MonoBehaviour
 {
+
     public float angleSpeed;
     public float angleMax;
 
@@ -23,13 +24,13 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
-    [Range(0, 1)] public float predictionMvtRotate = 0.5f;
+    [HideInInspector] [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
-    public GameObject Chara;
-    public float angleAvatar = 0;
+    private GameObject Chara;
+    [HideInInspector] public float angleAvatar = 0;
 
-    public float speedRotationAnim = 70;
+    private float speedRotationAnim = 70;
     public GameObject vfxShockWave;
 
 
@@ -66,7 +67,7 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
-    
+
 
 
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
@@ -167,11 +168,11 @@ public class RotationPlayer : MonoBehaviour
             float angleConversion = transform.eulerAngles.y;
             angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
             float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
-            if( angleAvatar >0 && angleAvatar<90)
+            if (angleAvatar > 0 && angleAvatar < 90)
             {
                 angleAvatar = 180 - angleAvatar;
             }
-            if(angleAvatar<0 && angleAvatar > -90)
+            if (angleAvatar < 0 && angleAvatar > -90)
             {
                 angleAvatar = -180 - angleAvatar;
             }
@@ -184,7 +185,7 @@ public class RotationPlayer : MonoBehaviour
 
 
 
-            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0,angleAvatar, 0));
+            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
 
 
         }
@@ -250,10 +251,10 @@ public class RotationPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(gameObjectPointPivot == collision.gameObject && tagEnter == null)
+        if (gameObjectPointPivot == collision.gameObject && tagEnter == null)
         {
             stocks.DetachPlayer();
-        } 
+        }
     }
 
 
