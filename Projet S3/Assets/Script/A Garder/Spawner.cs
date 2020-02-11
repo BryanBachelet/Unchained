@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public ManagerEntites managerEntites;
+    private ManagerEntites managerEntites;
+    public bool instantiate = true;
    [HideInInspector] public GameObject regionParent;
     private float compteur = 13;
     public List<GameObject> objectToInstantiate;
-    public GameObject parentToSpawn;
+    
     public float timeOfSpawn;
     [Header("Caractéristique du spawner")]
     public GameObject target;
@@ -28,7 +29,6 @@ public class Spawner : MonoBehaviour
     CenterTag.Types typeToSpawn;
     private Color colorToSpawn;
 
-    public bool instantiate;
 
 
     private void Start()

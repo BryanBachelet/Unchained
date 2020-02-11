@@ -62,7 +62,7 @@ public class MouseScope : MonoBehaviour
         {
             direction = DirectionSouris();
         }
-        Debug.Log(DirectionManette());
+
         if (DirectionManette() != Vector3.zero)
         {
             directionManette = DirectionManette();

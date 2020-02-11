@@ -120,7 +120,7 @@ public class CameraAction : MonoBehaviour
                 {
                     if (distanceAgent > distanceOfStartDezoomAgent)
                     {
-                        Debug.Log("Plus");
+
                         newPos = playerEnnemiStock.ennemiStock.transform.position + -transform.forward * (distanceAgent*1.5f);
                     }
                     else
@@ -178,6 +178,8 @@ public class CameraAction : MonoBehaviour
 
 
         }
-
+        //float clampHeightZ = Mathf.Clamp(transform.position.z,basePosition.z+ -30 , basePosition.z);
+        //float clampHeightY = Mathf.Clamp(transform.position.y, basePosition.y, basePosition.y +20);
+        //transform.position = new Vector3(transform.position.x, clampHeightY, clampHeightZ);
     }
 }
