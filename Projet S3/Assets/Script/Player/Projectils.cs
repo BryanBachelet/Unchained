@@ -14,7 +14,10 @@ public class Projectils : MonoBehaviour
     public Vector3 mouvement;
     public LineRenderer lineRenderer;
     public Vector3 hitWallPos;
-  
+    private Vector3 hitPos;
+    private float distanceBetweenHitandPlayer;
+    private float distanceProjectilePlayer;
+    private bool hitWall;
     private void Start()
     {
 
@@ -28,11 +31,40 @@ public class Projectils : MonoBehaviour
 
     }
 
+
+    private void FixedUpdate()
+    {
+        Ray ray = new Ray(transform.position, dir.normalized);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, (speed+20)) && hit.collider.tag == "wall")
+        {
+            if (hit.collider.tag == "wall")
+            {
+                distanceBetweenHitandPlayer = (hit.point - player.transform.position).magnitude;
+                hitWall = true;
+            }
+
+        }
+        if (hitWall)
+        {
+            distanceProjectilePlayer = (transform.position - player.transform.position).magnitude;
+            Debug.Log("Projectile = " + distanceProjectilePlayer + "Wall =" + distanceBetweenHitandPlayer);
+            if (distanceProjectilePlayer > distanceBetweenHitandPlayer )
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     void Update()
     {
         mouvement = dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
         transform.position += dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
-       
+
+
+
+
+
     }
     private void LateUpdate()
     {
@@ -64,12 +96,12 @@ public class Projectils : MonoBehaviour
                 //hitWallPos = other.ClosestPoint(transform.position);
                 //player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
                 //player.GetComponent<EnnemiStock>().pos = hitWallPos;
-               
-              
-                Destroy(gameObject);
+
+
+                //Destroy(gameObject);
             }
         }
-       
+
 
     }
     private void OnTriggerStay(Collider other)
@@ -94,13 +126,13 @@ public class Projectils : MonoBehaviour
                 //hitWallPos = other.ClosestPoint(transform.position);
                 //player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
                 //player.GetComponent<EnnemiStock>().pos = hitWallPos;
-               
+
 
                 //player.GetComponent<WallRotate>().hasHitWall = true;
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
-        
+
     }
 
 

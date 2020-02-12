@@ -50,15 +50,35 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
         }
-      //  transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        Ray ray = new Ray(transform.position, DirProjection.normalized);
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit, currentPowerOfProjection) && hit.collider.tag == "wall")
+        {
+            DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+        }
     }
+
+
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             activeDeplacement = !activeDeplacement;
+        }
+    }
+
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Ray ray = new Ray(transform.position, DirProjection.normalized);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, currentPowerOfProjection);
+        if (collision.collider.tag == "wall")
+        {
+            DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
         }
     }
 
