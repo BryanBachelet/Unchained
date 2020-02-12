@@ -48,7 +48,7 @@ public class Projectils : MonoBehaviour
         if (hitWall)
         {
             distanceProjectilePlayer = (transform.position - player.transform.position).magnitude;
-            Debug.Log("Projectile = " + distanceProjectilePlayer + "Wall =" + distanceBetweenHitandPlayer);
+
             if (distanceProjectilePlayer > distanceBetweenHitandPlayer )
             {
                 Destroy(gameObject);

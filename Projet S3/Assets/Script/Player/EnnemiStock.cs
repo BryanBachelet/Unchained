@@ -12,6 +12,9 @@ public class EnnemiStock : MonoBehaviour
     private bool rotate;
     private bool slam;
     private RotationPlayer rotationPlayer;
+    public int frameForChangeRotation = 10;
+    private int frameNoInput;
+    private bool lastInputRotation;
 
     [HideInInspector] public float powerOfProjection;
     [HideInInspector] public bool onHitEnter;
@@ -22,7 +25,7 @@ public class EnnemiStock : MonoBehaviour
     private Color baseColor;
     float myFOV;
     bool isOnZoom = false;
- 
+
     private MouseScope mouse;
     [HideInInspector] public bool inputNeed;
 
@@ -40,6 +43,7 @@ public class EnnemiStock : MonoBehaviour
     private Rigidbody playerRigid;
     public AnimationCurve curveVolumeOrbitation;
     float tempsEcoule;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +53,7 @@ public class EnnemiStock : MonoBehaviour
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
         playerRigid = GetComponent<Rigidbody>();
-        
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
@@ -57,7 +61,7 @@ public class EnnemiStock : MonoBehaviour
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
-    
+
 
     }
 
@@ -75,13 +79,13 @@ public class EnnemiStock : MonoBehaviour
         float input = Input.GetAxis("Attract1");
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-       
+
         if (ennemiStock != null)
         {
 
             if (onHitEnter)
             {
-               
+
                 if (StateAnim.state == StateAnim.CurrentState.Tir)
                 {
                     StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
@@ -91,12 +95,13 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 onHitEnter = false;
-               
+                frameNoInput = 0;
+                lastInputRotation = mouse.lastInput;
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
                     {
-                        rotate = rotationPlayer.StartRotationWall(gameObject, pos,ennemiStock, powerOfProjection, false);
+                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, ennemiStock, powerOfProjection, false);
 
                     }
                     else
@@ -127,7 +132,11 @@ public class EnnemiStock : MonoBehaviour
                 contactSound.start();
 
             }
-            
+            if (mouse.lastInput != lastInputRotation)
+            {
+                rotationPlayer.ChangeRotationDirection();
+                lastInputRotation = mouse.lastInput;
+            }
 
             if (isOnZoom)
             {
@@ -144,10 +153,14 @@ public class EnnemiStock : MonoBehaviour
 
 
 
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && input == 0 )
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && frameNoInput > frameForChangeRotation)
             {
                 // myRE.Emit();
                 DetachPlayer();
+            }
+            if (input == 0)
+            {
+                frameNoInput++;
             }
 
         }
@@ -169,7 +182,7 @@ public class EnnemiStock : MonoBehaviour
         if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
         {
             ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-           
+
         }
         mySmoothFollow.target = null;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
