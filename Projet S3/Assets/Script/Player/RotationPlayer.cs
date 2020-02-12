@@ -10,7 +10,7 @@ public class RotationPlayer : MonoBehaviour
     [Header("Options")]
     public bool limitationLongeur;
     public float limitLongeur;
-    
+    public float speedOfDeplacement= 5;
     private float angleCompteur;
     private float currentAngleMax;
 
@@ -69,7 +69,7 @@ public class RotationPlayer : MonoBehaviour
                 {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeur;
-                    transform.position = Vector3.Lerp(transform.position, posToGo, 5 * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
                 }
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
