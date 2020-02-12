@@ -7,7 +7,10 @@ public class RotationPlayer : MonoBehaviour
 
     public float angleSpeed;
     public float angleMax;
-
+    [Header("Options")]
+    public bool limitationLongeur;
+    public float limitLongeur;
+    
     private float angleCompteur;
     private float currentAngleMax;
 
@@ -60,11 +63,14 @@ public class RotationPlayer : MonoBehaviour
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
 
-            if (GetDistance() > 10)
+            if (limitationLongeur)
             {
-                Vector3 dir = (transform.position - pointPivot).normalized;
-                Vector3 posToGo = pointPivot + dir * 10;
-                transform.position = Vector3.Lerp(transform.position, posToGo, 5* Time.deltaTime);
+                if (GetDistance() > limitLongeur)
+                {
+                    Vector3 dir = (transform.position - pointPivot).normalized;
+                    Vector3 posToGo = pointPivot + dir * limitLongeur;
+                    transform.position = Vector3.Lerp(transform.position, posToGo, 5 * Time.deltaTime);
+                }
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
