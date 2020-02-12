@@ -37,7 +37,7 @@ public class EnnemiStock : MonoBehaviour
     public string OrbitSound;
     private FMOD.Studio.EventInstance OrbitEvent;
     public float OrbitVolume = 10;
-
+    private Rigidbody playerRigid;
     public AnimationCurve curveVolumeOrbitation;
     float tempsEcoule;
     // Start is called before the first frame update
@@ -48,7 +48,8 @@ public class EnnemiStock : MonoBehaviour
         mySmoothFollow = GetComponent<Klak.Motion.SmoothFollow>();
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
-       
+        playerRigid = GetComponent<Rigidbody>();
+        
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
@@ -56,7 +57,7 @@ public class EnnemiStock : MonoBehaviour
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
-
+    
 
     }
 
@@ -184,6 +185,14 @@ public class EnnemiStock : MonoBehaviour
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
+
+
+    public void ResetPlayer()
+    {
+        DetachPlayer();
+        playerRigid.velocity = Vector3.zero;
+    }
+
 
     public void zoomOnHit()
     {

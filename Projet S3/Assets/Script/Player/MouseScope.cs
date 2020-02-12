@@ -43,6 +43,7 @@ public class MouseScope : MonoBehaviour
     public string contact;
     private FMOD.Studio.EventInstance contactSound;
     public float volume = 10;
+    private bool resetShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,11 +76,16 @@ public class MouseScope : MonoBehaviour
         //}
         float input = Input.GetAxis("Attract1");
 
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || input != 0)
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
         {
+            resetShoot = false;
             InstantiateProjectile();
         }
 
+        if (input == 0)
+        {
+            resetShoot = true;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             lastInput = true;

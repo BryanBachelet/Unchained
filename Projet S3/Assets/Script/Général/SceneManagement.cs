@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour
 {
-  
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -15,6 +15,12 @@ public class SceneManagement : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+
+        if (Input.GetKeyDown(KeyCode.Joystick1Button6))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

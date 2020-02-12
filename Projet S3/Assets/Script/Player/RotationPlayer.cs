@@ -33,14 +33,17 @@ public class RotationPlayer : MonoBehaviour
     private float speedRotationAnim = 70;
     public GameObject vfxShockWave;
 
-
+    private Rigidbody playerRigid;
+    private PlayerMoveAlone moveAlone;
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        forceOfSortie = transform.GetComponent<PlayerMoveAlone>().powerOfProjection;
+        moveAlone = GetComponent<PlayerMoveAlone>();
+        forceOfSortie = moveAlone.powerOfProjection;
         line = GetComponentInChildren<LineRend>();
         stocks = GetComponent<EnnemiStock>();
+        playerRigid = GetComponent<Rigidbody>();
         currentAngleMax = angleMax;
     }
 
@@ -160,7 +163,7 @@ public class RotationPlayer : MonoBehaviour
 
         CheckEnnnemi(isWall, angleSpeed);
 
-        transform.GetComponent<Rigidbody>().AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
+        playerRigid.AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
         {
@@ -204,12 +207,12 @@ public class RotationPlayer : MonoBehaviour
         {
             gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
         }
-        if (transform.GetComponent<PlayerMoveAlone>())
+        if (moveAlone != null)
         {
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
-            transform.GetComponent<PlayerMoveAlone>().DirProjection = newDir;
-            transform.GetComponent<PlayerMoveAlone>().currentPowerOfProjection = forceOfSortie;
+            moveAlone.DirProjection = newDir;
+            moveAlone.currentPowerOfProjection = forceOfSortie;
         }
 
     }
