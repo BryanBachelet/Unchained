@@ -54,7 +54,7 @@ public class PlayerMoveAlone : MonoBehaviour
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, currentPowerOfProjection) && hit.collider.tag == "wall")
+        if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.tag == "wall")
         {
             DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
         }
