@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KillCountPlayer : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class KillCountPlayer : MonoBehaviour
     public float timerOfKillCount = 5;
     public int count;
     private static float timerOfKill;
-    // Update is called once per frame
+    public Text killCountUI;
 
     public void Start()
     {
@@ -18,6 +19,7 @@ public class KillCountPlayer : MonoBehaviour
     void Update()
     {
         count = killCount.Count;
+        killCountUI.text = count.ToString("F0");
         DecreaseKillCount();
     }
 
