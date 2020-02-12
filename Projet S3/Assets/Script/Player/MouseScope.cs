@@ -266,6 +266,11 @@ public class MouseScope : MonoBehaviour
         float aimVertical = -Input.GetAxis("AimVertical1");
 
         Vector3 dir = new Vector3(aimHorizontal, 0, aimVertical);
+        Debug.Log(dir.magnitude);
+        if(dir.magnitude<0.8f)
+        {
+            dir = Vector3.zero;
+        }
         return dir.normalized;
     }
 }
