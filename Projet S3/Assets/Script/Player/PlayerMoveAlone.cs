@@ -50,7 +50,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
         }
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+      //  transform.position = new Vector3(transform.position.x, 1, transform.position.z);
 
     }
 

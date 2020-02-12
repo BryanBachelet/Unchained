@@ -58,12 +58,12 @@ public class Projectils : MonoBehaviour
             }
             else if (other.tag == "wall")
             {
-                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-                player.GetComponent<EnnemiStock>().onHitEnter = true;
+                //player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                //player.GetComponent<EnnemiStock>().onHitEnter = true;
 
-                hitWallPos = other.ClosestPoint(transform.position);
-                player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
-                player.GetComponent<EnnemiStock>().pos = hitWallPos;
+                //hitWallPos = other.ClosestPoint(transform.position);
+                //player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
+                //player.GetComponent<EnnemiStock>().pos = hitWallPos;
                
               
                 Destroy(gameObject);
@@ -88,15 +88,15 @@ public class Projectils : MonoBehaviour
             }
             else if (other.tag == "wall")
             {
-                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-                player.GetComponent<EnnemiStock>().onHitEnter = true;
+                //player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+                //player.GetComponent<EnnemiStock>().onHitEnter = true;
 
-                hitWallPos = other.ClosestPoint(transform.position);
-                player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
-                player.GetComponent<EnnemiStock>().pos = hitWallPos;
+                //hitWallPos = other.ClosestPoint(transform.position);
+                //player.GetComponent<WallRotate>().rotationPoint = hitWallPos;
+                //player.GetComponent<EnnemiStock>().pos = hitWallPos;
                
 
-                player.GetComponent<WallRotate>().hasHitWall = true;
+                //player.GetComponent<WallRotate>().hasHitWall = true;
                 Destroy(gameObject);
             }
         }
