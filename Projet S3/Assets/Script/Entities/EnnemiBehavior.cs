@@ -44,8 +44,13 @@ public class EnnemiBehavior : MonoBehaviour
         {
             currentTarget = target;
         }
-        if (!useNavMesh && destroy.isDestroying == false)   
+        if (imStock)
         {
+            destroy.isDestroying = false;
+        }
+        if (!useNavMesh && destroy.isDestroying == false)
+        {
+
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
 
             if (imStock)
