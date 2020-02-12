@@ -60,7 +60,12 @@ public class RotationPlayer : MonoBehaviour
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
 
-
+            if (GetDistance() > 10)
+            {
+                Vector3 dir = (transform.position - pointPivot).normalized;
+                Vector3 posToGo = pointPivot + dir * 10;
+                transform.position = Vector3.Lerp(transform.position, posToGo, 5* Time.deltaTime);
+            }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
             float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
@@ -232,6 +237,12 @@ public class RotationPlayer : MonoBehaviour
 
         return newDir;
     }
+    private float GetDistance()
+    {
+        float newDistance = (pointPivot - transform.position).magnitude;
+
+        return newDistance;
+    }
 
     private Vector3 GetNextDirection()
     {
@@ -274,23 +285,23 @@ public class RotationPlayer : MonoBehaviour
     //    }
     //}
 
-    //private void OnRenderObject()
-    //{
-    //    if (Camera.current.name == "Camera")
-    //    {
-    //        if (stocks.ennemiStock != null)
-    //        {
-    //            GL.Begin(GL.LINES);
-    //            lineMat.SetPass(0);
+    private void OnRenderObject()
+    {
+        if (Camera.current.name == "Camera")
+        {
+            if (stocks.ennemiStock != null)
+            {
+                GL.Begin(GL.LINES);
+                lineMat.SetPass(0);
 
-    //            GL.Color(Color.yellow);
-    //            GL.Vertex(transform.position);
-    //            GetNextDirection();
-    //            GL.Vertex(transform.position + (nextDir).normalized * 100);
-    //            GL.End();
-    //        }
+                GL.Color(Color.yellow);
+                GL.Vertex(transform.position);
+                GetNextDirection();
+                GL.Vertex(transform.position + (nextDir).normalized * 100);
+                GL.End();
+            }
 
-    //    }
+        }
 
-    //}
+    }
 }

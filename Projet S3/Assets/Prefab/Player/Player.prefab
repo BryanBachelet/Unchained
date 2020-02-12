@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2599016833369903911}
   - component: {fileID: 2599016833369903905}
+  - component: {fileID: 886880014360157928}
   - component: {fileID: 2599016833369903910}
   m_Layer: 0
   m_Name: Line
@@ -46,27 +47,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeParticle: 1
   upProjection: 1
+  activeDetach: 0
   active: 0
-  lineRenderer: {fileID: 2599016834285439582}
-  box: {fileID: 2599016833369903910}
   p1: {x: 0, y: 0, z: 0}
   p2: {x: 0, y: 0, z: 0}
   particuleContact: {fileID: 5006117667989294190, guid: 2639f94ee525e454999ac542ac8adec9,
     type: 3}
-  activeDetach: 0
   contact: event:/Mob/Toucher par le lien2
   volume: 3
-  comboCompt: 0
-  timeOnCombo: 0
-  comboComptTxt: {fileID: 0}
-  lastComboTxt: {fileID: 0}
-  killPerTxt: {fileID: 0}
-  myAnimator: {fileID: 0}
-  killPerSec: 0
-  timeKill: []
-  timeEcoule: 0
-  paramValue: 0
-  activeUI: 0
+--- !u!114 &886880014360157928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2599016833369903908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc37f1e3481831c48a7d3e5ff210d003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerOfKillCount: 5
+  count: 0
 --- !u!65 &2599016833369903910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -201,18 +203,18 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   directionManette: {x: 0, y: 0, z: 0}
   instanceBullet: {fileID: 0}
-  returnSpeed: 150
-  contact: event:/Player/Lancer lien
-  volume: 3
-  returnSound: event:/Player/Retour lien
-  returnVolume: 3
-  distance: 75
   timerOfBullet: 0.5
   speedOfBullet: 50
   timeBetweenShoot: 0.4
+  returnSpeed: 150
+  distanceMaxOfShoot: 75
   distanceDestruct: 0
-  lastInput: 0
   activePC: 0
+  returnSound: event:/Player/Retour lien
+  returnVolume: 3
+  lastInput: 0
+  contact: event:/Player/Lancer lien
+  volume: 3
 --- !u!114 &2599016834285439573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,13 +227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee78977a3953db54eb0117d2e7df3d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   powerOfProjection: 80
-  deprojection: 60
+  DecelerationOfProjection: 60
   DirProjection: {x: 0, y: 0, z: 0}
-  powerProjec: 0
-  speedOfRotation: 10
+  currentPowerOfProjection: 0
   activeDeplacement: 0
+  speedOfRotation: 10
 --- !u!114 &2599016834285439578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,15 +247,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ennemiStock: {fileID: 0}
   pos: {x: 0, y: 0, z: 0}
+  frameForChangeRotation: 10
   powerOfProjection: 0
-  contact: event:/Player/Contact lien
-  volume: 5
-  OrbitSound: event:/Player/Orbitation lien
-  OrbitVolume: 10
   onHitEnter: 0
   onHitEnemy: {fileID: 292643745179613973, guid: 6e53cc8662d6c3544a7fc9a09153adf6,
     type: 3}
   inputNeed: 0
+  contact: event:/Player/Contact lien
+  ContactVolume: 20
+  OrbitSound: event:/Player/Orbitation lien
+  OrbitVolume: 10
   curveVolumeOrbitation:
     serializedVersion: 2
     m_Curve: []
@@ -280,9 +282,7 @@ MonoBehaviour:
   predictionMvtRotate: 0.5
   newDir: {x: 0, y: 0, z: 0}
   nextDir: {x: 0, y: 0, z: 0}
-  Chara: {fileID: 0}
   angleAvatar: 0
-  speedRotationAnim: 70
   vfxShockWave: {fileID: 0}
 --- !u!120 &2599016834285439582
 LineRenderer:
@@ -301,7 +301,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9e762c504c18764ba32b8617b9b4bb4, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
