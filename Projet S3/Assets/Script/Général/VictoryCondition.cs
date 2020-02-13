@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class VictoryCondition : MonoBehaviour
 {
+    [Header("Options")]
     public int nextSceneToLoad;
     public bool restartSameScene = true;
-    public GameObject victoryText;
 
+    [Header("Feedback")]
+    public GameObject victoryText;
     private bool victoryRestart = false;
     public float timeBeforeRestart = 2f;
     private float compteurRestart = 0;
