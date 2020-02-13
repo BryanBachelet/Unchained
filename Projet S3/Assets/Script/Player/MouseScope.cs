@@ -75,7 +75,7 @@ public class MouseScope : MonoBehaviour
         //    direction = Vector3.zero;
         //}
         float input = Input.GetAxis("Attract1");
-        Debug.Log(lastInput);
+
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
         {
             resetShoot = false;

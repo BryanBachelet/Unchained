@@ -8,8 +8,8 @@ public class EnnemiBehavior : MonoBehaviour
     public bool useNavMesh;
     private NavMeshAgent agent;
 
-    public GameObject target;
-    public GameObject currentTarget;
+    [HideInInspector] public GameObject target;
+    [HideInInspector] public GameObject currentTarget;
     public float speedClassic = 4;
     public float speedLinks = 10;
     GameObject player;
@@ -39,7 +39,7 @@ public class EnnemiBehavior : MonoBehaviour
     void Update()
     {
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
+       
         if (currentTarget == null)
         {
             currentTarget = target;
@@ -52,7 +52,7 @@ public class EnnemiBehavior : MonoBehaviour
         {
 
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-
+            rigidbody.velocity = Vector3.zero;
             if (imStock)
             {
                 transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
