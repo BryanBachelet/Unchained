@@ -18,7 +18,7 @@ public class LightKillCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log((KillCountPlayer.killCount.Count - lights[i - 1].killCapte)/(lights[i].killCapte - lights[i - 1].killCapte));
+
         nextLightAdvancement = (KillCountPlayer.killCount.Count - lights[i - 1].killCapte) / (lights[i].killCapte - lights[i - 1].killCapte);
         if (KillCountPlayer.killCount.Count <= lights[i - 1].killCapte)
         {
