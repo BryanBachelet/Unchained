@@ -5,27 +5,27 @@ using UnityEngine.AI;
 
 public class EnnemiBehavior : MonoBehaviour
 {
-    public bool useNavMesh;
+    [HideInInspector] public bool useNavMesh;
     private NavMeshAgent agent;
 
-    public GameObject target;
-    public GameObject currentTarget;
+    [HideInInspector] public GameObject target;
+    [HideInInspector] public GameObject currentTarget;
     public float speedClassic = 4;
     public float speedLinks = 10;
     GameObject player;
     private float t = 0;
     public float speedOfRotation = 1;
-    public float angle;
+    private float angle;
     [HideInInspector] public bool imStock;
     private int i;
-    private Rigidbody rigidbody;
+    private Rigidbody rigidbodyEntities;
     private EnnemiDestroy destroy;
-    public bool isUse;
+    private bool isUse;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbodyEntities = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
         currentTarget = target;
         if (useNavMesh)
@@ -39,7 +39,7 @@ public class EnnemiBehavior : MonoBehaviour
     void Update()
     {
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-
+       
         if (currentTarget == null)
         {
             currentTarget = target;
@@ -52,7 +52,7 @@ public class EnnemiBehavior : MonoBehaviour
         {
 
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-
+            rigidbodyEntities.velocity = Vector3.zero;
             if (imStock)
             {
                 transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);

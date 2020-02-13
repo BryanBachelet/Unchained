@@ -4,41 +4,39 @@ using UnityEngine;
 
 public class EnnemiDestroy : MonoBehaviour
 {
-    public ManagerEntites managerEntites;
-    public int i = 0;
-    public bool isDestroying;
-    public float timerToDestro = 2;
+    [HideInInspector] public ManagerEntites managerEntites;
+    [HideInInspector] public int i = 0;
+    [HideInInspector] public bool isDestroying;
+    [Header("Ejection")]
+    public float angleRotate;
+    public int offset;
+
+    public Transform pivotTransform;
+    public float timerBeforeDestroy = 2;
     private float compteur;
     bool enter = false;
-    public GameObject vfxBlueUp;
-    public GameObject players;
+    [HideInInspector] public GameObject vfxBlueUp;
+    private GameObject player;
 
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
     public float tpsEcoule;
 
+    Vector3 deltaRotation;
+    private EnnemiBehavior ennemiBehavior;
+    float rndX;
+    [HideInInspector] public Vector3 destroyDir;
+    [HideInInspector] public bool activePull;
 
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
     //private FMOD.Studio.EventInstance contactSound;
-
-
-
     public float volume = 20;
-    public float angleRotate;
-    public int offset;
-
-    public Transform pivotTransform;
-
-    Vector3 deltaRotation;
-    private EnnemiBehavior ennemiBehavior;
-    float rndX;
-    public Vector3 destroyDir;
-    [HideInInspector] public bool activePull;
     void Start()
-    {   ennemiBehavior = GetComponent<EnnemiBehavior>();
-    players = PlayerMoveAlone.Player1;
+    {
+        ennemiBehavior = GetComponent<EnnemiBehavior>();
+        player = PlayerMoveAlone.Player1;
     }
 
     // Update is called once per frame
@@ -54,12 +52,12 @@ public class EnnemiDestroy : MonoBehaviour
                 rndX = Random.Range(-1, 1);
                 if (vfxBlueUp != null)
                 {
-                   
-                    Instantiate(vfxBlueUp, transform.position, transform.rotation, players.transform);
+
+                    Instantiate(vfxBlueUp, transform.position, transform.rotation, player.transform);
                 }
                 enter = true;
             }
-            if (compteur > timerToDestro)
+            if (compteur > timerBeforeDestroy)
             {
 
             }
@@ -68,11 +66,11 @@ public class EnnemiDestroy : MonoBehaviour
             transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
             transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
 
-            if (compteur > timerToDestro)
+            if (compteur > timerBeforeDestroy)
             {
 
                 EndAgent();
-               
+
             }
             else
             {
@@ -90,7 +88,7 @@ public class EnnemiDestroy : MonoBehaviour
         }
     }
 
-   private void EndAgent()
+    private void EndAgent()
     {
         if (!activePull)
         {
