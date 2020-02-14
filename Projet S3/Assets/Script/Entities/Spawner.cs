@@ -33,7 +33,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-
+        compteur = timeOfSpawn;
         typeToSpawn = target.GetComponent<CenterTag>().centerTypes;
 
         if (typeToSpawn == CenterTag.Types.Blue)

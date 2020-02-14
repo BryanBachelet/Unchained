@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class KillCountPlayer : MonoBehaviour
 {
+    public int[] arrayOfKill = new int[0];
     public static List <float> killCount = new List<float>();
     public float timerOfKillCount = 5;
     public int count;
