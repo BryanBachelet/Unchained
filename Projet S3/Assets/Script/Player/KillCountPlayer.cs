@@ -41,4 +41,8 @@ public class KillCountPlayer : MonoBehaviour
         killCount.Add(timerOfKill);
     }
 
+    public static void CleanArray()
+    {
+        killCount.Clear();
+    }
 }

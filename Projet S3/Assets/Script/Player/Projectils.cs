@@ -45,6 +45,21 @@ public class Projectils : MonoBehaviour
             }
 
         }
+
+        Vector3 dirToPlayer =player.transform.position -transform.position;
+        Ray rayToPlayer = new Ray(transform.position,dirToPlayer.normalized);
+        Debug.DrawRay(transform.position,dirToPlayer.normalized * dirToPlayer.magnitude, Color.blue);
+        if (Physics.Raycast(ray, out hit, dirToPlayer.magnitude )&& hit.collider.tag == "Ennemi")
+        {
+            if (hit.collider.tag == "Ennemi")
+            {
+                AttachEntities(hit.collider.gameObject);
+            }
+
+        }
+
+
+
         if (hitWall)
         {
             distanceProjectilePlayer = (transform.position - player.transform.position).magnitude;
@@ -74,19 +89,25 @@ public class Projectils : MonoBehaviour
 
     }
 
+
+    public void AttachEntities( GameObject other)
+    {
+        player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+        player.GetComponent<EnnemiStock>().onHitEnter = true;
+        if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
+
+        other.tag = "Untagged";
+        other.transform.position += dir.normalized * 3;
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!returnBall)
         {
             if (other.tag == "Ennemi")
             {
-                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-                player.GetComponent<EnnemiStock>().onHitEnter = true;
-                if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
-
-                other.tag = "Untagged";
-                other.transform.position += dir.normalized * 3;
-                Destroy(gameObject);
+                AttachEntities(other.gameObject);
             }
             else if (other.tag == "wall")
             {

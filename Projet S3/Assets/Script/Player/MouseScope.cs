@@ -170,12 +170,17 @@ public class MouseScope : MonoBehaviour
                 projectils.dir = -(projectils.transform.position - transform.position);
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
                 {
-
-                    StateAnim.ChangeState(StateAnim.CurrentState.Idle);
-                    Destroy(instanceBullet);
+                    DestroyBullet();
+                    
                 }
             }
         }
+    }
+
+    public void DestroyBullet()
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Idle);
+        Destroy(instanceBullet);
     }
 
     private void OnRenderObject()

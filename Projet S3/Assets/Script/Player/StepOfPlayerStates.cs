@@ -79,4 +79,11 @@ public class StepOfPlayerStates : MonoBehaviour
         }
              
     }
+
+    public void ResetDefeatCondition()
+    {
+        sliderFill.fillAmount = 0.2f;
+        compteurBeforeLose = 0;
+        currentStateOfTimer = 0.2f;
+    }
 }
