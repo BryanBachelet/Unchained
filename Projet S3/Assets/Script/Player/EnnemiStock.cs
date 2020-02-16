@@ -94,7 +94,7 @@ public class EnnemiStock : MonoBehaviour
                 isOnZoom = true;
                 Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
-                ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 onHitEnter = false;
                 frameNoInput = 0;
                 lastInputRotation = mouse.lastInput;
