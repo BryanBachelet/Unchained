@@ -54,8 +54,4 @@ public class ProgressionOfPlayer : MonoBehaviour
     {
         rotationPlayer.angleSpeed = statesRotation[currentStates];
     }
-
-
-
-
 }
