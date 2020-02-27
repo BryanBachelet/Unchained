@@ -17,6 +17,7 @@ public class Explosion : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.W))
         {
             ExplosionTransformation();
+            Debug.Log("Call explod");
         }
     }
 
@@ -25,7 +26,12 @@ public class Explosion : MonoBehaviour
         Collider[] entityInRange = Physics.OverlapSphere(transform.position, range);
         for(int i = 0; i < entityInRange.Length; i++)
         {
-            entityInRange[i].GetComponent<Rigidbody>().AddForce(Vector3.right);
+            if(entityInRange[i].tag == "Ennemi")
+            {
+                entityInRange[i].GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
+                Debug.Log("degage");
+            }
+
         }
     }
 

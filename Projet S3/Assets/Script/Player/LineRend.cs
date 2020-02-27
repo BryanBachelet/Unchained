@@ -125,7 +125,7 @@ public class LineRend : MonoBehaviour
 
     void Collision(Collider collision)
     {
-
+    
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
@@ -136,7 +136,7 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-
+    
                 collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
@@ -144,13 +144,45 @@ public class LineRend : MonoBehaviour
                 Transform transfChild = collision.transform.GetChild(0);
                 transfChild.gameObject.SetActive(true);
             }
-
+    
         }
         KillCountPlayer.AddList();
         collision.attachedRigidbody.detectCollisions = false;
         collision.GetComponent<EnnemiDestroy>().isDestroying = true;
-
+    
     }
+
+    //void Collision(Collider collision)
+    //{
+    //    Rigidbody rb;
+    //    rb = collision.GetComponent<Rigidbody>();
+    //    if (!upProjection)
+    //    {
+    //        float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
+    //        collision.transform.eulerAngles = new Vector3(0.0f, 15f, 0.0f);
+    //        rb.AddRelativeForce(Vector3.forward * 20.0f + Vector3.up * 100.0f, ForceMode.Impulse);
+    //        collision.GetComponent<EnnemiBehavior>().beenKicked = true;
+    //    }
+    //    else
+    //    {
+    //        float rndX = Random.Range(-15, 15);
+    //        if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
+    //        {
+    //
+    //            collision.GetComponent<Rigidbody>().detectCollisions = false;
+    //        }
+    //        if (activeParticle)
+    //        {
+    //            Transform transfChild = collision.transform.GetChild(0);
+    //            transfChild.gameObject.SetActive(true);
+    //        }
+    //
+    //    }
+    //    KillCountPlayer.AddList();
+    //    collision.attachedRigidbody.detectCollisions = false;
+    //    collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+    //
+    //}
 }
 
 

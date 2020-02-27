@@ -35,6 +35,7 @@ public class PlayerMoveAlone : MonoBehaviour
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
+        if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
     }
 
