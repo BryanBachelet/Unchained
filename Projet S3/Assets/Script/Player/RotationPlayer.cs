@@ -27,7 +27,7 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
-    [HideInInspector] [Range(0, 1)] public float predictionMvtRotate = 0.5f;
+  [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
     private GameObject Chara;

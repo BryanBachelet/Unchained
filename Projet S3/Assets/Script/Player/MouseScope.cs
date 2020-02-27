@@ -44,6 +44,10 @@ public class MouseScope : MonoBehaviour
     private FMOD.Studio.EventInstance contactSound;
     public float volume = 10;
     private bool resetShoot;
+
+    public RectTransform directionIMG;
+    public Vector3 posConvert;
+    public GameObject uIGOAim;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +65,7 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (activePC)
         {
             direction = DirectionSouris();
@@ -202,7 +207,11 @@ public class MouseScope : MonoBehaviour
 
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(transform.position, (direction + directionManette).normalized * distanceMaxOfShoot);
+    }
     private void ReturnState()
     {
         projectils.returnBall = true;
@@ -235,7 +244,7 @@ public class MouseScope : MonoBehaviour
 
 
             projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = (direction + directionManette).normalized;
+            projectils.dir = directionManette; //(direction + directionManette).normalized;
             projectils.player = gameObject;
             projectils.lineRenderer = lineRenderer;
             projectils.speed = speedOfBullet;
@@ -267,15 +276,22 @@ public class MouseScope : MonoBehaviour
     }
     private Vector3 DirectionManette()
     {
+        Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
+        RaycastHit hit;
+        if(Physics.Raycast(camera, out hit, Mathf.Infinity))
+        {
+            posConvert = hit.point + Vector3.up;
+            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
+        }
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
 
-        Vector3 dir = new Vector3(aimHorizontal, 0, aimVertical);
-
-        if(dir.magnitude<0.8f)
+        Vector3 dir = (posConvert - transform.position).normalized;
+        if(dir.magnitude<0.1f)
         {
             dir = Vector3.zero;
         }
-        return dir.normalized;
+        directionIMG.localPosition = new Vector3(aimHorizontal * 370, aimVertical * 370, 0);
+        return dir;
     }
 }
