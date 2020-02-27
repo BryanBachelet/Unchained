@@ -7,6 +7,8 @@ public class PlayerTransformation : MonoBehaviour
     private KillCountPlayer countOfKill;
     private StepOfPlayerStates playerStates;
     private ProgressionOfPlayer progressionPlayer;
+    private EnnemiStock ennemiStock;
+    private PlayerMoveAlone moveAlone;
     private float pourcentOfState;
 
     // Start is called before the first frame update
@@ -28,7 +30,16 @@ public class PlayerTransformation : MonoBehaviour
             }
             if (pourcentOfState > 0.6f)
             {
-                //Function Two
+                if (ennemiStock.ennemiStock)
+                {
+                    ennemiStock.DetachPlayer();
+                }
+                else
+                {
+                    moveAlone.AddProjection();
+                }
+
+                
             }
             if (pourcentOfState > 0.85f)
             {
@@ -48,5 +59,7 @@ public class PlayerTransformation : MonoBehaviour
         countOfKill = GetComponentInChildren<KillCountPlayer>();
         playerStates = GetComponentInChildren<StepOfPlayerStates>();
         progressionPlayer = GetComponent<ProgressionOfPlayer>();
+        ennemiStock = GetComponent<EnnemiStock>();
+        moveAlone = GetComponent<PlayerMoveAlone>();
     }
 }

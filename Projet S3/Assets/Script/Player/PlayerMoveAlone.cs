@@ -23,7 +23,7 @@ public class PlayerMoveAlone : MonoBehaviour
     float angleAvatar;
 
     private LineRend line;
-
+    private MouseScope mouseScop;
     static public Vector3 playerPos;
     static public GameObject Player1;
     private void Awake()
@@ -35,6 +35,7 @@ public class PlayerMoveAlone : MonoBehaviour
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
+        mouseScop = GetComponent<MouseScope>();
         TransmitionOfStrenghOfExpulsion();
     }
 
@@ -95,6 +96,13 @@ public class PlayerMoveAlone : MonoBehaviour
     public void TransmitionOfStrenghOfExpulsion()
     {
         line.strenghOfExpulsion = expulsionStrengh;
+    }
+
+    public void AddProjection()
+    {
+        playerRigid.AddForce(mouseScop.direction.normalized * powerOfProjection, ForceMode.Impulse);
+        DirProjection = mouseScop.direction.normalized;
+        currentPowerOfProjection = powerOfProjection;
     }
 
     public void AnimationAvatar()
