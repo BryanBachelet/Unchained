@@ -71,11 +71,11 @@ public class StepOfPlayerStates : MonoBehaviour
                 currentStateOfTimer = (1 - sizeOfCountOfKill) - ((1 - sizeOfCountOfKill) * (compteurBeforeLose / timerBeforeLose));
                 sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateOfTimer, speedOfSlider * Time.deltaTime);
             }
-            if (KillCountPlayer.killCount.Count >= arrayOfKill[currentStates] && currentStates < arrayOfKill.Length - 1)
-            {
-                currentStates++;
+            //if (KillCountPlayer.killCount.Count >= arrayOfKill[currentStates] && currentStates < arrayOfKill.Length - 1)
+            //{
+            //    currentStates++;
 
-            }
+            //}
         }
              
     }

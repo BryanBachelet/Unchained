@@ -35,7 +35,7 @@ public class ProgressionOfPlayer : MonoBehaviour
 
     public void ChangeState(bool rotate)
     {
-        if (currentSizeOfArray < sizeOfArray - 1)
+        if (currentStates < sizeOfArray - 1)
         {
             currentStates++;
             StrenghExpulsionAugmentation();
