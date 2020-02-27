@@ -18,7 +18,7 @@ public class StepOfPlayerStates : MonoBehaviour
     private float currentStateOfTimer;
     private float maxLoseValue;
     private KillCountPlayer countPlayerKill;
-    private int i = 1;
+     public int currentStates = 1;
     [Header("Feedback")]
     public Image sliderFill;
     public float speedOfSlider = 1f;
@@ -49,7 +49,7 @@ public class StepOfPlayerStates : MonoBehaviour
                     firstFrame = false;
                 }
 
-                float currentStateKill = (sizeOfCountOfKill * (KillCountPlayer.killCount.Count - arrayOfKill[i - 1]) / (arrayOfKill[i] - arrayOfKill[i - 1]));
+                float currentStateKill = (sizeOfCountOfKill * (KillCountPlayer.killCount.Count - arrayOfKill[currentStates - 1]) / (arrayOfKill[currentStates] - arrayOfKill[currentStates - 1]));
                 currentStateKill = Mathf.Clamp(currentStateKill, 0f, 1f);
                 sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateKill + maxLoseValue, speedOfSlider * Time.deltaTime);
             }
@@ -71,9 +71,9 @@ public class StepOfPlayerStates : MonoBehaviour
                 currentStateOfTimer = (1 - sizeOfCountOfKill) - ((1 - sizeOfCountOfKill) * (compteurBeforeLose / timerBeforeLose));
                 sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateOfTimer, speedOfSlider * Time.deltaTime);
             }
-            if (KillCountPlayer.killCount.Count >= arrayOfKill[i] && i < arrayOfKill.Length - 1)
+            if (KillCountPlayer.killCount.Count >= arrayOfKill[currentStates] && currentStates < arrayOfKill.Length - 1)
             {
-                i++;
+                currentStates++;
 
             }
         }

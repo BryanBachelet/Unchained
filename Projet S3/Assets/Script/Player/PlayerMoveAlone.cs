@@ -11,6 +11,10 @@ public class PlayerMoveAlone : MonoBehaviour
     public float DecelerationOfProjection = 60;
     [HideInInspector] public Vector3 DirProjection;
     [HideInInspector] public float currentPowerOfProjection;
+
+    [Header("Expulsion")]
+    public float expulsionStrengh;
+
     [Header("Options ")]
     public bool activeDeplacement;
 
@@ -18,6 +22,7 @@ public class PlayerMoveAlone : MonoBehaviour
     public float speedOfRotation = 10f;
     float angleAvatar;
 
+    private LineRend line;
 
     static public Vector3 playerPos;
     static public GameObject Player1;
@@ -30,6 +35,7 @@ public class PlayerMoveAlone : MonoBehaviour
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
+        TransmitionOfStrenghOfExpulsion();
     }
 
     // Update is called once per frame
@@ -68,6 +74,10 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             activeDeplacement = !activeDeplacement;
         }
+        if(line.strenghOfExpulsion != expulsionStrengh)
+        {
+            TransmitionOfStrenghOfExpulsion();
+        }
     }
 
 
@@ -80,6 +90,11 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
         }
+    }
+
+    public void TransmitionOfStrenghOfExpulsion()
+    {
+        line.strenghOfExpulsion = expulsionStrengh;
     }
 
     public void AnimationAvatar()

@@ -24,11 +24,15 @@ public class LineRend : MonoBehaviour
     public GameObject particuleContact;
 
 
+
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
     private FMOD.Studio.EventInstance contactSound;
     public float volume = 20;
+
+    [HideInInspector]
+    public float strenghOfExpulsion;
 
     // Start is called before the first frame update
     void Start()
