@@ -6,7 +6,7 @@ public class PlayerTransformation : MonoBehaviour
 {
     private KillCountPlayer countOfKill;
     private StepOfPlayerStates playerStates;
-
+    private ProgressionOfPlayer progressionPlayer;
     private float pourcentOfState;
 
     // Start is called before the first frame update
@@ -24,7 +24,7 @@ public class PlayerTransformation : MonoBehaviour
         {
             if (pourcentOfState > 0.5f)
             {
-                //Fonction One
+                progressionPlayer.ChangeState(true);
             }
             if (pourcentOfState > 0.6f)
             {
@@ -47,5 +47,6 @@ public class PlayerTransformation : MonoBehaviour
     {
         countOfKill = GetComponentInChildren<KillCountPlayer>();
         playerStates = GetComponentInChildren<StepOfPlayerStates>();
+        progressionPlayer = GetComponent<ProgressionOfPlayer>();
     }
 }
