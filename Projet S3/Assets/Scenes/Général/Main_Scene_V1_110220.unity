@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -343,6 +343,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 20
+  feedBack: {fileID: 292643745179613973, guid: 6e53cc8662d6c3544a7fc9a09153adf6, type: 3}
+--- !u!114 &136097558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136097541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56691e997956ac14a9b817dd0c46d6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pourcentOfState: 0
+--- !u!114 &136097559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136097541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c60c4ae2af7e04dabd797df05c458d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeOfArray: 2
+  statesOfExpulsionStrengh:
+  - 10
+  - 10
+  statesRotation:
+  - 130
+  - 130
 --- !u!1001 &210633042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -446,7 +479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &240653500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -941,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &507757502
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &542029304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2439,10 +2472,10 @@ MonoBehaviour:
   arrayOfKill: 000000001e0000003c000000
   sizeOfCountOfKill: 0.8
   timerBeforeLose: 5
-  activeLoseCondition: 0
+  activeLoseCondition: 1
   currentStates: 1
   sliderFill: {fileID: 1282070936}
-  speedOfSlider: 1
+  speedOfSlider: 10
 --- !u!1 &1670686233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
