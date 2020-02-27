@@ -11,7 +11,7 @@ public class PlayerTransformation : MonoBehaviour
     private PlayerMoveAlone moveAlone;
     private Explosion explosion;
     public float pourcentOfState;
-    private bool activePropulsion;
+    public bool activePropulsion;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,18 +24,14 @@ public class PlayerTransformation : MonoBehaviour
 
         pourcentOfState = countOfKill.count / playerStates.arrayOfKill[playerStates.currentStates];
 
-        if (Input.GetKey(KeyCode.Joystick1Button4) && Input.GetKey(KeyCode.Joystick1Button5))
+        if (Input.GetKey(KeyCode.Joystick1Button4) && Input.GetKey(KeyCode.Joystick1Button5) && !activePropulsion)
         {
 
-
-            if (pourcentOfState > 0.5f)
+            if (pourcentOfState > 0.5f && !activePropulsion)
             {
+                    activePropulsion = true;
                 Debug.Log(0);
                 progressionPlayer.ChangeState(true);
-                if (!activePropulsion)
-                {
-                    activePropulsion = true;
-                }
                 if (pourcentOfState > 0.6f)
                 {
                     Debug.Log("EnnemiStock = " + ennemiStock.ennemiStock);
@@ -63,9 +59,9 @@ public class PlayerTransformation : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Joystick1Button4) && Input.GetKeyUp(KeyCode.Joystick1Button5))
+        if (Input.GetKeyUp(KeyCode.Joystick1Button4) || Input.GetKeyUp(KeyCode.Joystick1Button5))
         {
-            if (!activePropulsion)
+            if (activePropulsion)
             {
 
                 activePropulsion = false;
