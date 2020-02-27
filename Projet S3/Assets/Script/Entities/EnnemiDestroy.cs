@@ -17,6 +17,9 @@ public class EnnemiDestroy : MonoBehaviour
     bool enter = false;
     [HideInInspector] public GameObject vfxBlueUp;
     private GameObject player;
+    [HideInInspector] public Vector3  dirHorizontalProjection;
+    private Vector3 dirVertical;
+    private Rigidbody ennemiRigidBody;
 
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
@@ -36,19 +39,32 @@ public class EnnemiDestroy : MonoBehaviour
     void Start()
     {
         ennemiBehavior = GetComponent<EnnemiBehavior>();
+        ennemiRigidBody = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         if (isDestroying)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            transform.Translate(0, 50 * Time.deltaTime, 0);
-
-            if (!enter)
+            //  transform.Translate(0, 50 * Time.deltaTime, 0);
+            transform.Translate(dirHorizontalProjection.normalized * 10 *Time.deltaTime);
+            if (ennemiRigidBody.velocity.y < 0)
             {
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (5 - 1) *Time.deltaTime);
+                Debug.Log(ennemiRigidBody.velocity);
+            }
+            if (ennemiRigidBody.velocity.y > 0)
+            {
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (2.5f - 1) * Time.deltaTime);
+            }
+                if (!enter)
+            {
+                ennemiRigidBody.AddForce(Vector3.up * 25, ForceMode.Impulse);
+            
                 rndX = Random.Range(-1, 1);
                 if (vfxBlueUp != null)
                 {
@@ -62,9 +78,9 @@ public class EnnemiDestroy : MonoBehaviour
 
             }
 
-            destroyDir = new Vector3(rndX, 1, 0);
-            transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
-            transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
+            //destroyDir = new Vector3(rndX, 1, 0);
+            //transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
+            //transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
 
             if (compteur > timerBeforeDestroy)
             {

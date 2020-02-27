@@ -49,7 +49,7 @@ public class LineRend : MonoBehaviour
 
     }
 
-   
+
 
     void FixedUpdate()
     {
@@ -76,7 +76,7 @@ public class LineRend : MonoBehaviour
 
     }
 
-   
+
     public void ColliderSize()
     {
         distance = Vector3.Distance(p1, p2);
@@ -98,7 +98,7 @@ public class LineRend : MonoBehaviour
             if (collision.transform.tag == "wall")
             {
                 if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
-                { 
+                {
                     ennemiStock.DetachPlayer();
                 }
             }
@@ -125,7 +125,7 @@ public class LineRend : MonoBehaviour
 
     void Collision(Collider collision)
     {
-    
+
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
@@ -136,20 +136,23 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-    
-                collision.GetComponent<Rigidbody>().detectCollisions = false;
+
+               // collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
             {
                 Transform transfChild = collision.transform.GetChild(0);
                 transfChild.gameObject.SetActive(true);
             }
-    
+
         }
         KillCountPlayer.AddList();
-        collision.attachedRigidbody.detectCollisions = false;
+        //collision.attachedRigidbody.detectCollisions = false;
         collision.GetComponent<EnnemiDestroy>().isDestroying = true;
-    
+        Vector3 dir = p2 - p1;
+        collision.GetComponent<EnnemiDestroy>().dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
+
+
     }
 
     //void Collision(Collider collision)
