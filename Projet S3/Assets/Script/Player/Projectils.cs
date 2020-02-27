@@ -76,17 +76,11 @@ public class Projectils : MonoBehaviour
         mouvement = dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
         transform.position += dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
 
-
-
-
-
     }
     private void LateUpdate()
     {
         lineRenderer.SetPosition(1, player.transform.position);
         lineRenderer.SetPosition(0, transform.position);
-
-
     }
 
 
