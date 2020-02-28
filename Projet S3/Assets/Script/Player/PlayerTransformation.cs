@@ -50,14 +50,19 @@ public class PlayerTransformation : MonoBehaviour
 
             if (pourcentOfState > 0.5f && !activePropulsion)
             {
+                if (playerStates.currentStates < playerStates.arrayOfKill.Length - 1)
+                {
+                    playerStates.currentStates++;
+                    KillCountPlayer.CleanArray();
+                }
 
                 Instantiate(shockWaveTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
                 activePropulsion = true;
-              
+
                 progressionPlayer.ChangeState(true);
                 if (pourcentOfState > 0.6f)
                 {
-                   
+
                     if (ennemiStock.ennemiStock != null)
                     {
                         ennemiStock.DetachPlayer();
@@ -66,8 +71,8 @@ public class PlayerTransformation : MonoBehaviour
                     {
                         moveAlone.AddProjection();
                     }
-                   
 
+                    
                 }
                 if (pourcentOfState > 0.85f)
                 {

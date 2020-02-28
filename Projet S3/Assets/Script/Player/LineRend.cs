@@ -152,14 +152,17 @@ public class LineRend : MonoBehaviour
             }
 
         }
-        KillCountPlayer.AddList();
+       
         //collision.attachedRigidbody.detectCollisions = false;
         EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
-        ennemi.isDestroying = true;
-        Vector3 dir = p2 - p1;
-        ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
-        ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
-
+        if (!ennemi.isDestroying)
+        {
+            ennemi.isDestroying = true;
+            KillCountPlayer.AddList();
+            Vector3 dir = p2 - p1;
+            ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
+            ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
+        }
     }
 
     //void Collision(Collider collision)

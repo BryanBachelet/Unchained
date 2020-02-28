@@ -18,7 +18,7 @@ public class StepOfPlayerStates : MonoBehaviour
     private float currentStateOfTimer;
     private float maxLoseValue;
     private KillCountPlayer countPlayerKill;
-     public int currentStates = 1;
+    public int currentStates = 1;
     [Header("Feedback")]
     public Image sliderFill;
     public float speedOfSlider = 1f;
@@ -41,43 +41,27 @@ public class StepOfPlayerStates : MonoBehaviour
     {
         if (activeLoseCondition)
         {
-            if (countPlayerKill.count > 0)
-            {
-                if (firstFrame)
-                {
-                    compteurBeforeLose = 0;
-                    firstFrame = false;
-                }
 
-                float currentStateKill = (sizeOfCountOfKill * (KillCountPlayer.killCount.Count - arrayOfKill[currentStates - 1]) / (arrayOfKill[currentStates] - arrayOfKill[currentStates - 1]));
-                currentStateKill = Mathf.Clamp(currentStateKill, 0f, 1f);
-                sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateKill + maxLoseValue, speedOfSlider * Time.deltaTime);
+            float currentStateKill = (sizeOfCountOfKill * (KillCountPlayer.killCount - arrayOfKill[currentStates - 1]) / (arrayOfKill[currentStates] - arrayOfKill[currentStates - 1]));
+            currentStateKill = Mathf.Clamp(currentStateKill, 0f, 1f);
+            sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateKill, speedOfSlider * Time.deltaTime);
+            if (compteurBeforeLose > timerBeforeLose)
+            {
+                countPlayerKill.activeDecrease = true;
             }
             else
             {
-                if (!firstFrame)
-                {
-
-                    firstFrame = true;
-                }
-                if (compteurBeforeLose > timerBeforeLose)
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
-                else
-                {
-                    compteurBeforeLose += Time.deltaTime;
-                }
-                currentStateOfTimer = (1 - sizeOfCountOfKill) - ((1 - sizeOfCountOfKill) * (compteurBeforeLose / timerBeforeLose));
-                sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateOfTimer, speedOfSlider * Time.deltaTime);
+                compteurBeforeLose += Time.deltaTime;
+                countPlayerKill.activeDecrease = false;
             }
-            //if (KillCountPlayer.killCount.Count >= arrayOfKill[currentStates] && currentStates < arrayOfKill.Length - 1)
-            //{
-            //    currentStates++;
 
-            //}
         }
-             
+
+    }
+
+    public void ResetTiming()
+    {
+        compteurBeforeLose = 0;
     }
 
     public void ResetDefeatCondition()
