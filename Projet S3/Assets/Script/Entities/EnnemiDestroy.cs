@@ -21,6 +21,13 @@ public class EnnemiDestroy : MonoBehaviour
     private Vector3 dirVertical;
     private Rigidbody ennemiRigidBody;
 
+    public float fallMultiplier = 5f;
+    public float lowMultiplier = 2.5f;
+    public float currentForceOfEjection = 50;
+    public float deccelerationOfForceOfEjection = 5;
+    public float upForce = 25;
+    private float currentForce = 0;
+
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
     public float tpsEcoule;
@@ -50,20 +57,26 @@ public class EnnemiDestroy : MonoBehaviour
         if (isDestroying)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            //  transform.Translate(0, 50 * Time.deltaTime, 0);
-            transform.Translate(dirHorizontalProjection.normalized * 10 *Time.deltaTime);
+
+
+            Debug.Log( currentForceOfEjection); 
+            ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection ) + (Vector3.up * ennemiRigidBody.velocity.y);
+            if (currentForceOfEjection > 0)
+            {
+                currentForceOfEjection -= deccelerationOfForceOfEjection *  Time.deltaTime;
+            }
             if (ennemiRigidBody.velocity.y < 0)
             {
-                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (5 - 1) *Time.deltaTime);
-                Debug.Log(ennemiRigidBody.velocity);
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) *Time.deltaTime);
+               
             }
             if (ennemiRigidBody.velocity.y > 0)
             {
-                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (2.5f - 1) * Time.deltaTime);
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
             }
                 if (!enter)
             {
-                ennemiRigidBody.AddForce(Vector3.up * 25, ForceMode.Impulse);
+                ennemiRigidBody.AddForce(Vector3.up * upForce, ForceMode.Impulse);
             
                 rndX = Random.Range(-1, 1);
                 if (vfxBlueUp != null)
@@ -82,16 +95,14 @@ public class EnnemiDestroy : MonoBehaviour
             //transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
             //transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
 
-            if (compteur > timerBeforeDestroy)
-            {
 
-                EndAgent();
-
-            }
-            else
+            if (currentForceOfEjection <= 0)
             {
-                compteur += Time.deltaTime;
+                isDestroying = false;
+                enter = false;
             }
+
+           
         }
         if (!ennemiBehavior.imStock)
         {
@@ -101,6 +112,14 @@ public class EnnemiDestroy : MonoBehaviour
             {
                 EndAgent();
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isDestroying && collision.collider.tag =="wall")
+        {
+            EndAgent();
         }
     }
 

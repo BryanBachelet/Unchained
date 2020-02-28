@@ -36,7 +36,7 @@ public class Projectils : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, dir.normalized);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, (speed+20)) && hit.collider.tag == "wall")
+        if (Physics.Raycast(ray, out hit, (speed + 20)) && hit.collider.tag == "wall")
         {
             if (hit.collider.tag == "wall")
             {
@@ -46,10 +46,10 @@ public class Projectils : MonoBehaviour
 
         }
 
-        Vector3 dirToPlayer =player.transform.position -transform.position;
-        Ray rayToPlayer = new Ray(transform.position,dirToPlayer.normalized);
-        Debug.DrawRay(transform.position,dirToPlayer.normalized * dirToPlayer.magnitude, Color.blue);
-        if (Physics.Raycast(ray, out hit, dirToPlayer.magnitude )&& hit.collider.tag == "Ennemi")
+        Vector3 dirToPlayer = player.transform.position - transform.position;
+        Ray rayToPlayer = new Ray(transform.position, dirToPlayer.normalized);
+        Debug.DrawRay(transform.position, dirToPlayer.normalized * dirToPlayer.magnitude, Color.blue);
+        if (Physics.Raycast(ray, out hit, dirToPlayer.magnitude) && hit.collider.tag == "Ennemi")
         {
             if (hit.collider.tag == "Ennemi")
             {
@@ -64,7 +64,7 @@ public class Projectils : MonoBehaviour
         {
             distanceProjectilePlayer = (transform.position - player.transform.position).magnitude;
 
-            if (distanceProjectilePlayer > distanceBetweenHitandPlayer )
+            if (distanceProjectilePlayer > distanceBetweenHitandPlayer)
             {
                 Destroy(gameObject);
             }
@@ -84,7 +84,7 @@ public class Projectils : MonoBehaviour
     }
 
 
-    public void AttachEntities( GameObject other)
+    public void AttachEntities(GameObject other)
     {
         player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
         player.GetComponent<EnnemiStock>().onHitEnter = true;

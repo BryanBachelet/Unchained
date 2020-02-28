@@ -20,6 +20,8 @@ public class LineRend : MonoBehaviour
     private float dot;
     private float distance;
     private EnnemiStock ennemiStock;
+
+
     [Header("Feedback")]
     public GameObject particuleContact;
 
@@ -34,10 +36,14 @@ public class LineRend : MonoBehaviour
     [HideInInspector]
     public float strenghOfExpulsion;
 
+    private PlayerMoveAlone moveAlone;
+
     // Start is called before the first frame update
     void Start()
     {
         lineRenderer = transform.parent.GetComponent<LineRenderer>();
+        moveAlone = transform.parent.GetComponent<PlayerMoveAlone>();
+        
         box = GetComponent<BoxCollider>();
         if (transform.parent.GetComponent<EnnemiStock>())
         {
@@ -148,10 +154,11 @@ public class LineRend : MonoBehaviour
         }
         KillCountPlayer.AddList();
         //collision.attachedRigidbody.detectCollisions = false;
-        collision.GetComponent<EnnemiDestroy>().isDestroying = true;
+        EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
+        ennemi.isDestroying = true;
         Vector3 dir = p2 - p1;
-        collision.GetComponent<EnnemiDestroy>().dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
-
+        ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
+        ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
 
     }
 
