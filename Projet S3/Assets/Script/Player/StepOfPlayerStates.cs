@@ -8,9 +8,8 @@ public class StepOfPlayerStates : MonoBehaviour
 {
     [Header("Condition de Défaite")]
     public int[] arrayOfKill = new int[0];
-    [Range(0, 1f)]
-    public float sizeOfCountOfKill = 0.8f;
-
+    public Color[] colorFeedBack = new Color[0];
+ 
     public float timerBeforeLose = 5f;
     [Header("Options")]
     public bool activeLoseCondition = true;
@@ -29,7 +28,7 @@ public class StepOfPlayerStates : MonoBehaviour
     void Start()
     {
         countPlayerKill = GetComponent<KillCountPlayer>();
-        maxLoseValue = 1 - sizeOfCountOfKill;
+      
         if (!activeLoseCondition)
         {
             sliderFill.gameObject.transform.parent.transform.parent.gameObject.SetActive(false);
@@ -42,9 +41,10 @@ public class StepOfPlayerStates : MonoBehaviour
         if (activeLoseCondition)
         {
 
-            float currentStateKill = (sizeOfCountOfKill * (KillCountPlayer.killCount - arrayOfKill[currentStates - 1]) / (arrayOfKill[currentStates] - arrayOfKill[currentStates - 1]));
+            float currentStateKill = KillCountPlayer.killCount / arrayOfKill[currentStates];
             currentStateKill = Mathf.Clamp(currentStateKill, 0f, 1f);
             sliderFill.fillAmount = Mathf.Lerp(sliderFill.fillAmount, currentStateKill, speedOfSlider * Time.deltaTime);
+            sliderFill.color = colorFeedBack[currentStates];
             if (compteurBeforeLose > timerBeforeLose)
             {
                 countPlayerKill.activeDecrease = true;
