@@ -49,7 +49,7 @@ public class Projectils : MonoBehaviour
         Vector3 dirToPlayer = player.transform.position - transform.position;
         Ray rayToPlayer = new Ray(transform.position, dirToPlayer.normalized);
         Debug.DrawRay(transform.position, dirToPlayer.normalized * dirToPlayer.magnitude, Color.blue);
-        if (Physics.Raycast(ray, out hit, dirToPlayer.magnitude) && hit.collider.tag == "Ennemi")
+        if (Physics.Raycast(rayToPlayer, out hit, dirToPlayer.magnitude) && hit.collider.tag == "Ennemi")
         {
             if (hit.collider.tag == "Ennemi")
             {
