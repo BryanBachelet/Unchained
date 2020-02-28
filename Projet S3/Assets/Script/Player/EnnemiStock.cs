@@ -158,6 +158,8 @@ public class EnnemiStock : MonoBehaviour
             {
                 // myRE.Emit();
                 DetachPlayer();
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, transform.position);
             }
             if (input == 0)
             {

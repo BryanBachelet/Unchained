@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -211,6 +211,16 @@ PrefabInstance:
       propertyPath: StatiqueCam
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5182196944315824057, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_RenderingPath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182196944315824057, guid: 63309d3e81ed6a1448edc70662a09f96,
+        type: 3}
+      propertyPath: m_Depth
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63309d3e81ed6a1448edc70662a09f96, type: 3}
 --- !u!1001 &120917293
@@ -343,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 20
-  feedBack: {fileID: 292643745179613973, guid: 6e53cc8662d6c3544a7fc9a09153adf6, type: 3}
+  feedBack: {fileID: 292643745179613973, guid: 66f52acc2d4ba8043bb0727e6a9159a3, type: 3}
 --- !u!114 &136097558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,13 +385,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c60c4ae2af7e04dabd797df05c458d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeOfArray: 2
+  sizeOfArray: 3
   statesOfExpulsionStrengh:
-  - 120
-  - 120
+  - 25
+  - 50
+  - 70
   statesRotation:
   - 120
-  - 120
+  - 130
+  - 140
 --- !u!1 &163338007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2571,11 @@ PrefabInstance:
       propertyPath: angleSpeed
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: predictionMvtRotate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: frameForChangeRotation
@@ -2604,6 +2621,11 @@ PrefabInstance:
       propertyPath: uIGOAim
       value: 
       objectReference: {fileID: 240653499}
+    - target: {fileID: 2599016834285439573, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: expulsionStrengh
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
 --- !u!1 &1576817940
@@ -2696,7 +2718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a0affb224d2cc4a91c5cb258ea1b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrayOfKill: 000000001e0000003c000000
+  arrayOfKill: 000000001e0000003c0000005a000000
   sizeOfCountOfKill: 0.8
   timerBeforeLose: 5
   activeLoseCondition: 1

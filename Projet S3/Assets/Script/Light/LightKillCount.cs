@@ -19,8 +19,8 @@ public class LightKillCount : MonoBehaviour
     void Update()
     {
 
-        nextLightAdvancement = (KillCountPlayer.killCount.Count - lights[i - 1].killCapte) / (lights[i].killCapte - lights[i - 1].killCapte);
-        if (KillCountPlayer.killCount.Count <= lights[i - 1].killCapte)
+        nextLightAdvancement = (KillCountPlayer.killCount - lights[i - 1].killCapte) / (lights[i].killCapte - lights[i - 1].killCapte);
+        if (KillCountPlayer.killCount<= lights[i - 1].killCapte)
         {
             nextLightAdvancement = 0;
         }
@@ -28,7 +28,7 @@ public class LightKillCount : MonoBehaviour
 
         lightAdvancement = Mathf.Lerp(lightAdvancement, nextLightAdvancement, Time.deltaTime);
         lightDir.color = Color.Lerp(lights[i - 1].lightColor, lights[i].lightColor, lightAdvancement);
-        if (KillCountPlayer.killCount.Count >= lights[i].killCapte && i < lights.Length-1)
+        if (KillCountPlayer.killCount >= lights[i].killCapte && i < lights.Length-1)
         {
             i++;
             lightAdvancement = 0;

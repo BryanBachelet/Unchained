@@ -12,7 +12,7 @@ public class MouseScope : MonoBehaviour
     private EnnemiStock ennemiStock;
     [HideInInspector] public Vector3 direction;
     [HideInInspector] public Vector3 directionManette;
-    [HideInInspector] public GameObject instanceBullet;
+    public GameObject instanceBullet;
     private LineRenderer lineRenderer;
     private bool returnLine;
     private bool destructBool;
@@ -111,12 +111,14 @@ public class MouseScope : MonoBehaviour
                 {
                     if (!projectils.returnBall)
                     {
-                        ReturnState();
+                        Destroy(instanceBullet);
+                        lineRenderer.SetPosition(0, transform.position);
+                        //ReturnState();
                     }
-                    else
-                    {
-                        ReturnOrientation();
-                    }
+                    //else
+                    //{
+                    //    ReturnOrientation();
+                    //}
 
 
                 }
@@ -129,15 +131,17 @@ public class MouseScope : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
                 {
-                    ReturnState();
+                    Destroy(instanceBullet);
+                    
+                   // ReturnState();
                 }
                 if (projectils.returnBall)
                 {
-                    ReturnOrientation();
+                    //ReturnOrientation();
                 }
             }
-            returnLine = true;
-            destructBool = false;
+            //returnLine = true;
+            //destructBool = false;
 
             ballPos = instanceBullet.transform.position;
 
@@ -192,8 +196,7 @@ public class MouseScope : MonoBehaviour
     {
         if (Camera.current.name == "Camera")
         {
-            if (ennemiStock.ennemiStock == null && instanceBullet == null)
-            {
+            
                 GL.Begin(GL.LINES);
                 line.SetPass(0);
 
@@ -201,7 +204,7 @@ public class MouseScope : MonoBehaviour
                 GL.Vertex(transform.position);
                 GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
                 GL.End();
-            }
+            
 
         }
 

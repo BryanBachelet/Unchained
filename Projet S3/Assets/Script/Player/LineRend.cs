@@ -20,6 +20,8 @@ public class LineRend : MonoBehaviour
     private float dot;
     private float distance;
     private EnnemiStock ennemiStock;
+
+
     [Header("Feedback")]
     public GameObject particuleContact;
 
@@ -34,10 +36,14 @@ public class LineRend : MonoBehaviour
     [HideInInspector]
     public float strenghOfExpulsion;
 
+    private PlayerMoveAlone moveAlone;
+
     // Start is called before the first frame update
     void Start()
     {
         lineRenderer = transform.parent.GetComponent<LineRenderer>();
+        moveAlone = transform.parent.GetComponent<PlayerMoveAlone>();
+        
         box = GetComponent<BoxCollider>();
         if (transform.parent.GetComponent<EnnemiStock>())
         {
@@ -49,7 +55,7 @@ public class LineRend : MonoBehaviour
 
     }
 
-   
+
 
     void FixedUpdate()
     {
@@ -76,7 +82,7 @@ public class LineRend : MonoBehaviour
 
     }
 
-   
+
     public void ColliderSize()
     {
         distance = Vector3.Distance(p1, p2);
@@ -98,7 +104,7 @@ public class LineRend : MonoBehaviour
             if (collision.transform.tag == "wall")
             {
                 if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
-                { 
+                {
                     ennemiStock.DetachPlayer();
                 }
             }
@@ -125,7 +131,7 @@ public class LineRend : MonoBehaviour
 
     void Collision(Collider collision)
     {
-    
+
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
@@ -136,20 +142,27 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-    
-                collision.GetComponent<Rigidbody>().detectCollisions = false;
+
+               // collision.GetComponent<Rigidbody>().detectCollisions = false;
             }
             if (activeParticle)
             {
                 Transform transfChild = collision.transform.GetChild(0);
                 transfChild.gameObject.SetActive(true);
             }
-    
+
         }
-        KillCountPlayer.AddList();
-        collision.attachedRigidbody.detectCollisions = false;
-        collision.GetComponent<EnnemiDestroy>().isDestroying = true;
-    
+       
+        //collision.attachedRigidbody.detectCollisions = false;
+        EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
+        if (!ennemi.isDestroying)
+        {
+            ennemi.isDestroying = true;
+            KillCountPlayer.AddList();
+            Vector3 dir = p2 - p1;
+            ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
+            ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
+        }
     }
 
     //void Collision(Collider collision)

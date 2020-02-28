@@ -58,27 +58,32 @@ public class PlayerTransformation : MonoBehaviour
         {
             if (pourcentOfState > 0.5f && !activePropulsion)
             {
+                if (playerStates.currentStates < playerStates.arrayOfKill.Length - 1)
+                {
+                    playerStates.currentStates++;
+                    KillCountPlayer.CleanArray();
+                }
+
                 Instantiate(shockWaveTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
                 activePropulsion = true;
-                Debug.Log(0);
+
                 progressionPlayer.ChangeState(true);
                 if (pourcentOfState > 0.6f)
                 {
-                    Debug.Log("EnnemiStock = " + ennemiStock.ennemiStock);
+
                     if (ennemiStock.ennemiStock != null)
                     {
-                        Debug.Log("rotate");
                         ennemiStock.DetachPlayer();
                     }
                     if (ennemiStock.ennemiStock == null)
                     {
                         moveAlone.AddProjection();
                     }
-                    Debug.Log(1);
+
+                    
                 }
                 if (pourcentOfState > 0.85f)
                 {
-                    Debug.Log(2);
                     explosion.ExplosionTransformation();
                 }
                 if (pourcentOfState > 0.95f)
