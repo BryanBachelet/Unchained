@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTransformation : MonoBehaviour
 {
+
+    public GameObject shockWaveTransformation;
     private KillCountPlayer countOfKill;
     private StepOfPlayerStates playerStates;
     private ProgressionOfPlayer progressionPlayer;
@@ -12,6 +15,9 @@ public class PlayerTransformation : MonoBehaviour
     private Explosion explosion;
     public float pourcentOfState;
     public bool activePropulsion;
+
+    public Image imgTransformation;
+    public Image imgPropulsion;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,13 +29,30 @@ public class PlayerTransformation : MonoBehaviour
     {
 
         pourcentOfState = countOfKill.count / playerStates.arrayOfKill[playerStates.currentStates];
-
+        if (pourcentOfState > 0.5f)
+        {
+            imgTransformation.color = Color.white;
+        }
+        else
+        {
+            imgTransformation.color = Color.black;
+        }
+        if (pourcentOfState > 0.6f)
+        {
+            imgPropulsion.color = Color.blue;
+        }
+        else
+        {
+            imgPropulsion.color = Color.black;
+        }
         if (Input.GetKey(KeyCode.Joystick1Button4) && Input.GetKey(KeyCode.Joystick1Button5) && !activePropulsion)
         {
 
             if (pourcentOfState > 0.5f && !activePropulsion)
             {
-                    activePropulsion = true;
+
+                Instantiate(shockWaveTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
+                activePropulsion = true;
               
                 progressionPlayer.ChangeState(true);
                 if (pourcentOfState > 0.6f)
