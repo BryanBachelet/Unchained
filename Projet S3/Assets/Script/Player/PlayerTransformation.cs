@@ -18,6 +18,7 @@ public class PlayerTransformation : MonoBehaviour
 
     public Image imgTransformation;
     public Image imgPropulsion;
+    public Image imgExplosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,9 +46,16 @@ public class PlayerTransformation : MonoBehaviour
         {
             imgPropulsion.color = Color.black;
         }
+        if (pourcentOfState > 0.85f)
+        {
+            imgExplosion.color = Color.red;
+        }
+        else
+        {
+            imgExplosion.color = Color.black;
+        }
         if (Input.GetKey(KeyCode.Joystick1Button4) && Input.GetKey(KeyCode.Joystick1Button5) && !activePropulsion)
         {
-
             if (pourcentOfState > 0.5f && !activePropulsion)
             {
                 if (playerStates.currentStates < playerStates.arrayOfKill.Length - 1)
