@@ -40,7 +40,7 @@ public class PlayerTransformation : MonoBehaviour
         }
         if (pourcentOfState > 0.6f)
         {
-            imgPropulsion.color = Color.blue;
+            imgPropulsion.color = Color.white;
         }
         else
         {
