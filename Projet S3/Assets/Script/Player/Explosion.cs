@@ -6,10 +6,12 @@ public class Explosion : MonoBehaviour
 {
     public int range;
     public GameObject feedBack;
+
+    private PlayerMoveAlone moveAlone;
     // Start is called before the first frame update
     void Start()
     {
-        
+        moveAlone = GetComponent<PlayerMoveAlone>();
     }
 
     // Update is called once per frame
@@ -30,8 +32,11 @@ public class Explosion : MonoBehaviour
         {
             if(entityInRange[i].tag == "Ennemi")
             {
-                entityInRange[i].GetComponent<EnnemiDestroy>().isDestroying = true;
-                entityInRange[i].GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
+                EnnemiDestroy ennemi = entityInRange[i].GetComponent<EnnemiDestroy>();
+                ennemi.isDestroying = true;
+                Vector3 dir = entityInRange[i].transform.position - transform.position;
+                ennemi.dirHorizontalProjection = dir;
+                ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
                 Debug.Log("degage");
             }
 
