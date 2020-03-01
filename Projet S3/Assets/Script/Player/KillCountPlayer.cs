@@ -10,18 +10,22 @@ public class KillCountPlayer : MonoBehaviour
     public float timerOfKillCount = 5;
     public float count;
     public Text killCountUI;
-    public float speedofDecreseas =7;
-    public static float killCount ;
+    public float speedofDecreseas = 7;
+    public static float killCount;
 
     [HideInInspector] public bool activeDecrease;
 
     private static float timerOfKill;
-  private static  StepOfPlayerStates playerStates;
+    private static StepOfPlayerStates playerStates;
 
+    public void Awake()
+    {
+        killCount = 0;
+    }
     public void Start()
     {
         timerOfKill = timerOfKillCount;
-       playerStates = GetComponent<StepOfPlayerStates>();
+        playerStates = GetComponent<StepOfPlayerStates>();
     }
 
     void Update()

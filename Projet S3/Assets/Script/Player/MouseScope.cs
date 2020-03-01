@@ -91,12 +91,12 @@ public class MouseScope : MonoBehaviour
         {
             resetShoot = true;
         }
-        if (Input.GetMouseButtonDown(0)|| input<0)
+        if (Input.GetMouseButtonDown(0) || input < 0)
         {
             lastInput = true;
         }
 
-        if (Input.GetMouseButtonDown(1)||input>0)
+        if (Input.GetMouseButtonDown(1) || input > 0)
         {
             lastInput = false;
         }
@@ -132,8 +132,8 @@ public class MouseScope : MonoBehaviour
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
                 {
                     Destroy(instanceBullet);
-                    
-                   // ReturnState();
+
+                    // ReturnState();
                 }
                 if (projectils.returnBall)
                 {
@@ -180,7 +180,7 @@ public class MouseScope : MonoBehaviour
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
                 {
                     DestroyBullet();
-                    
+
                 }
             }
         }
@@ -196,15 +196,15 @@ public class MouseScope : MonoBehaviour
     {
         if (Camera.current.name == "Camera")
         {
-            
-                GL.Begin(GL.LINES);
-                line.SetPass(0);
 
-                GL.Color(Color.red);
-                GL.Vertex(transform.position);
-                GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
-                GL.End();
-            
+            GL.Begin(GL.LINES);
+            line.SetPass(0);
+
+            GL.Color(Color.red);
+            GL.Vertex(transform.position);
+            GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
+            GL.End();
+
 
         }
 
@@ -281,7 +281,8 @@ public class MouseScope : MonoBehaviour
     {
         Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
         RaycastHit hit;
-        if(Physics.Raycast(camera, out hit, Mathf.Infinity))
+        LayerMask mask = ~(1 << 11);
+        if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
             posConvert = hit.point + Vector3.up;
             Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
@@ -290,7 +291,7 @@ public class MouseScope : MonoBehaviour
         float aimVertical = -Input.GetAxis("AimVertical1");
 
         Vector3 dir = (posConvert - transform.position).normalized;
-        if(dir.magnitude<0.1f)
+        if (dir.magnitude < 0.1f)
         {
             dir = Vector3.zero;
         }
