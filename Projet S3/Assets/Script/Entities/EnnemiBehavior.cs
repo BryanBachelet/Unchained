@@ -12,6 +12,7 @@ public class EnnemiBehavior : MonoBehaviour
     [HideInInspector] public GameObject currentTarget;
     public float speedClassic = 4;
     public float speedLinks = 10;
+    public float poids = 0;
     GameObject player;
     private float t = 0;
     public float speedOfRotation = 1;
@@ -22,6 +23,7 @@ public class EnnemiBehavior : MonoBehaviour
     private EnnemiDestroy destroy;
     private bool isUse;
 
+    public bool beenKicked = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,10 @@ public class EnnemiBehavior : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
        
+        if(beenKicked)
+        {
+            rigidbodyEntities.AddRelativeForce(Vector3.left * 0.05f, ForceMode.Impulse);
+        }
         if (currentTarget == null)
         {
             currentTarget = target;

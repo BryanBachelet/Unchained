@@ -36,7 +36,7 @@ public class Projectils : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, dir.normalized);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, (speed+20)) && hit.collider.tag == "wall")
+        if (Physics.Raycast(ray, out hit, (speed + 20)) && hit.collider.tag == "wall")
         {
             if (hit.collider.tag == "wall")
             {
@@ -45,11 +45,26 @@ public class Projectils : MonoBehaviour
             }
 
         }
+
+        Vector3 dirToPlayer = player.transform.position - transform.position;
+        Ray rayToPlayer = new Ray(transform.position, dirToPlayer.normalized);
+        Debug.DrawRay(transform.position, dirToPlayer.normalized * dirToPlayer.magnitude, Color.blue);
+        if (Physics.Raycast(rayToPlayer, out hit, dirToPlayer.magnitude) && hit.collider.tag == "Ennemi")
+        {
+            if (hit.collider.tag == "Ennemi")
+            {
+                AttachEntities(hit.collider.gameObject);
+            }
+
+        }
+
+
+
         if (hitWall)
         {
             distanceProjectilePlayer = (transform.position - player.transform.position).magnitude;
 
-            if (distanceProjectilePlayer > distanceBetweenHitandPlayer )
+            if (distanceProjectilePlayer > distanceBetweenHitandPlayer)
             {
                 Destroy(gameObject);
             }
@@ -61,17 +76,23 @@ public class Projectils : MonoBehaviour
         mouvement = dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
         transform.position += dir.normalized * (speed + moveAlone.currentPowerOfProjection) * Time.deltaTime;
 
-
-
-
-
     }
     private void LateUpdate()
     {
         lineRenderer.SetPosition(1, player.transform.position);
         lineRenderer.SetPosition(0, transform.position);
+    }
 
 
+    public void AttachEntities(GameObject other)
+    {
+        player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+        player.GetComponent<EnnemiStock>().onHitEnter = true;
+        if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
+
+        other.tag = "Untagged";
+        other.transform.position += dir.normalized * 3;
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,13 +101,7 @@ public class Projectils : MonoBehaviour
         {
             if (other.tag == "Ennemi")
             {
-                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-                player.GetComponent<EnnemiStock>().onHitEnter = true;
-                if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
-
-                other.tag = "Untagged";
-                other.transform.position += dir.normalized * 3;
-                Destroy(gameObject);
+                AttachEntities(other.gameObject);
             }
             else if (other.tag == "wall")
             {

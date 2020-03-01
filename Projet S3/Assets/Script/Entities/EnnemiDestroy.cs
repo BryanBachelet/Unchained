@@ -17,6 +17,16 @@ public class EnnemiDestroy : MonoBehaviour
     bool enter = false;
     [HideInInspector] public GameObject vfxBlueUp;
     private GameObject player;
+    [HideInInspector] public Vector3  dirHorizontalProjection;
+    private Vector3 dirVertical;
+    private Rigidbody ennemiRigidBody;
+
+    public float fallMultiplier = 5f;
+    public float lowMultiplier = 2.5f;
+    public float currentForceOfEjection = 50;
+    public float deccelerationOfForceOfEjection = 5;
+    public float upForce = 25;
+    private float currentForce = 0;
 
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
@@ -36,19 +46,38 @@ public class EnnemiDestroy : MonoBehaviour
     void Start()
     {
         ennemiBehavior = GetComponent<EnnemiBehavior>();
+        ennemiRigidBody = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         if (isDestroying)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            transform.Translate(0, 50 * Time.deltaTime, 0);
 
-            if (!enter)
+
+            Debug.Log( currentForceOfEjection); 
+            ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection ) + (Vector3.up * ennemiRigidBody.velocity.y);
+            if (currentForceOfEjection > 0)
             {
+                currentForceOfEjection -= deccelerationOfForceOfEjection *  Time.deltaTime;
+            }
+            if (ennemiRigidBody.velocity.y < 0)
+            {
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) *Time.deltaTime);
+               
+            }
+            if (ennemiRigidBody.velocity.y > 0)
+            {
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
+            }
+                if (!enter)
+            {
+                ennemiRigidBody.AddForce(Vector3.up * upForce, ForceMode.Impulse);
+            
                 rndX = Random.Range(-1, 1);
                 if (vfxBlueUp != null)
                 {
@@ -62,20 +91,18 @@ public class EnnemiDestroy : MonoBehaviour
 
             }
 
-            destroyDir = new Vector3(rndX, 1, 0);
-            transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
-            transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
+            //destroyDir = new Vector3(rndX, 1, 0);
+            //transform.RotateAround(pivotTransform.position, Vector3.up, 360f * Time.deltaTime);
+            //transform.Translate(destroyDir.normalized * 50 * Time.deltaTime);
 
-            if (compteur > timerBeforeDestroy)
+
+            if (currentForceOfEjection <= 0)
             {
-
-                EndAgent();
-
+                isDestroying = false;
+                enter = false;
             }
-            else
-            {
-                compteur += Time.deltaTime;
-            }
+
+           
         }
         if (!ennemiBehavior.imStock)
         {
@@ -85,6 +112,14 @@ public class EnnemiDestroy : MonoBehaviour
             {
                 EndAgent();
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isDestroying && collision.collider.tag =="wall")
+        {
+            EndAgent();
         }
     }
 

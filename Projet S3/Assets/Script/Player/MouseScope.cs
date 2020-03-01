@@ -12,7 +12,7 @@ public class MouseScope : MonoBehaviour
     private EnnemiStock ennemiStock;
     [HideInInspector] public Vector3 direction;
     [HideInInspector] public Vector3 directionManette;
-    [HideInInspector] public GameObject instanceBullet;
+    public GameObject instanceBullet;
     private LineRenderer lineRenderer;
     private bool returnLine;
     private bool destructBool;
@@ -44,6 +44,10 @@ public class MouseScope : MonoBehaviour
     private FMOD.Studio.EventInstance contactSound;
     public float volume = 10;
     private bool resetShoot;
+
+    public RectTransform directionIMG;
+    public Vector3 posConvert;
+    public GameObject uIGOAim;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +65,7 @@ public class MouseScope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (activePC)
         {
             direction = DirectionSouris();
@@ -106,12 +111,14 @@ public class MouseScope : MonoBehaviour
                 {
                     if (!projectils.returnBall)
                     {
-                        ReturnState();
+                        Destroy(instanceBullet);
+                        lineRenderer.SetPosition(0, transform.position);
+                        //ReturnState();
                     }
-                    else
-                    {
-                        ReturnOrientation();
-                    }
+                    //else
+                    //{
+                    //    ReturnOrientation();
+                    //}
 
 
                 }
@@ -124,15 +131,17 @@ public class MouseScope : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
                 {
-                    ReturnState();
+                    Destroy(instanceBullet);
+                    
+                   // ReturnState();
                 }
                 if (projectils.returnBall)
                 {
-                    ReturnOrientation();
+                    //ReturnOrientation();
                 }
             }
-            returnLine = true;
-            destructBool = false;
+            //returnLine = true;
+            //destructBool = false;
 
             ballPos = instanceBullet.transform.position;
 
@@ -170,20 +179,24 @@ public class MouseScope : MonoBehaviour
                 projectils.dir = -(projectils.transform.position - transform.position);
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
                 {
-
-                    StateAnim.ChangeState(StateAnim.CurrentState.Idle);
-                    Destroy(instanceBullet);
+                    DestroyBullet();
+                    
                 }
             }
         }
+    }
+
+    public void DestroyBullet()
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Idle);
+        Destroy(instanceBullet);
     }
 
     private void OnRenderObject()
     {
         if (Camera.current.name == "Camera")
         {
-            if (ennemiStock.ennemiStock == null && instanceBullet == null)
-            {
+            
                 GL.Begin(GL.LINES);
                 line.SetPass(0);
 
@@ -191,13 +204,17 @@ public class MouseScope : MonoBehaviour
                 GL.Vertex(transform.position);
                 GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
                 GL.End();
-            }
+            
 
         }
 
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(transform.position, (direction + directionManette).normalized * distanceMaxOfShoot);
+    }
     private void ReturnState()
     {
         projectils.returnBall = true;
@@ -230,7 +247,7 @@ public class MouseScope : MonoBehaviour
 
 
             projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = (direction + directionManette).normalized;
+            projectils.dir = directionManette; //(direction + directionManette).normalized;
             projectils.player = gameObject;
             projectils.lineRenderer = lineRenderer;
             projectils.speed = speedOfBullet;
@@ -262,15 +279,22 @@ public class MouseScope : MonoBehaviour
     }
     private Vector3 DirectionManette()
     {
+        Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
+        RaycastHit hit;
+        if(Physics.Raycast(camera, out hit, Mathf.Infinity))
+        {
+            posConvert = hit.point + Vector3.up;
+            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
+        }
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
 
-        Vector3 dir = new Vector3(aimHorizontal, 0, aimVertical);
-
-        if(dir.magnitude<0.8f)
+        Vector3 dir = (posConvert - transform.position).normalized;
+        if(dir.magnitude<0.1f)
         {
             dir = Vector3.zero;
         }
-        return dir.normalized;
+        directionIMG.localPosition = new Vector3(aimHorizontal * 370, aimVertical * 370, 0);
+        return dir;
     }
 }

@@ -27,7 +27,7 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
-    [HideInInspector] [Range(0, 1)] public float predictionMvtRotate = 0.5f;
+  [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
     private GameObject Chara;
@@ -294,21 +294,21 @@ public class RotationPlayer : MonoBehaviour
 
     private void OnRenderObject()
     {
-        if (Camera.current.name == "Camera")
-        {
-            if (stocks.ennemiStock != null)
-            {
-                GL.Begin(GL.LINES);
-                lineMat.SetPass(0);
+        //if (Camera.current.name == "Camera")
+        //{
+        //    if (stocks.ennemiStock != null)
+        //    {
+        //        GL.Begin(GL.LINES);
+        //        lineMat.SetPass(0);
 
-                GL.Color(Color.yellow);
-                GL.Vertex(transform.position);
-                GetNextDirection();
-                GL.Vertex(transform.position + (nextDir).normalized * 100);
-                GL.End();
-            }
+        //        GL.Color(Color.yellow);
+        //        GL.Vertex(transform.position);
+        //        GetNextDirection();
+        //        GL.Vertex(transform.position + (nextDir).normalized * 100);
+        //        GL.End();
+        //    }
 
-        }
+        //}
 
     }
 }

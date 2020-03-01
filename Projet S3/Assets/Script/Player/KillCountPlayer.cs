@@ -2,43 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class KillCountPlayer : MonoBehaviour
 {
     public int[] arrayOfKill = new int[0];
-    public static List <float> killCount = new List<float>();
     public float timerOfKillCount = 5;
-    public int count;
-    private static float timerOfKill;
+    public float count;
     public Text killCountUI;
+    public float speedofDecreseas =7;
+    public static float killCount ;
+
+    [HideInInspector] public bool activeDecrease;
+
+    private static float timerOfKill;
+  private static  StepOfPlayerStates playerStates;
 
     public void Start()
     {
         timerOfKill = timerOfKillCount;
+       playerStates = GetComponent<StepOfPlayerStates>();
     }
 
     void Update()
     {
-        count = killCount.Count;
+        count = killCount;
         killCountUI.text = count.ToString("F0");
-        DecreaseKillCount();
-    }
-
-    public void DecreaseKillCount()
-    {
-        for (int i = 0; i < killCount.Count; i++)
+        if (activeDecrease)
         {
-            killCount[i] -= Time.deltaTime;
-            if (killCount[i] < 0)
+            DecreaseKillCount();
+            if (killCount < 0)
             {
-                killCount.RemoveAt(i);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
 
-    public static void AddList()
+    public void DecreaseKillCount()
     {
-        killCount.Add(timerOfKill);
+        killCount -= speedofDecreseas * Time.deltaTime;
     }
 
+    public static void AddList()
+    {
+        killCount++;
+        playerStates.ResetTiming();
+    }
+
+    public static void CleanArray()
+    {
+        killCount = 0;
+        playerStates.ResetTiming();
+    }
 }
