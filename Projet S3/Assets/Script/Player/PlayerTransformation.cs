@@ -61,36 +61,36 @@ public class PlayerTransformation : MonoBehaviour
                 if (playerStates.currentStates < playerStates.arrayOfKill.Length - 1)
                 {
                     playerStates.currentStates++;
+                }
+
                     KillCountPlayer.CleanArray();
-                }
+                    Instantiate(shockWaveTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
+                    activePropulsion = true;
 
-                Instantiate(shockWaveTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
-                activePropulsion = true;
-
-                progressionPlayer.ChangeState(true);
-                if (pourcentOfState > 0.6f)
-                {
-
-                    if (ennemiStock.ennemiStock != null)
+                    progressionPlayer.ChangeState(true);
+                    if (pourcentOfState > 0.6f)
                     {
-                        ennemiStock.DetachPlayer();
+
+                        if (ennemiStock.ennemiStock != null)
+                        {
+                            ennemiStock.DetachPlayer();
+                        }
+                        if (ennemiStock.ennemiStock == null)
+                        {
+                            moveAlone.AddProjection();
+                        }
+
+
                     }
-                    if (ennemiStock.ennemiStock == null)
+                    if (pourcentOfState > 0.85f)
                     {
-                        moveAlone.AddProjection();
+                        explosion.ExplosionTransformation();
                     }
+                    if (pourcentOfState > 0.95f)
+                    {
 
-                    
+                    }
                 }
-                if (pourcentOfState > 0.85f)
-                {
-                    explosion.ExplosionTransformation();
-                }
-                if (pourcentOfState > 0.95f)
-                {
-
-                }
-            }
         }
 
         if (Input.GetKeyUp(KeyCode.Joystick1Button4) || Input.GetKeyUp(KeyCode.Joystick1Button5))
