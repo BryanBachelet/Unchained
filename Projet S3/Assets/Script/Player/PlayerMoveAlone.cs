@@ -24,6 +24,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private LineRend line;
     private MouseScope mouseScop;
+    public GameObject aura;
     static public Vector3 playerPos;
     static public GameObject Player1;
     private void Awake()
@@ -32,6 +33,7 @@ public class PlayerMoveAlone : MonoBehaviour
     }
     void Start()
     {
+        aura = transform.GetChild(transform.childCount -1).gameObject;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
@@ -57,7 +59,13 @@ public class PlayerMoveAlone : MonoBehaviour
         if (currentPowerOfProjection > 0)
         {
             currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
+            aura.SetActive( true);
         }
+        else
+        {
+            aura.SetActive(false);
+        }
+
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
@@ -144,5 +152,15 @@ public class PlayerMoveAlone : MonoBehaviour
         float vertical = Input.GetAxis("Vertical1");
         Vector3 dir = new Vector3(horizontal, 0, vertical);
         return dir.normalized;
+    }
+
+    public void Repulsion(GameObject ennemiGO ,Transform pos)
+    {
+        EnnemiDestroy ennemi = ennemiGO.GetComponent<EnnemiDestroy>();
+        ennemi.isDestroying = true;
+        Vector3 dir = ennemiGO.transform.position - transform.position;
+        ennemi.dirHorizontalProjection = dir;
+        ennemi.currentForceOfEjection = expulsionStrengh;
+        Debug.Log("degage");
     }
 }

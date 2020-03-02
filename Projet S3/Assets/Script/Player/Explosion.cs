@@ -30,16 +30,11 @@ public class Explosion : MonoBehaviour
         Collider[] entityInRange = Physics.OverlapSphere(transform.position, range);
         for(int i = 0; i < entityInRange.Length; i++)
         {
-            if(entityInRange[i].tag == "Ennemi")
+            if (entityInRange[i].tag == "Ennemi")
             {
-                EnnemiDestroy ennemi = entityInRange[i].GetComponent<EnnemiDestroy>();
-                ennemi.isDestroying = true;
-                Vector3 dir = entityInRange[i].transform.position - transform.position;
-                ennemi.dirHorizontalProjection = dir;
-                ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
-                Debug.Log("degage");
-            }
+                moveAlone.Repulsion(entityInRange[i].gameObject, transform);
 
+            }
         }
     }
 
