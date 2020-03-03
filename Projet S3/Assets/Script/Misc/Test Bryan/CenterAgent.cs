@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CenterAgent : MonoBehaviour
 {
@@ -53,14 +54,26 @@ public class CenterAgent : MonoBehaviour
             }
             else
             {
-                cam.transform.position = pos + (cam.transform.right * (Random.Range(-3f, 3f) *(compteurExplosion/timeExplosion))) + (cam.transform.forward * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion))) + (cam.transform.up * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion)));
-                compteurExplosion += Time.deltaTime;
+               cam.transform.position = pos + (cam.transform.right * (Random.Range(-3f, 3f) *(compteurExplosion/timeExplosion))) + (cam.transform.forward * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion))) + (cam.transform.up * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion)));
+              // cam.transform.Rotate(transform.up, 30 );
                 light.intensity = Mathf.Lerp(0, 5, compteurExplosion / timeExplosion);
                 light.range = Mathf.Lerp(0, 50, compteurExplosion / timeExplosion);
+
             }
             
 
+                compteurExplosion += Time.deltaTime;
         }
+
+        if (active && stop)
+        {
+                compteurExplosion += Time.deltaTime;
+
+        }
+            if (compteurExplosion>timeExplosion + 2.5f)
+            {
+               SceneManager.LoadScene( SceneManager.GetActiveScene().name);
+            }
     }
 
     public void ExploseAgent()
