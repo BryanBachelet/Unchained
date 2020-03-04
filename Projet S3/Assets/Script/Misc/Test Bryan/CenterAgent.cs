@@ -55,7 +55,7 @@ public class CenterAgent : MonoBehaviour
             else
             {
                cam.transform.position = pos + (cam.transform.right * (Random.Range(-3f, 3f) *(compteurExplosion/timeExplosion))) + (cam.transform.forward * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion))) + (cam.transform.up * (Random.Range(-3f, 3f) * (compteurExplosion / timeExplosion)));
-                cam.transform.position = transform.position+ Quaternion.Euler(0, 30, 0) * cam.transform.position;
+               // cam.transform.position = transform.position+ Quaternion.Euler(0, 30, 0) * cam.transform.position;
                 light.intensity = Mathf.Lerp(0, 5, compteurExplosion / timeExplosion);
                 light.range = Mathf.Lerp(0, 50, compteurExplosion / timeExplosion);
 
