@@ -2681,11 +2681,11 @@ MonoBehaviour:
     angleToRotate: 180
   - type: 1
     startPos: {fileID: 1598215979}
-    timeBeforeStart: 1
-    timeOfDeplacement: 3
+    timeBeforeStart: 0.1
+    timeOfDeplacement: 2
     destination: {fileID: 243337778}
     pointOfPivot: {fileID: 1490979554}
-    angleToRotate: 180
+    angleToRotate: 360
   - type: 0
     startPos: {fileID: 1598215979}
     timeBeforeStart: 1
@@ -3532,6 +3532,16 @@ PrefabInstance:
       propertyPath: killCountUI
       value: 
       objectReference: {fileID: 1373872626}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: timeBeforeDeath
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: activeLoseEffect
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: directionIMG
@@ -3594,6 +3604,10 @@ PrefabInstance:
     - target: {fileID: 1606738436, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: activeLoseCondition
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606738436, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}

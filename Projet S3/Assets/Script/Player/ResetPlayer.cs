@@ -9,14 +9,14 @@ public class ResetPlayer : MonoBehaviour
     private EnnemiStock ennemiStock;
     private PlayerMoveAlone playerMove;
     private MouseScope mouseScope;
-    private StepOfPlayerStates step;
+
     // Start is called before the first frame update
     void Start()
     {
         ennemiStock = GetComponent<EnnemiStock>();
         playerMove = GetComponent<PlayerMoveAlone>();
         mouseScope = GetComponent<MouseScope>();
-        step = GetComponentInChildren<StepOfPlayerStates>();
+      
     }
 
     // Update is called once per frame
@@ -35,8 +35,8 @@ public class ResetPlayer : MonoBehaviour
             ennemiStock.ResetPlayer();
         }
         mouseScope.DestroyBullet();
-        step.ResetDefeatCondition();
-        KillCountPlayer.CleanArray();
+
+        KillCountPlayer.ResetTiming();
         playerMove.currentPowerOfProjection = 0;
         transform.position = currentResetPosition.position;
     }

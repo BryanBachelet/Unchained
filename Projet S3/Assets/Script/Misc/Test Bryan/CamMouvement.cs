@@ -103,7 +103,7 @@ public class CamMouvement : MonoBehaviour
 
     public void Translation()
     {
-        Debug.Log(cams[i].startPos.position);
+
 
         if (i > 0 && cams[i - 1].type == CamBehavior.TypeMovement.Rotation)
         {

@@ -159,7 +159,7 @@ public class LineRend : MonoBehaviour
         if (!ennemi.isDestroying)
         {
             ennemi.isDestroying = true;
-            KillCountPlayer.AddList();
+            KillCountPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
             if (mouseScope.lastInput) ennemi.dirHorizontalProjection *= -1;
