@@ -18,9 +18,16 @@ public class KillCountPlayer : MonoBehaviour
     private static float timerOfKill;
     private static StepOfPlayerStates playerStates;
 
+    [FMODUnity.EventRef]
+    public string Lose;
+    private FMOD.Studio.EventInstance loseCondition;
+    public float volume = 20;
+
     public void Awake()
     {
         killCount = 0;
+        loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
+        loseCondition.setVolume(volume);
     }
     public void Start()
     {
@@ -35,6 +42,8 @@ public class KillCountPlayer : MonoBehaviour
         if (activeDecrease)
         {
             DecreaseKillCount();
+            loseCondition.start();
+
             if (killCount < 0)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
