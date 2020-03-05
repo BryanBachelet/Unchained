@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
+using UnityEngine.Rendering.PostProcessing;
 
 public class KillCountPlayer : MonoBehaviour
 {
@@ -13,10 +15,17 @@ public class KillCountPlayer : MonoBehaviour
     public float speedofDecreseas = 7;
     public static float killCount;
 
+    public GameObject postProcesse;
+
     [HideInInspector] public bool activeDecrease;
 
     private static float timerOfKill;
     private static StepOfPlayerStates playerStates;
+
+    private int frameDecreaseCondition;
+
+
+
 
     [FMODUnity.EventRef]
     public string Lose;
@@ -41,13 +50,23 @@ public class KillCountPlayer : MonoBehaviour
         killCountUI.text = count.ToString("F0");
         if (activeDecrease)
         {
-            DecreaseKillCount();
-            loseCondition.start();
+            if (frameDecreaseCondition == 0)
+            {
+                loseCondition.start();
+                frameDecreaseCondition = 1;
+            }
+                postProcesse.GetComponent<PostProcessVolume>().enabled =true;
+                DecreaseKillCount();
 
             if (killCount < 0)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             }
+        }else
+        {
+            frameDecreaseCondition = 0;
+            postProcesse.GetComponent<PostProcessVolume>().enabled = false;
         }
     }
 
