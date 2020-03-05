@@ -8,7 +8,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class KillCountPlayer : MonoBehaviour
 {
-    
+
     public float timeBeforeDeath;
 
     public float activeLoseEffect;
@@ -25,6 +25,8 @@ public class KillCountPlayer : MonoBehaviour
 
     private int frameDecreaseCondition;
     private static float compteurOfDeath;
+
+    private static bool activeReset;
     public float compteur;
 
 
@@ -35,23 +37,25 @@ public class KillCountPlayer : MonoBehaviour
     }
     public void Start()
     {
-        
+
 
     }
 
     void Update()
     {
-        
+
 
         compteur = compteurOfDeath;
-            Debug.Log(StateOfGames.currentState);
+        Debug.Log(StateOfGames.currentState);
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
             if (compteurOfDeath > timeBeforeDeath)
             {
+                ResetTiming();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                postProcesse.GetComponent<PostProcessVolume>().enabled = false;
             }
             else
             {
@@ -69,11 +73,16 @@ public class KillCountPlayer : MonoBehaviour
                 }
             }
         }
-        
+
+        if (activeReset)
+        {
+            frameDecreaseCondition = 0;
+            postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+        }
 
     }
 
- 
+
     public static void HitEnnemi()
     {
         ResetTiming();
@@ -82,5 +91,6 @@ public class KillCountPlayer : MonoBehaviour
     public static void ResetTiming()
     {
         compteurOfDeath = 0;
+        activeReset = true;
     }
 }

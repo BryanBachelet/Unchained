@@ -81,24 +81,32 @@ public class MouseScope : MonoBehaviour
         //}
         float input = Input.GetAxis("Attract1");
 
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            resetShoot = false;
-            InstantiateProjectile();
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
+            {
+              
+                InstantiateProjectile();
+            }
         }
 
         if (input == 0)
         {
-            resetShoot = true;
+            resetShoot = false;
         }
-        if (Input.GetMouseButtonDown(0) || input < 0)
+        if (resetShoot == false)
         {
-            lastInput = true;
-        }
+            if (Input.GetMouseButtonDown(0) || input < 0)
+            {
+                lastInput = true;
+                resetShoot = true;
+            }
 
-        if (Input.GetMouseButtonDown(1) || input > 0)
-        {
-            lastInput = false;
+            if (Input.GetMouseButtonDown(1) || input > 0)
+            {
+                lastInput = false;
+                resetShoot = true;
+            }
         }
 
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
@@ -194,7 +202,7 @@ public class MouseScope : MonoBehaviour
 
     private void OnRenderObject()
     {
-        if (Camera.current.name == "Camera")
+        if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
             GL.Begin(GL.LINES);
@@ -282,12 +290,12 @@ public class MouseScope : MonoBehaviour
         Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
         RaycastHit hit;
         LayerMask mask = ~(1 << 11);
-            Debug.DrawRay(Camera.main.transform.position, camera.direction * 100);
+        Debug.DrawRay(Camera.main.transform.position, camera.direction * 100);
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
             posConvert = hit.point + Vector3.up;
         }
-            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
+        Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
 
