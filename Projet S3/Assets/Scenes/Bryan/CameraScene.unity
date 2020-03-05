@@ -315,7 +315,7 @@ GameObject:
   m_Layer: 0
   m_Name: Pos Start
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -345,10 +345,11 @@ GameObject:
   - component: {fileID: 1684360218}
   - component: {fileID: 1684360217}
   - component: {fileID: 1684360220}
+  - component: {fileID: 1684360221}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -451,6 +452,26 @@ MonoBehaviour:
     pointOfPivot: {fileID: 320066974}
     angleToRotate: 180
   i: 0
+--- !u!114 &1684360221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684360216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aac768c97c2e88439df569ea1a21dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  i: 3
+  activeGameObject:
+  - myTarget: {fileID: 1759742219}
+    numberOfTarget: 1
+  - myTarget: {fileID: 1759742219}
+    numberOfTarget: 1
+  - myTarget: {fileID: 1759742219}
+    numberOfTarget: 1
 --- !u!1 &1759742219
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +484,7 @@ GameObject:
   m_Layer: 0
   m_Name: Pos Start (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
