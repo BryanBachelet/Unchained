@@ -38,7 +38,7 @@ public class StepOfPlayerStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activeLoseCondition)
+        if (activeLoseCondition && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
             float currentStateKill = KillCountPlayer.killCount / arrayOfKill[currentStates];

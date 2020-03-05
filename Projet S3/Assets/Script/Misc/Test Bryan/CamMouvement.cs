@@ -20,7 +20,7 @@ public class CamMouvement : MonoBehaviour
     private Vector3 dir;
     private float angleSpeed;
 
-
+    private CameraAction cameraAc;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,8 @@ public class CamMouvement : MonoBehaviour
         transform.position = cams[i].startPos.position;
         transform.eulerAngles = cams[i].startPos.eulerAngles;
         transform.LookAt(cams[i].pointOfPivot);
+        cameraAc = GetComponent<CameraAction>();
+        StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
     }
 
     // Update is called once per frame
@@ -78,6 +80,12 @@ public class CamMouvement : MonoBehaviour
         }
         if (rotatePast >= cams[i].angleToRotate)
         {
+            if (i >= (cams.Count - 1))
+            {
+                StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                cameraAc.enabled = true;
+                this.enabled = false;
+            }
             if (i < (cams.Count - 1))
             {
                 i++;
@@ -128,9 +136,18 @@ public class CamMouvement : MonoBehaviour
 
     public void NextStep()
     {
-        if (transform.position == cams[i].destination.position && i < (cams.Count - 1))
+        if (transform.position == cams[i].destination.position )
         {
-            i++;
+           if(i>= (cams.Count -1))
+            {
+                cameraAc.enabled = true;
+                this.enabled = false;
+                StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+            }
+            if (i < (cams.Count - 1))
+            {
+                i++;
+            }
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
