@@ -11,42 +11,43 @@ public class CenterTag : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!finVfxSeries)
-        {
-            if (centerTypes == Types.Blue)
-            {
+        Instantiate(centerVFX[3], transform.position, transform.rotation);
+        //if/* (!finVfxSe*/ries)
+        //{
+        //    if (centerTypes == Types.Blue)
+        //    {
 
-                Instantiate(centerVFX[0], transform.position, transform.rotation);
-            }
-            else if (centerTypes == Types.Orange)
-            {
-                Instantiate(centerVFX[1], transform.position, transform.rotation);
-            }
-            else if (centerTypes == Types.Violet)
-            {
-                Instantiate(centerVFX[2], transform.position, transform.rotation);
-            }
-        }
-        else if (finVfxSeries)
-        {
-            if (centerTypes == Types.Blue)
-            {
+        //        Instantiate(centerVFX[0], transform.position, transform.rotation);
+        //    }
+        //    else if (centerTypes == Types.Orange)
+        //    {
+        //        Instantiate(centerVFX[1], transform.position, transform.rotation);
+        //    }
+        //    else if (centerTypes == Types.Violet)
+        //    {
+        //        Instantiate(centerVFX[2], transform.position, transform.rotation);
+        //    }
+        //}
+        //else if (finVfxSeries)
+        //{
+        //    if (centerTypes == Types.Blue)
+        //    {
 
-                Instantiate(centerVFX[3], transform.position, transform.rotation);
-            }
-            else if (centerTypes == Types.Orange)
-            {
-                Instantiate(centerVFX[4], transform.position, transform.rotation);
-            }
-            else if (centerTypes == Types.Violet)
-            {
-                Instantiate(centerVFX[5], transform.position, transform.rotation);
-            }
-        }
-
-
-
+        //        Instantiate(centerVFX[3], transform.position, transform.rotation);
+        //    }
+        //    else if (centerTypes == Types.Orange)
+        //    {
+        //        Instantiate(centerVFX[4], transform.position, transform.rotation);
+        //    }
+        //    else if (centerTypes == Types.Violet)
+        //    {
+        //        Instantiate(centerVFX[5], transform.position, transform.rotation);
+        //    }
     }
+
+
+
+    
 
     // Update is called once per frame
     void Update()

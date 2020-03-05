@@ -282,11 +282,12 @@ public class MouseScope : MonoBehaviour
         Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
         RaycastHit hit;
         LayerMask mask = ~(1 << 11);
+            Debug.DrawRay(Camera.main.transform.position, camera.direction * 100);
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
             posConvert = hit.point + Vector3.up;
-            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
         }
+            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
 

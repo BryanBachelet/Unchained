@@ -67,6 +67,7 @@ public class KillCountPlayer : MonoBehaviour
         {
             frameDecreaseCondition = 0;
             postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+            loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
     }
 
