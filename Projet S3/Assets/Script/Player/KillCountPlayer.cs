@@ -46,7 +46,7 @@ public class KillCountPlayer : MonoBehaviour
 
 
         compteur = compteurOfDeath;
-        Debug.Log(StateOfGames.currentState);
+        
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
@@ -78,6 +78,7 @@ public class KillCountPlayer : MonoBehaviour
         {
             frameDecreaseCondition = 0;
             postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+            activeReset = false;
         }
 
     }
