@@ -48,6 +48,7 @@ public class MouseScope : MonoBehaviour
     public RectTransform directionIMG;
     public Vector3 posConvert;
     public GameObject uIGOAim;
+    private float frame;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,15 +86,20 @@ public class MouseScope : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
             {
-              
+                frame = 0;
                 InstantiateProjectile();
             }
         }
 
         if (input == 0)
         {
-            resetShoot = false;
+            frame++;
+            if (frame > 1)
+            {
+                resetShoot = false;
+            }
         }
+        
         if (resetShoot == false)
         {
             if (Input.GetMouseButtonDown(0) || input < 0)

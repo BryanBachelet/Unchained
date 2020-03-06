@@ -157,10 +157,13 @@ public class PlayerMoveAlone : MonoBehaviour
     public void Repulsion(GameObject ennemiGO ,Transform pos)
     {
         EnnemiDestroy ennemi = ennemiGO.GetComponent<EnnemiDestroy>();
-        ennemi.isDestroying = true;
-        Vector3 dir = ennemiGO.transform.position - transform.position;
-        ennemi.dirHorizontalProjection = dir;
-        ennemi.currentForceOfEjection = expulsionStrengh;
-        Debug.Log("degage");
+        if (ennemi.isDestroying == false)
+        {
+            ennemi.isDestroying = true;
+            Vector3 dir = ennemiGO.transform.position - transform.position;
+            ennemi.dirHorizontalProjection = dir;
+            ennemi.currentForceOfEjection = expulsionStrengh;
+            
+        }
     }
 }

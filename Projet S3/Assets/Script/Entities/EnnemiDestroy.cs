@@ -59,8 +59,7 @@ public class EnnemiDestroy : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
 
-            Debug.Log( currentForceOfEjection); 
-            ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection ) + (Vector3.up * ennemiRigidBody.velocity.y);
+                        ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection ) + (Vector3.up * ennemiRigidBody.velocity.y);
             if (currentForceOfEjection > 0)
             {
                 currentForceOfEjection -= deccelerationOfForceOfEjection *  Time.deltaTime;
