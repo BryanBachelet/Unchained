@@ -14,7 +14,7 @@ public class ResetPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        countPlayer = GetComponent<KillCountPlayer>();
+        countPlayer = GetComponentInChildren<KillCountPlayer>();
         ennemiStock = GetComponent<EnnemiStock>();
         playerMove = GetComponent<PlayerMoveAlone>();
         mouseScope = GetComponent<MouseScope>();
@@ -37,9 +37,9 @@ public class ResetPlayer : MonoBehaviour
             ennemiStock.ResetPlayer();
         }
         mouseScope.DestroyBullet();
-
         countPlayer.ResetTiming();
         playerMove.currentPowerOfProjection = 0;
         transform.position = currentResetPosition.position;
+      
     }
 }

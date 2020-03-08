@@ -6,6 +6,7 @@ public class CamMouvement : MonoBehaviour
 {
 
     public bool smoothTransition = false;
+    public StateOfGames.StateOfGame state = StateOfGames.StateOfGame.DefaultPlayable;
     public List<CamBehavior[]> camTab = new List<CamBehavior[]>(0);
 
     public Dictionary<int, CamBehavior[]> camTan = new Dictionary<int, CamBehavior[]>(3);
@@ -96,7 +97,7 @@ public class CamMouvement : MonoBehaviour
         {
             if (i >= (cams.Count - 1))
             {
-                StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                StateOfGames.currentState = state;
                 //cameraAc.enabled = true;
                 this.enabled = false;
             }
@@ -176,7 +177,7 @@ public class CamMouvement : MonoBehaviour
             {
                 //cameraAc.enabled = true;
                 this.enabled = false;
-                StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                StateOfGames.currentState = state;
             }
             if (i < (cams.Count - 1))
             {

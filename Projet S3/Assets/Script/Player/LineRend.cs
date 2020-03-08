@@ -62,27 +62,29 @@ public class LineRend : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ennemiStock != null)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            if (ennemiStock.ennemiStock != null)
+            if (ennemiStock != null)
             {
-                if (!active)
+                if (ennemiStock.ennemiStock != null)
                 {
-                    box.enabled = true;
-                    active = true;
+                    if (!active)
+                    {
+                        box.enabled = true;
+                        active = true;
+                    }
+                }
+                else
+                {
+                    active = false;
+                    box.enabled = false;
                 }
             }
-            else
+            if (active)
             {
-                active = false;
-                box.enabled = false;
+                ColliderSize();
             }
         }
-        if (active)
-        {
-            ColliderSize();
-        }
-
     }
 
 
@@ -98,17 +100,21 @@ public class LineRend : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.tag == "Ennemi")
+
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            Collision(collision);
-        }
-        if (activeDetach)
-        {
-            if (collision.transform.tag == "wall")
+            if (collision.transform.tag == "Ennemi")
             {
-                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                Collision(collision);
+            }
+            if (activeDetach)
+            {
+                if (collision.transform.tag == "wall")
                 {
-                    ennemiStock.DetachPlayer();
+                    if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                    {
+                        ennemiStock.DetachPlayer();
+                    }
                 }
             }
         }
@@ -116,17 +122,20 @@ public class LineRend : MonoBehaviour
 
     public void OnTriggerStay(Collider collision)
     {
-        if (collision.transform.tag == "Ennemi")
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            Collision(collision);
-        }
-        if (activeDetach)
-        {
-            if (collision.transform.tag == "wall")
+            if (collision.transform.tag == "Ennemi")
             {
-                if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                Collision(collision);
+            }
+            if (activeDetach)
+            {
+                if (collision.transform.tag == "wall")
                 {
-                    ennemiStock.DetachPlayer();
+                    if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                    {
+                        ennemiStock.DetachPlayer();
+                    }
                 }
             }
         }
@@ -145,8 +154,7 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-
-               // collision.GetComponent<Rigidbody>().detectCollisions = false;
+                
             }
             if (activeParticle)
             {

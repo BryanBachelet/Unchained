@@ -27,12 +27,14 @@ public class PlayerMoveAlone : MonoBehaviour
     public GameObject aura;
     static public Vector3 playerPos;
     static public GameObject Player1;
+    private LineRenderer lineRenderer;
     private void Awake()
     {
         Player1 = gameObject;
     }
     void Start()
     {
+        lineRenderer = GetComponent<LineRenderer>();
         aura = transform.GetChild(transform.childCount -1).gameObject;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
@@ -165,5 +167,12 @@ public class PlayerMoveAlone : MonoBehaviour
             ennemi.currentForceOfEjection = expulsionStrengh;
             
         }
+    }
+    public void GoTransformation()
+    {
+        currentPowerOfProjection = 0;
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, transform.position);
+
     }
 }

@@ -359,12 +359,12 @@ PrefabInstance:
     - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 9.313226e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 9.313226e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
@@ -374,7 +374,7 @@ PrefabInstance:
     - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
         type: 3}
@@ -1356,6 +1356,36 @@ Transform:
   m_Father: {fileID: 1055345249}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &697429529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 697429530}
+  m_Layer: 0
+  m_Name: Pos Trans 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &697429530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697429529}
+  m_LocalRotation: {x: -0.00029318104, y: 0.9525433, z: -0.3044017, w: -0.00091136433}
+  m_LocalPosition: {x: 0.25626183, y: 5.436304, z: 11.79158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1490979554}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &718125684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,8 +2289,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151657823}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.00029318104, y: 0.9525433, z: -0.3044017, w: -0.00091136433}
+  m_LocalPosition: {x: 0.25626183, y: 5.436304, z: 11.79158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1490979554}
@@ -2359,6 +2389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTransition: 0
+  state: 0
   cams:
   - type: 0
     startPos: {fileID: 1759742220}
@@ -2382,6 +2413,7 @@ MonoBehaviour:
     pointOfPivot: {fileID: 1490979554}
     angleToRotate: 180
   i: 0
+  posStart: 0
 --- !u!114 &1246053375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
@@ -2406,30 +2438,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e97e6fbfc188f40976d5e68311a86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTransition: 0
+  smoothTransition: 1
+  state: 2
   cams:
   - type: 0
-    startPos: {fileID: 1759742220}
+    startPos: {fileID: 802894034}
     timeBeforeStart: 1
-    timeOfDeplacement: 3
-    destination: {fileID: 1598215979}
+    timeOfDeplacement: 1
+    destination: {fileID: 802894034}
     pointOfPivot: {fileID: 1490979554}
-    angleToRotate: 180
+    angleToRotate: 0
   - type: 1
-    startPos: {fileID: 1598215979}
-    timeBeforeStart: 0.1
-    timeOfDeplacement: 2
-    destination: {fileID: 243337778}
-    pointOfPivot: {fileID: 1490979554}
-    angleToRotate: 360
-  - type: 0
-    startPos: {fileID: 1598215979}
-    timeBeforeStart: 1
+    startPos: {fileID: 802894034}
+    timeBeforeStart: 0
     timeOfDeplacement: 3
-    destination: {fileID: 243337778}
+    destination: {fileID: 1151657824}
     pointOfPivot: {fileID: 1490979554}
     angleToRotate: 180
+  - type: 0
+    startPos: {fileID: 1151657824}
+    timeBeforeStart: 0.2
+    timeOfDeplacement: 1
+    destination: {fileID: 697429530}
+    pointOfPivot: {fileID: 1490979554}
+    angleToRotate: 0
   i: 0
+  posStart: 0
 --- !u!4 &1246053377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
@@ -3104,7 +3138,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -3968,7 +4002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b01d555d6755448addbe9fc42e4168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palierCondition: 0000000064000000c80000002c01000090010000f401000020030000
+  palierCondition: 000000000a000000140000001e00000090010000f401000020030000
 --- !u!114 &2027631133 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 136097557, guid: 6394fff4d6065524694b9d19799eecc4,

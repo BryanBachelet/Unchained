@@ -14,11 +14,13 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private KillCountPlayer countPlayer;
     private int palierStep;
-   
 
+
+    private PlayerMoveAlone playerMove;
     // Start is called before the first frame update
     void Start()
     {
+        playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
     }
 
@@ -52,7 +54,9 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public void GoTranformation()
     {
+        playerMove.GoTransformation();
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
+
     }
 
 }
