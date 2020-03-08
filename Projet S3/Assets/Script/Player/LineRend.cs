@@ -38,10 +38,12 @@ public class LineRend : MonoBehaviour
 
     private MouseScope mouseScope;
     private PlayerMoveAlone moveAlone;
+    private KillCountPlayer countPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
+        countPlayer = GetComponent<KillCountPlayer>();
         lineRenderer = transform.parent.GetComponent<LineRenderer>();
         moveAlone = transform.parent.GetComponent<PlayerMoveAlone>();
         mouseScope = transform.parent.GetComponent<MouseScope>();
@@ -159,7 +161,7 @@ public class LineRend : MonoBehaviour
         if (!ennemi.isDestroying)
         {
             ennemi.isDestroying = true;
-            KillCountPlayer.HitEnnemi();
+            countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
             if (mouseScope.lastInput) ennemi.dirHorizontalProjection *= -1;

@@ -24,11 +24,13 @@ public class KillCountPlayer : MonoBehaviour
     private static float timerOfKill;
 
     private int frameDecreaseCondition;
-    private static float compteurOfDeath;
+    private  float compteurOfDeath;
 
-    private static bool activeReset;
+    private  bool activeReset;
     public float compteur;
+    public  int countKillEnnemi;
 
+   
 
     public void Awake()
     {
@@ -84,12 +86,13 @@ public class KillCountPlayer : MonoBehaviour
     }
 
 
-    public static void HitEnnemi()
+    public void HitEnnemi()
     {
         ResetTiming();
+        countKillEnnemi++;
     }
 
-    public static void ResetTiming()
+    public  void ResetTiming()
     {
         compteurOfDeath = 0;
         activeReset = true;
