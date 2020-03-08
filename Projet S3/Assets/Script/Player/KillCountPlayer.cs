@@ -3,55 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
+using UnityEngine.Rendering.PostProcessing;
 
 public class KillCountPlayer : MonoBehaviour
 {
-    public int[] arrayOfKill = new int[0];
-    public float timerOfKillCount = 5;
-    public float count;
-    public Text killCountUI;
-    public float speedofDecreseas =7;
-    public static float killCount ;
+
+    public float timeBeforeDeath;
+
+    public float activeLoseEffect;
+    public GameObject postProcesse;
 
     [HideInInspector] public bool activeDecrease;
 
-    private static float timerOfKill;
-  private static  StepOfPlayerStates playerStates;
+    [FMODUnity.EventRef]
+    public string Lose;
+    private FMOD.Studio.EventInstance loseCondition;
+    public float volume = 20;
 
+    private static float timerOfKill;
+
+    private int frameDecreaseCondition;
+    private static float compteurOfDeath;
+
+    private static bool activeReset;
+    public float compteur;
+
+
+    public void Awake()
+    {
+        loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
+        loseCondition.setVolume(volume);
+    }
     public void Start()
     {
-        timerOfKill = timerOfKillCount;
-       playerStates = GetComponent<StepOfPlayerStates>();
+
+
     }
 
     void Update()
     {
-        count = killCount;
-        killCountUI.text = count.ToString("F0");
-        if (activeDecrease)
+
+
+        compteur = compteurOfDeath;
+        
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            DecreaseKillCount();
-            if (killCount < 0)
+
+            if (compteurOfDeath > timeBeforeDeath)
             {
+                ResetTiming();
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+            }
+            else
+            {
+
+                compteurOfDeath += Time.deltaTime;
+            }
+
+            if (compteurOfDeath > activeLoseEffect)
+            {
+                if (frameDecreaseCondition == 0)
+                {
+                    loseCondition.start();
+                    frameDecreaseCondition = 1;
+                    postProcesse.GetComponent<PostProcessVolume>().enabled = true;
+                }
             }
         }
+
+        if (activeReset)
+        {
+            frameDecreaseCondition = 0;
+            postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+            activeReset = false;
+        }
+
     }
 
-    public void DecreaseKillCount()
+
+    public static void HitEnnemi()
     {
-        killCount -= speedofDecreseas * Time.deltaTime;
+        ResetTiming();
     }
 
-    public static void AddList()
+    public static void ResetTiming()
     {
-        killCount++;
-        playerStates.ResetTiming();
-    }
-
-    public static void CleanArray()
-    {
-        killCount = 0;
-        playerStates.ResetTiming();
+        compteurOfDeath = 0;
+        activeReset = true;
     }
 }

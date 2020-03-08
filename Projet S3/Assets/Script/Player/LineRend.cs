@@ -36,6 +36,7 @@ public class LineRend : MonoBehaviour
     [HideInInspector]
     public float strenghOfExpulsion;
 
+    private MouseScope mouseScope;
     private PlayerMoveAlone moveAlone;
 
     // Start is called before the first frame update
@@ -43,7 +44,7 @@ public class LineRend : MonoBehaviour
     {
         lineRenderer = transform.parent.GetComponent<LineRenderer>();
         moveAlone = transform.parent.GetComponent<PlayerMoveAlone>();
-        
+        mouseScope = transform.parent.GetComponent<MouseScope>();
         box = GetComponent<BoxCollider>();
         if (transform.parent.GetComponent<EnnemiStock>())
         {
@@ -158,9 +159,10 @@ public class LineRend : MonoBehaviour
         if (!ennemi.isDestroying)
         {
             ennemi.isDestroying = true;
-            KillCountPlayer.AddList();
+            KillCountPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
+            if (mouseScope.lastInput) ennemi.dirHorizontalProjection *= -1;
             ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
         }
     }

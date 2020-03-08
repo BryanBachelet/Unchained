@@ -48,6 +48,7 @@ public class MouseScope : MonoBehaviour
     public RectTransform directionIMG;
     public Vector3 posConvert;
     public GameObject uIGOAim;
+    private float frame;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,24 +82,37 @@ public class MouseScope : MonoBehaviour
         //}
         float input = Input.GetAxis("Attract1");
 
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            resetShoot = false;
-            InstantiateProjectile();
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
+            {
+                frame = 0;
+                InstantiateProjectile();
+            }
         }
 
         if (input == 0)
         {
-            resetShoot = true;
+            frame++;
+            if (frame > 1)
+            {
+                resetShoot = false;
+            }
         }
-        if (Input.GetMouseButtonDown(0)|| input<0)
+        
+        if (resetShoot == false)
         {
-            lastInput = true;
-        }
+            if (Input.GetMouseButtonDown(0) || input < 0)
+            {
+                lastInput = true;
+                resetShoot = true;
+            }
 
-        if (Input.GetMouseButtonDown(1)||input>0)
-        {
-            lastInput = false;
+            if (Input.GetMouseButtonDown(1) || input > 0)
+            {
+                lastInput = false;
+                resetShoot = true;
+            }
         }
 
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
@@ -132,8 +146,8 @@ public class MouseScope : MonoBehaviour
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
                 {
                     Destroy(instanceBullet);
-                    
-                   // ReturnState();
+
+                    // ReturnState();
                 }
                 if (projectils.returnBall)
                 {
@@ -180,7 +194,7 @@ public class MouseScope : MonoBehaviour
                 if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
                 {
                     DestroyBullet();
-                    
+
                 }
             }
         }
@@ -194,17 +208,17 @@ public class MouseScope : MonoBehaviour
 
     private void OnRenderObject()
     {
-        if (Camera.current.name == "Camera")
+        if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            
-                GL.Begin(GL.LINES);
-                line.SetPass(0);
 
-                GL.Color(Color.red);
-                GL.Vertex(transform.position);
-                GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
-                GL.End();
-            
+            GL.Begin(GL.LINES);
+            line.SetPass(0);
+
+            GL.Color(Color.red);
+            GL.Vertex(transform.position);
+            GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
+            GL.End();
+
 
         }
 
@@ -281,16 +295,18 @@ public class MouseScope : MonoBehaviour
     {
         Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
         RaycastHit hit;
-        if(Physics.Raycast(camera, out hit, Mathf.Infinity))
+        LayerMask mask = ~(1 << 11);
+        Debug.DrawRay(Camera.main.transform.position, camera.direction * 100);
+        if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
             posConvert = hit.point + Vector3.up;
-            Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
         }
+        Debug.DrawRay(Camera.main.transform.position, camera.direction * hit.distance);
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
 
         Vector3 dir = (posConvert - transform.position).normalized;
-        if(dir.magnitude<0.1f)
+        if (dir.magnitude < 0.1f)
         {
             dir = Vector3.zero;
         }

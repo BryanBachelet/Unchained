@@ -43,7 +43,8 @@ public class EnnemiStock : MonoBehaviour
     private Rigidbody playerRigid;
     public AnimationCurve curveVolumeOrbitation;
     float tempsEcoule;
-
+    private bool right;
+    private bool currentRight;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +99,14 @@ public class EnnemiStock : MonoBehaviour
                 onHitEnter = false;
                 frameNoInput = 0;
                 lastInputRotation = mouse.lastInput;
+                if (input < 0)
+                {
+                    right = true;
+                }
+                else
+                {
+                    right = false;
+                }
                 if (mouse.lastInput)
                 {
                     if (ennemiStock.tag == "wall")
@@ -152,14 +161,24 @@ public class EnnemiStock : MonoBehaviour
             }
             mySmoothFollow.target = ennemiStock.gameObject.transform;
 
-
-
-            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0) && frameNoInput > frameForChangeRotation)
+            if (input < 0)
             {
-                // myRE.Emit();
-                DetachPlayer();
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, transform.position);
+                currentRight = true;
+            }
+            else
+            {
+                currentRight = false;
+            }
+
+            if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
+            {
+                if (right != currentRight || input == 0)
+                {
+                    // myRE.Emit();
+                    DetachPlayer();
+                    lineRenderer.SetPosition(0, transform.position);
+                    lineRenderer.SetPosition(1, transform.position);
+                }
             }
             if (input == 0)
             {

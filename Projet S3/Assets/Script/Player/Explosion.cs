@@ -6,10 +6,12 @@ public class Explosion : MonoBehaviour
 {
     public int range;
     public GameObject feedBack;
+
+    private PlayerMoveAlone moveAlone;
     // Start is called before the first frame update
     void Start()
     {
-        
+        moveAlone = GetComponent<PlayerMoveAlone>();
     }
 
     // Update is called once per frame
@@ -28,13 +30,11 @@ public class Explosion : MonoBehaviour
         Collider[] entityInRange = Physics.OverlapSphere(transform.position, range);
         for(int i = 0; i < entityInRange.Length; i++)
         {
-            if(entityInRange[i].tag == "Ennemi")
+            if (entityInRange[i].tag == "Ennemi")
             {
-                entityInRange[i].GetComponent<EnnemiDestroy>().isDestroying = true;
-                entityInRange[i].GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
-                Debug.Log("degage");
-            }
+                moveAlone.Repulsion(entityInRange[i].gameObject, transform);
 
+            }
         }
     }
 
