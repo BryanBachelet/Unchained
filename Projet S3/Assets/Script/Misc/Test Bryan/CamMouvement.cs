@@ -21,7 +21,8 @@ public class CamMouvement : MonoBehaviour
     private float angleSpeed;
 
     private CameraAction cameraAc;
-
+    public MusicPlayer myMP;
+    int nbT = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,7 @@ public class CamMouvement : MonoBehaviour
         if (cams[i].type == CamBehavior.TypeMovement.Translation)
         {
             Translation();
-
+            Debug.Log("JE BOUGE");
         }
         if (cams[i].type == CamBehavior.TypeMovement.Rotation)
         {
@@ -151,6 +152,11 @@ public class CamMouvement : MonoBehaviour
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
+            if(nbT == 1 && myMP != null)
+            {
+                myMP.track1.start();
+            }
+            nbT++;
         }
 
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -522,6 +522,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d09027ea5cba044a9a6882c12b910f1, type: 3}
+--- !u!1 &186359810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186359812}
+  - component: {fileID: 186359811}
+  m_Layer: 0
+  m_Name: '------MUSICMANAGER--------------'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &186359811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186359810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44883d8adeb4b9a4ca1cd0c0d9f5a0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackTest1: event:/Music/v2Test1/RefraQ_RUK_Decoupe
+--- !u!4 &186359812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186359810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 55.765274, y: -7.7877655, z: 23.320892}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &210633042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2321,6 +2365,7 @@ MonoBehaviour:
     pointOfPivot: {fileID: 1490979554}
     angleToRotate: 180
   i: 0
+  myMP: {fileID: 186359811}
 --- !u!4 &1246053377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2923953865884390350, guid: 63309d3e81ed6a1448edc70662a09f96,
@@ -3029,6 +3074,10 @@ PrefabInstance:
       propertyPath: currentResetPosition
       value: 
       objectReference: {fileID: 604972373}
+    - target: {fileID: 136097542, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: myMP
+      value: 
+      objectReference: {fileID: 186359811}
     - target: {fileID: 136097556, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: colorRotate.r
       value: 0.62352943
@@ -3084,6 +3133,16 @@ PrefabInstance:
         type: 3}
       propertyPath: activeLoseEffect
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: myMP
+      value: 
+      objectReference: {fileID: 186359811}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: Lose
+      value: event:/Player/LoseCondition 2
       objectReference: {fileID: 0}
     - target: {fileID: 1606738436, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: sliderFill
