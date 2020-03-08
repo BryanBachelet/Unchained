@@ -7,6 +7,8 @@ public class CameraAction : MonoBehaviour
 
     [HideInInspector] public GameObject player;
 
+    public GameObject posCamera;
+
     [Header("Options")] public bool StatiqueCam;
 
     [Header("Bullet")]
@@ -47,6 +49,7 @@ public class CameraAction : MonoBehaviour
 
 
     private Vector3 currentDir = Vector3.zero;
+    private Vector3 rotate;
     public bool newBehavior = true;
     // Start is called before the first frame update
     void Start()
@@ -55,6 +58,7 @@ public class CameraAction : MonoBehaviour
         moveAlone = player.GetComponent<PlayerMoveAlone>();
 
         ecartJoueur = transform.position - player.transform.position;
+        rotate = transform.eulerAngles;
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
         previousMousePos = transform.position;
@@ -67,6 +71,7 @@ public class CameraAction : MonoBehaviour
 
         basePosition = player.transform.position + ecartJoueur;
         transform.position = basePosition;
+        transform.eulerAngles = rotate;
 
         if (!StatiqueCam)
         {

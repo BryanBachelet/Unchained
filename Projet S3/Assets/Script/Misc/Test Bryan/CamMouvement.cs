@@ -176,8 +176,9 @@ public class CamMouvement : MonoBehaviour
             if (i >= (cams.Count - 1))
             {
                 //cameraAc.enabled = true;
-                this.enabled = false;
+                i++;
                 StateOfGames.currentState = state;
+                this.enabled = false;
             }
             if (i < (cams.Count - 1))
             {
