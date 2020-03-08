@@ -25,7 +25,11 @@ public class TransformationPlayerStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckState();
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        {
+
+            CheckState();
+        }
     }
 
    public void CheckState()

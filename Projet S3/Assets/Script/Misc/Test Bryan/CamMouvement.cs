@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CamMouvement : MonoBehaviour
 {
-    public List<CamBehavior[]> camTab = new List<CamBehavior []>(0);
+
+    public bool smoothTransition = false;
+    public List<CamBehavior[]> camTab = new List<CamBehavior[]>(0);
 
     public Dictionary<int, CamBehavior[]> camTan = new Dictionary<int, CamBehavior[]>(3);
-         
+
     public List<CamBehavior> cams = new List<CamBehavior>(0);
     [Space]
     public int i;
@@ -21,15 +23,27 @@ public class CamMouvement : MonoBehaviour
     private float angleSpeed;
 
     private CameraAction cameraAc;
-
+    public bool posStart;
+    private Vector3 startPosCam;
+    private Vector3 startEulerCam;
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = cams[i].startPos.position;
-        transform.eulerAngles = cams[i].startPos.eulerAngles;
-        transform.LookAt(cams[i].pointOfPivot);
-        cameraAc = GetComponent<CameraAction>();
-        StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
+        if (!smoothTransition)
+        {
+            transform.position = cams[i].startPos.position;
+            transform.eulerAngles = cams[i].startPos.eulerAngles;
+            transform.LookAt(cams[i].pointOfPivot);
+        }
+        else
+        {
+          
+            startPosCam = transform.position;
+            startEulerCam = transform.eulerAngles;
+        }
+           // cameraAc = GetComponent<CameraAction>();
+          
+           
     }
 
     // Update is called once per frame
@@ -83,7 +97,7 @@ public class CamMouvement : MonoBehaviour
             if (i >= (cams.Count - 1))
             {
                 StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                cameraAc.enabled = true;
+                //cameraAc.enabled = true;
                 this.enabled = false;
             }
             if (i < (cams.Count - 1))
@@ -103,44 +117,64 @@ public class CamMouvement : MonoBehaviour
 
     public void Translation()
     {
-
-
-        if (i > 0 && cams[i - 1].type == CamBehavior.TypeMovement.Rotation)
+        if (smoothTransition == true && posStart == false)
         {
-            if (!startMouvement)
-            {
-                cams[i].startPos.position = transform.position;
-                cams[i].startPos.eulerAngles = transform.eulerAngles;
-            }
-        }
 
-        if (compteurStart > cams[i].timeBeforeStart) startMouvement = true;
-
-        else
-        {
-            compteurStart += Time.deltaTime;
-            cams[i].destination.LookAt(cams[i].pointOfPivot);
-        }
-        if (startMouvement)
-        {
             float compt = compteurDep / cams[i].timeOfDeplacement;
-            transform.position = Vector3.Lerp(cams[i].startPos.position, cams[i].destination.position, compt);
-            transform.eulerAngles = Vector3.Lerp(cams[i].startPos.eulerAngles, cams[i].destination.eulerAngles, compt);
+            transform.position = Vector3.Lerp(startPosCam,cams[i].startPos.position, compt);
+            transform.eulerAngles = Vector3.Lerp(startEulerCam,cams[i].startPos.eulerAngles, compt);
             transform.LookAt(cams[i].pointOfPivot);
             compteurDep += Time.deltaTime;
+            if (transform.position == cams[i].startPos.position)
+            {
+                
+                posStart = true;
+                compteurDep = 0;
+                return;
+            }
 
         }
-        NextStep();
+        if (posStart == true || smoothTransition == false)
+        {
+            if (i > 0 && cams[i - 1].type == CamBehavior.TypeMovement.Rotation)
+            {
+                if (!startMouvement)
+                {
+                   
+                    cams[i].startPos.position = transform.position;
+                    cams[i].startPos.eulerAngles = transform.eulerAngles;
+                }
+            }
+
+            if (compteurStart > cams[i].timeBeforeStart) startMouvement = true;
+
+            else
+            {
+                compteurStart += Time.deltaTime;
+                cams[i].destination.LookAt(cams[i].pointOfPivot);
+            }
+            if (startMouvement)
+            {
+                float compt = compteurDep / cams[i].timeOfDeplacement;
+                transform.position = Vector3.Lerp(cams[i].startPos.position, cams[i].destination.position, compt);
+                transform.eulerAngles = Vector3.Lerp(cams[i].startPos.eulerAngles, cams[i].destination.eulerAngles, compt);
+                transform.LookAt(cams[i].pointOfPivot);
+                compteurDep += Time.deltaTime;
+
+            }
+            NextStep();
+        }
+
 
     }
 
     public void NextStep()
     {
-        if (transform.position == cams[i].destination.position )
+        if (transform.position == cams[i].destination.position)
         {
-           if(i>= (cams.Count -1))
+            if (i >= (cams.Count - 1))
             {
-                cameraAc.enabled = true;
+                //cameraAc.enabled = true;
                 this.enabled = false;
                 StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
             }

@@ -158,7 +158,7 @@ public class LineRend : MonoBehaviour
        
         //collision.attachedRigidbody.detectCollisions = false;
         EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
-        if (!ennemi.isDestroying)
+        if (!ennemi.isDestroying && collision.gameObject != ennemiStock.ennemiStock)
         {
             ennemi.isDestroying = true;
             countPlayer.HitEnnemi();
