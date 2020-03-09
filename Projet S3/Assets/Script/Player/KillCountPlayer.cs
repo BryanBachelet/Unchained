@@ -55,9 +55,12 @@ public class KillCountPlayer : MonoBehaviour
             if (compteurOfDeath > timeBeforeDeath)
             {
                 ResetTiming();
+               
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                        
                 loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+                StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
             }
             else
             {

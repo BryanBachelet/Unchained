@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AuraRepulsion : MonoBehaviour
 {
-    PlayerMoveAlone moveAlone;
+   public PlayerMoveAlone moveAlone;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class AuraRepulsion : MonoBehaviour
     {
         if(other.tag == "Ennemi" && other != null)
         {
-            Debug.Log(other.gameObject);
+            Debug.Log(moveAlone);
             moveAlone.Repulsion(other.gameObject, transform);
         }
     }

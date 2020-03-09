@@ -50,15 +50,22 @@ public class CamMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cams[i].type == CamBehavior.TypeMovement.Translation)
+        if (i < cams.Count)
         {
-            Translation();
+              
+            if (cams[i].type == CamBehavior.TypeMovement.Translation)
+            {
+                Translation();
 
+            }
         }
-        if (cams[i].type == CamBehavior.TypeMovement.Rotation)
+        if (i < cams.Count)
         {
-            Rotation();
+            if (cams[i].type == CamBehavior.TypeMovement.Rotation)
+            {
+                Rotation();
 
+            }
         }
     }
 
@@ -98,7 +105,7 @@ public class CamMouvement : MonoBehaviour
             if (i >= (cams.Count - 1))
             {
                 StateOfGames.currentState = state;
-                //cameraAc.enabled = true;
+                
                 this.enabled = false;
             }
             if (i < (cams.Count - 1))

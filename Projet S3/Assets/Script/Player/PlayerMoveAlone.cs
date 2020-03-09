@@ -28,6 +28,7 @@ public class PlayerMoveAlone : MonoBehaviour
     static public Vector3 playerPos;
     static public GameObject Player1;
     private LineRenderer lineRenderer;
+    private EnnemiStock stock;
     private void Awake()
     {
         Player1 = gameObject;
@@ -35,6 +36,7 @@ public class PlayerMoveAlone : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        stock = GetComponent<EnnemiStock>();
    //     aura = transform.GetChild(transform.childCount -1).gameObject;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
@@ -158,7 +160,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Repulsion(GameObject ennemiGO ,Transform pos)
     {
-        
+        Debug.Log(ennemiGO.gameObject);
         EnnemiDestroy ennemi = ennemiGO.GetComponent<EnnemiDestroy>();
         if (ennemi.isDestroying == false)
         {
@@ -171,6 +173,7 @@ public class PlayerMoveAlone : MonoBehaviour
     }
     public void GoTransformation()
     {
+        stock.DetachPlayer();
         currentPowerOfProjection = 0;
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);

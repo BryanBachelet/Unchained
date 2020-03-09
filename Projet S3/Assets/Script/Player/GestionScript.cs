@@ -29,16 +29,16 @@ public class GestionScript : MonoBehaviour
         if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic)
         {
 
-            ActiveCinematique(true);
             ActivePlaytime(false);
             ActiveTransformation(false);
+            ActiveCinematique(true);
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
             ActiveCinematique(false);
-            ActivePlaytime(true);
             ActiveTransformation(false);
+            ActivePlaytime(true);
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
         {

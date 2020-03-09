@@ -20,9 +20,9 @@ public class MashingTrans : MonoBehaviour
 
     void Update()
     {
-        if (camMouvement.i >= camMouvement.cams.Count - 1)
+        if (camMouvement.i >= camMouvement.cams.Count)
         {
-            text.enabled = true;
+            text.gameObject.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
@@ -33,13 +33,15 @@ public class MashingTrans : MonoBehaviour
                 if (i > numberToAim)
                 {
                     Debug.Log("Win");
-                    text.enabled = false;
+                    
+                    text.gameObject.SetActive( false);
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
 
 
                 }
                 else
                 {
+                    text.gameObject.SetActive(false);
                     Debug.Log("Lose");
                 }
             }
