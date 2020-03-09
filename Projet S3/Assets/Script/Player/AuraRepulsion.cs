@@ -14,7 +14,7 @@ public class AuraRepulsion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Ennemi" && other != null)
+        if(other.tag == "Ennemi" && other != null && moveAlone != null)
         {
             Debug.Log(moveAlone);
             moveAlone.Repulsion(other.gameObject, transform);

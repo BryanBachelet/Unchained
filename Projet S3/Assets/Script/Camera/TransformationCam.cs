@@ -35,7 +35,8 @@ public class TransformationCam : MonoBehaviour
             Vector3 nextPos = player.transform.position + Quaternion.Euler(0, angleCompteur, 0) * (dir * dist);
             transform.position = Vector3.Lerp(transform.position, nextPos, 1);
             transform.LookAt(player.transform.position);
-            angleCompteur += speedOfRotation * Time.deltaTime; 
+            angleCompteur += speedOfRotation * Time.deltaTime;
+            angleCompteur = Mathf.Clamp(angleCompteur, 0, 10);
         }
         
     }
