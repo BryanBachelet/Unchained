@@ -63,7 +63,7 @@ public class KillCountPlayer : MonoBehaviour
                
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                         
-                loseCondition.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 postProcesse.GetComponent<PostProcessVolume>().enabled = false;
                 StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
             }
@@ -102,6 +102,7 @@ public class KillCountPlayer : MonoBehaviour
 
     public  void ResetTiming()
     {
+        loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         compteurOfDeath = 0;
         activeReset = true;
     }
