@@ -32,6 +32,7 @@ public class ResetPlayer : MonoBehaviour
 
     public void ResetFonction()
     {
+
         if (ennemiStock.ennemiStock != null)
         {
             ennemiStock.ResetPlayer();

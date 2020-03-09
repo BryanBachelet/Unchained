@@ -27,6 +27,9 @@ public class CamMouvement : MonoBehaviour
     public bool posStart;
     private Vector3 startPosCam;
     private Vector3 startEulerCam;
+     public MusicPlayer myMP;
+    int nbT = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -194,6 +197,11 @@ public class CamMouvement : MonoBehaviour
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
+            if(nbT == 1 && myMP != null)
+            {
+                myMP.track1.start();
+            }
+            nbT++;
         }
 
     }

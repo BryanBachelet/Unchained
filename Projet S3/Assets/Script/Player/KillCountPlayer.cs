@@ -30,7 +30,8 @@ public class KillCountPlayer : MonoBehaviour
     public float compteur;
     public  int countKillEnnemi;
 
-   
+
+    public MusicPlayer myMP;
 
     public void Awake()
     {
@@ -54,6 +55,10 @@ public class KillCountPlayer : MonoBehaviour
 
             if (compteurOfDeath > timeBeforeDeath)
             {
+                if (myMP != null)
+                {
+                    myMP.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                }
                 ResetTiming();
                
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
