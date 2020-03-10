@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000000676674D8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000005F62B3E8 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,43 +15,46 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SoundI::release                          :  (000000005EF4E358)
+[LOG] SoundI::release                          :     Retour_lien (00000000572E3088)
+[LOG] SoundI::release                          :  (000000005EF4E7A8)
+[LOG] SoundI::release                          :     Skipping Rope, Swing, Swoosh, Single Swing 1 SND4460 1 (00000000572E3708)
+[LOG] SoundI::release                          :  (000000005EF4E1E8)
+[LOG] SoundI::release                          :     ShotBL-FREE26 Guns Designed Beretta M9 (00000000572E3228)
+[LOG] SoundI::release                          :  (000000005EF4D948)
+[LOG] SoundI::release                          :     Sound_Design_Rotate_1 (00000000572E3D88)
+[LOG] SoundI::release                          :  (000000005EF4F1B8)
+[LOG] SoundI::release                          :     heartbeat_loop (00000000572E3568)
+[LOG] SoundI::release                          :  (000000005EF4E4C8)
+[LOG] SoundI::release                          :     HeartMonitorHighFreq (00000000572E38A8)
+[LOG] SoundI::release                          :  (000000005EF4F608)
+[LOG] SoundI::release                          :     HeartMonitorHighFreq2 (00000000572E33C8)
+[LOG] SoundI::release                          :  (00000000177EAEB8)
+[LOG] SoundI::release                          :     01_bowmaster_basic_OC_1-1_2 (000000005730D3C8)
+[LOG] SoundI::release                          :  (00000000177E9D78)
+[LOG] SoundI::release                          :     01_bowmaster_basic_OC_1-1_3 (000000005730D568)
+[LOG] SoundI::release                          :  (000000005EF4EED8)
+[LOG] SoundI::release                          :     01_bowmaster_basic_OC_1-1_4 (000000005730D8A8)
+[LOG] SoundI::release                          :  (00000000177EA618)
+[LOG] SoundI::release                          :     01_bowmaster_basic_OC_1-1_5 (000000005730DD88)
+[LOG] SoundI::release                          :  (000000005EF4E918)
+[LOG] SoundI::release                          :     01_bowmaster_basic_OC_1-1 (00000000572E3A48)
+[LOG] SoundI::release                          :  (000000005EF4E638)
+[LOG] SoundI::release                          :     Shot_Entity_1 (00000000572E3BE8)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] SystemI::createSound                     : filename = Assets/Sons/ProjetFmod3gd/Build/Desktop/Music.bank : mode 02010082
-[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
-[LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 114688, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] SystemI::createSound                     : setdata soundi = 0000000060ECB998 : node = 00000000670D4A90
-[LOG] SystemI::createSound                     : add node to async list : head = 0000000045D6B678.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000060ECB998
-[LOG] SystemI::createSoundInternal             :     Create name='Assets/Sons/ProjetFmod3gd/Build/Desktop/Music.bank', mode=0x02010082
-[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             :     exinfo->length             = 8259904
-[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 11104
-[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000670D4BA0
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='RefraQ-RUKDecoupe-001', format=2, channels=2, frequency=48000, lengthbytes=369088, lengthpcm=1450827, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.975301.
-[LOG] Thread::initThread                       :     Init FMOD file thread. Priority: 1, Stack Size: 49152, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000060ECB998
-[LOG] SoundI::getSubSound                      : sound 0000000060ECB998.  Subsound index 0 / 1
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] SoundI::release                          : RefraQ-RUKDecoupe-001 (0000000060ECB998)
-[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-001 (0000000045D6D748)
-[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-001 (000000007575E298)
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
@@ -60,6 +63,4 @@
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
-[LOG] Thread::callback                         : FMOD file thread finished.
 [LOG] SystemI::close                           : Closed.

@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class MashingTrans : MonoBehaviour
 {
-    public int i;
-    public float timing;
     public int numberToAim;
+    public int numberInput;
+    List<float> i = new List<float>();
+    public float timing;
 
     public Text text;
     public CamMouvement camMouvement;
@@ -16,6 +17,8 @@ public class MashingTrans : MonoBehaviour
     private TransformationAgent agentTransfo;
     private ResetPlayer resetPlayerScript;
     private bool activeExplode;
+
+    Collider[] hitColliders;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -24,43 +27,48 @@ public class MashingTrans : MonoBehaviour
 
     void Update()
     {
+        hitColliders = Physics.OverlapSphere(transform.position, 3);
+        
+        for(int j = 0; j < i.Count; j++)
+        {
+            if (i[j] + 1 < Time.time)
+            {
+                i.RemoveAt(j);
+            }
+
+        }
+        numberInput = i.Count;
+        numberToAim = hitColliders.Length;
         if (camMouvement.i >= camMouvement.cams.Count)
         {
-            text.gameObject.SetActive(true);
-
+            if(hitColliders.Length > 7)
+            {
+                compteur += Time.deltaTime;
+            }
+                text.gameObject.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
-                i++;
+                i.Add(Time.time);
             }
-            if (compteur > timing)
+            agentTransfo.startTranformationAnim(timing);
+            if (i.Count < hitColliders.Length / 3 && compteur > 0.5f)
             {
-                if (i > numberToAim)
-                {
-                    Debug.Log("Win");
-                    if (!activeExplode)
-                    {
-                        text.gameObject.SetActive(false);
-                        agentTransfo.ExploseAgent();
-                        activeExplode = true;
-                    }
-                    if (compteur > timing + 1)
-                    {
-                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                    }
-
-                }
-                else
+                text.gameObject.SetActive(false);
+                resetPlayerScript.ResetFonction(true);
+            }
+            else if(i.Count > hitColliders.Length / 1.2 && hitColliders.Length > 7)
+            {
+                Debug.Log("Win");
+                if (!activeExplode)
                 {
                     text.gameObject.SetActive(false);
-                    resetPlayerScript.ResetFonction(true);
-                    Debug.Log("Lose");
+                    agentTransfo.ExploseAgent();
+                    activeExplode = true;
+                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                 }
+
             }
-            else
-            {
-                agentTransfo.startTranformationAnim(timing);
-            }
-                compteur += Time.deltaTime;
+
         }
 
     }
