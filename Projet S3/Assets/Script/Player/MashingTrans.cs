@@ -7,15 +7,19 @@ public class MashingTrans : MonoBehaviour
 {
     public int i;
     public float timing;
-    private float compteur;
     public int numberToAim;
 
-    public CamMouvement camMouvement;
     public Text text;
-    
+    public CamMouvement camMouvement;
+
+    private float compteur;
+    private TransformationAgent agentTransfo;
+    private ResetPlayer resetPlayerScript;
+    private bool activeExplode;
     void Start()
     {
-
+        resetPlayerScript = GetComponent<ResetPlayer>();
+        agentTransfo = GetComponent<TransformationAgent>();
     }
 
     void Update()
@@ -33,22 +37,30 @@ public class MashingTrans : MonoBehaviour
                 if (i > numberToAim)
                 {
                     Debug.Log("Win");
-                    
-                    text.gameObject.SetActive( false);
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-
+                    if (!activeExplode)
+                    {
+                        text.gameObject.SetActive(false);
+                        agentTransfo.ExploseAgent();
+                        activeExplode = true;
+                    }
+                    if (compteur > timing + 1)
+                    {
+                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                    }
 
                 }
                 else
                 {
                     text.gameObject.SetActive(false);
+                    resetPlayerScript.ResetFonction(true);
                     Debug.Log("Lose");
                 }
             }
             else
             {
-                compteur += Time.deltaTime;
+                agentTransfo.startTranformationAnim(timing);
             }
+                compteur += Time.deltaTime;
         }
 
     }
