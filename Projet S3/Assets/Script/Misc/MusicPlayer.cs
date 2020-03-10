@@ -7,6 +7,9 @@ public class MusicPlayer : MonoBehaviour
     [FMODUnity.EventRef]
     public string trackTest1;
     public FMOD.Studio.EventInstance track1;
+    public TransformationPlayerStates myTfP;
+
+    private bool checkMusic;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,10 @@ public class MusicPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if( myTfP.palierStep >= 3 && checkMusic == false)
+        {
+            track1.setParameterByName("TrackState", 5.5F);
+            checkMusic = true;
+        }
     }
 }

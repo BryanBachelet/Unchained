@@ -13,7 +13,8 @@ public class TransformationPlayerStates : MonoBehaviour
 
 
     private KillCountPlayer countPlayer;
-    private int palierStep;
+    [HideInInspector]
+    public int palierStep;
 
 
     private PlayerMoveAlone playerMove;
