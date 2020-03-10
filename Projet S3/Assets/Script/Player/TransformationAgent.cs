@@ -29,8 +29,7 @@ public class TransformationAgent : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        DetectAgent();
-        RandomSphere();
+    
         lightPlayer = GetComponentInChildren<Light>();
         frame = 0;
     }
@@ -76,14 +75,17 @@ public class TransformationAgent : MonoBehaviour
     public void startTranformationAnim(float timeExplosionGive)
     {
         this.timeExplosion = timeExplosionGive;
+        DetectAgent();
+        RandomSphere();
         startAnim = true;
     }
 
 
     public void ActiveExplosion()
     {
-
+     
         stop = true;
+  
         ExploseAgent();
 
     }
@@ -91,13 +93,13 @@ public class TransformationAgent : MonoBehaviour
 
     public void ExploseAgent()
     {
-   
+       
         for (int i = 0; i < agentList.Count; i++)
         {
 
             agentList[i].GetComponent<EnnemiDestroy>().ActiveExplosion();
             
-            //agentList[i].GetComponent<Rigidbody>().useGravity = false;
+           
             Vector3 dir = agentList[i].position - transform.position;
             Rigidbody agent = agentList[i].GetComponent<Rigidbody>();
             agent.AddForce(dir.normalized * 70, ForceMode.Impulse);

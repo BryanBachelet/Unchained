@@ -31,6 +31,7 @@ public class TransformationCam : MonoBehaviour
                 basePos = startPos.transform.position;
                 dir = (transform.position - player.transform.position).normalized;
                 dist = (transform.position - player.transform.position).magnitude;
+                activeBehavior = true;
             }
             Vector3 nextPos = player.transform.position + Quaternion.Euler(0, angleCompteur, 0) * (dir * dist);
             transform.position = Vector3.Lerp(transform.position, nextPos, 1);

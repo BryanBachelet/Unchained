@@ -160,7 +160,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Repulsion(GameObject ennemiGO ,Transform pos)
     {
-        Debug.Log(ennemiGO.gameObject);
+
         EnnemiDestroy ennemi = ennemiGO.GetComponent<EnnemiDestroy>();
         if (ennemi.isDestroying == false)
         {

@@ -16,7 +16,7 @@ public class AuraRepulsion : MonoBehaviour
     {
         if(other.tag == "Ennemi" && other != null && moveAlone != null)
         {
-            Debug.Log(moveAlone);
+
             moveAlone.Repulsion(other.gameObject, transform);
         }
     }

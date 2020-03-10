@@ -16,6 +16,7 @@ public class MashingTrans : MonoBehaviour
     private TransformationAgent agentTransfo;
     private ResetPlayer resetPlayerScript;
     private bool activeExplode;
+    private bool activationTransformation;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -36,19 +37,19 @@ public class MashingTrans : MonoBehaviour
             {
                 if (i > numberToAim)
                 {
-                    Debug.Log("Win");
+
                     if (!activeExplode)
                     {
                         text.gameObject.SetActive(false);
-                        agentTransfo.ExploseAgent();
+                        agentTransfo.ActiveExplosion();
                         activeExplode = true;
                     }
-                    if (compteur > timing + 1.5)
+                    Physics.IgnoreLayerCollision(9, 9, false);
+                    Physics.IgnoreLayerCollision(9, 10, false);
+                    if (compteur > timing + 0.7f)
                     {
-                        Debug.Break();
-                        Physics.IgnoreLayerCollision(9, 9, false);
-                        Physics.IgnoreLayerCollision(9, 10, false);
                         transform.GetComponent<PlayerMoveAlone>().enabled = true;
+
                         StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     }
 
@@ -64,9 +65,14 @@ public class MashingTrans : MonoBehaviour
             }
             else
             {
-                agentTransfo.startTranformationAnim(timing);
+                if (!activationTransformation)
+                {
+                    agentTransfo.startTranformationAnim(timing);
+                    activationTransformation = true;
+                }
             }
-                compteur += Time.deltaTime;
+
+            compteur += Time.deltaTime;
         }
 
     }
