@@ -39,6 +39,7 @@ public class TransformationCam : MonoBehaviour
                 basePos = startPos.transform.position;
                 dir = (transform.position - player.transform.position).normalized;
                 dist = (transform.position - player.transform.position).magnitude;
+                activeBehavior = true;
             }
             if (shake_intensity > 0)
             {

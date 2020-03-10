@@ -142,11 +142,11 @@ public class EnnemiStock : MonoBehaviour
                 contactSound.start();
 
             }
-            if (mouse.lastInput != lastInputRotation)
-            {
-                rotationPlayer.ChangeRotationDirection();
-                lastInputRotation = mouse.lastInput;
-            }
+            //if (mouse.lastInput != lastInputRotation)
+            //{
+            //    rotationPlayer.ChangeRotationDirection();
+            //    lastInputRotation = mouse.lastInput;
+            //}
             
             if (isOnZoom)
             {

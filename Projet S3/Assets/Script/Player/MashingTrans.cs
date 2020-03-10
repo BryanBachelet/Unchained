@@ -17,6 +17,7 @@ public class MashingTrans : MonoBehaviour
     private TransformationAgent agentTransfo;
     private ResetPlayer resetPlayerScript;
     private bool activeExplode;
+    private bool activationTransformation;
 
     Collider[] hitColliders;
     void Start()
@@ -50,21 +51,32 @@ public class MashingTrans : MonoBehaviour
             {
                 i.Add(Time.time);
             }
-            agentTransfo.startTranformationAnim(timing);
+            if (!activationTransformation)
+            {
+                agentTransfo.startTranformationAnim(timing);
+                activationTransformation = true;
+            }
             if (i.Count < hitColliders.Length / 3 && compteur > 0.5f)
             {
+            	Physics.IgnoreLayerCollision(9, 9, false);
+                Physics.IgnoreLayerCollision(9, 10, false);
                 text.gameObject.SetActive(false);
                 resetPlayerScript.ResetFonction(true);
             }
             else if(i.Count > hitColliders.Length / 1.2 && hitColliders.Length > 7)
             {
                 Debug.Log("Win");
-                if (!activeExplode)
-                {
+                    Physics.IgnoreLayerCollision(9, 9, false);
+                    Physics.IgnoreLayerCollision(9, 10, false);
                     text.gameObject.SetActive(false);
-                    agentTransfo.ExploseAgent();
+                    agentTransfo.ActiveExplosion();
                     activeExplode = true;
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                    if (compteur > timing + 0.7f)
+                    {
+                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
+
+                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                    }
                 }
 
             }

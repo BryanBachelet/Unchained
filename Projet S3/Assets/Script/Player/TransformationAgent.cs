@@ -9,10 +9,17 @@ public class TransformationAgent : MonoBehaviour
 
     public float distance = 1.5f;
 
+    public float speedOfAgent;
+
+    public float lightIntensity = 2;
+    public float lightRange = 20;
+
+    public float distanceGrap = 50;
+
     private bool active;
     private bool stop;
-    public float timing;
-    public float timeExplosion = 2;
+    private float timing;
+    private float timeExplosion = 2;
     private float compteurExplosion;
     private Light lightPlayer;
 
@@ -22,9 +29,9 @@ public class TransformationAgent : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        DetectAgent();
-        RandomSphere();
+    
         lightPlayer = GetComponentInChildren<Light>();
+        frame = 0;
     }
 
     // Update is called once per frame
@@ -52,8 +59,8 @@ public class TransformationAgent : MonoBehaviour
 
 
 
-                lightPlayer.intensity = Mathf.Lerp(0, 5, compteurExplosion / timeExplosion);
-                lightPlayer.range = Mathf.Lerp(0, 50, compteurExplosion / timeExplosion);
+                lightPlayer.intensity = Mathf.Lerp(0, lightIntensity, compteurExplosion / timeExplosion);
+                lightPlayer.range = Mathf.Lerp(0, lightRange, compteurExplosion / timeExplosion);
                 compteurExplosion += Time.deltaTime;
 
 
@@ -68,14 +75,17 @@ public class TransformationAgent : MonoBehaviour
     public void startTranformationAnim(float timeExplosionGive)
     {
         this.timeExplosion = timeExplosionGive;
+        DetectAgent();
+        RandomSphere();
         startAnim = true;
     }
 
 
     public void ActiveExplosion()
     {
-
+     
         stop = true;
+  
         ExploseAgent();
 
     }
@@ -83,34 +93,32 @@ public class TransformationAgent : MonoBehaviour
 
     public void ExploseAgent()
     {
+       
         for (int i = 0; i < agentList.Count; i++)
         {
+
+            agentList[i].GetComponent<EnnemiDestroy>().ActiveExplosion();
+            
            
-          //  agentList[i].GetComponent<EnnemiDestroy>().isDestroying = true;
             Vector3 dir = agentList[i].position - transform.position;
             Rigidbody agent = agentList[i].GetComponent<Rigidbody>();
-            agent.AddForce(dir.normalized * 50, ForceMode.Impulse);
+            agent.AddForce(dir.normalized * 70, ForceMode.Impulse);
         }
-        transform.GetComponent<PlayerMoveAlone>().enabled = true;
+        
     }
 
     public void DetectAgent()
     {
         LayerMask layer = ~1 << 8;
-        Collider[] agent = Physics.OverlapSphere(transform.position, 300, layer);
+        Collider[] agent = Physics.OverlapSphere(transform.position, 50, layer);
         ;
         for (int i = 0; i < agent.Length; i++)
         {
             if (agent[i].tag == "Ennemi")
             {
                 agentList.Add(agent[i].transform);
-                agent[i].GetComponent<EnnemiBehavior>().enabled = false;
-
-              
-                Debug.Log(Physics.GetIgnoreLayerCollision(9, 9));
-
-
-
+                
+                
             }
         }
         posSphere = new Vector3[agentList.Count];
@@ -142,17 +150,19 @@ public class TransformationAgent : MonoBehaviour
 
             agentList[i].eulerAngles = Vector3.zero;
      
-            if (frame > 1)
+            if (frame > 1  && frame<3)
             {
                 agentList[i].GetComponent<Rigidbody>().useGravity = false;
+                agentList[i].GetComponent<EnnemiBehavior>().enabled = false;
             }
         }
-        timing = Time.deltaTime /*/ 20*/;
-        if (frame > 1)
+        timing = speedOfAgent * Time.deltaTime;
+        if (frame > 0 && frame<3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
-            Physics.IgnoreLayerCollision(9, 9);
-            Physics.IgnoreLayerCollision(9, 10);
+            Physics.IgnoreLayerCollision(9, 9, true);
+            Physics.IgnoreLayerCollision(9, 10, true);
+            
         }
         transform.position = new Vector3(transform.position.x, 2, transform.position.z);
         frame++;
