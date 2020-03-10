@@ -80,6 +80,7 @@ public class KillCountPlayer : MonoBehaviour
                     loseCondition.start();
                     frameDecreaseCondition = 1;
                     postProcesse.GetComponent<PostProcessVolume>().enabled = true;
+                    myMP.track1.setParameterByName("TrackEffect", 0.0F);
                 }
             }
         }
@@ -104,5 +105,6 @@ public class KillCountPlayer : MonoBehaviour
     {
         compteurOfDeath = 0;
         activeReset = true;
+        myMP.track1.setParameterByName("TrackEffect", 1.0F);
     }
 }
