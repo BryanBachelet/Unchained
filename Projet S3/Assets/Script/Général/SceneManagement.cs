@@ -16,10 +16,10 @@ public class SceneManagement : MonoBehaviour
             SceneManager.LoadScene(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Joystick1Button6))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        //if (Input.GetKeyDown(KeyCode.Joystick1Button6))
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
 
 
         if (Input.GetKeyDown(KeyCode.Escape))

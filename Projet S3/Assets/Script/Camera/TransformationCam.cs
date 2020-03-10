@@ -36,7 +36,7 @@ public class TransformationCam : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, nextPos, 1);
             transform.LookAt(player.transform.position);
             angleCompteur += speedOfRotation * Time.deltaTime;
-            angleCompteur = Mathf.Clamp(angleCompteur, 0, 10);
+            angleCompteur = Mathf.Clamp(angleCompteur, 0, 5);
         }
         
     }

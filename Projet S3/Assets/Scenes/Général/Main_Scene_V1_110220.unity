@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3156,6 +3156,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1159970225, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3211,6 +3215,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: ContactVolume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: onHitEnemy
+      value: 
+      objectReference: {fileID: 1819318956803656, guid: 850120b0354b5ff45960f8afcab1d168,
+        type: 3}
+    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: frameForChangeRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: killCountUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: timeBeforeDeath
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: activeLoseEffect
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: myMP
+      value: 
+      objectReference: {fileID: 186359811}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: Lose
+      value: event:/Player/LoseCondition 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: directionIMG
@@ -3231,28 +3276,16 @@ PrefabInstance:
       propertyPath: aura
       value: 
       objectReference: {fileID: 1451365218}
-    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: ContactVolume
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: onHitEnemy
-      value: 
-      objectReference: {fileID: 1819318956803656, guid: 850120b0354b5ff45960f8afcab1d168,
-        type: 3}
-    - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: frameForChangeRotation
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 136097542, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: currentResetPosition
       value: 
       objectReference: {fileID: 604972373}
     - target: {fileID: 136097542, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: myMP
+      value: 
+      objectReference: {fileID: 186359811}
+    - target: {fileID: 136097542, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: music
       value: 
       objectReference: {fileID: 186359811}
     - target: {fileID: 136097556, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
@@ -3291,36 +3324,6 @@ PrefabInstance:
       propertyPath: imgExplosion
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 225778051621930966, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: killCountUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: timeBeforeDeath
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: activeLoseEffect
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: myMP
-      value: 
-      objectReference: {fileID: 186359811}
-    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: Lose
-      value: event:/Player/LoseCondition 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1606738436, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: sliderFill
       value: 
@@ -3333,11 +3336,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 507757501, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
-      propertyPath: m_Layer
+    - target: {fileID: 225778051621930966, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1159970225, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+    - target: {fileID: 507757501, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
@@ -4325,8 +4329,8 @@ MonoBehaviour:
   i: 0
   timing: 2
   numberToAim: 9
-  camMouvement: {fileID: 1246053376}
   text: {fileID: 1890297009}
+  camMouvement: {fileID: 1246053376}
 --- !u!114 &2027631141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
@@ -4400,10 +4404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentList: []
-  circle: 0
-  circleLayer: 0
-  distance: 1.5
-  multipler: 2
+  distance: 2
   timing: 0
   timeExplosion: 2
 --- !u!1 &2056594451
