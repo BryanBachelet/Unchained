@@ -43,14 +43,20 @@ public class MashingTrans : MonoBehaviour
                         agentTransfo.ExploseAgent();
                         activeExplode = true;
                     }
-                    if (compteur > timing + 1)
+                    if (compteur > timing + 1.5)
                     {
+                        Debug.Break();
+                        Physics.IgnoreLayerCollision(9, 9, false);
+                        Physics.IgnoreLayerCollision(9, 10, false);
+                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
                         StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     }
 
                 }
                 else
                 {
+                    Physics.IgnoreLayerCollision(9, 9, false);
+                    Physics.IgnoreLayerCollision(9, 10, false);
                     text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
                     Debug.Log("Lose");

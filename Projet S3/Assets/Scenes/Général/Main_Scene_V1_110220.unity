@@ -971,7 +971,6 @@ GameObject:
   m_Component:
   - component: {fileID: 335043779}
   - component: {fileID: 335043778}
-  - component: {fileID: 335043780}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1031,18 +1030,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &335043780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335043777}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a064edeb8485b94585d15cba6c6cf44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &479254850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3154,7 +3141,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439580, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1159970225, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_Layer
@@ -3358,7 +3345,7 @@ PrefabInstance:
     - target: {fileID: 181744757907397934, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3008899309093366012, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -4328,7 +4315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   i: 0
   timing: 2
-  numberToAim: 9
+  numberToAim: 5
   text: {fileID: 1890297009}
   camMouvement: {fileID: 1246053376}
 --- !u!114 &2027631141 stripped
@@ -4404,9 +4391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentList: []
-  distance: 2
-  timing: 0
-  timeExplosion: 2
+  distance: 4
+  speedOfAgent: 10
 --- !u!1 &2056594451
 GameObject:
   m_ObjectHideFlags: 0

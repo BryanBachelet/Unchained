@@ -85,11 +85,7 @@ public class RotationPlayer : MonoBehaviour
 
 
 
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-            {
-                ChangeRotationDirection();
-
-            }
+            
 
             if (angleCompteur > currentAngleMax)
             {
@@ -105,16 +101,7 @@ public class RotationPlayer : MonoBehaviour
         }
     }
 
-    public void ChangeRotationDirection()
-    {
-        angleSpeed = -angleSpeed;
-
-        stocks.inputNeed = !stocks.inputNeed;
-        currentAngleMax = angleMax + angleCompteur;
-        angleCompteur = 0;
-        changeSens = true;
-    }
-
+  
     public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
 

@@ -37,6 +37,9 @@ public class EnnemiDestroy : MonoBehaviour
     float rndX;
     [HideInInspector] public Vector3 destroyDir;
     [HideInInspector] public bool activePull;
+    [HideInInspector]
+    public bool activeExplosion = false;
+    private int compteurDestroy;
 
     [Header("Sound")]
     [FMODUnity.EventRef]
@@ -54,7 +57,7 @@ public class EnnemiDestroy : MonoBehaviour
     void Update()
     {
        
-        if (isDestroying)
+        if (isDestroying && !activeExplosion)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
@@ -112,6 +115,15 @@ public class EnnemiDestroy : MonoBehaviour
                 EndAgent();
             }
         }
+        if (activeExplosion)
+        {
+
+            if (compteur > 10)
+            {
+                EndAgent();
+            }
+            compteur += Time.deltaTime;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -120,6 +132,19 @@ public class EnnemiDestroy : MonoBehaviour
         {
             EndAgent();
         }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (isDestroying && collision.collider.tag == "wall")
+        {
+            EndAgent();
+        }
+    }
+
+    public void ActiveExplosion()
+    {
+        isDestroying = true;
+        activeExplosion = true;
     }
 
     private void EndAgent()
