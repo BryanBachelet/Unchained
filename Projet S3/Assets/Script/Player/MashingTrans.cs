@@ -39,7 +39,7 @@ public class MashingTrans : MonoBehaviour
 
         }
         numberInput = i.Count;
-        numberToAim = hitColliders.Length;
+        numberToAim = hitColliders.Length / 4;
         if (camMouvement.i >= camMouvement.cams.Count)
         {
             if(hitColliders.Length > 7)
@@ -56,29 +56,26 @@ public class MashingTrans : MonoBehaviour
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
             }
-            if (i.Count < hitColliders.Length / 3 && compteur > 0.5f)
+            if (i.Count < hitColliders.Length / 4 && compteur > 1f)
             {
             	Physics.IgnoreLayerCollision(9, 9, false);
                 Physics.IgnoreLayerCollision(9, 10, false);
                 text.gameObject.SetActive(false);
                 resetPlayerScript.ResetFonction(true);
             }
-            else if(i.Count > hitColliders.Length / 1.2 && hitColliders.Length > 7)
+            else if(i.Count > hitColliders.Length / 2 && hitColliders.Length > 7)
             {
-                Debug.Log("Win");
-                    Physics.IgnoreLayerCollision(9, 9, false);
-                    Physics.IgnoreLayerCollision(9, 10, false);
-                    text.gameObject.SetActive(false);
-                    agentTransfo.ActiveExplosion();
-                    activeExplode = true;
-                    if (compteur > timing + 0.7f)
-                    {
-                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
-
-                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                    }
-                }
-
+                Physics.IgnoreLayerCollision(9, 9, false);
+                Physics.IgnoreLayerCollision(9, 10, false);
+                text.gameObject.SetActive(false);
+                agentTransfo.ActiveExplosion();
+                activeExplode = true;
+                //if (compteur > timing + 0.7f)
+                //{
+                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                //
+                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                //}
             }
 
         }
