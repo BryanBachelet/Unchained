@@ -84,7 +84,7 @@ public class MouseScope : MonoBehaviour
 
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || resetShoot && input != 0)
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || !resetShoot && input != 0)
             {
                 frame = 0;
                 InstantiateProjectile();
@@ -96,6 +96,7 @@ public class MouseScope : MonoBehaviour
             frame++;
             if (frame > 1)
             {
+                Debug.Log(resetShoot);
                 resetShoot = false;
             }
         }
