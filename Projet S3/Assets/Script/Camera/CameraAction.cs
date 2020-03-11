@@ -47,7 +47,7 @@ public class CameraAction : MonoBehaviour
     public PlayerMoveAlone moveAlone;
     public float pointFocusCame = 1;
 
-
+    private bool activeBehavior =true;
     private Vector3 currentDir = Vector3.zero;
     private Vector3 rotate;
     public bool newBehavior = true;
@@ -65,13 +65,28 @@ public class CameraAction : MonoBehaviour
     }
 
 
+   public void ResetPos()
+    {
+        ecartJoueur = transform.position - player.transform.position;
+        activeBehavior = false;
+    }
+
+    public void Deactive()
+    {
+        activeBehavior = true;
+    }
+
+
     void Update()
     {
         orthoCam.orthographicSize = 15 * Vector3.Distance(transform.position, player.transform.position) / 25;
 
-        basePosition = player.transform.position + ecartJoueur;
-        transform.position = basePosition;
-        transform.eulerAngles = rotate;
+        if (!activeBehavior)
+        {
+            basePosition = player.transform.position + ecartJoueur;
+            transform.position = basePosition;
+            transform.eulerAngles = rotate;
+        }
 
         if (!StatiqueCam)
         {

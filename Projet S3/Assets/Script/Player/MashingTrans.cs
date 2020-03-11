@@ -19,6 +19,7 @@ public class MashingTrans : MonoBehaviour
     private bool activeExplode;
     private bool activationTransformation;
 
+
     Collider[] hitColliders;
     void Start()
     {
