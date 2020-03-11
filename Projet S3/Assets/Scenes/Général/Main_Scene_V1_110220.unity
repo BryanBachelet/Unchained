@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1790,6 +1790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 335043779}
   - component: {fileID: 335043778}
+  - component: {fileID: 335043780}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -4415,7 +4416,6 @@ Transform:
   - {fileID: 676651471}
   - {fileID: 1225695487}
   - {fileID: 1567850614}
-  - {fileID: 2030637910}
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: -82.665, z: 0}
@@ -6244,7 +6244,7 @@ PrefabInstance:
     - target: {fileID: 181744757907397934, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3008899309093366012, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -8618,7 +8618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b01d555d6755448addbe9fc42e4168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palierCondition: 000000000f000000140000001900000090010000f401000020030000
+  palierCondition: 0000000096000000c80000001900000090010000f401000020030000
   palierStep: 0
 --- !u!114 &2027631133 stripped
 MonoBehaviour:
@@ -8680,12 +8680,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95d41eefcde09645b66f20ce5dfd14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i: 0
-  timing: 2
   numberToAim: 5
+  numberInput: 0
+  timing: 2
   text: {fileID: 1890297009}
   camMouvement: {fileID: 1246053376}
-  hitColliders: []
 --- !u!114 &2027631141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
@@ -8764,33 +8763,13 @@ MonoBehaviour:
   lightIntensity: 2
   lightRange: 20
   distanceGrap: 50
---- !u!1 &2056594451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2032901824}
-  - component: {fileID: 2032901828}
-  - component: {fileID: 2032901827}
-  - component: {fileID: 2032901826}
-  - component: {fileID: 2032901825}
-  m_Layer: 11
-  m_Name: Wall (17)
-  m_TagString: wall
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &2032901824
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032901823}
+  m_GameObject: {fileID: 2056594451}
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: -0.7071065}
   m_LocalPosition: {x: -27.350006, y: -5, z: 174.41205}
   m_LocalScale: {x: 1, y: 10, z: 92.06497}
@@ -8804,7 +8783,7 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032901823}
+  m_GameObject: {fileID: 2056594451}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -8820,7 +8799,7 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032901823}
+  m_GameObject: {fileID: 2056594451}
   m_Material: {fileID: 13400000, guid: 38d77983c6833964a8390c7617c77e3d, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -8833,7 +8812,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032901823}
+  m_GameObject: {fileID: 2056594451}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -8870,7 +8849,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032901823}
+  m_GameObject: {fileID: 2056594451}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2042155774
 GameObject:
@@ -8963,6 +8942,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042155774}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2056594451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2032901824}
+  - component: {fileID: 2032901828}
+  - component: {fileID: 2032901827}
+  - component: {fileID: 2032901826}
+  - component: {fileID: 2032901825}
+  m_Layer: 11
+  m_Name: Wall (17)
+  m_TagString: wall
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &2058354403
 GameObject:
   m_ObjectHideFlags: 0
