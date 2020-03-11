@@ -54,6 +54,11 @@ public class CamMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+        {
+            PastCinematic();
+        }
+
         if (i < cams.Count)
         {
               
@@ -71,6 +76,18 @@ public class CamMouvement : MonoBehaviour
 
             }
         }
+    }
+
+
+    public void PastCinematic()
+    {
+        i++;
+        StateOfGames.currentState = state;
+        this.enabled = false;
+
+        transform.position = cams[cams.Count-1].destination.position;
+        transform.eulerAngles = cams[cams.Count - 1].destination.eulerAngles;
+
     }
 
 
