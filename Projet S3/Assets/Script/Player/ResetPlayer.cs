@@ -43,7 +43,7 @@ public class ResetPlayer : MonoBehaviour
         {
             music.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         }
         if (ennemiStock.ennemiStock != null)
         {

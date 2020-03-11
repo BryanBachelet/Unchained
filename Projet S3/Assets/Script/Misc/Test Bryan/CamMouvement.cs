@@ -81,7 +81,7 @@ public class CamMouvement : MonoBehaviour
 
     public void PastCinematic()
     {
-        i++;
+        i = cams.Count;
         StateOfGames.currentState = state;
         this.enabled = false;
 

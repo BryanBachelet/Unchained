@@ -58,7 +58,7 @@ public class CameraAction : MonoBehaviour
         moveAlone = player.GetComponent<PlayerMoveAlone>();
 
         ecartJoueur = transform.position - player.transform.position;
-        rotate = transform.eulerAngles;
+       
         playerMouseScope = player.GetComponent<MouseScope>();
         playerEnnemiStock = player.GetComponent<EnnemiStock>();
         previousMousePos = transform.position;
@@ -85,7 +85,7 @@ public class CameraAction : MonoBehaviour
         {
             basePosition = player.transform.position + ecartJoueur;
             transform.position = basePosition;
-            transform.eulerAngles = rotate;
+         
         }
 
         if (!StatiqueCam)

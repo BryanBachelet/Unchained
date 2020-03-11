@@ -104,7 +104,7 @@ public class WindowScene : EditorWindow
     public void DuplicateScene()
     {
 
-        bool save = AssetDatabase.CopyAsset("Assets/ScenePrefab/" + sceneDuplicate.name + ".unity", targetFolderPath + "/" + SceneName + index + ".unity");
+        bool save = AssetDatabase.CopyAsset(folderScenePrefabPath+"/" + sceneDuplicate.name + ".unity", targetFolderPath + "/" + SceneName + index + ".unity");
         index++;
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
