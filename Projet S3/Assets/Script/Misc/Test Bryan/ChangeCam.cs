@@ -12,7 +12,7 @@ public class ChangeCam : MonoBehaviour
 
 
     public bool right;
-    private bool active;
+    public bool active;
     private float compteur;
     private CameraAction cameraAction;
 
@@ -43,6 +43,7 @@ public class ChangeCam : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             right = !right;
+            Debug.Log(right + " / " + !right);
             cameraAction.Deactive();
             active = true;
         }
@@ -69,7 +70,7 @@ public class ChangeCam : MonoBehaviour
                 transform.position = Vector3.Lerp(posA, posB, compteurIncrease);
                 transform.eulerAngles = Vector3.Lerp(rotStart, rotB, compteurIncrease);
                 transform.LookAt(player.transform);
-                compteur += Time.deltaTime;
+                compteur -= Time.deltaTime;
                 compteurIncrease = Mathf.Clamp(compteurIncrease, 0, 1f);
                 if (compteur <= 0)
                 {

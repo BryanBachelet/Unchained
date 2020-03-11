@@ -37,7 +37,7 @@ public class PlayerMoveAlone : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         stock = GetComponent<EnnemiStock>();
-   //     aura = transform.GetChild(transform.childCount -1).gameObject;
+ 
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
@@ -84,10 +84,10 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button3))
-        {
-            activeDeplacement = !activeDeplacement;
-        }
+        //if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        //{
+        //    activeDeplacement = !activeDeplacement;
+        //}
         if(line.strenghOfExpulsion != expulsionStrengh)
         {
             TransmitionOfStrenghOfExpulsion();

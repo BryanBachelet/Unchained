@@ -5,6 +5,7 @@ using UnityEngine;
 public class MouseScope : MonoBehaviour
 {
 
+
     public Material line;
     public GameObject bullet;
     [HideInInspector] public GameObject Ambout;
@@ -32,6 +33,7 @@ public class MouseScope : MonoBehaviour
     [Header("Options")]
     public bool distanceDestruct;
     public bool activePC;
+    public bool activeSnap;
     [Header("Retour Sound")]
     [FMODUnity.EventRef]
     public string returnSound;
@@ -44,6 +46,9 @@ public class MouseScope : MonoBehaviour
     private FMOD.Studio.EventInstance contactSound;
     public float volume = 10;
     private bool resetShoot;
+
+    private bool snapDeactive;
+    private GameObject entitySnap;
 
     public RectTransform directionIMG;
     public Vector3 posConvert;
@@ -76,10 +81,7 @@ public class MouseScope : MonoBehaviour
         {
             directionManette = DirectionManette();
         }
-        //if (directionManette != Vector3.zero)
-        //{
-        //    direction = Vector3.zero;
-        //}
+
         float input = Input.GetAxis("Attract1");
 
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
@@ -87,7 +89,18 @@ public class MouseScope : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || !resetShoot && input != 0)
             {
                 frame = 0;
-                InstantiateProjectile();
+                if (!activeSnap)
+                {
+                    InstantiateProjectile(directionManette.normalized);
+                }
+                else
+                {
+                    Snap(true);
+                }
+            }
+            if (!resetShoot && input == 0)
+            {
+                Snap(false);
             }
         }
 
@@ -96,11 +109,11 @@ public class MouseScope : MonoBehaviour
             frame++;
             if (frame > 1)
             {
-                Debug.Log(resetShoot);
+
                 resetShoot = false;
             }
         }
-        
+
         if (resetShoot == false)
         {
             if (Input.GetMouseButtonDown(0) || input < 0)
@@ -119,42 +132,46 @@ public class MouseScope : MonoBehaviour
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
 
-
-            if (!distanceDestruct)
+            if (snapDeactive)
             {
-                if (_timerOfBullet > timerOfBullet)
+
+                if (!distanceDestruct)
                 {
-                    if (!projectils.returnBall)
+                    if (_timerOfBullet > timerOfBullet)
                     {
-                        Destroy(instanceBullet);
-                        lineRenderer.SetPosition(0, transform.position);
-                        //ReturnState();
+                        if (!projectils.returnBall)
+                        {
+                            Destroy(instanceBullet);
+                            lineRenderer.SetPosition(0, transform.position);
+                            //ReturnState();
+                        }
+                        //else
+                        //{
+                        //    ReturnOrientation();
+                        //}
+
+
                     }
-                    //else
-                    //{
-                    //    ReturnOrientation();
-                    //}
-
-
+                    else
+                    {
+                        _timerOfBullet += Time.deltaTime;
+                    }
                 }
                 else
                 {
-                    _timerOfBullet += Time.deltaTime;
-                }
-            }
-            else
-            {
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
-                {
-                    Destroy(instanceBullet);
+                    if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
+                    {
+                        Destroy(instanceBullet);
 
-                    // ReturnState();
-                }
-                if (projectils.returnBall)
-                {
-                    //ReturnOrientation();
+                        // ReturnState();
+                    }
+                    if (projectils.returnBall)
+                    {
+                        //ReturnOrientation();
+                    }
                 }
             }
+
             //returnLine = true;
             //destructBool = false;
 
@@ -192,12 +209,86 @@ public class MouseScope : MonoBehaviour
             if (projectils.returnBall)
             {
                 projectils.dir = -(projectils.transform.position - transform.position);
-                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime)
+                if (Vector3.Distance(transform.position, instanceBullet.transform.position) < returnSpeed * Time.deltaTime && snapDeactive)
                 {
                     DestroyBullet();
 
                 }
             }
+        }
+    }
+
+
+
+
+    public void Snap(bool active)
+    {
+        if (active)
+        {
+            snapDeactive = true;
+        }
+        Ray rayCheckEntity = new Ray(transform.position, directionManette.normalized);
+        RaycastHit hitEntity = new RaycastHit();
+        if (Physics.Raycast(rayCheckEntity, out hitEntity, distanceMaxOfShoot, 1<<9))
+        {
+            if (active)
+            {
+                InstantiateProjectile(directionManette.normalized);
+            }
+
+            if (entitySnap != null)
+            {
+                entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+
+            entitySnap = hitEntity.collider.gameObject;
+            entitySnap.GetComponent<MeshRenderer>().material.color = Color.yellow;
+
+
+        }
+        else
+        {
+            Vector3 posHit = transform.position;
+            Collider[] pos = Physics.OverlapSphere(posHit, distanceMaxOfShoot, 1 << 9);
+            float disMin = distanceMaxOfShoot;
+            int entity = 0;
+            for (int i = 0; i < pos.Length; i++)
+            {
+                float currentdist = Vector3.Distance(posHit, pos[i].transform.position);
+                Vector3 dirEntity = pos[i].transform.position - transform.position;
+
+                if (currentdist < disMin && Vector3.Dot(directionManette.normalized, dirEntity.normalized) > 0.75f)
+                {
+
+                    disMin = currentdist;
+                    entity = i;
+                }
+            }
+
+            if (entitySnap != null)
+            {
+                entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+            if (entity != 0 && disMin != distanceMaxOfShoot)
+            {
+                entitySnap = pos[entity].gameObject;
+                entitySnap.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            }
+
+            if (active)
+            {
+                if (entity != 0 && disMin != distanceMaxOfShoot)
+                {
+                    Vector3 dir = pos[entity].transform.position - transform.position;
+                    InstantiateProjectile(dir.normalized);
+                    snapDeactive = false;
+                }
+                else
+                {
+                    InstantiateProjectile(directionManette.normalized);
+                }
+            }
+
         }
     }
 
@@ -220,6 +311,21 @@ public class MouseScope : MonoBehaviour
             GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
             GL.End();
 
+            GL.Begin(GL.LINES);
+            line.SetPass(0);
+
+            GL.Color(Color.red);
+            GL.Vertex(transform.position);
+            GL.Vertex(transform.position + (Quaternion.Euler(0, 24, 0) * (direction + (directionManette)).normalized) * distanceMaxOfShoot);
+            GL.End();
+
+            GL.Begin(GL.LINES);
+            line.SetPass(0);
+
+            GL.Color(Color.red);
+            GL.Vertex(transform.position);
+            GL.Vertex(transform.position + (Quaternion.Euler(0, -24, 0) * (direction + directionManette).normalized) * distanceMaxOfShoot);
+            GL.End();
 
         }
 
@@ -245,13 +351,13 @@ public class MouseScope : MonoBehaviour
     }
 
 
-    private void InstantiateProjectile()
+    private void InstantiateProjectile(Vector3 dir)
     {
         if (ennemiStock.ennemiStock == null && instanceBullet == null)
         {
 
             StateAnim.ChangeState(StateAnim.CurrentState.Tir);
-            instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
+            instanceBullet = Instantiate(bullet, transform.position + (dir).normalized, Quaternion.identity);
             //  meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
             float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
@@ -262,7 +368,7 @@ public class MouseScope : MonoBehaviour
 
 
             projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = directionManette; //(direction + directionManette).normalized;
+            projectils.dir = dir.normalized; //(direction + directionManette).normalized;
             projectils.player = gameObject;
             projectils.lineRenderer = lineRenderer;
             projectils.speed = speedOfBullet;

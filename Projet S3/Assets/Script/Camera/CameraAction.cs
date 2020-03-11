@@ -47,7 +47,7 @@ public class CameraAction : MonoBehaviour
     public PlayerMoveAlone moveAlone;
     public float pointFocusCame = 1;
 
-    private bool activeBehavior =true;
+    private bool activeBehavior =false;
     private Vector3 currentDir = Vector3.zero;
     private Vector3 rotate;
     public bool newBehavior = true;
