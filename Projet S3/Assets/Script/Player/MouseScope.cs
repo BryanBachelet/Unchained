@@ -354,10 +354,12 @@ public class MouseScope : MonoBehaviour
     {
         Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
         RaycastHit hit;
-        LayerMask mask = ~(1 << 11);
+        LayerMask mask = 1<<12;
 
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
+
+           
             posConvert = hit.point + Vector3.up;
         }
        

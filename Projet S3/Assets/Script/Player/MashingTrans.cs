@@ -71,12 +71,10 @@ public class MashingTrans : MonoBehaviour
                 text.gameObject.SetActive(false);
                 agentTransfo.ActiveExplosion();
                 activeExplode = true;
-                //if (compteur > timing + 0.7f)
-                //{
+              
+                 StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                //
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                //}
+             
             }
 
         }

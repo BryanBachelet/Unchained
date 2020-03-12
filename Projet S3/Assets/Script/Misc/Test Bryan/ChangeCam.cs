@@ -37,14 +37,14 @@ public class ChangeCam : MonoBehaviour
     {
 
         posA = player.transform.position + posStart;
-        posB = player.transform.position +Quaternion.Euler(0,180,0)* posStart;
+        posB = player.transform.position + Quaternion.Euler(0, 180, 0) * posStart;
         rotB = rotStart + new Vector3(0, 180, 0);
 
         if (Input.GetKeyDown(KeyCode.Joystick1Button3))
         {
             right = !right;
+                cameraAction.Deactive(!right);
             Debug.Log(right + " / " + !right);
-            cameraAction.Deactive();
             active = true;
         }
         if (active)
@@ -53,7 +53,7 @@ public class ChangeCam : MonoBehaviour
             if (right)
             {
                 float compteurIncrease = compteur / time;
-                transform.position = Vector3.Lerp(posA,posB, compteurIncrease);
+                transform.position = Vector3.Lerp(posA, posB, compteurIncrease);
                 transform.eulerAngles = Vector3.Lerp(rotStart, rotB, compteurIncrease);
                 transform.LookAt(player.transform);
                 compteur += Time.deltaTime;
@@ -66,6 +66,7 @@ public class ChangeCam : MonoBehaviour
             }
             else
             {
+              
                 float compteurIncrease = compteur / time;
                 transform.position = Vector3.Lerp(posA, posB, compteurIncrease);
                 transform.eulerAngles = Vector3.Lerp(rotStart, rotB, compteurIncrease);

@@ -111,10 +111,10 @@ public class PlayerMoveAlone : MonoBehaviour
         line.strenghOfExpulsion = expulsionStrengh;
     }
 
-    public void AddProjection()
+    public void AddProjection(Vector3 dir)
     {
         Debug.Log("Propulsion");
-        playerRigid.AddForce(mouseScop.directionManette.normalized * powerOfProjection, ForceMode.Impulse);
+        playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = mouseScop.directionManette  .normalized;
         currentPowerOfProjection = powerOfProjection;
     }
