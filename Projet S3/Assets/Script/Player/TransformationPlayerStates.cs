@@ -18,6 +18,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
 
     private PlayerMoveAlone playerMove;
+
+    [FMODUnity.EventRef]
+    public string attractSound;
+    [FMODUnity.EventRef]
+    public string expulseSound;
+    bool expulseSoundPlay = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +34,11 @@ public class TransformationPlayerStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!expulseSoundPlay && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && palierStep == 3)
+        {
+            expulseSoundPlay = true;
+            FMODUnity.RuntimeManager.PlayOneShot(expulseSound);
+        }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
 
@@ -50,6 +61,7 @@ public class TransformationPlayerStates : MonoBehaviour
         if (palierStep % 3 == 0)
         {
             GoTranformation();
+            FMODUnity.RuntimeManager.PlayOneShot(attractSound);
         }
     }
 

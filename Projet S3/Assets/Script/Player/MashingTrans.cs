@@ -63,7 +63,7 @@ public class MashingTrans : MonoBehaviour
                 text.gameObject.SetActive(false);
                 resetPlayerScript.ResetFonction(true);
             }
-            else if(i.Count > hitColliders.Length / 2 && hitColliders.Length > 7)
+            else if(i.Count > hitColliders.Length / 4 && hitColliders.Length > 7)
             {
                 Physics.IgnoreLayerCollision(9, 9, false);
                 Physics.IgnoreLayerCollision(9, 10, false);
