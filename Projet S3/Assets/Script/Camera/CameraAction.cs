@@ -55,10 +55,8 @@ public class CameraAction : MonoBehaviour
         if (!activeBehavior)
         {
             basePosition = player.transform.position + ecartJoueur;
-            transform.position = basePosition;
+            transform.position = Vector3.Lerp(transform.position, basePosition,10* Time.deltaTime);
             transform.eulerAngles = rotAtStart;
-
-
         }
 
 

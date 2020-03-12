@@ -4953,7 +4953,7 @@ MonoBehaviour:
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
   m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -4996,6 +4996,7 @@ MonoBehaviour:
   - {fileID: 1246053381}
   transformation:
   - {fileID: 1246053376}
+  - {fileID: 1246053379}
 --- !u!114 &1246053381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6563,6 +6564,15 @@ PrefabInstance:
     - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_LocalScale.z
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439582, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159970227, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136097558, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
@@ -8951,7 +8961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b01d555d6755448addbe9fc42e4168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palierCondition: 00000000320000004b0000006400000090010000f401000020030000
+  palierCondition: 00000000190000004b0000006400000090010000f401000020030000
   palierStep: 0
   attractSound: event:/Player/Transformation/Attract
   expulseSound: event:/Player/Transformation/Expulse
@@ -9015,8 +9025,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95d41eefcde09645b66f20ce5dfd14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minNumberToAim: 0
+  maxNumberToAim: 10
+  currentmax: 0
+  ratioMashingToEntities: 4
+  ratioMinimumMashing: 0.5
+  timeToDeacrese: 2
   numberToAim: 5
   numberInput: 0
+  debugMinRatio: 0
   timing: 2
   text: {fileID: 1890297009}
   camMouvement: {fileID: 1246053376}

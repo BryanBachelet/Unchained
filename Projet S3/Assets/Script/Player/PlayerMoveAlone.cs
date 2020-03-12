@@ -114,8 +114,9 @@ public class PlayerMoveAlone : MonoBehaviour
     public void AddProjection(Vector3 dir)
     {
         Debug.Log("Propulsion");
+        playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
-        DirProjection = mouseScop.directionManette  .normalized;
+        DirProjection = dir;
         currentPowerOfProjection = powerOfProjection;
     }
 

@@ -201,7 +201,7 @@ public class EnnemiStock : MonoBehaviour
     {
         myFOV = 70;
         isOnZoom = false;
-        if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>()&& ennemiStock !=null)
+        if (ennemiStock !=null && ennemiStock.gameObject.GetComponent<EnnemiBehavior>() )
         {
             ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
 
