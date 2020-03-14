@@ -66,23 +66,36 @@ public class LineRend : MonoBehaviour
         {
             if (ennemiStock != null)
             {
+
                 if (ennemiStock.ennemiStock != null)
                 {
-                    if (!active)
+                    if (active)
                     {
+                        box.size = Vector3.one;
+                        transform.position = transform.parent.position;
                         box.enabled = true;
-                        active = true;
+                       
                     }
                 }
                 else
                 {
                     active = false;
+                    box.size = Vector3.one;
+                    transform.position = transform.parent.position;
+                    lineRenderer.SetPosition(1, transform.parent.position);
+                    lineRenderer.SetPosition(0, transform.parent.position);
+
                     box.enabled = false;
                 }
+                if (active)
+                {
+                    ColliderSize();
+                }
             }
-            if (active)
+            else
             {
-                ColliderSize();
+                box.size = Vector3.one;
+                transform.position = transform.parent.position;
             }
         }
     }
@@ -100,20 +113,25 @@ public class LineRend : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             if (collision.transform.tag == "Ennemi")
             {
                 Collision(collision);
+
             }
-            if (activeDetach)
+            else
             {
-                if (collision.transform.tag == "wall")
+                if (activeDetach)
                 {
-                    if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                   
+                    if (collision.transform.tag == "wall")
                     {
-                        ennemiStock.DetachPlayer();
+                     
+                        if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                        {
+                            ennemiStock.DetachPlayer();
+                        }
                     }
                 }
             }
@@ -127,14 +145,18 @@ public class LineRend : MonoBehaviour
             if (collision.transform.tag == "Ennemi")
             {
                 Collision(collision);
+
             }
-            if (activeDetach)
+            else
             {
-                if (collision.transform.tag == "wall")
+                if (activeDetach)
                 {
-                    if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                    if (collision.transform.tag == "wall")
                     {
-                        ennemiStock.DetachPlayer();
+                        if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
+                        {
+                            ennemiStock.DetachPlayer();
+                        }
                     }
                 }
             }
@@ -154,7 +176,7 @@ public class LineRend : MonoBehaviour
             float rndX = Random.Range(-15, 15);
             if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
             {
-                
+
             }
             if (activeParticle)
             {
@@ -163,7 +185,7 @@ public class LineRend : MonoBehaviour
             }
 
         }
-       
+
         //collision.attachedRigidbody.detectCollisions = false;
         EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
         if (!ennemi.isDestroying && collision.gameObject != ennemiStock.ennemiStock)
@@ -177,37 +199,7 @@ public class LineRend : MonoBehaviour
         }
     }
 
-    //void Collision(Collider collision)
-    //{
-    //    Rigidbody rb;
-    //    rb = collision.GetComponent<Rigidbody>();
-    //    if (!upProjection)
-    //    {
-    //        float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
-    //        collision.transform.eulerAngles = new Vector3(0.0f, 15f, 0.0f);
-    //        rb.AddRelativeForce(Vector3.forward * 20.0f + Vector3.up * 100.0f, ForceMode.Impulse);
-    //        collision.GetComponent<EnnemiBehavior>().beenKicked = true;
-    //    }
-    //    else
-    //    {
-    //        float rndX = Random.Range(-15, 15);
-    //        if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
-    //        {
-    //
-    //            collision.GetComponent<Rigidbody>().detectCollisions = false;
-    //        }
-    //        if (activeParticle)
-    //        {
-    //            Transform transfChild = collision.transform.GetChild(0);
-    //            transfChild.gameObject.SetActive(true);
-    //        }
-    //
-    //    }
-    //    KillCountPlayer.AddList();
-    //    collision.attachedRigidbody.detectCollisions = false;
-    //    collision.GetComponent<EnnemiDestroy>().isDestroying = true;
-    //
-    //}
+
 }
 
 

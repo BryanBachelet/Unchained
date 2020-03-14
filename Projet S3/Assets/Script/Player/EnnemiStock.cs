@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnnemiStock : MonoBehaviour
 {
 
-    [HideInInspector] public GameObject ennemiStock;
+     public GameObject ennemiStock;
     [HideInInspector] public Vector3 pos;
     private Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
@@ -45,10 +45,11 @@ public class EnnemiStock : MonoBehaviour
     float tempsEcoule;
     private bool right;
     private bool currentRight;
+    private LineRend line;
     // Start is called before the first frame update
     void Start()
     {
-
+        line = GetComponentInChildren<LineRend>();
         mouse = GetComponent<MouseScope>();
         mySmoothFollow = GetComponent<Klak.Motion.SmoothFollow>();
         myFOV = Camera.main.fieldOfView;
@@ -97,7 +98,9 @@ public class EnnemiStock : MonoBehaviour
                 baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
                 ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 onHitEnter = false;
+                line.active = true;
                 frameNoInput = 0;
+                
                 lastInputRotation = mouse.lastInput;
                 if (input < 0)
                 {
@@ -217,6 +220,7 @@ public class EnnemiStock : MonoBehaviour
             rotationPlayer.StopRotation(true);
 
         }
+
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }

@@ -86,6 +86,7 @@ public class Projectils : MonoBehaviour
 
     public void AttachEntities(GameObject other)
     {
+   
         player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
         player.GetComponent<EnnemiStock>().onHitEnter = true;
         if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
