@@ -49,6 +49,29 @@ public class CamMouvement : MonoBehaviour
         // cameraAc = GetComponent<CameraAction>();
 
 
+
+        
+    }
+
+    private void OnEnable()
+    {
+        if (this.enabled == true)
+        {
+
+            if (!smoothTransition)
+            {
+                transform.position = cams[i].startPos.position;
+                transform.eulerAngles = cams[i].startPos.eulerAngles;
+                transform.LookAt(cams[i].pointOfPivot);
+            }
+            else
+            {
+
+                startPosCam = transform.position;
+                startEulerCam = transform.eulerAngles;
+            }
+            i = 0;
+        }
     }
 
     // Update is called once per frame

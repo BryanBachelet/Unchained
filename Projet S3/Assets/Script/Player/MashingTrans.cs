@@ -47,6 +47,17 @@ public class MashingTrans : MonoBehaviour
         moveAlone = GetComponent<PlayerMoveAlone>();
     }
 
+    private void OnEnable()
+    {
+        if (this.enabled == true)
+        {
+            activationTransformation = false;
+            i.Clear();
+            currentmax = maxNumberToAim;
+            hitColliders = new Collider[0];
+        }
+    }
+
     void Update()
     {
         hitColliders = Physics.OverlapSphere(transform.position, 3);
@@ -170,12 +181,12 @@ public class MashingTrans : MonoBehaviour
                 numberToRemember = i;
             }
         }
-      
+
         Vector3 dirGive = colliders[distShort[numberToRemember]].transform.position - transform.position;
         int sens = Random.Range(-1, 0) == 0 ? 1 : -1;
-      
+
         dirGive = Quaternion.Euler(0, 10 * sens, 0) * dirGive.normalized;
-      
+
         moveAlone.AddProjection(dirGive.normalized);
 
     }

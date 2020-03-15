@@ -29,12 +29,18 @@ public class TransformationAgent : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+        if (this.enabled == true)
+        {
+            lightPlayer = GetComponentInChildren<Light>();
+            frame = 0;
+            agentList.Clear();
+            startAnim = false;
+            active = false;
 
-        lightPlayer = GetComponentInChildren<Light>();
-        frame = 0;
+        }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (startAnim)
@@ -78,6 +84,7 @@ public class TransformationAgent : MonoBehaviour
         DetectAgent();
         RandomSphere();
         startAnim = true;
+        stop = false;
     }
 
 
