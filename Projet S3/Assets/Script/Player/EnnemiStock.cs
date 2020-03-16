@@ -78,7 +78,7 @@ public class EnnemiStock : MonoBehaviour
         }
         OrbitEvent.setVolume(curveVolumeOrbitation.Evaluate(tempsEcoule));
         Camera.main.fieldOfView = myFOV;
-        float input = Input.GetAxis("Attract1");
+        float input = Input.GetAxis("ShootController");
         
 
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));

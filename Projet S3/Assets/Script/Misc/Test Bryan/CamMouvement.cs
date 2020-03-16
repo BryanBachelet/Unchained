@@ -57,6 +57,7 @@ public class CamMouvement : MonoBehaviour
     {
         if (this.enabled == true)
         {
+            i = 0;
 
             if (!smoothTransition)
             {
@@ -70,7 +71,6 @@ public class CamMouvement : MonoBehaviour
                 startPosCam = transform.position;
                 startEulerCam = transform.eulerAngles;
             }
-            i = 0;
         }
     }
 

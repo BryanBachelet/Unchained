@@ -9,34 +9,48 @@ public class SceneManagement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SceneManager.LoadScene(0);
+            LoadScene(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SceneManager.LoadScene(1);
+            LoadScene(1);
         }
-
-        //if (Input.GetKeyDown(KeyCode.Joystick1Button6))
-        //{
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //}
-
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            QuitApplication();
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Time.timeScale == 1)
-            {
-                Time.timeScale = 0;
-            }
-            else
-            {
-                Time.timeScale = 1;
-
-            }
+            StopTimeOfGame();
         }
+    }
+
+    public static void StopTimeOfGame()
+    {
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+
+        }
+    }
+
+    public static void LoadScene(int indexScene)
+    {
+        SceneManager.LoadScene(indexScene);
+    }
+
+    public static void LoadCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public static void QuitApplication()
+    {
+        Application.Quit();
     }
 }

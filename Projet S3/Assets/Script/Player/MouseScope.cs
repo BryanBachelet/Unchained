@@ -6,240 +6,253 @@ public class MouseScope : MonoBehaviour
 {
 
     [Header("Fonctionnement")]
-    public GameObject bullet;
-    public RectTransform directionIMG;
-    private Vector3 posConvert;
+    public GameObject prefabBullet;
     public GameObject uIGOAim;
 
-    
-    [Header("Debug")]
-    public Material line;
-    [HideInInspector] public GameObject Ambout;
+    [Header("Input")]
+    public bool controllerPc;
+    [Tooltip("Only for Contoller")]
+    public float deadZone = 0.1f;
 
-    private EnnemiStock ennemiStock;
-    [HideInInspector] public Vector3 direction;
-    [HideInInspector] public Vector3 directionManette;
-    [HideInInspector] public GameObject instanceBullet;
-    private LineRenderer lineRenderer;
-    private bool returnLine;
-    private bool destructBool;
-    private Vector3 ballPos;
-    private Vector3 returnPos;
-    private float distanceReturn;
-    private Vector3 dirReturn;
+    [Header("Debug")]
+    public Material glMaterial;
+
     [Header("Carateristique Bullet")]
     public float timerOfBullet = 0.5f;
     public float speedOfBullet;
-    public float timeBetweenShoot = 0.4f;
-    private float _timerOfBullet;
-    
-    public float distanceMaxOfShoot = 75;
-    private GameObject meshBullet;
-    Projectils projectils;
-    [Header("Options")]
-    public bool distanceDestruct;
-    public bool activePC;
-    public bool activeSnap;
+
+
+
     [Header("Snap")]
+    public bool activeSnap;
     public LayerMask layerMask;
     [Range(0.5f, 1)]
     public float angleSnap = 0.75f;
     public Color colorSnap;
-    [Header("Retour Sound")]
-    [FMODUnity.EventRef]
-    public string returnSound;
-    private FMOD.Studio.EventInstance returnEvent;
-    public float returnVolume = 10;
-    [HideInInspector] public bool lastInput;
+
     [Header("Tirer Sound")]
     [FMODUnity.EventRef]
-    public string contact;
-    private FMOD.Studio.EventInstance contactSound;
+    public string shootEvent;
     public float volume = 10;
-    private bool resetShoot;
 
+    [HideInInspector] public bool lastInput;
+    [HideInInspector] public GameObject instanceBullet;
+    [HideInInspector] public Vector3 aimDirection;
+
+
+    private RectTransform directionIMG;
+    private EnnemiStock ennemiStock;
+    private LineRenderer lineRenderer;
+
+    private float _timerOfBullet;
+
+    private Projectils projectils;
+    private bool resetShoot;
+    private Vector3 posConvert;
     private bool snapDeactive;
     private GameObject entitySnap;
-
     private float frame;
+
+
+    private FMOD.Studio.EventInstance shotSound;
     // Start is called before the first frame update
     void Start()
     {
-
+        directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
-        contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
-        contactSound.setVolume(volume);
-        returnEvent = FMODUnity.RuntimeManager.CreateInstance(returnSound);
-        returnEvent.setVolume(returnVolume);
-        speedOfBullet = distanceMaxOfShoot / timerOfBullet;
-       
+
+
+        shotSound = FMODUnity.RuntimeManager.CreateInstance(shootEvent);
+        shotSound.setVolume(volume);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        aimDirection = DirectionOfAim(controllerPc);
 
-        if (activePC)
+
+        if (ennemiStock.ennemiStock == null)
         {
-            direction = DirectionSouris();
-        }
 
-        if (DirectionManette() != Vector3.zero)
-        {
-            directionManette = DirectionManette();
-        }
-
-        float input = Input.GetAxis("Attract1");
-
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || !resetShoot && input != 0)
+            if (!resetShoot && FireInputActive(controllerPc))
             {
                 frame = 0;
                 if (!activeSnap)
                 {
-                    InstantiateProjectile(directionManette.normalized);
+                    InstantiateProjectile(aimDirection.normalized);
                 }
                 else
                 {
                     Snap(true);
                 }
-            }
-            if (!resetShoot && input == 0)
-            {
-                Snap(false);
+                if (FireInputValue(controllerPc) > 0)
+                {
+                    lastInput = true;
+                    resetShoot = true;
+                }
+
+                if (FireInputValue(controllerPc) < 0)
+                {
+                    lastInput = false;
+                    resetShoot = true;
+                }
+
             }
         }
+        Snap(false);
 
-        if (input == 0)
+        if (!FireInputActive(controllerPc) && instanceBullet == null)
         {
-            frame++;
-            if (frame > 1)
-            {
-
-                resetShoot = false;
-            }
+            ReactiveShot();
         }
 
-        if (resetShoot == false)
-        {
-            if (Input.GetMouseButtonDown(0) || input < 0)
-            {
-                lastInput = true;
-                resetShoot = true;
-            }
 
-            if (Input.GetMouseButtonDown(1) || input > 0)
-            {
-                lastInput = false;
-                resetShoot = true;
-            }
-        }
 
         if (ennemiStock.ennemiStock == null && instanceBullet != null)
         {
 
-            if (snapDeactive)
+            if (_timerOfBullet > timerOfBullet)
             {
 
-                if (!distanceDestruct)
-                {
-                    if (_timerOfBullet > timerOfBullet)
-                    {
-                        if (!projectils.returnBall)
-                        {
-                            Destroy(instanceBullet);
-                            lineRenderer.SetPosition(0, transform.position);
-                         
-                        }
-                      
-                    }
-                    else
-                    {
-                        _timerOfBullet += Time.deltaTime;
-                    }
-                }
-                else
-                {
-                    if (Vector3.Distance(transform.position, instanceBullet.transform.position) >= distanceMaxOfShoot && !projectils.returnBall)
-                    {
-                        Destroy(instanceBullet);
-                    }
-                 
-                }
+                Destroy(instanceBullet);
+                lineRenderer.SetPosition(0, transform.position);
+
             }
-
-            
-
-            ballPos = instanceBullet.transform.position;
+            else
+            {
+                _timerOfBullet += Time.deltaTime;
+            }
 
         }
 
-       
-       
+
     }
 
 
 
 
-    public void Snap(bool active)
+
+
+    private Vector3 GetAimInputPC()
     {
-        if (active)
+        Vector3 aimInputDirection = Input.mousePosition;
+        aimInputDirection = new Vector3(((aimInputDirection.x / Screen.width) - 0.5f) * 2, ((aimInputDirection.y / Screen.height) - 0.5f) * 2, 0);
+        Debug.Log(aimInputDirection);
+        return aimInputDirection;
+    }
+
+    private Vector3 GetAimInputController()
+    {
+        float aimHorizontal = Input.GetAxis("AimHorizontal1");
+        float aimVertical = -Input.GetAxis("AimVertical1");
+        Vector3 aimInputDirection = new Vector3(aimHorizontal, aimVertical, 0);
+        return aimInputDirection.magnitude > deadZone ? aimInputDirection : Vector3.zero;
+    }
+
+    private Vector3 DirectionOfAim(bool PC)
+    {
+        Vector3 aimInput = Vector3.zero;
+        if (!PC)
         {
-            snapDeactive = true;
+            aimInput = GetAimInputController();
         }
-        Ray rayCheckEntity = new Ray(transform.position, directionManette.normalized);
-        RaycastHit hitEntity = new RaycastHit();
-        if (Physics.Raycast(rayCheckEntity, out hitEntity, distanceMaxOfShoot, layerMask))
+        else
         {
-            if (active)
+            aimInput = GetAimInputPC();
+        }
+        directionIMG.localPosition = new Vector3(aimInput.x * 370, aimInput.y * 370, 0);
+        Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
+        RaycastHit hit;
+        LayerMask mask = 1 << 12;
+
+        if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
+        {
+
+
+            posConvert = hit.point + Vector3.up;
+        }
+        Vector3 dir = (posConvert - transform.position).normalized;
+        return dir;
+    }
+
+    public bool FireInputActive(bool PC)
+    {
+        bool getInput = false;
+
+        if (!PC)
+        {
+            getInput = Input.GetAxis("ShootController") != 0 ? true : false;
+        }
+        else
+        {
+            getInput = Input.GetAxis("ShootPC") != 0 ? true : false;
+        }
+        return getInput;
+    }
+
+    public float FireInputValue(bool PC)
+    {
+        float valueInput = 0;
+
+        if (!PC)
+        {
+            valueInput = Input.GetAxis("ShootController");
+        }
+        else
+        {
+            valueInput = Input.GetAxis("ShootPC");
+        }
+        return valueInput;
+    }
+
+    public void Snap(bool shoot)
+    {
+
+        snapDeactive = true;
+
+        Ray rayCheckEntity = new Ray(transform.position, aimDirection.normalized);
+        RaycastHit hitEntity = new RaycastHit();
+        if (Physics.Raycast(rayCheckEntity, out hitEntity, DistanceMaxShoot(), layerMask))
+        {
+            if (shoot)
             {
-                InstantiateProjectile(directionManette.normalized);
+                InstantiateProjectile(aimDirection.normalized);
             }
-
-            if (entitySnap != null)
-            {
-                entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
-            }
-
-            entitySnap = hitEntity.collider.gameObject;
-            entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
-
+            FeedbackSnap(hitEntity.collider.gameObject);
 
         }
         else
         {
             Vector3 posHit = transform.position;
-            Collider[] pos = Physics.OverlapSphere(posHit, distanceMaxOfShoot, layerMask);
-            float disMin = distanceMaxOfShoot;
+            Collider[] pos = Physics.OverlapSphere(posHit, DistanceMaxShoot(), layerMask);
+            float disMin = DistanceMaxShoot();
             int entity = 0;
             for (int i = 0; i < pos.Length; i++)
             {
                 float currentdist = Vector3.Distance(posHit, pos[i].transform.position);
                 Vector3 dirEntity = pos[i].transform.position - transform.position;
 
-                if (currentdist < disMin && Vector3.Dot(directionManette.normalized, dirEntity.normalized) > angleSnap)
+                if (currentdist < disMin && Vector3.Dot(aimDirection.normalized, dirEntity.normalized) > angleSnap)
                 {
 
                     disMin = currentdist;
                     entity = i;
                 }
             }
-
-            if (entitySnap != null)
+            if (entity != 0 && disMin != DistanceMaxShoot())
             {
-                entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
+                FeedbackSnap(pos[entity].gameObject);
             }
-            if (entity != 0 && disMin != distanceMaxOfShoot)
+            else
             {
-                entitySnap = pos[entity].gameObject;
-                entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
+                FeedbackSnap(null);
             }
-
-            if (active)
+            if (shoot)
             {
-                if (entity != 0 && disMin != distanceMaxOfShoot)
+                if (entity != 0 && disMin != DistanceMaxShoot())
                 {
                     Vector3 dir = pos[entity].transform.position - transform.position;
                     InstantiateProjectile(dir.normalized);
@@ -247,13 +260,63 @@ public class MouseScope : MonoBehaviour
                 }
                 else
                 {
-                    InstantiateProjectile(directionManette.normalized);
+                    InstantiateProjectile(aimDirection.normalized);
                 }
             }
+
 
         }
     }
 
+    private void FeedbackSnap(GameObject entityGive)
+    {
+        if (entitySnap != null)
+        {
+            entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
+        }
+        if (entityGive != null)
+        {
+            entitySnap = entityGive;
+            entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
+        }
+    }
+
+    private void ReactiveShot()
+    {
+        resetShoot = false;
+    }
+
+    private void InstantiateProjectile(Vector3 directionOfProjectileMouvement)
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Tir);
+        instanceBullet = Instantiate(prefabBullet, transform.position + (directionOfProjectileMouvement).normalized, Quaternion.identity);
+
+        _timerOfBullet = 0;
+
+        projectils = instanceBullet.GetComponent<Projectils>();
+        projectils.dir = directionOfProjectileMouvement.normalized;
+        projectils.player = gameObject;
+        projectils.lineRenderer = lineRenderer;
+        projectils.speed = speedOfBullet;
+        projectils.moveAlone = GetComponent<PlayerMoveAlone>();
+
+        shotSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        shotSound.start();
+
+    }
+
+    private void ReturnOrientation()
+    {
+        projectils.dir = transform.position - instanceBullet.transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
+
+    }
+
+
+    public float DistanceMaxShoot()
+    {
+        return (speedOfBullet * timerOfBullet);
+    }
     public void DestroyBullet()
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Idle);
@@ -266,112 +329,32 @@ public class MouseScope : MonoBehaviour
         {
 
             GL.Begin(GL.LINES);
-            line.SetPass(0);
+            glMaterial.SetPass(0);
 
             GL.Color(Color.red);
             GL.Vertex(transform.position);
-            GL.Vertex(transform.position + (direction + directionManette).normalized * distanceMaxOfShoot);
+            GL.Vertex(transform.position + aimDirection.normalized * DistanceMaxShoot());
             GL.End();
 
             GL.Begin(GL.LINES);
-            line.SetPass(0);
+            glMaterial.SetPass(0);
 
             GL.Color(Color.red);
             GL.Vertex(transform.position);
-            GL.Vertex(transform.position + (Quaternion.Euler(0, 24, 0) * (direction + (directionManette)).normalized) * distanceMaxOfShoot);
+            GL.Vertex(transform.position + (Quaternion.Euler(0, Mathf.Rad2Deg * (1 - angleSnap), 0) * aimDirection.normalized) * DistanceMaxShoot());
             GL.End();
 
             GL.Begin(GL.LINES);
-            line.SetPass(0);
+            glMaterial.SetPass(0);
 
             GL.Color(Color.red);
             GL.Vertex(transform.position);
-            GL.Vertex(transform.position + (Quaternion.Euler(0, -24, 0) * (direction + directionManette).normalized) * distanceMaxOfShoot);
+
+            GL.Vertex(transform.position + (Quaternion.Euler(0, (Mathf.Rad2Deg * (-1 + angleSnap)), 0) * aimDirection.normalized) * DistanceMaxShoot());
             GL.End();
-            
-        }
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.black;
-        Gizmos.DrawRay(transform.position, (direction + directionManette).normalized * distanceMaxOfShoot);
-    }
-   
-    private void ReturnOrientation()
-    {
-        projectils.dir = transform.position - instanceBullet.transform.position;
-        float angle = Vector3.SignedAngle(transform.forward, projectils.dir, transform.up);
-        
-    }
-
-
-    private void InstantiateProjectile(Vector3 dir)
-    {
-        if (ennemiStock.ennemiStock == null && instanceBullet == null)
-        {
-
-            StateAnim.ChangeState(StateAnim.CurrentState.Tir);
-            instanceBullet = Instantiate(bullet, transform.position + (dir).normalized, Quaternion.identity);
-           
-
-            _timerOfBullet = 0;
-
-
-            projectils = instanceBullet.GetComponent<Projectils>();
-            projectils.dir = dir.normalized; 
-            projectils.player = gameObject;
-            projectils.lineRenderer = lineRenderer;
-            projectils.speed = speedOfBullet;
-            projectils.moveAlone = GetComponent<PlayerMoveAlone>();
-            contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-            contactSound.start();
 
         }
 
     }
 
-    private Vector3 DirectionSouris()
-    {
-        Ray camera = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane ground = new Plane(Vector3.up, Vector3.zero);
-        float rauEnter;
-
-        if (ground.Raycast(camera, out rauEnter))
-        {
-            Vector3 pointToLook = camera.GetPoint(rauEnter);
-            Vector3 posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 dir = pointToLook - posPlayer;
-            return dir;
-        }
-        else
-        {
-            return Vector3.zero;
-        }
-    }
-    private Vector3 DirectionManette()
-    {
-        Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
-        RaycastHit hit;
-        LayerMask mask = 1<<12;
-
-        if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
-        {
-
-           
-            posConvert = hit.point + Vector3.up;
-        }
-       
-        float aimHorizontal = Input.GetAxis("AimHorizontal1");
-        float aimVertical = -Input.GetAxis("AimVertical1");
-
-        Vector3 dir = (posConvert - transform.position).normalized;
-        if (dir.magnitude < 0.1f)
-        {
-            dir = Vector3.zero;
-        }
-        directionIMG.localPosition = new Vector3(aimHorizontal * 370, aimVertical * 370, 0);
-        return dir;
-    }
 }
