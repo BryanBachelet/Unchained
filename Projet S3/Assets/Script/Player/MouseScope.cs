@@ -116,9 +116,7 @@ public class MouseScope : MonoBehaviour
 
             if (_timerOfBullet > timerOfBullet)
             {
-
-                Destroy(instanceBullet);
-                lineRenderer.SetPosition(0, transform.position);
+                DestroyBullet();
 
             }
             else
@@ -130,11 +128,6 @@ public class MouseScope : MonoBehaviour
 
 
     }
-
-
-
-
-
 
     private Vector3 GetAimInputPC()
     {
@@ -312,15 +305,16 @@ public class MouseScope : MonoBehaviour
 
     }
 
-
     public float DistanceMaxShoot()
     {
         return (speedOfBullet * timerOfBullet);
     }
+
     public void DestroyBullet()
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Idle);
         Destroy(instanceBullet);
+        lineRenderer.SetPosition(0, transform.position);
     }
 
     private void OnRenderObject()
