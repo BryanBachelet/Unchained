@@ -12,6 +12,13 @@ public class StateOfGames : MonoBehaviour
     public static PhaseOfDefaultPlayable currentPhase = PhaseOfDefaultPlayable.Phase1;
     public PhaseOfDefaultPlayable currentPhaseOfDefaultPlayable;
 
+    private void Awake()
+    {
+        currentPhase = currentPhaseOfDefaultPlayable;
+        currentState = currentStateOfGame;
+    }
+
+
 #if UNITY_EDITOR
     private void Update()
     {
