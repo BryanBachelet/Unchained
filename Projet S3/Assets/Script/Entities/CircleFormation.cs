@@ -9,10 +9,10 @@ public class CircleFormation : MonoBehaviour
     public float radiusAtBase;
     public float sizeBetweenCircle;
 
-    private float radiusUse;
 
+    private float radiusUse;
     private int currentCircleNumber;
-    public float angleByCircle;
+    private float angleByCircle;
     // Start is called before the first frame update
     void Start()
     {

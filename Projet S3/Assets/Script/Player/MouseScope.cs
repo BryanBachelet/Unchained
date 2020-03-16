@@ -55,7 +55,7 @@ public class MouseScope : MonoBehaviour
 
 
     private FMOD.Studio.EventInstance shotSound;
-    // Start is called before the first frame update
+   
     void Start()
     {
         directionIMG = uIGOAim.GetComponent<RectTransform>();
@@ -79,7 +79,7 @@ public class MouseScope : MonoBehaviour
 
             if (!resetShoot && FireInputActive(controllerPc))
             {
-                frame = 0;
+             
                 if (!activeSnap)
                 {
                     InstantiateProjectile(aimDirection.normalized);
