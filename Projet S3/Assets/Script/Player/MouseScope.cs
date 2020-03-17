@@ -68,7 +68,7 @@ public class MouseScope : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         aimDirection = DirectionOfAim(controllerPc);
