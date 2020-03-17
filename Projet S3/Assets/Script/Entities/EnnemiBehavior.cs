@@ -20,7 +20,7 @@ public class EnnemiBehavior : MonoBehaviour
     [HideInInspector] public bool imStock;
     private int i;
     private Rigidbody rigidbodyEntities;
-    private EnnemiDestroy destroy;
+    private StateOfEntity destroy;
     private bool isUse;
 
     public bool beenKicked = false;
@@ -34,7 +34,7 @@ public class EnnemiBehavior : MonoBehaviour
         {
             agent = GetComponent<NavMeshAgent>();
         }
-        destroy = GetComponent<EnnemiDestroy>();
+        destroy = GetComponent<StateOfEntity>();
     }
 
     // Update is called once per frame
@@ -52,9 +52,9 @@ public class EnnemiBehavior : MonoBehaviour
         }
         if (imStock)
         {
-            destroy.isDestroying = false;
+           //destroy.isDestroying = false;
         }
-        if (!useNavMesh && destroy.isDestroying == false)
+        if (!useNavMesh && destroy.enabled == false)
         {
 
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);

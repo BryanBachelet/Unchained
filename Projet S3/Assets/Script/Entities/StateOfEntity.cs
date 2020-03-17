@@ -4,25 +4,43 @@ using UnityEngine;
 
 public class StateOfEntity : MonoBehaviour
 {
-    public enum EntityState {Formation,ReturnFormation, DestoyProjection, DestroyExplosion }
+    public enum EntityState
+    {
+        Formation, ReturnFormation, Catch, Destroy , Dead 
+    }
     public EntityState entity = EntityState.Formation;
 
-    private EntityState currentEntityState = EntityState.Formation;
+    private EntityState currentEntityState = EntityState.Destroy;
     private EnnemiDestroy ennemiDestroy;
     void Start()
     {
         ennemiDestroy = GetComponent<EnnemiDestroy>();
     }
 
-    
+
     void Update()
     {
+        if (entity != EntityState.Destroy && currentEntityState != entity)
+        {
+            currentEntityState = entity;
+            ennemiDestroy.enabled = false;
+        }
+    }
+
+    public void DestroyProjection(bool isProjection, Vector3 dir)
+    {
+            entity = EntityState.Destroy;
+            currentEntityState = entity;
+            ennemiDestroy.enabled = true;
+            if (isProjection)
+            {
+                ennemiDestroy.ActiveProjection(dir);
+            }
+            else
+            {
+                ennemiDestroy.ActiveProjection(dir);
+            }
         
     }
 
-   public void DestroyProjection(Vector3 dir)
-    {
-        entity = EntityState.DestoyProjection;
-        ennemiDestroy.ActiveProjection(dir);
-    }
 }

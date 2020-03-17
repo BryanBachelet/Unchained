@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6955470692709581098}
   - component: {fileID: 2277683949784557236}
   - component: {fileID: 54979658318759450}
+  - component: {fileID: 2472208255014677735}
   m_Layer: 9
   m_Name: Ennemi
   m_TagString: Ennemi
@@ -127,8 +128,8 @@ MonoBehaviour:
   activePull: 0
   managerEntites: {fileID: 0}
   i: 0
-  activeExplosion: 0
-  dirHorizontalProjection: {x: 0, y: 0, z: 0}
+  isExplosion: 0
+  dirProjection: {x: 0, y: 0, z: 0}
   vfxBlueUp: {fileID: 0}
 --- !u!114 &2277683949784557236
 MonoBehaviour:
@@ -160,6 +161,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2472208255014677735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775313913399584015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0ea07257bfdc34bbff6ed14d4da1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: 0
 --- !u!1 &4090917626744860964
 GameObject:
   m_ObjectHideFlags: 0
