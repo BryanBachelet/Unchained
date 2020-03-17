@@ -162,7 +162,7 @@ public class RotationPlayer : MonoBehaviour
         }
 
         CheckEnnnemi(isWall, angleSpeed);
-
+       
         playerRigid.AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
@@ -205,7 +205,7 @@ public class RotationPlayer : MonoBehaviour
 
         if (gameObjectPointPivot != null)
         {
-            gameObjectPointPivot.GetComponent<Rigidbody>().AddForce(Vector3.up * forceOfSortie, ForceMode.Impulse);
+            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false,Vector3.up);
         }
         if (moveAlone != null)
         {

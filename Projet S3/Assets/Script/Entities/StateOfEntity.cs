@@ -38,7 +38,7 @@ public class StateOfEntity : MonoBehaviour
             }
             else
             {
-                ennemiDestroy.ActiveProjection(dir);
+                ennemiDestroy.ActiveExplosion(dir);
             }
         
     }

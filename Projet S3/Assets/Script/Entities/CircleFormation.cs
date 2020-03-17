@@ -15,6 +15,7 @@ public class CircleFormation : MonoBehaviour
     private float angleByCircle;
     private float[] compteurOfMouvement;
     public float positionMouvement;
+    private bool doDestruct;
     void Start()
     {
         childEntities = new GameObject[transform.childCount];
@@ -31,7 +32,27 @@ public class CircleFormation : MonoBehaviour
     void Update()
     {
         Formation();
+        Destruct();
+    }
 
+
+    private void Destruct()
+    {
+        doDestruct = true;
+        for (int i = 0; i < childEntities.Length; i++)
+        {
+            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            {
+                doDestruct = false;
+                break;
+            }
+
+        }
+        if (doDestruct)
+        {
+            Debug.Break();
+            Destroy(gameObject);
+        }
     }
 
 

@@ -42,15 +42,17 @@ public class EnnemiDestroy : MonoBehaviour
             ProjectionAgent();
 
         }
-
+      
         if (isExplosion)
         {
+            ExplosionAgent();
 
-            if (compteur > 10)
+            if (compteur > 1)
             {
                 DestroyAgent();
             }
             compteur += Time.deltaTime;
+       
         }
 
         DetectWall();
@@ -95,6 +97,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     public void ExplosionAgent()
     {
+       
         ennemiRigidBody.velocity = (dirProjection.normalized * currentForceOfEjection);
     }
 
@@ -102,7 +105,7 @@ public class EnnemiDestroy : MonoBehaviour
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Dead;
         gameObject.SetActive(false);
-        //Destroy(gameObject);
+        
     }
 
     private void ResetAgent()

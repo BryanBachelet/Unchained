@@ -100,7 +100,7 @@ public class EnnemiStock : MonoBehaviour
                 onHitEnter = false;
                 line.active = true;
                 frameNoInput = 0;
-                
+                ennemiStock.tag = "Untagged";
                 lastInputRotation = mouse.lastInput;
                 if (input < 0)
                 {

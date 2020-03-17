@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114162344795941008}
-  - {fileID: 114922264791220202}
-  - {fileID: 114227841576238708}
-  - {fileID: 114437428331692566}
+  - {fileID: 114665809696523998}
+  - {fileID: 114891309784813104}
+  - {fileID: 114692076600133050}
   EditorEvents:
   - {fileID: 114199032971129614}
   - {fileID: 114588205460044680}
@@ -53,11 +53,28 @@ MonoBehaviour:
   - {fileID: 114665484098717408}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   StringsBanks:
   - {fileID: 114162344795941008}
-  stringsBankWriteTime: 637196240911389335
+  stringsBankWriteTime: 637200552433587309
   cacheVersion: 3
+--- !u!114 &114008607402312450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Inperative/TrackEffect
+  m_EditorClassIdentifier: 
+  Name: TrackEffect
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
 --- !u!114 &114026647012262238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,13 +90,13 @@ MonoBehaviour:
   Path: event:/Music/v2Test1/Inperative
   guid: c9c57643b3b66844bae61d83babf9305
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114095951736598268}
-  - {fileID: 114246994689298250}
+  - {fileID: 114008607402312450}
+  - {fileID: 114287174944660774}
   MinDistance: 0
   MaxDistance: 0
   Length: 42807
@@ -133,7 +150,7 @@ MonoBehaviour:
   Path: event:/Music/Etat Action
   guid: 58bb26f410fb3c40a9460ce6f0d439c7
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -191,7 +208,7 @@ MonoBehaviour:
   Path: event:/Mob/Toucher par projectile
   guid: eef92c2e762a2e4bb146f4d950bd503d
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -215,6 +232,23 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 1
+  Exists: 1
+--- !u!114 &114126267076903264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Impulsion/ImpulseRValue
+  m_EditorClassIdentifier: 
+  Name: ImpulseRValue
+  Min: 0
+  Max: 4
+  Default: 0
   Exists: 1
 --- !u!114 &114136203121186132
 MonoBehaviour:
@@ -265,8 +299,8 @@ MonoBehaviour:
   Path: event:/Player/LoseCondition 2
   guid: 32b06a59db73be4682919f10fc7f98ae
   Banks:
-  - {fileID: 114922264791220202}
-  - {fileID: 114437428331692566}
+  - {fileID: 114665809696523998}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -288,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Sons/ProjetFmod3gd/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637196240911389335
+  lastModified: 637200552433587309
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -311,6 +345,40 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 1
+--- !u!114 &114184206168495230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Toucher par le lien2/Entitipersec2
+  m_EditorClassIdentifier: 
+  Name: Entitipersec2
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &114189355630756764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TestTack1/StateMusic
+  m_EditorClassIdentifier: 
+  Name: StateMusic
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114199032971129614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +394,7 @@ MonoBehaviour:
   Path: event:/Player/Input lancement lien
   guid: 07149cfd1fe01b49993c68f102305a95
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -349,12 +417,12 @@ MonoBehaviour:
   Path: event:/Mob/Toucher par le lien2
   guid: 1829a347e086da42b891b6e643e2e350
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114416702828439612}
+  - {fileID: 114184206168495230}
   MinDistance: 1
   MaxDistance: 20
   Length: 3100
@@ -495,7 +563,7 @@ MonoBehaviour:
   Path: event:/Player/LoseCondition
   guid: 66030a29acac9f4d8e1fa0704d6aa17c
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -518,6 +586,23 @@ MonoBehaviour:
   Name: ImpulseRValue
   Min: 0
   Max: 4
+  Default: 0
+  Exists: 1
+--- !u!114 &114287174944660774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Inperative/TrackState
+  m_EditorClassIdentifier: 
+  Name: TrackState
+  Min: 0
+  Max: 10
   Default: 0
   Exists: 1
 --- !u!114 &114291923636767714
@@ -569,7 +654,7 @@ MonoBehaviour:
   Path: event:/Player/Transformation/Expulse
   guid: 963dca7e2cdecf46aa81cea5082330a7
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -729,7 +814,7 @@ MonoBehaviour:
   Path: event:/Player/Contact Lien
   guid: de3c7e043e04aa498c11833245b5a9e6
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -752,7 +837,7 @@ MonoBehaviour:
   Path: event:/Old/262635__j-p-higgins__ice-crack-1
   guid: 71bee4c0c4a29446bd5349bd3269a57f
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -775,7 +860,7 @@ MonoBehaviour:
   Path: event:/Player/Retour lien
   guid: 5e52b0cc48d0f94dbbead758a544e06c
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -815,6 +900,23 @@ MonoBehaviour:
   Name: StateMusic
   Min: 0
   Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &114496486147569426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BzNz_Decoupe/TrackState
+  m_EditorClassIdentifier: 
+  Name: TrackState
+  Min: 0
+  Max: 10
   Default: 0
   Exists: 1
 --- !u!114 &114506614318744052
@@ -867,12 +969,12 @@ MonoBehaviour:
   Path: event:/Music/v2Test1/Scatta
   guid: c689c17098bb3449804b8b423ffb052d
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114048266329697384}
+  - {fileID: 114744826522685622}
   MinDistance: 0
   MaxDistance: 0
   Length: 82013
@@ -908,7 +1010,7 @@ MonoBehaviour:
   Path: event:/Player/Orbitation lien
   guid: 6396279c15f81346b482b49da7fc1471
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -931,7 +1033,7 @@ MonoBehaviour:
   Path: event:/Player/Transformation/Attract
   guid: 688a75521f1d96439a310982d02a942d
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -971,12 +1073,12 @@ MonoBehaviour:
   Path: event:/Effect/DistanceLien
   guid: b830a2968a8a4f4eaa453306ee104aa1
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114391717296547652}
+  - {fileID: 114674912176492950}
   MinDistance: 1
   MaxDistance: 20
   Length: 14821
@@ -995,7 +1097,7 @@ MonoBehaviour:
   Path: event:/Old/380247__glitchedtones__freezer-ice-scrape-knife-10
   guid: 11ce5c7d50b3d2439191288b1090a32d
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1069,7 +1171,7 @@ MonoBehaviour:
   Path: event:/Transition
   guid: 614914f117d08a49bf0636f3c75933d7
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -1077,6 +1179,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 13117
+--- !u!114 &114646335958021514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Rotation/RotateRValue
+  m_EditorClassIdentifier: 
+  Name: RotateRValue
+  Min: 0
+  Max: 4
+  Default: 0
+  Exists: 1
 --- !u!114 &114661115982342166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,15 +1228,68 @@ MonoBehaviour:
   Path: event:/Effect/Rotation
   guid: f91caed13c7b1643ab04b6ae05641d5e
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114324290750635220}
+  - {fileID: 114646335958021514}
   MinDistance: 1
   MaxDistance: 20
   Length: 14821
+--- !u!114 &114665809696523998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sons/ProjetFmod3gd/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637200552433487402
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &114674912176492950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DistanceLien/RotateRValue
+  m_EditorClassIdentifier: 
+  Name: RotateRValue
+  Min: 0
+  Max: 4
+  Default: 0
+  Exists: 1
+--- !u!114 &114692076600133050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/VFX.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sons/ProjetFmod3gd/Build/Desktop/VFX.bank
+  SubDir: 
+  lastModified: 637200552435339225
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &114726381784430660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,7 +1305,7 @@ MonoBehaviour:
   Path: event:/Player/Deplacement
   guid: 14a9decb73ea4d44becaf0a9b536a8da
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1156,15 +1328,32 @@ MonoBehaviour:
   Path: event:/Music/Track/TestTack1
   guid: 90b76a9a1fd7f44bb8d5c0bcb3625660
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114355213457377556}
+  - {fileID: 114189355630756764}
   MinDistance: 0
   MaxDistance: 0
   Length: 421964
+--- !u!114 &114744826522685622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Scatta/TrackState
+  m_EditorClassIdentifier: 
+  Name: TrackState
+  Min: 0
+  Max: 10
+  Default: 0
+  Exists: 1
 --- !u!114 &114760903918718100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1180,7 +1369,7 @@ MonoBehaviour:
   Path: "event:/Mob/Attrap\xE9"
   guid: 1347c3892b3d2147a1eff7f93d25becd
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1203,7 +1392,7 @@ MonoBehaviour:
   Path: event:/Music/Etat idle
   guid: 2dbeb88515e82844b07827eb7aa72299
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1226,8 +1415,8 @@ MonoBehaviour:
   Path: event:/Player/Contact Lien2
   guid: 440698f39aec294cbc8cca118e99462f
   Banks:
-  - {fileID: 114922264791220202}
-  - {fileID: 114437428331692566}
+  - {fileID: 114665809696523998}
+  - {fileID: 114692076600133050}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -1268,7 +1457,7 @@ MonoBehaviour:
   Path: "event:/Mob/Relach\xE9"
   guid: 367834c81994f44dade7f6c8afb8c8af
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1291,7 +1480,7 @@ MonoBehaviour:
   Path: event:/Music/v2Test1/DJFresh-goldDust_Decoupe
   guid: ddc768b063c68140a3070d0d38af03af
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1314,12 +1503,12 @@ MonoBehaviour:
   Path: event:/Music/v2Test1/BzNz_Decoupe
   guid: e1301bd5b3b62c4db0ab7a76c92c1e8a
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114247668960070718}
+  - {fileID: 114496486147569426}
   MinDistance: 0
   MaxDistance: 0
   Length: 152529
@@ -1355,7 +1544,7 @@ MonoBehaviour:
   Path: event:/Player/Lancer lien
   guid: 1b4ecea5a2d8f340bf819e41a7b3ce23
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1379,6 +1568,24 @@ MonoBehaviour:
   Min: 0
   Max: 4
   Default: 0
+  Exists: 1
+--- !u!114 &114891309784813104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Sons/ProjetFmod3gd/Build/Desktop/Music.bank
+  SubDir: 
+  lastModified: 637200552434579999
+  LoadResult: 0
+  FileSizes: []
   Exists: 1
 --- !u!114 &114901552431887804
 MonoBehaviour:
@@ -1412,7 +1619,7 @@ MonoBehaviour:
   Path: event:/Player/Changement direction
   guid: 35b49ed7100eea4793353c0ffc9cb8f7
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1435,12 +1642,12 @@ MonoBehaviour:
   Path: event:/Effect/Impulsion
   guid: 1527d4dcc49d304fa0650fb375788ddc
   Banks:
-  - {fileID: 114437428331692566}
+  - {fileID: 114692076600133050}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114285742234572866}
+  - {fileID: 114126267076903264}
   MinDistance: 1
   MaxDistance: 20
   Length: 16000
@@ -1462,6 +1669,40 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &114940348800087398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/RefraQ_RUK_Decoupe/TrackEffect
+  m_EditorClassIdentifier: 
+  Name: TrackEffect
+  Min: 0
+  Max: 1
+  Default: 1
+  Exists: 1
+--- !u!114 &114945216198397706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/RefraQ_RUK_Decoupe/TrackState
+  m_EditorClassIdentifier: 
+  Name: TrackState
+  Min: 0
+  Max: 10
+  Default: 0
+  Exists: 1
 --- !u!114 &114960863455795564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,7 +1718,7 @@ MonoBehaviour:
   Path: event:/Music/Transition fin
   guid: 6f581da601fad549a6cf0aa419a7414b
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1517,7 +1758,7 @@ MonoBehaviour:
   Path: event:/Player/Recharge lien
   guid: b7e5cbf0543683459857717100fffd07
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1540,7 +1781,7 @@ MonoBehaviour:
   Path: event:/Music/Transition debut
   guid: 8202bfa5f476d84f94cfc9190b014ae3
   Banks:
-  - {fileID: 114922264791220202}
+  - {fileID: 114665809696523998}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1563,13 +1804,13 @@ MonoBehaviour:
   Path: event:/Music/v2Test1/RefraQ_RUK_Decoupe
   guid: 103dbc0f144aa94c9bb15b71ad3c7eb9
   Banks:
-  - {fileID: 114227841576238708}
+  - {fileID: 114891309784813104}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114238575958025750}
-  - {fileID: 114961792222185680}
+  - {fileID: 114945216198397706}
+  - {fileID: 114940348800087398}
   MinDistance: 0
   MaxDistance: 0
   Length: 100719
