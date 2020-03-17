@@ -32,8 +32,8 @@ public class MouseScope : MonoBehaviour
 
     [Header("Tirer Sound")]
     [FMODUnity.EventRef]
-    public string contact;
-    private FMOD.Studio.EventInstance contactSound;
+    public string shootEvent;
+    private FMOD.Studio.EventInstance shotSound;
     public float volume = 10;
 
     [HideInInspector] public bool lastInput;
@@ -55,7 +55,7 @@ public class MouseScope : MonoBehaviour
     private float frame;
 
 
-    private FMOD.Studio.EventInstance shotSound;
+
    
     void Start()
     {
@@ -318,18 +318,14 @@ public class MouseScope : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
     }
 
-<<<<<<< HEAD
-            StateAnim.ChangeState(StateAnim.CurrentState.Tir);
-            instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
-            myLT.bulletTransform = instanceBullet.transform;
-            //  meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
-            float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
-=======
+
+
+
     private void OnRenderObject()
     {
         if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
->>>>>>> origin/bryan_en_a_marre
+
 
             GL.Begin(GL.LINES);
             glMaterial.SetPass(0);
