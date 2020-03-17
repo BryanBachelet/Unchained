@@ -161,7 +161,7 @@ public class TransformationAgent : MonoBehaviour
             if (frame > 1 && frame < 3)
             {
                 agentList[i].GetComponent<Rigidbody>().useGravity = false;
-                agentList[i].GetComponent<EnnemiBehavior>().enabled = false;
+
             }
         }
         timing = speedOfAgent * Time.deltaTime;

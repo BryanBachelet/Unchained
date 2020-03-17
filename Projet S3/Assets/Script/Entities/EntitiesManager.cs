@@ -32,14 +32,14 @@ public class EntitiesManager : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
             {
-                transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement);
+                transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
             }
         }
         else
         {
             if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
             {
-                transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement);
+                transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement*Time.deltaTime);
 
             }
             else

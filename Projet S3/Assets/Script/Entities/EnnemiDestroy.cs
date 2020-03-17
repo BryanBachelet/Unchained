@@ -4,48 +4,49 @@ using UnityEngine;
 
 public class EnnemiDestroy : MonoBehaviour
 {
-    [HideInInspector] public ManagerEntites managerEntites;
-    [HideInInspector] public int i = 0;
-    [HideInInspector] public bool isDestroying;
+    public bool isDestroying = false;
     [Header("Ejection")]
     public float angleRotate;
     public int offset;
 
     public Transform pivotTransform;
     public float timerBeforeDestroy = 2;
-    private float compteur;
-    bool enter = false;
-    [HideInInspector] public GameObject vfxBlueUp;
-    private GameObject player;
-    [HideInInspector] public Vector3 dirHorizontalProjection;
-    private Vector3 dirVertical;
-    private Rigidbody ennemiRigidBody;
 
     public float fallMultiplier = 5f;
     public float lowMultiplier = 2.5f;
     public float currentForceOfEjection = 50;
     public float deccelerationOfForceOfEjection = 5;
     public float upForce = 25;
-    private float currentForce = 0;
 
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
     public float tpsEcoule;
-
-    Vector3 deltaRotation;
-    private EnnemiBehavior ennemiBehavior;
-    float rndX;
-    [HideInInspector] public Vector3 destroyDir;
-    [HideInInspector] public bool activePull;
-    [HideInInspector]
-    public bool activeExplosion = false;
-    private int compteurDestroy;
 
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
     //private FMOD.Studio.EventInstance contactSound;
     public float volume = 20;
+
+    [HideInInspector] public Vector3 destroyDir;
+    [HideInInspector] public bool activePull;
+    [HideInInspector] public ManagerEntites managerEntites;
+    [HideInInspector] public int i = 0;
+    [HideInInspector] public bool activeExplosion = false;
+
+    [HideInInspector] public Vector3 dirHorizontalProjection;
+    private float compteur;
+    private bool enter = false;
+    [HideInInspector] public GameObject vfxBlueUp;
+    private GameObject player;
+    private Vector3 dirVertical;
+    private Rigidbody ennemiRigidBody;
+    private float currentForce = 0;
+    private Vector3 deltaRotation;
+    private EnnemiBehavior ennemiBehavior;
+    private int compteurDestroy;
+    private float rndX;
+
     void Start()
     {
         ennemiBehavior = GetComponent<EnnemiBehavior>();
@@ -106,7 +107,7 @@ public class EnnemiDestroy : MonoBehaviour
 
 
         }
-        if (!ennemiBehavior.imStock)
+        if (player.GetComponent<EnnemiStock>().ennemiStock != gameObject)
         {
             tpsEcoule += Time.deltaTime;
 
@@ -129,7 +130,7 @@ public class EnnemiDestroy : MonoBehaviour
         RaycastHit hit = new RaycastHit();
 
         Debug.DrawRay(ray.origin, ray.direction, Color.blue);
-        if (Physics.Raycast(ray, out hit, 1.5f *ennemiRigidBody.velocity.magnitude * Time.deltaTime))
+        if (Physics.Raycast(ray, out hit, 1.5f * ennemiRigidBody.velocity.magnitude * Time.deltaTime))
         {
             if (hit.collider.tag == "wall")
             {

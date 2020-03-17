@@ -131,7 +131,7 @@ public class MashingTrans : MonoBehaviour
         colliders.Clear();
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            if (hitColliders[i].GetComponent<EnnemiBehavior>().enabled == true)
+            if (hitColliders[i].GetComponent<Rigidbody>().useGravity == true)
             {
                 colliders.Add(hitColliders[i]);
             }

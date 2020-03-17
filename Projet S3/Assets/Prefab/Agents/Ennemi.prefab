@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 3098077225144423775}
   - component: {fileID: 8560757064812872196}
   - component: {fileID: 5661038750740194464}
-  - component: {fileID: 908268350599996597}
   - component: {fileID: 6955470692709581098}
-  - component: {fileID: 1644527620069924043}
   - component: {fileID: 2277683949784557236}
   - component: {fileID: 54979658318759450}
   m_Layer: 9
@@ -99,27 +97,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &908268350599996597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2775313913399584015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb7e8b20a1e8864592157788fc714a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useNavMesh: 0
-  target: {fileID: 0}
-  currentTarget: {fileID: 0}
-  speedClassic: 4
-  speedLinks: 10
-  poids: 0
-  speedOfRotation: 1
-  imStock: 0
-  beenKicked: 0
 --- !u!114 &6955470692709581098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,15 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c5b229703f79e459680161158c0ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerEntites: {fileID: 0}
-  i: 0
   isDestroying: 0
   angleRotate: 30
   offset: 0
   pivotTransform: {fileID: 5899377448255727506}
   timerBeforeDestroy: 4
-  vfxBlueUp: {fileID: 0}
-  dirHorizontalProjection: {x: 0, y: 0, z: 0}
   fallMultiplier: 3
   lowMultiplier: 2
   currentForceOfEjection: 50
@@ -148,23 +121,15 @@ MonoBehaviour:
   upForce: 15
   tpsDestroy: 90
   tpsEcoule: 0
-  destroyDir: {x: 0, y: 0, z: 0}
-  activePull: 0
   contact: event:/Transition
   volume: 20
---- !u!114 &1644527620069924043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2775313913399584015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f0c791d0c4f85458a724b4380f269a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entitiesTypes: 0
+  destroyDir: {x: 0, y: 0, z: 0}
+  activePull: 0
+  managerEntites: {fileID: 0}
+  i: 0
+  activeExplosion: 0
+  dirHorizontalProjection: {x: 0, y: 0, z: 0}
+  vfxBlueUp: {fileID: 0}
 --- !u!114 &2277683949784557236
 MonoBehaviour:
   m_ObjectHideFlags: 0
