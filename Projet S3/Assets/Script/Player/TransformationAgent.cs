@@ -31,12 +31,18 @@ public class TransformationAgent : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-    
-        lightPlayer = GetComponentInChildren<Light>();
-        frame = 0;
+        if (this.enabled == true)
+        {
+            lightPlayer = GetComponentInChildren<Light>();
+            frame = 0;
+            agentList.Clear();
+            startAnim = false;
+            active = false;
+
+        }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (startAnim)
@@ -45,18 +51,17 @@ public class TransformationAgent : MonoBehaviour
             {
                 MoveSphere();
             }
-            if (Input.GetKey(KeyCode.X))
+
+            if (!active)
             {
-                active = true;
+                if (Vector3.Distance(agentList[0].position, posSphere[0]) < 1)
+                {
+
+                    active = true;
+
+                }
             }
-
-            if (Vector3.Distance(agentList[0].position, posSphere[0]) < 1)
-            {
-
-                active = true;
-
-            }
-            if (active)
+            else
             {
 
 
@@ -69,6 +74,7 @@ public class TransformationAgent : MonoBehaviour
 
             }
 
+
         }
 
 
@@ -80,14 +86,15 @@ public class TransformationAgent : MonoBehaviour
         DetectAgent();
         RandomSphere();
         startAnim = true;
+        stop = false;
     }
 
 
     public void ActiveExplosion()
     {
-     
+
         stop = true;
-  
+
         ExploseAgent();
 
     }
@@ -101,13 +108,13 @@ public class TransformationAgent : MonoBehaviour
         {
 
             agentList[i].GetComponent<EnnemiDestroy>().ActiveExplosion();
-            
-           
+
+
             Vector3 dir = agentList[i].position - transform.position;
             Rigidbody agent = agentList[i].GetComponent<Rigidbody>();
             agent.AddForce(dir.normalized * 70, ForceMode.Impulse);
         }
-        
+
     }
 
     public void DetectAgent()
@@ -120,8 +127,8 @@ public class TransformationAgent : MonoBehaviour
             if (agent[i].tag == "Ennemi")
             {
                 agentList.Add(agent[i].transform);
-                
-                
+
+
             }
         }
         posSphere = new Vector3[agentList.Count];
@@ -141,6 +148,7 @@ public class TransformationAgent : MonoBehaviour
     {
         for (int i = 0; i < agentList.Count; i++)
         {
+
             if (Vector3.Distance(agentList[i].position, posSphere[i]) < 10)
             {
 
@@ -152,20 +160,20 @@ public class TransformationAgent : MonoBehaviour
             }
 
             agentList[i].eulerAngles = Vector3.zero;
-     
-            if (frame > 1  && frame<3)
+
+            if (frame > 1 && frame < 3)
             {
                 agentList[i].GetComponent<Rigidbody>().useGravity = false;
-                agentList[i].GetComponent<EnnemiBehavior>().enabled = false;
+
             }
         }
         timing = speedOfAgent * Time.deltaTime;
-        if (frame > 0 && frame<3)
+        if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
             Physics.IgnoreLayerCollision(9, 9, true);
             Physics.IgnoreLayerCollision(9, 10, true);
-            
+
         }
         transform.position = new Vector3(transform.position.x, 2, transform.position.z);
         frame++;

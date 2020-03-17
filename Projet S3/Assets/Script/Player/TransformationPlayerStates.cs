@@ -7,8 +7,8 @@ public class TransformationPlayerStates : MonoBehaviour
     public enum Palier { Palier0, Palier1, Palier2, Tranformation1, Palier4, Palier5, Transformation2 }
 
     public static Palier currentPalier = Palier.Palier0;
-    
-   
+
+
     public int[] palierCondition = new int[7];
 
 
@@ -34,7 +34,7 @@ public class TransformationPlayerStates : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!expulseSoundPlay && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && palierStep == 3)
+        if (!expulseSoundPlay && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && palierStep == 3)
         {
             expulseSoundPlay = true;
             FMODUnity.RuntimeManager.PlayOneShot(expulseSound);
@@ -46,12 +46,17 @@ public class TransformationPlayerStates : MonoBehaviour
         }
     }
 
-   public void CheckState()
+    public void CheckState()
     {
-        if (countPlayer.countKillEnnemi > palierCondition[palierStep])
+        if (palierStep < palierCondition.Length - 1)
         {
-            ChangeStates();
+            if (countPlayer.countKillEnnemi > palierCondition[palierStep])
+            {
+                ChangeStates();
+            }
         }
+        
+
     }
 
     public void ChangeStates()

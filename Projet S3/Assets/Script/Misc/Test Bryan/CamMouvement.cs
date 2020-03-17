@@ -27,13 +27,13 @@ public class CamMouvement : MonoBehaviour
     public bool posStart;
     private Vector3 startPosCam;
     private Vector3 startEulerCam;
-     public MusicPlayer myMP;
+    public MusicPlayer myMP;
     int nbT = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-       
+
         if (!smoothTransition)
         {
             transform.position = cams[i].startPos.position;
@@ -42,21 +42,49 @@ public class CamMouvement : MonoBehaviour
         }
         else
         {
-          
+
             startPosCam = transform.position;
             startEulerCam = transform.eulerAngles;
         }
-           // cameraAc = GetComponent<CameraAction>();
-          
-           
+        // cameraAc = GetComponent<CameraAction>();
+
+
+
+        
+    }
+
+    private void OnEnable()
+    {
+        if (this.enabled == true)
+        {
+            i = 0;
+
+            if (!smoothTransition)
+            {
+                transform.position = cams[i].startPos.position;
+                transform.eulerAngles = cams[i].startPos.eulerAngles;
+                transform.LookAt(cams[i].pointOfPivot);
+            }
+            else
+            {
+
+                startPosCam = transform.position;
+                startEulerCam = transform.eulerAngles;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1))
+        {
+            PastCinematic();
+        }
+
         if (i < cams.Count)
         {
-              
+
             if (cams[i].type == CamBehavior.TypeMovement.Translation)
             {
                 Translation();
@@ -71,6 +99,21 @@ public class CamMouvement : MonoBehaviour
 
             }
         }
+    }
+
+
+    public void PastCinematic()
+    {
+        i = cams.Count;
+        StateOfGames.currentState = state;
+        this.enabled = false;
+        if (myMP != null)
+        {
+            myMP.track1.start();
+        }
+        transform.position = cams[cams.Count - 1].destination.position;
+        transform.eulerAngles = cams[cams.Count - 1].destination.eulerAngles;
+
     }
 
 
@@ -109,7 +152,7 @@ public class CamMouvement : MonoBehaviour
             if (i >= (cams.Count - 1))
             {
                 StateOfGames.currentState = state;
-                
+
                 this.enabled = false;
             }
             if (i < (cams.Count - 1))
@@ -133,13 +176,13 @@ public class CamMouvement : MonoBehaviour
         {
 
             float compt = compteurDep / cams[i].timeOfDeplacement;
-            transform.position = Vector3.Lerp(startPosCam,cams[i].startPos.position, compt);
-            transform.eulerAngles = Vector3.Lerp(startEulerCam,cams[i].startPos.eulerAngles, compt);
+            transform.position = Vector3.Lerp(startPosCam, cams[i].startPos.position, compt);
+            transform.eulerAngles = Vector3.Lerp(startEulerCam, cams[i].startPos.eulerAngles, compt);
             transform.LookAt(cams[i].pointOfPivot);
             compteurDep += Time.deltaTime;
             if (transform.position == cams[i].startPos.position)
             {
-                
+
                 posStart = true;
                 compteurDep = 0;
                 return;
@@ -152,7 +195,7 @@ public class CamMouvement : MonoBehaviour
             {
                 if (!startMouvement)
                 {
-                   
+
                     cams[i].startPos.position = transform.position;
                     cams[i].startPos.eulerAngles = transform.eulerAngles;
                 }
@@ -198,7 +241,7 @@ public class CamMouvement : MonoBehaviour
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
-            if(nbT == 1 && myMP != null)
+            if (nbT == 1 && myMP != null)
             {
                 myMP.track1.start();
             }

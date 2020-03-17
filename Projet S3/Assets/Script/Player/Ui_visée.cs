@@ -28,11 +28,11 @@ public class Ui_visée : MonoBehaviour
         if (StateAnim.state != StateAnim.CurrentState.Rotate)
         {
             mesh.material = aimMaterial;
-            transform.position = transform.parent.position + mouse.direction.normalized * position;
+            transform.position = transform.parent.position + mouse.aimDirection.normalized * position;
 
             float angleConversion = transform.eulerAngles.y;
             angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
-            float angleAvatar = Vector3.SignedAngle(Vector3.forward, mouse.direction.normalized, Vector3.up) ;
+            float angleAvatar = Vector3.SignedAngle(Vector3.forward, mouse.aimDirection.normalized, Vector3.up) ;
             if (angleConversion < 0 && angleAvatar == 180)
             {
                 angleAvatar = -180;

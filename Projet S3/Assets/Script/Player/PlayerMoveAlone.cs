@@ -37,7 +37,7 @@ public class PlayerMoveAlone : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         stock = GetComponent<EnnemiStock>();
-   //     aura = transform.GetChild(transform.childCount -1).gameObject;
+ 
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
@@ -84,10 +84,10 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button3))
-        {
-            activeDeplacement = !activeDeplacement;
-        }
+        //if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+        //{
+        //    activeDeplacement = !activeDeplacement;
+        //}
         if(line.strenghOfExpulsion != expulsionStrengh)
         {
             TransmitionOfStrenghOfExpulsion();
@@ -111,11 +111,12 @@ public class PlayerMoveAlone : MonoBehaviour
         line.strenghOfExpulsion = expulsionStrengh;
     }
 
-    public void AddProjection()
+    public void AddProjection(Vector3 dir)
     {
         Debug.Log("Propulsion");
-        playerRigid.AddForce(mouseScop.directionManette.normalized * powerOfProjection, ForceMode.Impulse);
-        DirProjection = mouseScop.directionManette  .normalized;
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
+        DirProjection = dir;
         currentPowerOfProjection = powerOfProjection;
     }
 

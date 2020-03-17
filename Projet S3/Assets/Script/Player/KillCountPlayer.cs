@@ -38,11 +38,8 @@ public class KillCountPlayer : MonoBehaviour
         loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
         loseCondition.setVolume(volume);
     }
-    public void Start()
-    {
+   
 
-
-    }
 
     void Update()
     {
@@ -83,6 +80,10 @@ public class KillCountPlayer : MonoBehaviour
                     myMP.track1.setParameterByName("TrackEffect", 0.0F);
                 }
             }
+        }
+        else
+        {
+            compteurOfDeath = 0;
         }
 
         if (activeReset)

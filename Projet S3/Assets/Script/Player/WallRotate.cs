@@ -21,7 +21,7 @@ public class WallRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float input = Input.GetAxis("Attract1");
+
         //if (hasHitWall)
         //{
         //    if (Input.GetKeyDown(KeyCode.Mouse0) || input < 0)

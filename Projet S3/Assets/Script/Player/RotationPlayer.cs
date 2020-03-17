@@ -55,6 +55,7 @@ public class RotationPlayer : MonoBehaviour
 
         if (rotate)
         {
+            playerRigid.velocity = Vector3.zero;
 
             if (tagEnter == tag)
             {
@@ -104,7 +105,7 @@ public class RotationPlayer : MonoBehaviour
   
     public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
-
+        tagEnter = null;
         gameObjectPointPivot = positionPivot;
         pointPivot = positionPivot.transform.position;
         tagEnter = tag;

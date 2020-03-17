@@ -10,42 +10,50 @@ public class GestionScript : MonoBehaviour
 
     private bool maj = false;
 
+    private StateOfGames.StateOfGame previousState; 
     // Start is called before the first frame update
     void Start()
     {
 
         if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic)
         {
-
-            ActiveCinematique(true);
-            ActivePlaytime(false);
-            ActiveTransformation(false);
+            if (previousState != StateOfGames.currentState)
+            {
+                ActiveCinematique(true);
+                ActivePlaytime(false);
+                ActiveTransformation(false);
+                previousState = StateOfGames.currentState;
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic)
+        if (previousState != StateOfGames.currentState)
         {
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic)
+            {
 
-            ActivePlaytime(false);
-            ActiveTransformation(false);
-            ActiveCinematique(true);
-        }
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {
+                ActivePlaytime(false);
+                ActiveTransformation(false);
+                ActiveCinematique(true);
+            }
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+            {
 
-            ActiveCinematique(false);
-            ActiveTransformation(false);
-            ActivePlaytime(true);
-        }
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
-        {
+                ActiveCinematique(false);
+                ActiveTransformation(false);
+                ActivePlaytime(true);
+            }
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
+            {
 
-            ActiveCinematique(false);
-            ActivePlaytime(false);
-            ActiveTransformation(true);
+                ActiveCinematique(false);
+                ActivePlaytime(false);
+                ActiveTransformation(true);
+            }
+            previousState = StateOfGames.currentState;
         }
     }
 

@@ -4,48 +4,49 @@ using UnityEngine;
 
 public class EnnemiDestroy : MonoBehaviour
 {
-    [HideInInspector] public ManagerEntites managerEntites;
-    [HideInInspector] public int i = 0;
-    [HideInInspector] public bool isDestroying;
+    public bool isDestroying = false;
     [Header("Ejection")]
     public float angleRotate;
     public int offset;
 
     public Transform pivotTransform;
     public float timerBeforeDestroy = 2;
-    private float compteur;
-    bool enter = false;
-    [HideInInspector] public GameObject vfxBlueUp;
-    private GameObject player;
-    [HideInInspector] public Vector3  dirHorizontalProjection;
-    private Vector3 dirVertical;
-    private Rigidbody ennemiRigidBody;
 
     public float fallMultiplier = 5f;
     public float lowMultiplier = 2.5f;
     public float currentForceOfEjection = 50;
     public float deccelerationOfForceOfEjection = 5;
     public float upForce = 25;
-    private float currentForce = 0;
 
     [Header("AutoDestroy")]
     public float tpsDestroy = 90;
     public float tpsEcoule;
-
-    Vector3 deltaRotation;
-    private EnnemiBehavior ennemiBehavior;
-    float rndX;
-    [HideInInspector] public Vector3 destroyDir;
-    [HideInInspector] public bool activePull;
-    [HideInInspector]
-    public bool activeExplosion = false;
-    private int compteurDestroy;
 
     [Header("Sound")]
     [FMODUnity.EventRef]
     public string contact;
     //private FMOD.Studio.EventInstance contactSound;
     public float volume = 20;
+
+    [HideInInspector] public Vector3 destroyDir;
+    [HideInInspector] public bool activePull;
+    [HideInInspector] public ManagerEntites managerEntites;
+    [HideInInspector] public int i = 0;
+    [HideInInspector] public bool activeExplosion = false;
+
+    [HideInInspector] public Vector3 dirHorizontalProjection;
+    private float compteur;
+    private bool enter = false;
+    [HideInInspector] public GameObject vfxBlueUp;
+    private GameObject player;
+    private Vector3 dirVertical;
+    private Rigidbody ennemiRigidBody;
+    private float currentForce = 0;
+    private Vector3 deltaRotation;
+    private EnnemiBehavior ennemiBehavior;
+    private int compteurDestroy;
+    private float rndX;
+
     void Start()
     {
         ennemiBehavior = GetComponent<EnnemiBehavior>();
@@ -56,30 +57,30 @@ public class EnnemiDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
         if (isDestroying && !activeExplosion)
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
 
-                        ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection ) + (Vector3.up * ennemiRigidBody.velocity.y);
+            ennemiRigidBody.velocity = (dirHorizontalProjection.normalized * currentForceOfEjection) + (Vector3.up * ennemiRigidBody.velocity.y);
             if (currentForceOfEjection > 0)
             {
-                currentForceOfEjection -= deccelerationOfForceOfEjection *  Time.deltaTime;
+                currentForceOfEjection -= deccelerationOfForceOfEjection * Time.deltaTime;
             }
             if (ennemiRigidBody.velocity.y < 0)
             {
-                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) *Time.deltaTime);
-               
+                ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+
             }
             if (ennemiRigidBody.velocity.y > 0)
             {
                 ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
             }
-                if (!enter)
+            if (!enter)
             {
                 ennemiRigidBody.AddForce(Vector3.up * upForce, ForceMode.Impulse);
-            
+
                 rndX = Random.Range(-1, 1);
                 if (vfxBlueUp != null)
                 {
@@ -104,9 +105,9 @@ public class EnnemiDestroy : MonoBehaviour
                 enter = false;
             }
 
-           
+
         }
-        if (!ennemiBehavior.imStock)
+        if (player.GetComponent<EnnemiStock>().ennemiStock != gameObject)
         {
             tpsEcoule += Time.deltaTime;
 
@@ -124,11 +125,23 @@ public class EnnemiDestroy : MonoBehaviour
             }
             compteur += Time.deltaTime;
         }
+
+        Ray ray = new Ray(transform.position, ennemiRigidBody.velocity.normalized);
+        RaycastHit hit = new RaycastHit();
+
+        Debug.DrawRay(ray.origin, ray.direction, Color.blue);
+        if (Physics.Raycast(ray, out hit, 1.5f * ennemiRigidBody.velocity.magnitude * Time.deltaTime))
+        {
+            if (hit.collider.tag == "wall")
+            {
+                EndAgent();
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isDestroying && collision.collider.tag =="wall")
+        if (isDestroying && collision.collider.tag == "wall")
         {
             EndAgent();
         }
