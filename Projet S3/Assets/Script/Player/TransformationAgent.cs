@@ -26,6 +26,8 @@ public class TransformationAgent : MonoBehaviour
     private int frame;
     private bool startAnim;
     private Vector3 pos;
+
+    public GameObject explosionVFX;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -93,7 +95,8 @@ public class TransformationAgent : MonoBehaviour
 
     public void ExploseAgent()
     {
-       
+
+        Instantiate(explosionVFX, transform.position, Quaternion.Euler(-90,0,0));
         for (int i = 0; i < agentList.Count; i++)
         {
 

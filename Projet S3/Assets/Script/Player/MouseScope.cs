@@ -7,6 +7,7 @@ public class MouseScope : MonoBehaviour
 
     public Material line;
     public GameObject bullet;
+    public LineTiling myLT;
     [HideInInspector] public GameObject Ambout;
 
     private EnnemiStock ennemiStock;
@@ -204,6 +205,7 @@ public class MouseScope : MonoBehaviour
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Idle);
         Destroy(instanceBullet);
+        myLT.bulletTransform = null;
     }
 
     private void OnRenderObject()
@@ -251,6 +253,7 @@ public class MouseScope : MonoBehaviour
 
             StateAnim.ChangeState(StateAnim.CurrentState.Tir);
             instanceBullet = Instantiate(bullet, transform.position + (direction + directionManette).normalized, Quaternion.identity);
+            myLT.bulletTransform = instanceBullet.transform;
             //  meshBullet = Instantiate(Ambout, instanceBullet.transform.position, Quaternion.identity, instanceBullet.transform);
             float angle = Vector3.SignedAngle(transform.forward, (direction + directionManette).normalized, transform.up);
 
