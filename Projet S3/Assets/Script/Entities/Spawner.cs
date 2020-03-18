@@ -26,15 +26,22 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-
-        if (compteur > timeOfSpawn)
+        if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            SpawnEntities(patrolMode);
-            compteur = 0;
+
         }
         else
         {
-            compteur += Time.deltaTime;
+            if (compteur > timeOfSpawn)
+            {
+                SpawnEntities(patrolMode);
+                compteur = 0;
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
+
         }
 
     }

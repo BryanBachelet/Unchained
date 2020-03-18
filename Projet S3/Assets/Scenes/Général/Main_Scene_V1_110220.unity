@@ -796,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -1595,7 +1595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a3960c428168b4aa39cc68cc15d2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStateOfGame: 0
+  currentStateOfGame: 1
   currentPhaseOfDefaultPlayable: 0
 --- !u!1 &307060810
 GameObject:
@@ -2018,7 +2018,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -2798,7 +2798,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -4005,7 +4005,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -4084,7 +4084,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -4163,7 +4163,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -4464,7 +4464,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -6888,6 +6888,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: rotation
+      value: event:/Player/Rotation
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136097558, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
     - {fileID: 136097559, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
@@ -7826,7 +7831,7 @@ PrefabInstance:
     - target: {fileID: 1790326681990705757, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1790326681990705756, guid: 4d09027ea5cba044a9a6882c12b910f1,
         type: 3}
@@ -8721,6 +8726,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 412217197119277412, guid: 44b325eba4b1fb34fbdfccebfc9ca0e3,
         type: 3}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawn
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!4 &1930592904 stripped
@@ -9308,7 +9318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b01d555d6755448addbe9fc42e4168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palierCondition: 000000000a000000140000001e00000028000000320000003c000000
+  palierCondition: 00000000320000006400000096000000c8000000fa0000002c010000
   palierStep: 0
   attractSound: event:/Player/Transformation/Attract
   expulseSound: event:/Player/Transformation/Expulse
