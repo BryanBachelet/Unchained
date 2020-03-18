@@ -51,6 +51,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
         EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+     
         manager.patrolMode = patrol;
         if (patrol)
         {

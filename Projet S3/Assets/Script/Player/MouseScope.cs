@@ -229,7 +229,8 @@ public class MouseScope : MonoBehaviour
                 float currentdist = Vector3.Distance(posHit, pos[i].transform.position);
                 Vector3 dirEntity = pos[i].transform.position - transform.position;
 
-                if (currentdist < disMin && Vector3.Dot(aimDirection.normalized, dirEntity.normalized) > angleSnap)
+                if (currentdist < disMin && Vector3.Dot(aimDirection.normalized, dirEntity.normalized) > angleSnap
+                    && pos[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy &&pos[i].transform.position.y>1.5f) 
                 {
 
                     disMin = currentdist;

@@ -16,8 +16,9 @@ public class AuraRepulsion : MonoBehaviour
     {
         if(other.tag == "Ennemi" && other != null && moveAlone != null)
         {
-
-            moveAlone.Repulsion(other.gameObject, transform);
+            Vector3 dir = transform.parent.position - other.transform.position;
+            other.GetComponent<StateOfEntity>().DestroyProjection(true,dir.normalized);
+            //moveAlone.Repulsion(other.gameObject, transform);
         }
     }
 }
