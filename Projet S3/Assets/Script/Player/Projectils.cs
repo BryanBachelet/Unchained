@@ -18,6 +18,7 @@ public class Projectils : MonoBehaviour
     private float distanceBetweenHitandPlayer;
     private float distanceProjectilePlayer;
     private bool hitWall;
+    private bool oneHit;
     private void Start()
     {
 
@@ -86,23 +87,26 @@ public class Projectils : MonoBehaviour
 
     public void AttachEntities(GameObject other)
     {
-   
-        player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-        player.GetComponent<EnnemiStock>().onHitEnter = true;
-        if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
-
-        other.tag = "Untagged";
-        other.transform.position += dir.normalized * 3;
-        Destroy(gameObject);
+        if (player.GetComponent<EnnemiStock>().ennemiStock == null)
+        {
+            player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
+            player.GetComponent<EnnemiStock>().onHitEnter = true;
+            
+           
+            other.transform.position += dir.normalized * 3;
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!returnBall)
         {
-            if (other.tag == "Ennemi")
+            if (other.tag == "Ennemi" && !oneHit)
             {
+
                 AttachEntities(other.gameObject);
+                oneHit = true;
             }
             else if (other.tag == "wall")
             {
@@ -124,15 +128,10 @@ public class Projectils : MonoBehaviour
     {
         if (!returnBall)
         {
-            if (other.tag == "Ennemi")
+            if (other.tag == "Ennemi" && !oneHit)
             {
-                player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
-                player.GetComponent<EnnemiStock>().onHitEnter = true;
-                if (other.GetComponent<EnnemiBehavior>() != null) other.GetComponent<EnnemiBehavior>().useNavMesh = false;
-
-                other.tag = "Untagged";
-                other.transform.position += dir.normalized * 3;
-                Destroy(gameObject);
+                AttachEntities(other.gameObject);
+                oneHit = true;
             }
             else if (other.tag == "wall")
             {

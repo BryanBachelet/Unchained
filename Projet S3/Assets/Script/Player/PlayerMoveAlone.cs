@@ -162,13 +162,12 @@ public class PlayerMoveAlone : MonoBehaviour
     public void Repulsion(GameObject ennemiGO ,Transform pos)
     {
 
-        EnnemiDestroy ennemi = ennemiGO.GetComponent<EnnemiDestroy>();
-        if (ennemi.isDestroying == false)
+        StateOfEntity ennemi = ennemiGO.GetComponent<StateOfEntity>();
+        if (ennemi.entity != StateOfEntity.EntityState.Destroy)
         {
-            ennemi.isDestroying = true;
             Vector3 dir = ennemiGO.transform.position - transform.position;
-            ennemi.dirHorizontalProjection = dir;
-            ennemi.currentForceOfEjection = expulsionStrengh;
+            ennemi.DestroyProjection(true,dir);
+           
             
         }
     }

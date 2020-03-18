@@ -74,7 +74,7 @@ public class LineRend : MonoBehaviour
                         box.size = Vector3.one;
                         transform.position = transform.parent.position;
                         box.enabled = true;
-                       
+
                     }
                 }
                 else
@@ -124,10 +124,10 @@ public class LineRend : MonoBehaviour
             {
                 if (activeDetach)
                 {
-                   
+
                     if (collision.transform.tag == "wall")
                     {
-                     
+
                         if (ennemiStock.ennemiStock != collision.gameObject && ennemiStock.ennemiStock != null)
                         {
                             ennemiStock.DetachPlayer();
@@ -174,10 +174,7 @@ public class LineRend : MonoBehaviour
         else
         {
             float rndX = Random.Range(-15, 15);
-            if (!collision.GetComponent<EnnemiDestroy>().isDestroying)
-            {
-
-            }
+           
             if (activeParticle)
             {
                 Transform transfChild = collision.transform.GetChild(0);
@@ -186,17 +183,18 @@ public class LineRend : MonoBehaviour
 
         }
 
-        //collision.attachedRigidbody.detectCollisions = false;
-        EnnemiDestroy ennemi = collision.GetComponent<EnnemiDestroy>();
-        if (!ennemi.isDestroying && collision.gameObject != ennemiStock.ennemiStock)
+
+        StateOfEntity ennemi = collision.GetComponent<StateOfEntity>();
+        if (ennemi.entity != StateOfEntity.EntityState.Destroy && collision.gameObject != ennemiStock.ennemiStock)
         {
+
             FMODUnity.RuntimeManager.PlayOneShot(contact, collision.transform.position);
-            ennemi.isDestroying = true;
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
-            ennemi.dirHorizontalProjection = Vector3.Cross(Vector3.up, dir.normalized);
-            if (mouseScope.lastInput) ennemi.dirHorizontalProjection *= -1;
-            ennemi.currentForceOfEjection = moveAlone.expulsionStrengh;
+            ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized));
+
+            if (mouseScope.lastInput) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1));
+         
         }
     }
 

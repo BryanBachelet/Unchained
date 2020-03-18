@@ -107,12 +107,8 @@ public class TransformationAgent : MonoBehaviour
         for (int i = 0; i < agentList.Count; i++)
         {
 
-            agentList[i].GetComponent<EnnemiDestroy>().ActiveExplosion();
-
-
             Vector3 dir = agentList[i].position - transform.position;
-            Rigidbody agent = agentList[i].GetComponent<Rigidbody>();
-            agent.AddForce(dir.normalized * 70, ForceMode.Impulse);
+            agentList[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir); 
         }
 
     }

@@ -15,6 +15,7 @@ public class CircleFormation : MonoBehaviour
     private float angleByCircle;
     private float[] compteurOfMouvement;
     public float positionMouvement;
+    private bool doDestruct;
     void Start()
     {
         childEntities = new GameObject[transform.childCount];
@@ -31,7 +32,27 @@ public class CircleFormation : MonoBehaviour
     void Update()
     {
         Formation();
+        Destruct();
+    }
 
+
+    private void Destruct()
+    {
+        doDestruct = true;
+        for (int i = 0; i < childEntities.Length; i++)
+        {
+            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            {
+                doDestruct = false;
+                break;
+            }
+
+        }
+        if (doDestruct)
+        {
+           
+            Destroy(gameObject);
+        }
     }
 
 
@@ -46,14 +67,17 @@ public class CircleFormation : MonoBehaviour
             Vector3 pos = new Vector3(0, 0, 0);
 
             pos = transform.position + (Quaternion.Euler(0, angleByCircle * i, 0) * transform.forward * radiusUse);
-            float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
-            if (distanceDestination > 0.01f)
+            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
             {
-                Vector3 dir = pos - childEntities[i].transform.position;
-                if (!childEntities[i].GetComponent<EnnemiDestroy>().isDestroying)
+                float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
+                if (distanceDestination > 0.01f)
                 {
-                    childEntities[i].transform.position += dir.normalized * speedAgent * Time.deltaTime;
-                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                    Vector3 dir = pos - childEntities[i].transform.position;
+                    if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy)
+                    {
+                        childEntities[i].transform.position += dir.normalized * speedAgent * Time.deltaTime;
+                        childEntities[i].transform.eulerAngles = Vector3.zero;
+                    }
                 }
             }
         }
