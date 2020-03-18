@@ -67,6 +67,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             GoTranformation();
             FMODUnity.RuntimeManager.PlayOneShot(attractSound);
+            StateOfGames.currentPhase++;
         }
     }
 

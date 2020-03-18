@@ -14,6 +14,7 @@ public class EnnemiDestroy : MonoBehaviour
     public float fallMultiplier = 5f;
     public float lowMultiplier = 2.5f;
     public float currentForceOfEjection = 50;
+
     public float deccelerationOfForceOfEjection = 5;
     public float upForce = 25;
 
@@ -62,6 +63,7 @@ public class EnnemiDestroy : MonoBehaviour
     {
         isExplosion = false;
         dirProjection = dir.normalized;
+        ennemiRigidBody.velocity = (upForce * Vector3.up);
     }
 
     public void ActiveExplosion(Vector3 dir)
@@ -84,12 +86,12 @@ public class EnnemiDestroy : MonoBehaviour
 
         if (ennemiRigidBody.velocity.y < 0)
         {
-            ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+            ennemiRigidBody.velocity -= (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
 
         }
         else
         {
-            ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
+            ennemiRigidBody.velocity -= (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
         }
 
 
