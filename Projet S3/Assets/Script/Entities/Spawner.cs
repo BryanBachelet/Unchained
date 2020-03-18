@@ -26,11 +26,7 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-        if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
-        {
-
-        }
-        else
+        if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
             if (compteur > timeOfSpawn)
             {
@@ -41,6 +37,10 @@ public class Spawner : MonoBehaviour
             {
                 compteur += Time.deltaTime;
             }
+        }
+        else
+        {
+            
 
         }
 
