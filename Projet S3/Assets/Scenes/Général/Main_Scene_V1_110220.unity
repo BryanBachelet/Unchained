@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028377, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6459,7 +6459,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2000008
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -6837,6 +6837,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439582, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Parameters.textureMode
@@ -6867,23 +6879,6 @@ PrefabInstance:
       propertyPath: m_Parameters.textureMode
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2599016833369903905, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: volume
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 1159970227, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_Radius
       value: 0.5
@@ -6892,6 +6887,11 @@ PrefabInstance:
         type: 3}
       propertyPath: rotation
       value: event:/Player/Rotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 2599016833369903905, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: volume
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 136097558, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
@@ -7175,10 +7175,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567850613}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1567850616
