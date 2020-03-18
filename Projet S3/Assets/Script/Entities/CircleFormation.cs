@@ -50,7 +50,7 @@ public class CircleFormation : MonoBehaviour
         }
         if (doDestruct)
         {
-            Debug.Break();
+           
             Destroy(gameObject);
         }
     }
