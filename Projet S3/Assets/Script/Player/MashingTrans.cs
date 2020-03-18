@@ -101,14 +101,14 @@ public class MashingTrans : MonoBehaviour
                 }
                 if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
                 {
-                    Physics.IgnoreLayerCollision(9, 9, false);
+                  //  Physics.IgnoreLayerCollision(9, 9, false);
                     Physics.IgnoreLayerCollision(9, 10, false);
                     text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
                 }
                 if (i.Count > numberToAim)
                 {
-                    Physics.IgnoreLayerCollision(9, 9, false);
+                   // Physics.IgnoreLayerCollision(9, 9, false);
                     Physics.IgnoreLayerCollision(9, 10, false);
                     text.gameObject.SetActive(false);
                     agentTransfo.ActiveExplosion();
