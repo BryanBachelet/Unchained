@@ -144,6 +144,7 @@ public class LineRend : MonoBehaviour
         {
             if (collision.transform.tag == "Ennemi")
             {
+
                 Collision(collision);
 
             }
@@ -165,7 +166,6 @@ public class LineRend : MonoBehaviour
 
     void Collision(Collider collision)
     {
-
         if (!upProjection)
         {
             float sign = Mathf.Sign(Vector3.Angle(transform.position, collision.transform.position));
@@ -187,6 +187,8 @@ public class LineRend : MonoBehaviour
         StateOfEntity ennemi = collision.GetComponent<StateOfEntity>();
         if (ennemi.entity != StateOfEntity.EntityState.Destroy && collision.gameObject != ennemiStock.ennemiStock)
         {
+
+            FMODUnity.RuntimeManager.PlayOneShot(contact, collision.transform.position);
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized));

@@ -87,6 +87,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{544c9cdb-43be-4473-9f2a-1aad63db0a60}">
+		<relationship name="modulators">
+			<destination>{3c5c54f8-6301-4457-a1a3-50528da25e3c}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{5b3c88d8-0d86-4069-927d-f878912ef7d4}</destination>
 		</relationship>
@@ -164,7 +167,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{d813a6e2-f637-46fb-ac2d-0e8d5c976907}">
 		<property name="volume">
-			<value>-34</value>
+			<value>-80</value>
 		</property>
 		<property name="name">
 			<value>Audio 2</value>
@@ -192,6 +195,17 @@
 		<relationship name="markerTrack">
 			<destination>{15e3158b-b15c-45d0-8639-e6744f0f83a0}</destination>
 		</relationship>
+	</object>
+	<object class="LFOModulator" id="{3c5c54f8-6301-4457-a1a3-50528da25e3c}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="depth">
+			<value>6</value>
+		</property>
+		<property name="direction">
+			<value>-100</value>
+		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{5b3c88d8-0d86-4069-927d-f878912ef7d4}">
 		<relationship name="effects">

@@ -39,6 +39,10 @@ public class RotationPlayer : MonoBehaviour
     private Rigidbody playerRigid;
     private PlayerMoveAlone moveAlone;
 
+    [FMODUnity.EventRef]
+    public string rotation;
+    private FMOD.Studio.EventInstance rotationSound;
+    bool checksound = false;
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -48,6 +52,8 @@ public class RotationPlayer : MonoBehaviour
         stocks = GetComponent<EnnemiStock>();
         playerRigid = GetComponent<Rigidbody>();
         currentAngleMax = angleMax;
+        rotationSound = FMODUnity.RuntimeManager.CreateInstance(rotation);
+        rotationSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
     }
 
     public void FixedUpdate()
@@ -55,6 +61,11 @@ public class RotationPlayer : MonoBehaviour
 
         if (rotate)
         {
+            if(!checksound)
+            {
+                rotationSound.start();
+                checksound = true;
+            }
             playerRigid.velocity = Vector3.zero;
 
             if (tagEnter == tag)
@@ -97,7 +108,11 @@ public class RotationPlayer : MonoBehaviour
         }
         else
         {
-
+            if(checksound)
+            {
+                rotationSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                checksound = false;
+            }
             angleAvatar = 0;
         }
     }

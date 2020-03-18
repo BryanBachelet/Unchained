@@ -33,6 +33,7 @@ public class MouseScope : MonoBehaviour
     [Header("Tirer Sound")]
     [FMODUnity.EventRef]
     public string shootEvent;
+    private FMOD.Studio.EventInstance shotSound;
     public float volume = 10;
 
     [HideInInspector] public bool lastInput;
@@ -54,7 +55,7 @@ public class MouseScope : MonoBehaviour
     private float frame;
 
 
-    private FMOD.Studio.EventInstance shotSound;
+
    
     void Start()
     {
@@ -317,10 +318,14 @@ public class MouseScope : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
     }
 
+
+
+
     private void OnRenderObject()
     {
         if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
+
 
             GL.Begin(GL.LINES);
             glMaterial.SetPass(0);

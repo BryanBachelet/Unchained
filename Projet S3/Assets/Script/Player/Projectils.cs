@@ -24,7 +24,7 @@ public class Projectils : MonoBehaviour
 
         if (!lineRenderer.enabled)
         {
-            lineRenderer.enabled = true;
+           //lineRenderer.enabled = true;
         }
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, player.transform.position);
