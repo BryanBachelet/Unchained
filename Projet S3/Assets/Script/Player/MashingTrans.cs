@@ -55,6 +55,7 @@ public class MashingTrans : MonoBehaviour
             i.Clear();
             currentmax = maxNumberToAim;
             hitColliders = new Collider[0];
+            compteur = 0;
         }
     }
 
