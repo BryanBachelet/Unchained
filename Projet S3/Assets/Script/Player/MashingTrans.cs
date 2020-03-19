@@ -95,7 +95,7 @@ public class MashingTrans : MonoBehaviour
                 }
                 compteur += Time.deltaTime;
                 text.gameObject.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
                 }
