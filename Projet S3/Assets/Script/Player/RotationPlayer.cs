@@ -10,6 +10,7 @@ public class RotationPlayer : MonoBehaviour
     [Header("Options")]
     public bool limitationLongeur;
     public float limitLongeur;
+    float limitLongeurMin = 20;
     public float speedOfDeplacement= 5;
     private float angleCompteur;
     private float currentAngleMax;
@@ -81,6 +82,12 @@ public class RotationPlayer : MonoBehaviour
                 {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeur;
+                    transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
+                }
+                if (GetDistance() < limitLongeurMin)
+                {
+                    Vector3 dir = (transform.position - pointPivot).normalized;
+                    Vector3 posToGo = pointPivot + dir * limitLongeurMin;
                     transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
                 }
             }

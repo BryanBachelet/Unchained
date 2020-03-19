@@ -26,7 +26,23 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
-        if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        {
+            
+        }
+        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
+        {
+            if (compteur > timeOfSpawn + 10)
+            {
+                SpawnEntities(patrolMode);
+                compteur = 0;
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
+        }
+        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase1)
         {
             if (compteur > timeOfSpawn)
             {
@@ -38,12 +54,6 @@ public class Spawner : MonoBehaviour
                 compteur += Time.deltaTime;
             }
         }
-        else
-        {
-            
-
-        }
-
     }
 
 
