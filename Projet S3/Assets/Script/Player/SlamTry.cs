@@ -27,9 +27,11 @@ public class SlamTry : MonoBehaviour
     private LineRenderer lineRenderer;
     private Rigidbody rigid;
     private EnnemiStock ennemiStock;
+    private KillCountPlayer countPlayer;
     // Start is called before the first frame update
     void Start()
     {
+        countPlayer = GetComponentInChildren<KillCountPlayer>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
         rigid = GetComponent<Rigidbody>();
@@ -138,7 +140,8 @@ public class SlamTry : MonoBehaviour
             for (int i = 0; i < ennmi.Length; i++)
             {
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
-                ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse);
+                ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
+                countPlayer.HitEnnemi();
             }
 
             compteur = 0;

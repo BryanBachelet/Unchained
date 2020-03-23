@@ -5,10 +5,11 @@ using UnityEngine;
 public class AuraRepulsion : MonoBehaviour
 {
    public PlayerMoveAlone moveAlone;
-
+private KillCountPlayer  countPlayer;
     // Start is called before the first frame update
     void Start()
     {
+             countPlayer = transform.parent.GetComponentInChildren<KillCountPlayer>();
         moveAlone = GetComponentInParent<PlayerMoveAlone>();
     }
 
@@ -18,6 +19,7 @@ public class AuraRepulsion : MonoBehaviour
         {
             Vector3 dir = transform.parent.position - other.transform.position;
             other.GetComponent<StateOfEntity>().DestroyProjection(true,dir.normalized);
+            countPlayer.HitEnnemi();
             //moveAlone.Repulsion(other.gameObject, transform);
         }
     }
