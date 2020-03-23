@@ -214,6 +214,10 @@ public class RotationPlayer : MonoBehaviour
         rotate = false;
     }
 
+public void StopRotateSlam(){
+      rotate = false;
+}
+
     private void CheckEnnnemi(bool isEnnemi, float rightRotate)
     {
 

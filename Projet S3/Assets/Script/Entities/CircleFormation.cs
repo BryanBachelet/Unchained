@@ -31,6 +31,7 @@ public class CircleFormation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Formation();
         Destruct();
     }
@@ -73,7 +74,7 @@ public class CircleFormation : MonoBehaviour
                 if (distanceDestination > 0.01f)
                 {
                     Vector3 dir = pos - childEntities[i].transform.position;
-                    if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy)
+                    if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch )
                     {
                         childEntities[i].transform.position += dir.normalized * speedAgent * Time.deltaTime;
                         childEntities[i].transform.eulerAngles = Vector3.zero;
