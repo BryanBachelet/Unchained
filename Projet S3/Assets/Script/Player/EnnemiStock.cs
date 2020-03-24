@@ -51,6 +51,7 @@ public class EnnemiStock : MonoBehaviour
     private SlamTry slamTry;
     private bool isSlaming;
     private StateOfEntity  stateOfEntity;
+private float input ;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,10 +63,11 @@ public class EnnemiStock : MonoBehaviour
         playerRigid = GetComponent<Rigidbody>();
         
 
-
+// Line Renderer
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
+// --------------------        
         //Sound
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
@@ -77,6 +79,8 @@ public class EnnemiStock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        ActivationLien();
         tempsEcoule += Time.deltaTime;
 
         if (tempsEcoule > 1.2)
@@ -84,221 +88,187 @@ public class EnnemiStock : MonoBehaviour
             tempsEcoule = 0;
         }
         OrbitEvent.setVolume(curveVolumeOrbitation.Evaluate(tempsEcoule));
-        Camera.main.fieldOfView = myFOV;
-        float input = Input.GetAxis("ShootController");
-
-
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
+        input = Input.GetAxis("ShootController");
 
         if (ennemiStock != null)
         {
+           ActiveRotation();
+           ActiveSlam();
 
-            if (onHitEnter)
-            {
-
-                if (StateAnim.state == StateAnim.CurrentState.Tir)
-                {
-                    StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
-                }
-                isOnZoom = true;
-                Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
-                baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
-                ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-                onHitEnter = false;
-                line.active = true;
-                frameNoInput = 0;
-                ennemiStock.tag = "Untagged";
-                stateOfEntity =ennemiStock.GetComponent<StateOfEntity>();
-               stateOfEntity.entity = StateOfEntity.EntityState.Catch;
-                lastInputRotation = mouse.lastInput;
-                if (input < 0)
-                {
-                    right = true;
-                }
-                else
-                {
-                    right = false;
-                }
-                if (mouse.lastInput)
-                {
-                    if (ennemiStock.tag == "wall")
-                    {
-                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, ennemiStock, powerOfProjection, false);
-
-                    }
-                    else
-                    {
-                        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
-
-                    }
-                }
-                else
-                {
-                    if (ennemiStock.tag == "wall")
-                    {
-                        rotate = rotationPlayer.StartRotationWall(gameObject, pos, ennemiStock, powerOfProjection, true);
-
-                    }
-                    else
-                    {
-                        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
-
-                    }
-
-                }
-                if (ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
-                {
-                    ennemiStock.gameObject.GetComponent<EnnemiBehavior>().imStock = true;
-
-                }
-                contactSound.start();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Joystick1Button2))
-            {
-                slamTry.StartSlam(ennemiStock);
-                rotationPlayer.StopRotateSlam();
-                isSlaming =true;
-            }
+            
             if(!isSlaming)
             {
-            /* if (isOnZoom)
-                {
-                    zoomOnHit();
-                }*/
-                FMOD.Studio.PLAYBACK_STATE orbitState;
-                OrbitEvent.getPlaybackState(out orbitState);
-                if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
-                {
-                    OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                    OrbitEvent.start();
-                }
-                mySmoothFollow.target = ennemiStock.gameObject.transform;
+                FeedbackDuringRotation();
+                InputCheck();
+                DeactiveLien();
+            }
 
-                if (input < 0)
-                {
-                    currentRight = true;
-                }
-                else
-                {
-                    currentRight = false;
-                }
+        }
+        else
+        {
+         ResetAttach();
+        }
+    }
 
-                if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
+
+
+
+    public void ActivationLien()
+    {
+        if (onHitEnter)
+        {
+            FeedbackHit();
+            ChangeAgentHit();
+            PlayerChange();
+            InputRegister();
+            ActiveRotation();
+            onHitEnter = false;
+        }
+    }
+
+    private void ChangeAgentHit()
+    {
+    ennemiStock.tag = "Untagged";
+    stateOfEntity =ennemiStock.GetComponent<StateOfEntity>();
+    stateOfEntity.entity = StateOfEntity.EntityState.Catch;
+    }
+
+    private void PlayerChange()
+    {
+    line.active = true;
+    if (StateAnim.state == StateAnim.CurrentState.Tir)
+        {
+            StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
+        }
+    }
+
+    private void InputRegister()
+    {
+    float input = Input.GetAxis("ShootController");
+    lastInputRotation = mouse.lastInput;
+
+    if (input < 0)
+    {
+        right = true;
+    }
+    else
+    {
+        right = false;
+    }
+    }
+
+    private void ActiveRotation()
+    {
+    if (mouse.lastInput)
+    {
+        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+    }
+    else
+    {
+        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+    }
+    }
+
+    private void FeedbackHit()
+    {
+    Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
+    baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
+    ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+    #region  Son
+    contactSound.start();
+    #endregion
+    }
+
+    private void ActiveSlam()
+    {
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+        {
+            slamTry.StartSlam(ennemiStock);
+            rotationPlayer.StopRotateSlam();
+            isSlaming =true;
+        }
+    }
+
+    private void ResetAttach()
+    {
+    rotate = false;
+    slam = false;
+    startBool = false;
+    }
+
+    private void FeedbackDuringRotation()
+    {
+    FMOD.Studio.PLAYBACK_STATE orbitState;
+    OrbitEvent.getPlaybackState(out orbitState);
+    if (orbitState != FMOD.Studio.PLAYBACK_STATE.PLAYING)
+    {
+        OrbitEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        OrbitEvent.start();
+    }
+    }
+
+    private void InputCheck()
+    {
+    if (input < 0)
+    {
+        currentRight = true;
+    }
+    else
+    {
+        currentRight = false;
+    }
+    }
+
+    private void  DeactiveLien()
+{
+     if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
                 {
                     if (right != currentRight || input == 0)
                     {
-                        // myRE.Emit();
+
                         DetachPlayer();
+                        // Lien renderer 
                         lineRenderer.SetPosition(0, transform.position);
                         lineRenderer.SetPosition(1, transform.position);
                     }
                 }
-                if (input == 0)
-                {
-                    frameNoInput++;
-                }
-            }
-
-        }
-        else
-        {
-
-            rotate = false;
-            slam = false;
-            startBool = false;
-
-        }
-    }
-
+}
 
     public void DetachPlayer()
     {
-        myFOV = 70;
-        isOnZoom = false;
-       
-           stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation;
-        if (ennemiStock != null && ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
-        {
-            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-
-        }
-        mySmoothFollow.target = null;
+        stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-        if (ennemiStock.tag == "wall")
-        {
-            rotationPlayer.StopRotation(false);
-        }
-        else
-        {
-            rotationPlayer.StopRotation(true);
-
-        }
-           isSlaming =false;
-
+        rotationPlayer.StopRotation(true);
+        isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
-  public void DetachPlayer(Vector3 dir)
+   public void DetachPlayer(Vector3 dir)
     {
-        myFOV = 70;
-        isOnZoom = false;
-       
-           stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation;
-        if (ennemiStock != null && ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
-        {
-            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
-
-        }
-        mySmoothFollow.target = null;
+        stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-        if (ennemiStock.tag == "wall")
-        {
-            rotationPlayer.StopRotation(false);
-        }
-        else
-        {
-            rotationPlayer.StopRotation(dir);
-
-        }
-           isSlaming =false;
-
+        rotationPlayer.StopRotation(dir);
+        isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
+
+    
     public void ResetPlayer()
     {
         DetachPlayer();
         playerRigid.velocity = Vector3.zero;
     }
 
-
-    public void zoomOnHit()
-    {
-        if (myFOV == 70)
-        {
-            myFOV = 90;
-        }
-        if (myFOV > 70)
-        {
-            myFOV -= Time.deltaTime * 20;
-        }
-        else if (myFOV < 70)
-        {
-            myFOV = 70;
-            isOnZoom = false;
-        }
-    }
     public void StopRotate()
     {
         rotate = false;
         ennemiStock = null;
     }
-    public void StopSlam()
-    {
-        slam = false;
-        ennemiStock = null;
-    }
+    
+    
 }
 
