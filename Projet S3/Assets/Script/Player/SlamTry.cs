@@ -28,12 +28,16 @@ public class SlamTry : MonoBehaviour
     private Rigidbody rigid;
     private EnnemiStock ennemiStock;
     private KillCountPlayer countPlayer;
+    private PlayerMoveAlone playerMove;
+    private Vector3 dir;
+    public GameObject feed;
     // Start is called before the first frame update
     void Start()
     {
         countPlayer = GetComponentInChildren<KillCountPlayer>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
+        playerMove = GetComponent<PlayerMoveAlone>();
         rigid = GetComponent<Rigidbody>();
 
     }
@@ -75,10 +79,11 @@ public class SlamTry : MonoBehaviour
                 PhaseOne();
                 break;
             case ProjectioState.SlamPhase2:
+
                 PhaseTwo();
                 break;
             case ProjectioState.Projection:
-               ennemiStock.DetachPlayer();
+               ennemiStock.DetachPlayer(dir);
                 currentState = ProjectioState.Finish;
                // Projection();
                 break;
@@ -87,9 +92,13 @@ public class SlamTry : MonoBehaviour
                 compteur = 0;
                 t = 0;
                 point2.transform.position = transform.position;
+                point1.transform.position = transform.position;
+                feed.SetActive(false);
                 break;
         }
 
+        point2.transform.position = transform.position + dir.normalized * distanceForward;
+        point2.transform.position = new Vector3( point2.transform.position.x,0, point2.transform.position.z);
 
     }
 
@@ -97,11 +106,11 @@ public class SlamTry : MonoBehaviour
     {
         agent = agentGive;
         posAgent = agent.transform.position;
-        Vector3 dir = transform.position -agent.transform.position;
+        dir = transform.position - agent.transform.position;
         posPlayer = transform.position;
         point1.transform.position += Vector3.up * jumpPlayer;
-        point2.transform.position += dir.normalized * distanceForward;
         currentState = ProjectioState.Jump;
+        playerMove.DeactiveStickHGround();
 
     }
     private void JumpSlam()
@@ -130,18 +139,22 @@ public class SlamTry : MonoBehaviour
 
     private void PhaseTwo()
     {
+        feed.SetActive(true);
+        feed.transform.position = point2.transform.position;
+        feed.transform.localScale = Vector3.one *25;
         agent.transform.position = Vector3.Lerp(point1.transform.position, point2.transform.position, t);
         t = compteur / time2;
         compteur += Time.deltaTime;
         if (t > 1)
         {
-            Collider[] ennmi = Physics.OverlapSphere(point2.transform.position, 10, layer);
+            Collider[] ennmi = Physics.OverlapSphere(point2.transform.position, 25, layer);
 
             for (int i = 0; i < ennmi.Length; i++)
             {
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
                 ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
-                countPlayer.HitEnnemi();
+                ennmi[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Destroy;
+               // countPlayer.HitEnnemi();
             }
 
             compteur = 0;

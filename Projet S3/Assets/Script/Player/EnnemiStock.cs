@@ -240,7 +240,33 @@ public class EnnemiStock : MonoBehaviour
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 
+  public void DetachPlayer(Vector3 dir)
+    {
+        myFOV = 70;
+        isOnZoom = false;
+       
+           stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation;
+        if (ennemiStock != null && ennemiStock.gameObject.GetComponent<EnnemiBehavior>())
+        {
+            ennemiStock.GetComponent<EnnemiBehavior>().imStock = false;
 
+        }
+        mySmoothFollow.target = null;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        if (ennemiStock.tag == "wall")
+        {
+            rotationPlayer.StopRotation(false);
+        }
+        else
+        {
+            rotationPlayer.StopRotation(dir);
+
+        }
+           isSlaming =false;
+
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
     public void ResetPlayer()
     {
         DetachPlayer();

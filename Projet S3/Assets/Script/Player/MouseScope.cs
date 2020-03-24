@@ -163,10 +163,9 @@ public class MouseScope : MonoBehaviour
             aimInput = GetAimInputPC();
         }
         directionIMG.localPosition = new Vector3(aimInput.x * 960, aimInput.y * 540, 0);
-        Debug.Log(aimInput);
+     
         Ray camera = Camera.main.ScreenPointToRay(directionIMG.position);
-        Debug.DrawRay(camera.origin, camera.direction * 100);
-        RaycastHit hit;
+       RaycastHit hit;
         LayerMask mask = 1 << 12;
 
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
