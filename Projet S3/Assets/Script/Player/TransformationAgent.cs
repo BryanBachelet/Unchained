@@ -107,11 +107,12 @@ public class TransformationAgent : MonoBehaviour
         Instantiate(explosionVFX, transform.position, Quaternion.Euler(-90,0,0));
         for (int i = 0; i < agentList.Count; i++)
         {
-
+            
+                agentList[i].tag ="Untagged";
             Vector3 dir = agentList[i].position - transform.position;
             agentList[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir); 
         }
-
+        StateOfGames.currentPhase++;
     }
 
     public void DetectAgent()
@@ -123,7 +124,9 @@ public class TransformationAgent : MonoBehaviour
         {
             if (agent[i].tag == "Ennemi" && agentList.Count<numberMax)
             {
+                agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
                 agentList.Add(agent[i].transform);
+            
 
 
             }
