@@ -14,9 +14,11 @@ public class EntitiesManager : MonoBehaviour
 
 
     private int indexOfPatrol = 0;
+    GameObject[] listEntite;
+    bool asActivate;
     void Start()
     {
-
+        listEntite = gameObject.GetComponent<CircleFormation>().childEntities;
     }
 
 
@@ -34,6 +36,7 @@ public class EntitiesManager : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
             }
+
         }
         else
         {

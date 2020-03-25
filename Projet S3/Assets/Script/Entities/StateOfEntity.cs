@@ -12,9 +12,11 @@ public class StateOfEntity : MonoBehaviour
 
     private EntityState currentEntityState = EntityState.Destroy;
     private EnnemiDestroy ennemiDestroy;
+
     void Start()
     {
         ennemiDestroy = GetComponent<EnnemiDestroy>();
+        //vfxCharge = transform.parent.GetComponent<CircleFormation>().vfxtoGive;
     }
 
 
@@ -25,6 +27,7 @@ public class StateOfEntity : MonoBehaviour
             currentEntityState = entity;
             ennemiDestroy.enabled = false;
         }
+
     }
 
     public void DestroyProjection(bool isProjection, Vector3 dir)
