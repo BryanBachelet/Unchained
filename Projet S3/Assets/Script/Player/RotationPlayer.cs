@@ -220,6 +220,59 @@ public class RotationPlayer : MonoBehaviour
         stocks.StopRotate();
         rotate = false;
     }
+  public void StopRotation(Vector3 dir)
+    {
+        if (StateAnim.state == StateAnim.CurrentState.Rotate)
+        {
+            StateAnim.ChangeState(StateAnim.CurrentState.Projection);
+        }
+        if (false)
+        {
+            transform.tag = tagEnter;
+        }
+
+        CheckEnnnemi(false, angleSpeed, dir);
+       
+       dir = new Vector3(dir.x,0,dir.z);
+        playerRigid.AddForce(dir.normalized * forceOfSortie, ForceMode.Impulse);
+        playerRigid.AddForce(-Vector3.up.normalized * 50, ForceMode.Impulse);
+        transform.GetComponent<WallRotate>().hasHitWall = false;
+        if (vfxShockWave != null)
+        {
+
+            float angleConversion = transform.eulerAngles.y;
+            angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
+            float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
+            if (angleAvatar > 0 && angleAvatar < 90)
+            {
+                angleAvatar = 180 - angleAvatar;
+            }
+            if (angleAvatar < 0 && angleAvatar > -90)
+            {
+                angleAvatar = -180 - angleAvatar;
+            }
+
+
+            if (angleConversion < 0 && angleAvatar == 180)
+            {
+                angleAvatar = -180;
+            }
+
+
+
+            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
+
+
+        }
+
+        currentAngleMax = angleMax;
+        angleCompteur = 0;
+        stocks.StopRotate();
+        rotate = false;
+    }
+public void StopRotateSlam(){
+      rotate = false;
+}
 
     private void CheckEnnnemi(bool isEnnemi, float rightRotate)
     {
@@ -234,6 +287,24 @@ public class RotationPlayer : MonoBehaviour
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
             moveAlone.DirProjection = newDir;
+            moveAlone.currentPowerOfProjection = forceOfSortie;
+        }
+
+    }
+     private void CheckEnnnemi(bool isEnnemi, float rightRotate, Vector3 Dir)
+    {
+
+
+        if (gameObjectPointPivot != null)
+        {
+            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false,Vector3.up);
+        }
+        if (moveAlone != null)
+        {
+            GetDirection();
+            //Chara.transform.localEulerAngles = Vector3.zero;
+            Dir = new Vector3(Dir.x,0,Dir.z);
+            moveAlone.DirProjection = Dir;
             moveAlone.currentPowerOfProjection = forceOfSortie;
         }
 

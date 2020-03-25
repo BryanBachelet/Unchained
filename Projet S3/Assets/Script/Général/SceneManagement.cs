@@ -16,7 +16,7 @@ public class SceneManagement : MonoBehaviour
             LoadScene(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             QuitApplication();
         }

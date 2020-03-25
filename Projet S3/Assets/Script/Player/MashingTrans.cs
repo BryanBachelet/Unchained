@@ -39,6 +39,8 @@ public class MashingTrans : MonoBehaviour
 
     private List<Collider> colliders = new List<Collider>(0);
     private Collider[] hitColliders;
+    private Vector3 posStart;
+    private bool activePos;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -55,6 +57,13 @@ public class MashingTrans : MonoBehaviour
             i.Clear();
             currentmax = maxNumberToAim;
             hitColliders = new Collider[0];
+            compteur = 0;
+            numberInput = 0;
+            numberToAim = 0;
+            debugMinRatio = 0;
+            posStart = transform.position;
+            activePos =true;
+            
         }
     }
 
@@ -74,7 +83,10 @@ public class MashingTrans : MonoBehaviour
         numberToAim = hitColliders.Length / ratioMashingToEntities;
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
         debugMinRatio = numberToAim * ratioMinimumMashing;
-
+        if(activePos)
+        {
+            transform.position = posStart;
+        }
         if (camMouvement.i >= camMouvement.cams.Count)
         {
             if (!activationTransformation)
@@ -95,7 +107,7 @@ public class MashingTrans : MonoBehaviour
                 }
                 compteur += Time.deltaTime;
                 text.gameObject.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
                 }
@@ -108,6 +120,7 @@ public class MashingTrans : MonoBehaviour
                 }
                 if (i.Count > numberToAim)
                 {
+                    activePos =false;
                    // Physics.IgnoreLayerCollision(9, 9, false);
                     Physics.IgnoreLayerCollision(9, 10, false);
                     text.gameObject.SetActive(false);
@@ -151,6 +164,7 @@ public class MashingTrans : MonoBehaviour
         }
 
         CheckDirection(distShort, index);
+       
 
     }
 

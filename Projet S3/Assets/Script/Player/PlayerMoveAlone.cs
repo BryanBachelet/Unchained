@@ -29,6 +29,7 @@ public class PlayerMoveAlone : MonoBehaviour
     static public GameObject Player1;
     private LineRenderer lineRenderer;
     private EnnemiStock stock;
+    private  bool isStickGround = true;
     private void Awake()
     {
         Player1 = gameObject;
@@ -37,7 +38,7 @@ public class PlayerMoveAlone : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         stock = GetComponent<EnnemiStock>();
- 
+        isStickGround = true;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigid = GetComponent<Rigidbody>();
@@ -49,6 +50,7 @@ public class PlayerMoveAlone : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         playerPos = transform.position;
         currentPowerOfProjection = Mathf.Clamp(currentPowerOfProjection, 0, 1000);
         if (activeDeplacement)
@@ -56,21 +58,37 @@ public class PlayerMoveAlone : MonoBehaviour
             playerRigid.velocity = (Direction() * speedOfDeplacement) + (DirProjection.normalized * currentPowerOfProjection);
         }
         else
-        {
-            playerRigid.velocity = (DirProjection.normalized * currentPowerOfProjection);
+        {    
+            if(!isStickGround)
+            {
+            playerRigid.velocity = new Vector3(0,playerRigid.velocity.y,0)+ (DirProjection.normalized * currentPowerOfProjection);
+            }
+            else
+            {
+                playerRigid.velocity =  (DirProjection.normalized * currentPowerOfProjection);
+            }
         }
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
         {
             currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
+            if(transform.position.y<1)
+            {
+                isStickGround =true;
+            }
             aura.SetActive( true);
         }
         else
         {
             aura.SetActive(false);
+         
         }
 
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+         
+        if(isStickGround)
+        {
+            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        }
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
 
@@ -93,6 +111,12 @@ public class PlayerMoveAlone : MonoBehaviour
             TransmitionOfStrenghOfExpulsion();
         }
     }
+
+
+public void DeactiveStickHGround(){
+    isStickGround = !isStickGround;
+
+}
 
 
     public void OnCollisionEnter(Collision collision)

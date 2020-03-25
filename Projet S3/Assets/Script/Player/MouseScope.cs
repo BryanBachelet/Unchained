@@ -59,6 +59,7 @@ public class MouseScope : MonoBehaviour
    
     void Start()
     {
+        Cursor.visible = false;
         directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -133,8 +134,12 @@ public class MouseScope : MonoBehaviour
     private Vector3 GetAimInputPC()
     {
         Vector3 aimInputDirection = Input.mousePosition;
-        aimInputDirection = new Vector3(((aimInputDirection.x / Screen.width) - 0.5f) * 2, ((aimInputDirection.y / Screen.height) - 0.5f) * 2, 0);
-        Debug.Log(aimInputDirection);
+        float aimX = (aimInputDirection.x / Screen.width);
+        aimX = aimX > 0.5f ? (aimX - 0.5f) / 0.5f: ((aimX-0.5f)/0.5f);
+        float aimY = (aimInputDirection.y / Screen.height);
+        aimY = aimY > 0.5f ? (aimY - 0.5f) / 0.5f : ((aimY - 0.5f) / 0.5f);
+        aimInputDirection = new Vector3(aimX, aimY, 0);
+       
         return aimInputDirection;
     }
 
@@ -157,15 +162,16 @@ public class MouseScope : MonoBehaviour
         {
             aimInput = GetAimInputPC();
         }
-        directionIMG.localPosition = new Vector3(aimInput.x * 370, aimInput.y * 370, 0);
-        Ray camera = Camera.main.ScreenPointToRay(uIGOAim.transform.position);
-        RaycastHit hit;
+        directionIMG.localPosition = new Vector3(aimInput.x * 960, aimInput.y * 540, 0);
+     
+        Ray camera = Camera.main.ScreenPointToRay(directionIMG.position);
+       RaycastHit hit;
         LayerMask mask = 1 << 12;
 
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
         {
 
-
+      
             posConvert = hit.point + Vector3.up;
         }
         Vector3 dir = (posConvert - transform.position).normalized;

@@ -86,12 +86,12 @@ public class EnnemiDestroy : MonoBehaviour
 
         if (ennemiRigidBody.velocity.y < 0)
         {
-            ennemiRigidBody.velocity -= (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+            ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
 
         }
         else
         {
-            ennemiRigidBody.velocity -= (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
+            ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
         }
 
 

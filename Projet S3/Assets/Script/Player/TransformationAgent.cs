@@ -28,6 +28,7 @@ public class TransformationAgent : MonoBehaviour
     private Vector3 pos;
 
     public GameObject explosionVFX;
+    public float numberMax = 50;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -116,11 +117,11 @@ public class TransformationAgent : MonoBehaviour
     public void DetectAgent()
     {
         LayerMask layer = ~1 << 8;
-        Collider[] agent = Physics.OverlapSphere(transform.position, 50, layer);
-        ;
+        Collider[] agent = Physics.OverlapSphere(transform.position, distanceGrap, layer);
+    
         for (int i = 0; i < agent.Length; i++)
         {
-            if (agent[i].tag == "Ennemi")
+            if (agent[i].tag == "Ennemi" && agentList.Count<numberMax)
             {
                 agentList.Add(agent[i].transform);
 
