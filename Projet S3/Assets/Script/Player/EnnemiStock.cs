@@ -94,7 +94,7 @@ private float input ;
 
         if (ennemiStock != null)
         {
-           ActiveRotation();
+           ActivationLien();
            ActiveSlam();
 
             

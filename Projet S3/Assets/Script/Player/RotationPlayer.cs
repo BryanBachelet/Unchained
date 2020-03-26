@@ -6,6 +6,9 @@ public class RotationPlayer : MonoBehaviour
 {
 
     public float angleSpeed;
+    public float currentSpeed;
+    float angleSpeedIni;
+    public AnimationCurve accelerationValue;
     public float angleMax;
     [Header("Options")]
     public bool limitationLongeur;
@@ -23,7 +26,7 @@ public class RotationPlayer : MonoBehaviour
     private Vector3 pointPivot;
     private string tagEnter;
 
-    [HideInInspector] public bool rotate = false;
+    public bool rotate = false;
     private bool changeSens;
     private int i;
     private LineRenderer lineRenderer;
@@ -44,6 +47,11 @@ public class RotationPlayer : MonoBehaviour
     public string rotation;
     private FMOD.Studio.EventInstance rotationSound;
     bool checksound = false;
+
+    public float tempsEcouleAcceleration;
+    public float tempsAcceleration;
+
+    int checkSensRotation;
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -55,6 +63,7 @@ public class RotationPlayer : MonoBehaviour
         currentAngleMax = angleMax;
         rotationSound = FMODUnity.RuntimeManager.CreateInstance(rotation);
         rotationSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        angleSpeedIni = angleSpeed;
     }
 
     public void FixedUpdate()
@@ -62,6 +71,10 @@ public class RotationPlayer : MonoBehaviour
 
         if (rotate)
         {
+            if(tempsAcceleration > tempsEcouleAcceleration)
+            {
+                tempsEcouleAcceleration += Time.deltaTime;
+            }
             if(!checksound)
             {
                 rotationSound.start();
@@ -73,6 +86,8 @@ public class RotationPlayer : MonoBehaviour
             {
                 pointPivot = stocks.ennemiStock.transform.position;
             }
+
+            angleSpeed = accelerationValue.Evaluate(tempsEcouleAcceleration) * checkSensRotation;
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
 
@@ -100,11 +115,6 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
-          
-
-
-
-            
 
             if (angleCompteur > currentAngleMax)
             {
@@ -140,11 +150,13 @@ public class RotationPlayer : MonoBehaviour
             if (angleSpeed > 0)
             {
                 angleSpeed = -angleSpeed;
+                checkSensRotation = -1;
             }
         }
         if (!changeRotate)
         {
             angleSpeed = Mathf.Abs(angleSpeed);
+            checkSensRotation = 1;
         }
         return rotate = true;
     }
@@ -163,11 +175,13 @@ public class RotationPlayer : MonoBehaviour
             if (angleSpeed > 0)
             {
                 angleSpeed = -angleSpeed;
+                checkSensRotation = -1;
             }
         }
         if (!changeRotate)
         {
             angleSpeed = Mathf.Abs(angleSpeed);
+            checkSensRotation = 1;
         }
         return rotate = true;
     }
@@ -218,7 +232,9 @@ public class RotationPlayer : MonoBehaviour
         currentAngleMax = angleMax;
         angleCompteur = 0;
         stocks.StopRotate();
+        tempsEcouleAcceleration = 0;
         rotate = false;
+
     }
   public void StopRotation(Vector3 dir)
     {
@@ -268,7 +284,9 @@ public class RotationPlayer : MonoBehaviour
         currentAngleMax = angleMax;
         angleCompteur = 0;
         stocks.StopRotate();
+        tempsEcouleAcceleration = 0;
         rotate = false;
+
     }
 public void StopRotateSlam(){
       rotate = false;
