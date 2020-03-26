@@ -41,6 +41,7 @@ public class EntitiesManager : MonoBehaviour
             {
                 circle.activeRituel =true;
             }
+
         }
         else
         {

@@ -14,10 +14,6 @@ public class Spawner : MonoBehaviour
 
     private float compteur = 13;
 
-
-
-
-
     private void Start()
     {
 
@@ -28,9 +24,21 @@ public class Spawner : MonoBehaviour
     {
         if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-
+            
         }
-        else
+        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
+        {
+            if (compteur > timeOfSpawn + 10)
+            {
+                SpawnEntities(patrolMode);
+                compteur = 0;
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
+        }
+        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase1)
         {
             if (compteur > timeOfSpawn)
             {
@@ -41,9 +49,7 @@ public class Spawner : MonoBehaviour
             {
                 compteur += Time.deltaTime;
             }
-
         }
-
     }
 
 
@@ -51,7 +57,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
         EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
-     
+   
         manager.patrolMode = patrol;
         if (patrol)
         {
