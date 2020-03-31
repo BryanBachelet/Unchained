@@ -43,7 +43,7 @@ public class TransformationAgent : MonoBehaviour
             startAnim = false;
             active = false;
   for (int j = 0; j < this.Height; j++) {
-        numberMax += (int)(2f * Mathf.PI * this.distance-j) ;
+        numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
   }
         }
     }
