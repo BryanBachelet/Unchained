@@ -239,7 +239,10 @@ private float input ;
     public void DetachPlayer()
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
-        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        if(ennemiStock!=null) 
+        {
+            ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        }
         rotationPlayer.StopRotation(true);
         isSlaming =false;
         ennemiStock = null;

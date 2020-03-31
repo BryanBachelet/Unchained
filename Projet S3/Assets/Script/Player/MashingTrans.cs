@@ -25,7 +25,7 @@ public class MashingTrans : MonoBehaviour
     List<float> i = new List<float>();
     public float timing;
 
-    public Text text;
+    public Image text;
     public CamMouvement camMouvement;
 
     private float compteur;

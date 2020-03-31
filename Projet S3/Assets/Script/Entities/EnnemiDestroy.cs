@@ -74,6 +74,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     public void ProjectionAgent()
     {
+        ennemiRigidBody.useGravity = true;
         ennemiRigidBody.velocity = (dirProjection.normalized * currentForceOfEjection) + (Vector3.up * ennemiRigidBody.velocity.y);
         if (currentForceOfEjection > 0)
         {

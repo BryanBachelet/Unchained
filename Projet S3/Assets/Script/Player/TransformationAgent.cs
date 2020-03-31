@@ -6,8 +6,8 @@ public class TransformationAgent : MonoBehaviour
 {
     public List<Transform> agentList = new List<Transform>();
     private Vector3[] posSphere;
-
-    public float distance = 1.5f;
+    private Quaternion[] angleSphere;
+    public int distance = 1;
 
     public float speedOfAgent;
 
@@ -28,18 +28,23 @@ public class TransformationAgent : MonoBehaviour
     private Vector3 pos;
 
     public GameObject explosionVFX;
-    public float numberMax = 50;
+   // public float numberMax = 50;
+    public int Height;
+    public int numberMax;
     // Start is called before the first frame update
     void OnEnable()
     {
         if (this.enabled == true)
         {
+            numberMax =0;
             lightPlayer = GetComponentInChildren<Light>();
             frame = 0;
             agentList.Clear();
             startAnim = false;
             active = false;
-
+  for (int j = 0; j < this.Height; j++) {
+        numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
+  }
         }
     }
 
@@ -107,11 +112,12 @@ public class TransformationAgent : MonoBehaviour
         Instantiate(explosionVFX, transform.position, Quaternion.Euler(-90,0,0));
         for (int i = 0; i < agentList.Count; i++)
         {
-
+            
+                agentList[i].tag ="Untagged";
             Vector3 dir = agentList[i].position - transform.position;
             agentList[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir); 
         }
-
+        StateOfGames.currentPhase++;
     }
 
     public void DetectAgent()
@@ -121,24 +127,43 @@ public class TransformationAgent : MonoBehaviour
     
         for (int i = 0; i < agent.Length; i++)
         {
-            if (agent[i].tag == "Ennemi" && agentList.Count<numberMax)
+            if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax)
             {
+                agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
                 agentList.Add(agent[i].transform);
+            
 
 
             }
         }
         posSphere = new Vector3[agentList.Count];
+        angleSphere = new Quaternion[agentList.Count];
     }
 
 
     void RandomSphere()
     {
-        for (int i = 0; i < agentList.Count; i++)
+            int k =0; 
+        
+        for (int j = 0; j < this.Height; j++) 
         {
-            posSphere[i] = new Vector3(transform.position.x, 2, transform.position.z) + Random.insideUnitSphere * distance;
-
+         
+                
+            var circlePerimeter = (2f * Mathf.PI * this.distance-j) + 1;
+            for (int i = 0; i < circlePerimeter; i++) 
+            {
+                float angle = 360f / circlePerimeter * i;
+                Vector3 position = transform.position + new Vector3(0,j,0) + Quaternion.Euler(0, angle, 0) * new Vector3(this.distance-j, 0, 0);
+                Quaternion dir = Quaternion.LookRotation(position - (this.transform.position + new Vector3(0,0,0)));
+        Debug.Log(k);
+                posSphere[k] = position;
+        
+                angleSphere[k] =  dir;
+            k++;
+            k = Mathf.Clamp(k,0,numberMax-1);
+            }
         }
+        
     }
 
     void MoveSphere()
@@ -146,17 +171,17 @@ public class TransformationAgent : MonoBehaviour
         for (int i = 0; i < agentList.Count; i++)
         {
 
-            if (Vector3.Distance(agentList[i].position, posSphere[i]) < 10)
-            {
+            // if (Vector3.Distance(agentList[i].position, posSphere[i]) < 10)
+            // {
 
                 agentList[i].position = Vector3.Lerp(agentList[i].position, posSphere[i], timing);
-            }
-            else
-            {
-                agentList[i].position = Vector3.Lerp(agentList[i].position, (posSphere[i] - new Vector3(0, posSphere[i].y - 1, 0)), timing);
-            }
+            // }
+            // else
+            // {
+            //     agentList[i].position = Vector3.Lerp(agentList[i].position, (posSphere[i] - new Vector3(0, posSphere[i].y - 1, 0)), timing);
+            // }
 
-            agentList[i].eulerAngles = Vector3.zero;
+            agentList[i].rotation = angleSphere[i];
 
             if (frame > 1 && frame < 3)
             {

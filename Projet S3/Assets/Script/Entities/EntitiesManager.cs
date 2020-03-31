@@ -12,19 +12,21 @@ public class EntitiesManager : MonoBehaviour
     [Header("Feature of mouvement")]
     public float speedOfMouvement = 4;
 
+    private CircleFormation circle;
 
     private int indexOfPatrol = 0;
-    GameObject[] listEntite;
-    bool asActivate;
     void Start()
     {
-        listEntite = gameObject.GetComponent<CircleFormation>().childEntities;
+        circle = GetComponent<CircleFormation>();
     }
 
 
     void Update()
     {
-        MovementOfManager(patrolMode);
+        if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        {
+            MovementOfManager(patrolMode);
+        }
     }
 
 
@@ -35,6 +37,9 @@ public class EntitiesManager : MonoBehaviour
             if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
             {
                 transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
+            }else
+            {
+                circle.activeRituel =true;
             }
 
         }

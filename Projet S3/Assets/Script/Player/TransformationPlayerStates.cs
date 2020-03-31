@@ -24,6 +24,7 @@ public class TransformationPlayerStates : MonoBehaviour
     [FMODUnity.EventRef]
     public string expulseSound;
     bool expulseSoundPlay = false;
+    bool isTransforming = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +68,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             GoTranformation();
             FMODUnity.RuntimeManager.PlayOneShot(attractSound);
-            StateOfGames.currentPhase++;
+
         }
     }
 

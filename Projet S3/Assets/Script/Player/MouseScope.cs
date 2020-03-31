@@ -59,7 +59,7 @@ public class MouseScope : MonoBehaviour
    
     void Start()
     {
-        Cursor.visible = false;
+        Cursor.visible = true;
         directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
