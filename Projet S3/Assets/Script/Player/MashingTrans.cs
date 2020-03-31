@@ -63,6 +63,10 @@ public class MashingTrans : MonoBehaviour
             debugMinRatio = 0;
             posStart = transform.position;
             activePos =true;
+            if(FastTest.debugMashing)
+            {
+                maxNumberToAim = 6;
+            }
             
         }
     }

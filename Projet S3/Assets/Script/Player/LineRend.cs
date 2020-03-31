@@ -9,6 +9,8 @@ public class LineRend : MonoBehaviour
     public bool activeParticle = true;
     public bool upProjection = true;
     public bool activeDetach = false;
+
+    public float ejectionForce = 50;
     [HideInInspector]
     public bool active;
     private LineRenderer lineRenderer;
@@ -191,9 +193,20 @@ public class LineRend : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot(contact, collision.transform.position);
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
-            ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized));
+            EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();
+            if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+            {
+                 ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized),ejectionForce *2);
+            }
+            else
+            {
+                  ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized),ejectionForce *2);
+            }
+            
+          
 
-            if (mouseScope.lastInput) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1));
+            if (mouseScope.lastInput) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
+            if (mouseScope.lastInput && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
          
         }
     }

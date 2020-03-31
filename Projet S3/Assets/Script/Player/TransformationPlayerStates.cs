@@ -11,7 +11,6 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public int[] palierCondition = new int[7];
 
-public bool DebugSpeedMode;
 
     private KillCountPlayer countPlayer;
     [HideInInspector]
@@ -53,7 +52,7 @@ public bool DebugSpeedMode;
 
     public void CheckState()
     {
-    if(DebugSpeedMode)
+    if(FastTest.debugPalier)
     {
         if (palierStep < palierCondition.Length - 1)
         {

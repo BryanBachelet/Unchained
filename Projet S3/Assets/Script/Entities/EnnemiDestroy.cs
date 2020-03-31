@@ -40,10 +40,7 @@ public class EnnemiDestroy : MonoBehaviour
     void Update()
     {
 
-        if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
-        {
-                ejectionPower = 100;
-        }
+       
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (!isExplosion)
         {
@@ -132,7 +129,7 @@ public class EnnemiDestroy : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1.5f * ennemiRigidBody.velocity.magnitude * 2 * Time.deltaTime))
         {
-            if (hit.collider.tag == "wall")
+            if (hit.collider.tag == "wall" &&  stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
             {
                 DestroyAgent();
             }
@@ -141,7 +138,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "wall")
+        if (collision.collider.tag == "wall" && stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
         {
             DestroyAgent();
         }
@@ -149,7 +146,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.tag == "wall")
+        if (collision.collider.tag == "wall" && stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
         {
             DestroyAgent();
         }

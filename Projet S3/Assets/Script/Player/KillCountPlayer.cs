@@ -55,7 +55,10 @@ private float compteurWeightReturn;
 
     void Update()
     {
-        
+        if(FastTest.debugLoseCondition)
+        {
+            timeBeforeDeath = 100;
+        }
 
         compteur = compteurOfDeath;
         
