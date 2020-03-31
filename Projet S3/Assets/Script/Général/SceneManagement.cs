@@ -20,7 +20,7 @@ public class SceneManagement : MonoBehaviour
         {
             QuitApplication();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             StopTimeOfGame();
         }

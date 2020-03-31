@@ -65,11 +65,11 @@ public class SlamTry : MonoBehaviour
             SceneManagement.LoadCurrentScene();
         }
 
-        if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
+    /*    if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
         {
             StartSlam(agent);
 
-        }
+        }*/
         switch (currentState)
         {
             case ProjectioState.Jump:
