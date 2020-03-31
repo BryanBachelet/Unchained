@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.PostProcessing;
 using UnityEngine.Rendering.PostProcessing;
 
+
 public class KillCountPlayer : MonoBehaviour
 {
 
     public float timeBeforeDeath;
 
     public float activeLoseEffect;
-    public GameObject postProcesse;
+    public float maxEffectTimeBeforDeath;
+    public float timeToWeightReturn;
+    public PostProcessVolume postProcesse;
 
     [HideInInspector] public bool activeDecrease;
 
@@ -33,17 +36,26 @@ public class KillCountPlayer : MonoBehaviour
 
     public MusicPlayer myMP;
 
+
+private float maxTime;
+private float frameStartReturn;
+private float currentweight;
+private float realTimeToWeightRetur;
+private float compteurWeightReturn;
+
     public void Awake()
     {
         loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
         loseCondition.setVolume(volume);
+
+        maxTime = timeBeforeDeath-(maxEffectTimeBeforDeath+activeLoseEffect);
     }
    
 
 
     void Update()
     {
-
+        
 
         compteur = compteurOfDeath;
         
@@ -61,7 +73,7 @@ public class KillCountPlayer : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                         
                 loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                postProcesse.GetComponent<PostProcessVolume>().enabled = false;
+                postProcesse.weight = 0;
                 StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
             }
             else
@@ -76,8 +88,27 @@ public class KillCountPlayer : MonoBehaviour
                 {
                     loseCondition.start();
                     frameDecreaseCondition = 1;
-                    postProcesse.GetComponent<PostProcessVolume>().enabled = true;
                     myMP.track1.setParameterByName("TrackEffect", 0.0F);
+                }
+                    postProcesse.weight = ((compteurOfDeath-activeLoseEffect)/maxTime );
+            }
+            else
+            {
+                if(postProcesse.weight != 0)
+                {
+                    if(frameStartReturn == 0)
+                    {
+                        currentweight = postProcesse.weight;
+                        frameStartReturn = 1;
+                        realTimeToWeightRetur = timeToWeightReturn*( currentweight/1);
+                    }
+                
+                postProcesse.weight = Mathf.Lerp(currentweight,0,(compteurWeightReturn/realTimeToWeightRetur));
+                compteurWeightReturn +=Time.deltaTime;
+                }else
+                {
+                    frameStartReturn =0;
+                 compteurWeightReturn =0;
                 }
             }
         }
@@ -89,8 +120,8 @@ public class KillCountPlayer : MonoBehaviour
         if (activeReset)
         {
             frameDecreaseCondition = 0;
-            postProcesse.GetComponent<PostProcessVolume>().enabled = false;
-            activeReset = false;
+        //  postProcesse.weight = 0;
+         activeReset = false;
         }
 
     }

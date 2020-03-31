@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EntitiesManager : MonoBehaviour
 {
+    public enum BeheaviorCultiste{ RituelPoint,Patrol,Harass}
+    public BeheaviorCultiste cultisteBehavior = BeheaviorCultiste.RituelPoint;
     public Transform pointToGo;
     [Header("Patrol")]
     public bool patrolMode;
@@ -32,8 +34,10 @@ public class EntitiesManager : MonoBehaviour
 
     public void MovementOfManager(bool patrol)
     {
-        if (!patrol)
-        {
+
+        switch(cultisteBehavior) {
+        case(BeheaviorCultiste.RituelPoint):
+
             if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
             {
                 transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
@@ -41,20 +45,34 @@ public class EntitiesManager : MonoBehaviour
             {
                 circle.activeRituel =true;
             }
+        break;
+        case(BeheaviorCultiste.Harass):
+
+            
+
+
+
+        break;
+        case(BeheaviorCultiste.Patrol) :
+        
+            if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement*Time.deltaTime);
+            }
+            else
+            {
+                ChangeIndex();
+            }
+        break;
+
+        }
+        if (!patrol)
+        {
 
         }
         else
         {
-            if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement*Time.deltaTime);
-
-            }
-            else
-            {
-
-                ChangeIndex();
-            }
+            
         }
     }
 
@@ -70,5 +88,8 @@ public class EntitiesManager : MonoBehaviour
         }
 
     }
+
+
+
 
 }

@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
     public float speedOfAgent;
 
     private float compteur = 13;
+    private bool followPlayer;
 
     private void Start()
     {
@@ -58,21 +59,36 @@ public class Spawner : MonoBehaviour
         GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
         EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
    
-        manager.patrolMode = patrol;
+
         if (patrol)
         {
+            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Patrol;
             manager.listOfPointOfPatrol = listOfPoint;
         }
         else
         {
+            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.RituelPoint;
             manager.pointToGo = target.transform;
-
+            
         }
 
         manager.speedOfMouvement = speedOfAgent;
     }
 
 
+
+private bool CheckInterestPointFree(GameObject target)
+{
+    CenterTag tagCenter = target.GetComponent<CenterTag>();
+    if(!tagCenter.isInvoking)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 }
 
