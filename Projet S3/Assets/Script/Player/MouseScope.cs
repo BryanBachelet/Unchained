@@ -36,7 +36,7 @@ public class MouseScope : MonoBehaviour
     private FMOD.Studio.EventInstance shotSound;
     public float volume = 10;
 
-    [HideInInspector] public bool lastInput;
+    public int lastInput;
     [HideInInspector] public GameObject instanceBullet;
     [HideInInspector] public Vector3 aimDirection;
 
@@ -48,13 +48,13 @@ public class MouseScope : MonoBehaviour
     private float _timerOfBullet;
 
     private Projectils projectils;
-    private bool resetShoot;
+    public bool resetShoot;
     private Vector3 posConvert;
     private bool snapDeactive;
     private GameObject entitySnap;
     private float frame;
 
-
+    private float _compteurBetweenBullet;
 
    
     void Start()
@@ -92,13 +92,13 @@ public class MouseScope : MonoBehaviour
                 }
                 if (FireInputValue(controllerPc) > 0)
                 {
-                    lastInput = true;
+                    lastInput = 1;
                     resetShoot = true;
                 }
 
                 if (FireInputValue(controllerPc) < 0)
                 {
-                    lastInput = false;
+                    lastInput = 0;
                     resetShoot = true;
                 }
 
@@ -106,9 +106,11 @@ public class MouseScope : MonoBehaviour
         }
         Snap(false);
 
-        if (!FireInputActive(controllerPc) && instanceBullet == null)
+        if (!FireInputActive(controllerPc) &&resetShoot && instanceBullet == null)
         {
-            ReactiveShot();
+            
+                ReactiveShot();
+               
         }
 
 
@@ -188,7 +190,11 @@ public class MouseScope : MonoBehaviour
         }
         else
         {
-        getInput = Mathf.Abs(Input.GetAxis("ShootPC")) >= 0.9f ? true:false ;
+            
+                Debug.Log(FireInputValue(controllerPc));
+                getInput = Mathf.Abs(Input.GetAxis("ShootPC")) >0.5 ? true:false ;
+         
+       
         }
         return getInput;
     }
@@ -285,6 +291,7 @@ public class MouseScope : MonoBehaviour
     private void ReactiveShot()
     {
         resetShoot = false;
+        lastInput = 2;
     }
 
     private void InstantiateProjectile(Vector3 directionOfProjectileMouvement)

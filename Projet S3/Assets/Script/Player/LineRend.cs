@@ -205,8 +205,8 @@ public class LineRend : MonoBehaviour
             
           
 
-            if (mouseScope.lastInput) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
-            if (mouseScope.lastInput && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
+            if (mouseScope.lastInput <= 1) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
+            if (mouseScope.lastInput <= 1 && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
          
         }
     }
