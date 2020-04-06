@@ -33,7 +33,7 @@ public class EnnemiStock : MonoBehaviour
     private bool slam;
     private RotationPlayer rotationPlayer;
     private int frameNoInput;
-    private bool lastInputRotation;
+    private int lastInputRotation;
     private Material enemyStockMat;
     private Texture ennemyStockTextChange;
     private Color baseColor;
@@ -90,7 +90,7 @@ private float input ;
         OrbitEvent.setVolume(curveVolumeOrbitation.Evaluate(tempsEcoule));
         contactSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
 
-        input = Input.GetAxis("ShootController");
+        input = mouse.FireInputValue(false);
 
         if (ennemiStock != null)
         {
@@ -146,7 +146,7 @@ private float input ;
 
     private void InputRegister()
     {
-    float input = Input.GetAxis("ShootController");
+   
     lastInputRotation = mouse.lastInput;
 
     if (input < 0)
@@ -161,14 +161,14 @@ private float input ;
 
     private void ActiveRotation()
     {
-    if (mouse.lastInput)
-    {
-        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
-    }
-    else
-    {
-        rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
-    }
+        if (mouse.lastInput ==1)
+        {
+            rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, false);
+        }
+        if(mouse.lastInput == 0)
+        {
+            rotate = rotationPlayer.StartRotation(gameObject, ennemiStock, "Player", powerOfProjection, true);
+        }
     }
 
     private void FeedbackHit()
@@ -211,19 +211,19 @@ private float input ;
 
     private void InputCheck()
     {
-    if (input < 0)
-    {
-        currentRight = true;
-    }
-    else
-    {
-        currentRight = false;
-    }
+        if (input < 0)
+        {
+            currentRight = true;
+        }
+        else
+        {
+            currentRight = false;
+        }
     }
 
     private void  DeactiveLien()
 {
-     if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
+         if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
                 {
                     if (right != currentRight || input == 0)
                     {
