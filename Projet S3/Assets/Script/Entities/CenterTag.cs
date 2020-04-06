@@ -12,53 +12,11 @@ public class CenterTag : MonoBehaviour
     //[FMODUnity.EventRef]
     public string incantation;
     private FMOD.Studio.EventInstance incantationSound;
+    public bool isInvoking;
     // Start is called before the first frame update
     void Start()
     {
-        //incantationSound = FMODUnity.RuntimeManager.CreateInstance(incantation);
-        //incantationSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        //incantationSound.start();
         Instantiate(centerVFX[3], transform.position, transform.rotation);
-        //if/* (!finVfxSe*/ries)
-        //{
-        //    if (centerTypes == Types.Blue)
-        //    {
-
-        //        Instantiate(centerVFX[0], transform.position, transform.rotation);
-        //    }
-        //    else if (centerTypes == Types.Orange)
-        //    {
-        //        Instantiate(centerVFX[1], transform.position, transform.rotation);
-        //    }
-        //    else if (centerTypes == Types.Violet)
-        //    {
-        //        Instantiate(centerVFX[2], transform.position, transform.rotation);
-        //    }
-        //}
-        //else if (finVfxSeries)
-        //{
-        //    if (centerTypes == Types.Blue)
-        //    {
-
-        //        Instantiate(centerVFX[3], transform.position, transform.rotation);
-        //    }
-        //    else if (centerTypes == Types.Orange)
-        //    {
-        //        Instantiate(centerVFX[4], transform.position, transform.rotation);
-        //    }
-        //    else if (centerTypes == Types.Violet)
-        //    {
-        //        Instantiate(centerVFX[5], transform.position, transform.rotation);
-        //    }
     }
 
-
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

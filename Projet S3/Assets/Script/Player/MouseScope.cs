@@ -188,7 +188,7 @@ public class MouseScope : MonoBehaviour
         }
         else
         {
-            getInput = Input.GetAxis("ShootPC") != 0 ? true : false;
+        getInput = Mathf.Abs(Input.GetAxis("ShootPC")) >= 0.9f ? true:false ;
         }
         return getInput;
     }

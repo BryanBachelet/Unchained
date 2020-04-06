@@ -17,8 +17,16 @@ public class VictoryCondition : MonoBehaviour
     public float timeBeforeRestart = 2f;
     private float compteurRestart = 0;
 
+        private int firstFramePhase3;
+
     public void Update()
     {
+
+    if(StateOfGames.currentPhase ==  StateOfGames.PhaseOfDefaultPlayable.Phase3)
+    {
+      ReseachFormation();
+    }
+
         if (victoryRestart)
         {
             if (compteurRestart > timeBeforeRestart)
@@ -50,7 +58,21 @@ public class VictoryCondition : MonoBehaviour
 
     public void ActiveVictory()
     {
-        victoryRestart = true;
+        if(victoryRestart==false)
+        {
+       
+       victoryRestart = true;
         victoryText.SetActive(true);
+        }
     }
+
+    public void ReseachFormation()
+    {
+       if( GameObject.FindGameObjectsWithTag("Formation").Length == 0)
+       {
+           ActiveVictory();
+       }
+    }
+
+    
 }

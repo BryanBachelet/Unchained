@@ -13,12 +13,13 @@ public class EnnemiDestroy : MonoBehaviour
     public float timerBeforeDestroy = 2;
     public float fallMultiplier = 5f;
     public float lowMultiplier = 2.5f;
+    public float ejectionPower = 50;
     public float currentForceOfEjection = 50;
 
     public float deccelerationOfForceOfEjection = 5;
     public float upForce = 25;
 
-    [HideInInspector] public bool isExplosion = false;
+     public bool isExplosion = false;
     [HideInInspector] public Vector3 dirProjection;
 
     private float compteur;
@@ -33,10 +34,13 @@ public class EnnemiDestroy : MonoBehaviour
         stateOfEntity = GetComponent<StateOfEntity>();
         ennemiRigidBody = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
+        currentForceOfEjection =  ejectionPower;
     }
 
     void Update()
     {
+
+       
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         if (!isExplosion)
         {
@@ -48,7 +52,7 @@ public class EnnemiDestroy : MonoBehaviour
         {
             ExplosionAgent();
 
-            if (compteur > 1)
+            if (compteur > 4)
             {
                 DestroyAgent();
             }
@@ -113,7 +117,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     private void ResetAgent()
     {
-        currentForceOfEjection = 50;
+        currentForceOfEjection = ejectionPower;
         compteur = 0;
         stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation;
     }
@@ -125,7 +129,7 @@ public class EnnemiDestroy : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 1.5f * ennemiRigidBody.velocity.magnitude * 2 * Time.deltaTime))
         {
-            if (hit.collider.tag == "wall")
+            if (hit.collider.tag == "wall" &&  stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
             {
                 DestroyAgent();
             }
@@ -134,7 +138,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "wall")
+        if (collision.collider.tag == "wall" && stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
         {
             DestroyAgent();
         }
@@ -142,7 +146,7 @@ public class EnnemiDestroy : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.tag == "wall")
+        if (collision.collider.tag == "wall" && stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
         {
             DestroyAgent();
         }

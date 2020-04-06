@@ -25,6 +25,7 @@ public class TransformationPlayerStates : MonoBehaviour
     public string expulseSound;
     bool expulseSoundPlay = false;
     bool isTransforming = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,20 +43,36 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
+           
+                CheckState();
 
-            CheckState();
+            
         }
     }
 
     public void CheckState()
     {
+    if(FastTest.debugPalier)
+    {
         if (palierStep < palierCondition.Length - 1)
         {
-            if (countPlayer.countKillEnnemi > palierCondition[palierStep])
+            if (countPlayer.countKillEnnemi > (palierCondition[palierStep]/10))
             {
                 ChangeStates();
             }
         }
+    }
+    else
+    {
+         if (palierStep < palierCondition.Length - 1)
+        {
+            if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
+            {
+                ChangeStates();
+            }
+        }
+
+    }
         
 
     }

@@ -183,7 +183,7 @@ private float input ;
 
     private void ActiveSlam()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2)|| Input.GetKeyDown(KeyCode.A))
         {
             slamTry.StartSlam(ennemiStock);
             rotationPlayer.StopRotateSlam();
@@ -238,7 +238,7 @@ private float input ;
 
     public void DetachPlayer()
     {
-        stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
+        stateOfEntity.DestroyProjection(false,Vector3.up);
         if(ennemiStock!=null) 
         {
             ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;

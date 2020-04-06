@@ -31,6 +31,11 @@ public class SlamTry : MonoBehaviour
     private PlayerMoveAlone playerMove;
     private Vector3 dir;
     public GameObject feed;
+
+    [FMODUnity.EventRef]
+    public string slamLaunch;
+    [FMODUnity.EventRef]
+    public string slamImpact;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,11 +70,11 @@ public class SlamTry : MonoBehaviour
             SceneManagement.LoadCurrentScene();
         }
 
-        if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
+    /*    if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
         {
             StartSlam(agent);
 
-        }
+        }*/
         switch (currentState)
         {
             case ProjectioState.Jump:
@@ -105,6 +110,7 @@ public class SlamTry : MonoBehaviour
     public void StartSlam(GameObject agentGive)
     {
         agent = agentGive;
+        FMODUnity.RuntimeManager.PlayOneShot(slamLaunch, transform.position);
         posAgent = agent.transform.position;
         dir = transform.position - agent.transform.position;
         posPlayer = transform.position;
@@ -152,14 +158,15 @@ public class SlamTry : MonoBehaviour
             for (int i = 0; i < ennmi.Length; i++)
             {
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
-                ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
-                ennmi[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Destroy;
+              //  ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
+                ennmi[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir) ;
                // countPlayer.HitEnnemi();
             }
 
             compteur = 0;
             t = 0;
             currentState = ProjectioState.Projection;
+            FMODUnity.RuntimeManager.PlayOneShot(slamImpact, transform.position);
         }
 
     }

@@ -35,6 +35,7 @@ public class StateOfEntity : MonoBehaviour
             entity = EntityState.Destroy;
             currentEntityState = entity;
             ennemiDestroy.enabled = true;
+            
             if (isProjection)
             {
                 ennemiDestroy.ActiveProjection(dir);
@@ -45,5 +46,22 @@ public class StateOfEntity : MonoBehaviour
             }
         
     }
+       public void DestroyProjection(bool isProjection, Vector3 dir, float power)
+    {
+            entity = EntityState.Destroy;
+            currentEntityState = entity;
+            ennemiDestroy.enabled = true;
+            ennemiDestroy.ejectionPower = power;
+            if (isProjection)
+            {
+                ennemiDestroy.ActiveProjection(dir);
+            }
+            else
+            {
+                ennemiDestroy.ActiveExplosion(dir);
+            }
+        
+    }
+
 
 }
