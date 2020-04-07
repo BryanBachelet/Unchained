@@ -190,15 +190,14 @@ public class MouseScope : MonoBehaviour
         }
         else
         {
-            
-                Debug.Log(FireInputValue(controllerPc));
-                getInput = Mathf.Abs(Input.GetAxis("ShootPC")) >0.5 ? true:false ;
+           
+            getInput = Mathf.Abs(Input.GetAxis("ShootPC")) >0.5 ? true:false ;
          
        
         }
         return getInput;
     }
-
+ 
     public float FireInputValue(bool PC)
     {
         float valueInput = 0;
@@ -213,6 +212,31 @@ public class MouseScope : MonoBehaviour
         }
         return valueInput;
     }
+
+     public float FireInputValueEntier(bool PC)
+    {
+        float valueInput = 0;
+
+        if (!PC)
+        {
+            valueInput = Input.GetAxis("ShootController");
+
+        }
+        else
+        {
+            valueInput = Input.GetAxis("ShootPC");
+        }
+        if(valueInput>0)
+        {
+            valueInput = Mathf.Ceil(valueInput);
+        }
+        if(valueInput<0) 
+        {
+        valueInput = Mathf.Floor(valueInput);
+        }
+        return valueInput;
+    }
+
 
     public void Snap(bool shoot)
     {
