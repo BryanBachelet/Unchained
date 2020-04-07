@@ -102,6 +102,7 @@ public float rotateRituelSpeed =50;
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                         }else
                         {
+                            
                             childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,10*Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                         }

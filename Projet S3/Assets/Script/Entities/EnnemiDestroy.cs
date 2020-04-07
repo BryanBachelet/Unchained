@@ -19,7 +19,9 @@ public class EnnemiDestroy : MonoBehaviour
     public float deccelerationOfForceOfEjection = 5;
     public float upForce = 25;
 
-     public bool isExplosion = false;
+    public float  test;
+
+    public bool isExplosion = false;
     [HideInInspector] public Vector3 dirProjection;
 
     private float compteur;
@@ -68,12 +70,14 @@ public class EnnemiDestroy : MonoBehaviour
         isExplosion = false;
         dirProjection = dir.normalized;
         ennemiRigidBody.velocity = (upForce * Vector3.up);
+        currentForceOfEjection  = ejectionPower;
     }
 
     public void ActiveExplosion(Vector3 dir)
     {
         isExplosion = true;
         dirProjection = dir.normalized;
+        currentForceOfEjection = ejectionPower;
     }
 
     public void ProjectionAgent()
@@ -86,7 +90,11 @@ public class EnnemiDestroy : MonoBehaviour
         }
         else
         {
+        test=  ennemiRigidBody.velocity.y;
+            if(ennemiRigidBody.velocity.y< 1 && ennemiRigidBody.velocity.y>-1)
+            {
             ResetAgent();
+            }
         }
 
         if (ennemiRigidBody.velocity.y < 0)

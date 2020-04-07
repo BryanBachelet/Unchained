@@ -102,10 +102,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Joystick1Button3))
-        //{
-        //    activeDeplacement = !activeDeplacement;
-        //}
+    
         if(line.strenghOfExpulsion != expulsionStrengh)
         {
             TransmitionOfStrenghOfExpulsion();

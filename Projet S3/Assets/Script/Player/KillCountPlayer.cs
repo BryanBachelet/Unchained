@@ -67,17 +67,7 @@ private float compteurWeightReturn;
 
             if (compteurOfDeath > timeBeforeDeath)
             {
-                if (myMP != null)
-                {
-                    myMP.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                }
-                ResetTiming();
-               
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                        
-                loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                postProcesse.weight = 0;
-                StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
+               ActiveDeathCondition();
             }
             else
             {
@@ -123,12 +113,27 @@ private float compteurWeightReturn;
         if (activeReset)
         {
             frameDecreaseCondition = 0;
-        //  postProcesse.weight = 0;
+      
          activeReset = false;
         }
 
     }
 
+
+    public void ActiveDeathCondition ()
+    {
+        if (myMP != null)
+        {
+            myMP.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
+        ResetTiming();
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                
+        loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        postProcesse.weight = 0;
+        StateOfGames.currentState = StateOfGames.StateOfGame.Cinematic;
+    }
 
     public void HitEnnemi()
     {
