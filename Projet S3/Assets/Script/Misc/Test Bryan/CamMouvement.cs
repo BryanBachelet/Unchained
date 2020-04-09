@@ -77,7 +77,7 @@ public class CamMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button1) ||  Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1) ||  Input.GetKey(KeyCode.E))
         {
             PastCinematic();
         }

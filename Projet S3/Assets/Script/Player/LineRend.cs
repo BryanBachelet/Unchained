@@ -194,20 +194,22 @@ public class LineRend : MonoBehaviour
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();
+            float sensRotate = Vector3.Dot( (ennemi.transform.position -transform.parent.position), dir.normalized);
+          
             if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
                  ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized),ejectionForce *2);
             }
             else
             {
-                  ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized),ejectionForce *2);
+                  ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized) * -mouseScope.FireInputValueEntier(mouseScope.controllerPc),ejectionForce);
             }
             
-          
+          if(mouseScope.controllerPc){
 
             if (mouseScope.lastInput <= 1) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
             if (mouseScope.lastInput <= 1 && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1), ejectionForce);
-         
+          }
         }
     }
 

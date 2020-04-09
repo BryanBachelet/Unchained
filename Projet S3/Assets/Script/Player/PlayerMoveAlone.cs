@@ -102,10 +102,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Joystick1Button3))
-        //{
-        //    activeDeplacement = !activeDeplacement;
-        //}
+    
         if(line.strenghOfExpulsion != expulsionStrengh)
         {
             TransmitionOfStrenghOfExpulsion();
@@ -142,6 +139,14 @@ public void DeactiveStickHGround(){
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir;
         currentPowerOfProjection = powerOfProjection;
+    }
+     public void AddProjection(Vector3 dir, float power)
+    {
+        Debug.Log("Propulsion");
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
+        DirProjection = Vector3.Lerp(DirProjection,dir,0.5f);
+        currentPowerOfProjection = power;
     }
 
     public void AnimationAvatar()

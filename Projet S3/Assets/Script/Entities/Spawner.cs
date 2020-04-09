@@ -67,7 +67,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.RituelPoint;
+            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Harass;
             manager.pointToGo = target.transform;
             
         }

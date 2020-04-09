@@ -28,8 +28,8 @@ public class CircleFormation : MonoBehaviour
     public GameObject fbCastInvoq;
     void Start()
     {
-        childEntities = new GameObject[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        childEntities = new GameObject[transform.childCount-2];
+        for (int i = 0; i < transform.childCount-2; i++)
         {
 
             childEntities[i] = transform.GetChild(i).gameObject;
@@ -119,6 +119,7 @@ public class CircleFormation : MonoBehaviour
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                         }else
                         {
+                            
                             childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,10*Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                         }

@@ -155,7 +155,7 @@ public class TransformationAgent : MonoBehaviour
                 float angle = 360f / circlePerimeter * i;
                 Vector3 position = transform.position + new Vector3(0,j,0) + Quaternion.Euler(0, angle, 0) * new Vector3(this.distance-j, 0, 0);
                 Quaternion dir = Quaternion.LookRotation(position - (this.transform.position + new Vector3(0,0,0)));
-        Debug.Log(k);
+       
                 posSphere[k] = position;
         
                 angleSphere[k] =  dir;
