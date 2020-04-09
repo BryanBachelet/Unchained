@@ -10,8 +10,11 @@ public class CircleFormation : MonoBehaviour
     public float sizeBetweenCircle;
     public float speedAgent;
     public float positionMouvement;
-public float rotateRituelSpeed =50;
+    public float rotateRituelSpeed =50;
     public bool activeRituel;
+    public float timeForInvoq;
+    public bool startInvoq = false;
+    public float tempsEcouleInvoq;
 
     private float radiusUse;
     private int currentCircleNumber;
@@ -20,7 +23,9 @@ public float rotateRituelSpeed =50;
     private float[] compteurOfMouvement;
     
     private float angle;
-    
+
+    public GameObject invoq1;
+    public GameObject fbCastInvoq;
     void Start()
     {
         childEntities = new GameObject[transform.childCount];
@@ -43,6 +48,18 @@ public float rotateRituelSpeed =50;
        {
            RunPlayer();
        }
+       if(startInvoq && activeRituel)
+       {
+            tempsEcouleInvoq += Time.deltaTime;
+            fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
+            if(tempsEcouleInvoq > timeForInvoq)
+            {
+
+                Debug.Log("INVOQ NOW");
+                Instantiate(invoq1, fbCastInvoq.transform.position, fbCastInvoq.transform.rotation);
+                tempsEcouleInvoq = 0;
+            }
+       }
         Destruct();
     }
 
@@ -52,7 +69,7 @@ public float rotateRituelSpeed =50;
         doDestruct = true;
         for (int i = 0; i < childEntities.Length; i++)
         {
-            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
             {
                 doDestruct = false;
                 break;
@@ -73,7 +90,7 @@ public float rotateRituelSpeed =50;
         {     
             angle += rotateRituelSpeed*Time.deltaTime;
         }
-        for (int i = 0; i < childEntities.Length; i++)
+        for (int i = 0; i < childEntities.Length -1; i++)
         {
             if (i >= numberByCircle * currentCircleNumber)
             {
@@ -82,7 +99,7 @@ public float rotateRituelSpeed =50;
             Vector3 pos = new Vector3(0, 0, 0);
             Vector3 transformFor = transform.forward;
             pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0) * transform.forward* radiusUse);
-            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
             {
                 float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
                 Debug.DrawLine(pos, childEntities[i].transform.position, Color.blue);
@@ -117,7 +134,7 @@ public float rotateRituelSpeed =50;
 
    public void RunPlayer()
    {
-         for (int i = 0; i < childEntities.Length; i++)
+        for (int i = 0; i < childEntities.Length; i++)
         { if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
                     {
                     childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position , PlayerMoveAlone.Player1.transform.position, 2*speedAgent*Time.deltaTime);
@@ -137,6 +154,14 @@ public float rotateRituelSpeed =50;
 
         currentCircleNumber = 0;
     }
+    public void CastInvoq()
+    {
+        if (startInvoq != true)
+        {
+            fbCastInvoq.SetActive(true);
+            tempsEcouleInvoq = 0;
+            startInvoq = true;
+        }
 
-
+    }
 }

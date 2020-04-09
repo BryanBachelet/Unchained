@@ -131,7 +131,7 @@ private float input ;
     private void ChangeAgentHit()
     {
     ennemiStock.tag = "Untagged";
-    stateOfEntity =ennemiStock.GetComponent<StateOfEntity>();
+    stateOfEntity = ennemiStock.GetComponent<StateOfEntity>();
     stateOfEntity.entity = StateOfEntity.EntityState.Catch;
     }
 
