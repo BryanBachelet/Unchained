@@ -23,8 +23,8 @@ public float rotateRituelSpeed =50;
     
     void Start()
     {
-        childEntities = new GameObject[transform.childCount];
-        for (int i = 0; i < transform.childCount; i++)
+        childEntities = new GameObject[transform.childCount-2];
+        for (int i = 0; i < transform.childCount-2; i++)
         {
 
             childEntities[i] = transform.GetChild(i).gameObject;

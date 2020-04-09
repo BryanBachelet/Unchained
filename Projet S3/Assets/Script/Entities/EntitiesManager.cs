@@ -15,11 +15,13 @@ public class EntitiesManager : MonoBehaviour
     public float speedOfMouvement = 4;
 
     private CircleFormation circle;
+    private CultistLaser cultistLaser;
 
     private int indexOfPatrol = 0;
     void Start()
     {
         circle = GetComponent<CircleFormation>();
+        cultistLaser = GetComponent<CultistLaser>();
     }
 
 
@@ -47,9 +49,9 @@ public class EntitiesManager : MonoBehaviour
             }
         break;
         case(BeheaviorCultiste.Harass):
-
+        
             
-
+        cultistLaser.enabled = true;
 
 
         break;
