@@ -69,7 +69,7 @@ public class CircleFormation : MonoBehaviour
         doDestruct = true;
         for (int i = 0; i < childEntities.Length; i++)
         {
-            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
+            if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
             {
                 doDestruct = false;
                 break;
@@ -135,11 +135,12 @@ public class CircleFormation : MonoBehaviour
    public void RunPlayer()
    {
         for (int i = 0; i < childEntities.Length; i++)
-        { if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
-                    {
-                    childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position , PlayerMoveAlone.Player1.transform.position, 2*speedAgent*Time.deltaTime);
-                  childEntities[i].transform.eulerAngles = Vector3.zero;
-                    }
+        { 
+            if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            {
+                childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position , PlayerMoveAlone.Player1.transform.position, 2*speedAgent*Time.deltaTime);
+                childEntities[i].transform.eulerAngles = Vector3.zero;
+            }
         }
    }
 
