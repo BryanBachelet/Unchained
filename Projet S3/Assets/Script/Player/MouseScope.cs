@@ -11,6 +11,8 @@ public class MouseScope : MonoBehaviour
 
     [Header("Input")]
     public bool controllerPc;
+public     LayerMask maskPC = 12;
+
     [Tooltip("Only for Contoller")]
     public float deadZone = 0.1f;
 
@@ -168,9 +170,8 @@ public class MouseScope : MonoBehaviour
      
         Ray camera = Camera.main.ScreenPointToRay(directionIMG.position);
        RaycastHit hit;
-        LayerMask mask = 1 << 12;
-
-        if (Physics.Raycast(camera, out hit, Mathf.Infinity, mask))
+       
+        if (Physics.Raycast(camera, out hit, Mathf.Infinity, maskPC))
         {
 
       

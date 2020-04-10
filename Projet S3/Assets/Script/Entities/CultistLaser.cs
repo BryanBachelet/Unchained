@@ -53,84 +53,91 @@ public class CultistLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (attackCultist)
-        {
 
-        case(StateAttackCultist.Movement):
-        if(Vector3.Distance(transform.position,player.transform.position)> distance )
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speedOfDeplacement*Time.deltaTime);
-        }
-        else
-        {
-         ChangeStateAttack( StateAttackCultist.Charging);
-        }
-        
-
-        break;
-
-
-        case (StateAttackCultist.Charging) :
-
-            float angle = Vector3.SignedAngle( Vector3.forward ,  (player.transform.position -transform.position).normalized, Vector3.up );
-            spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
-            RaycastHit hit ;
-            Debug.DrawRay(transform.position + Vector3.up,spriteGo.transform.right*100);
-            if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
-            {    
-                Debug.Log(hit.collider.gameObject);
-                spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
-            }
-         
-            if(_timeToCharge>timeToCharge)
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        {    
+            switch (attackCultist)
             {
-                ChangeStateAttack(StateAttackCultist.FinishCharging);
 
+            case(StateAttackCultist.Movement):
+            if(Vector3.Distance(transform.position,player.transform.position)> distance )
+            {
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speedOfDeplacement*Time.deltaTime);
             }
             else
             {
-                _timeToCharge +=Time.deltaTime;
+            ChangeStateAttack( StateAttackCultist.Charging);
             }
+            
 
-        break;
+            break;
 
-        case(StateAttackCultist.FinishCharging):
-        
-            if(_timeToHit>timeBeforeHit)
+
+            case (StateAttackCultist.Charging) :
+
+                float angle = Vector3.SignedAngle( Vector3.forward ,  (player.transform.position -transform.position).normalized, Vector3.up );
+                spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
+                RaycastHit hit ;
+                Debug.DrawRay(transform.position + Vector3.up,spriteGo.transform.right*100);
+                if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
+                {    
+                    Debug.Log(hit.collider.gameObject);
+                    spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
+                }
+            
+                if(_timeToCharge>timeToCharge)
+                {
+                    ChangeStateAttack(StateAttackCultist.FinishCharging);
+
+                }
+                else
+                {
+                    _timeToCharge +=Time.deltaTime;
+                }
+
+            break;
+
+            case(StateAttackCultist.FinishCharging):
+            
+                if(_timeToHit>timeBeforeHit)
+                {
+                    ChangeStateAttack(StateAttackCultist.Attack);
+
+                }
+                else
+                {
+                    _timeToHit +=Time.deltaTime;
+                }
+
+            break;
+
+            case(StateAttackCultist.Attack):
+            
+            _frameAttackTime++ ;
+            if(_frameAttackTime>frameAttackTime)
             {
-                ChangeStateAttack(StateAttackCultist.Attack);
+                ChangeStateAttack(StateAttackCultist.Reload);
+            } 
+            break;
 
-            }
-            else
+
+            case(StateAttackCultist.Reload):
+
+
+            if(_timeReload>timeReload)
             {
-                _timeToHit +=Time.deltaTime;
+                ChangeStateAttack(StateAttackCultist.Movement);
+            }else
+            {
+                _timeReload +=Time.deltaTime;
             }
+            
+            break;
 
-        break;
-
-        case(StateAttackCultist.Attack):
-        
-        _frameAttackTime++ ;
-        if(_frameAttackTime>frameAttackTime)
-        {
-            ChangeStateAttack(StateAttackCultist.Reload);
-        } 
-        break;
-
-
-        case(StateAttackCultist.Reload):
-
-
-        if(_timeReload>timeReload)
-        {
-            ChangeStateAttack(StateAttackCultist.Movement);
+            }
         }else
         {
-            _timeReload +=Time.deltaTime;
-        }
-        
-        break;
-
+              transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, (speedOfDeplacement-1)*Time.deltaTime);
         }
         
     }

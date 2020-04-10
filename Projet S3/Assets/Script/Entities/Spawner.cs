@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public EntitiesManager.BeheaviorCultiste startBehavior;
     public GameObject objectToInstantiate;
     [Header("Caractéristique du spawner")]
     public float timeOfSpawn;
@@ -67,7 +68,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Harass;
+            manager.cultisteBehavior  = startBehavior;
             manager.pointToGo = target.transform;
             
         }
