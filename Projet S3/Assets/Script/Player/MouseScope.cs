@@ -11,7 +11,7 @@ public class MouseScope : MonoBehaviour
 
     [Header("Input")]
     public bool controllerPc;
-public     LayerMask maskPC = 12;
+    public LayerMask maskPC = 12;
 
     [Tooltip("Only for Contoller")]
     public float deadZone = 0.1f;
