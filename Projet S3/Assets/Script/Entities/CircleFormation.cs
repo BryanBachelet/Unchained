@@ -10,7 +10,7 @@ public class CircleFormation : MonoBehaviour
     public float sizeBetweenCircle;
     public float speedAgent;
     public float positionMouvement;
-    public float rotateRituelSpeed = 50;
+    public float rotateRituelSpeed =50;
     public bool activeRituel;
     public float timeForInvoq;
     public bool startInvoq = false;
@@ -24,6 +24,7 @@ public class CircleFormation : MonoBehaviour
 
     private float angle;
 
+    public bool attack;
     public GameObject invoq1;
     public GameObject fbCastInvoq;
     void Start()
@@ -97,10 +98,11 @@ public class CircleFormation : MonoBehaviour
 
 
     private void Formation()
-    {
-        if (activeRituel)
-        {
-            angle += rotateRituelSpeed * Time.deltaTime;
+    { 
+        int numFor = 0;
+        if(activeRituel)
+        {     
+            angle += rotateRituelSpeed*Time.deltaTime;
         }
         for (int i = 0; i < childEntities.Length - 1; i++)
         {
@@ -125,16 +127,23 @@ public class CircleFormation : MonoBehaviour
                             childEntities[i].transform.position += Quaternion.Euler(0,angle,0)*childEntities[i].transform.forward;
                             Quaternion.Euler(0,angle,0)*(dir.normalized* Vector3.Distance(childEntities[i].transform.position , transform.position))
                         }*/
+
+                        
+
+                         
                         if (distanceDestination > 1f)
                         {
                             childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
+                            childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
                         }
                         else
                         {
-
-                            childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos, 10 * Time.deltaTime);
+                            
+                            childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
+                            childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
+                            numFor++;
                         }
                     }
 
@@ -143,6 +152,14 @@ public class CircleFormation : MonoBehaviour
             }
         }
 
+        if(numFor>10)
+        {
+            attack = true;
+        }
+        else
+        {
+            attack =false;
+        }
         ResetCircle();
     }
 

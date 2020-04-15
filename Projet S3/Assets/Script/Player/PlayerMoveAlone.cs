@@ -45,6 +45,7 @@ public class PlayerMoveAlone : MonoBehaviour
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
+       
     }
 
     // Update is called once per frame
@@ -90,12 +91,12 @@ public class PlayerMoveAlone : MonoBehaviour
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         }
         Ray ray = new Ray(transform.position, DirProjection.normalized);
-        RaycastHit hit;
+       // RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.tag == "wall")
+       /* if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.tag == "wall")
         {
             DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        }
+        }*/
     }
 
 
@@ -121,10 +122,10 @@ public void DeactiveStickHGround(){
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
         Physics.Raycast(ray, out hit, currentPowerOfProjection);
-        if (collision.collider.tag == "wall")
-        {
-            DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        }
+       // if (collision.collider.tag == "wall")
+        //{
+          //  DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+        //}
     }
 
     public void TransmitionOfStrenghOfExpulsion()

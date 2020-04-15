@@ -56,7 +56,7 @@ public class CultistLaser : MonoBehaviour
     void Update()
     {
 
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == true)
         {    
             switch (attackCultist)
             {
@@ -138,7 +138,13 @@ public class CultistLaser : MonoBehaviour
             }
         }else
         {
-              transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, (speedOfDeplacement-1)*Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, (speedOfDeplacement-1)*Time.deltaTime);
+            _timeToHit = 0;
+            _timeToCharge = 0;
+            spriteGo.SetActive(false);
+            attackCollideGo.GetComponent<MeshRenderer>().enabled =false;
+            attackCollider.enabled = false;
+            ChangeStateAttack(StateAttackCultist.Movement);
         }
         
     }
