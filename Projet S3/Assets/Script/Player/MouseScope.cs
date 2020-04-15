@@ -72,7 +72,7 @@ public class MouseScope : MonoBehaviour
 
     }
 
-    
+
     void Update()
     {
         aimDirection = DirectionOfAim(controllerPc);
