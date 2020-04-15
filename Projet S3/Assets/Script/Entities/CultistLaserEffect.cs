@@ -15,6 +15,7 @@ public void OnTriggerStay(Collider collider)
  {
   if(collider.gameObject.layer == 10 && hit ==false) 
   {
+        collider.GetComponent<EnnemiStock>().DetachPlayer();
         collider.GetComponent<PlayerMoveAlone>().AddProjection(ejectionDirection*ejectionForce);
         hit = true;
   }   
