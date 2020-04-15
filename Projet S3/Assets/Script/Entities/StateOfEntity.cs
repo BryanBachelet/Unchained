@@ -6,7 +6,7 @@ public class StateOfEntity : MonoBehaviour
 {
     public enum EntityState
     {
-        Formation, ReturnFormation, Catch, Destroy , Dead 
+        Formation, ReturnFormation, Catch, Destroy , Dead, Invocation 
     }
     public EntityState entity = EntityState.Formation;
 
@@ -22,12 +22,14 @@ public class StateOfEntity : MonoBehaviour
 
     void Update()
     {
-        if (entity != EntityState.Destroy && currentEntityState != entity)
+        if(entity != EntityState.Invocation)
         {
-            currentEntityState = entity;
-            ennemiDestroy.enabled = false;
+            if (entity != EntityState.Destroy && currentEntityState != entity)
+            {
+                currentEntityState = entity;
+                ennemiDestroy.enabled = false;
+            }
         }
-
     }
 
     public void DestroyProjection(bool isProjection, Vector3 dir)

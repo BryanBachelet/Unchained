@@ -37,6 +37,8 @@ public class CultistLaser : MonoBehaviour
     private SpriteRenderer spriteRend;
     private CultistLaserEffect cultistLaserEffect;
 
+    [FMODUnity.EventRef]
+    public string shotSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +68,7 @@ public class CultistLaser : MonoBehaviour
             }
             else
             {
-            ChangeStateAttack( StateAttackCultist.Charging);
+            ChangeStateAttack(StateAttackCultist.Charging);
             }
             
 
@@ -84,11 +86,9 @@ public class CultistLaser : MonoBehaviour
                     Debug.Log(hit.collider.gameObject);
                     spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
                 }
-            
                 if(_timeToCharge>timeToCharge)
                 {
                     ChangeStateAttack(StateAttackCultist.FinishCharging);
-
                 }
                 else
                 {
@@ -102,8 +102,9 @@ public class CultistLaser : MonoBehaviour
                 if(_timeToHit>timeBeforeHit)
                 {
                     ChangeStateAttack(StateAttackCultist.Attack);
+                    FMODUnity.RuntimeManager.PlayOneShot(shotSound, transform.position);
 
-                }
+                    }
                 else
                 {
                     _timeToHit +=Time.deltaTime;

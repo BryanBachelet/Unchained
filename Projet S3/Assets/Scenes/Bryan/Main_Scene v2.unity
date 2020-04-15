@@ -6721,7 +6721,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439580, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1159970225, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_Layer
@@ -6855,7 +6855,7 @@ PrefabInstance:
     - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: activeLoseEffect
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -6941,7 +6941,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: controllerPc
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -7062,6 +7062,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439582, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
@@ -7073,11 +7078,6 @@ PrefabInstance:
     - target: {fileID: 1159970226, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_LocalScale.z
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2599016834285439582, guid: 6394fff4d6065524694b9d19799eecc4,
-        type: 3}
-      propertyPath: m_Parameters.textureMode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1159970227, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: m_Radius
@@ -9705,6 +9705,8 @@ MonoBehaviour:
   forceProjection: 10
   distanceForward: 20
   feed: {fileID: 562058297}
+  slamLaunch: event:/Player/Impact/Launch2
+  slamImpact: event:/Player/Impact/Explosion
 --- !u!114 &2027631141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
