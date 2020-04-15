@@ -148,7 +148,7 @@ public class MashingTrans : MonoBehaviour
         colliders.Clear();
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            if (hitColliders[i].GetComponent<Rigidbody>().useGravity == true)
+            if (hitColliders[i].GetComponent<Rigidbody>() && hitColliders[i].GetComponent<Rigidbody>().useGravity == true)
             {
                 colliders.Add(hitColliders[i]);
             }
