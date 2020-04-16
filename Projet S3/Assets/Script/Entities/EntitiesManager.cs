@@ -45,7 +45,11 @@ public class EntitiesManager : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
             }else
             {
+                if(!circle.activeRituel)
+                {
+               
                 circle.activeRituel = true;
+                }
                 circle.CastInvoq();
             }
         break;

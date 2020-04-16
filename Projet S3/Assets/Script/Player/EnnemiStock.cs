@@ -73,6 +73,7 @@ private float input ;
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
         slamTry = GetComponent<SlamTry>();
+        
 
     }
 
@@ -238,12 +239,12 @@ private float input ;
 
     public void DetachPlayer()
     {
-        stateOfEntity.DestroyProjection(false,Vector3.up);
         if(ennemiStock!=null) 
         {
+        stateOfEntity.DestroyProjection(false,Vector3.up);
             ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
         }
-        rotationPlayer.StopRotation(true);
+        rotationPlayer.StopRotation(false);
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);

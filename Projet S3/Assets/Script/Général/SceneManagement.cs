@@ -35,9 +35,11 @@ public class SceneManagement : MonoBehaviour
         else
         {
             Time.timeScale = 1;
-
+        
         }
     }
+
+
 
     public static void LoadScene(int indexScene)
     {

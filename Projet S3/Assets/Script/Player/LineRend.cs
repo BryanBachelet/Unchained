@@ -198,11 +198,11 @@ public class LineRend : MonoBehaviour
           
             if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
-                 ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized)* -mouseScope.FireInputValueEntier(mouseScope.controllerPc) ,ejectionForce *2);
+                ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized)* -mouseScope.FireInputValueEntier(mouseScope.controllerPc) ,ejectionForce *2);
             }
             else
             {
-                  ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized) * -mouseScope.FireInputValueEntier(mouseScope.controllerPc),ejectionForce);
+                ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized) * -mouseScope.FireInputValueEntier(mouseScope.controllerPc),ejectionForce);
             }
             
           if(mouseScope.controllerPc){

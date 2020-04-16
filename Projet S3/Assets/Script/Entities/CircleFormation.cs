@@ -15,18 +15,19 @@ public class CircleFormation : MonoBehaviour
     public float timeForInvoq;
     public bool startInvoq = false;
     public float tempsEcouleInvoq;
+    public bool attack;
+    public GameObject invoq1;
+    public GameObject fbCastInvoq;
 
     private float radiusUse;
     private int currentCircleNumber;
     private float angleByCircle;
     private bool doDestruct;
     private float[] compteurOfMouvement;
-
     private float angle;
+    private EntitiesManager entityManage;
 
-    public bool attack;
-    public GameObject invoq1;
-    public GameObject fbCastInvoq;
+
     void Start()
     {
         childEntities = new GameObject[transform.childCount - 2];
@@ -37,6 +38,7 @@ public class CircleFormation : MonoBehaviour
 
         }
         compteurOfMouvement = new float[childEntities.Length];
+        entityManage = GetComponent<EntitiesManager>();
     }
 
     // Update is called once per frame
@@ -91,8 +93,23 @@ public class CircleFormation : MonoBehaviour
         }
         if (doDestruct)
         {
+            if(entityManage.cultisteBehavior == EntitiesManager.BeheaviorCultiste.Harass)
+            {
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Distance);
+            }
+            else
+            {
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Cultiste);
+            }
+
+            if(activeRituel)
+            {
+                ManageEntity.SetActiveRitualPoint(entityManage.pointToGo.gameObject,false);
+            }
+
 
             Destroy(gameObject);
+
         }
     }
 
