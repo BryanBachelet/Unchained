@@ -101,6 +101,7 @@ private float input ;
             
             if(!isSlaming)
             {
+                BlockEnnemiLinks();
                 FeedbackDuringRotation();
                 InputCheck();
                 DeactiveLien();
@@ -134,6 +135,7 @@ private float input ;
     ennemiStock.tag = "Untagged";
     stateOfEntity = ennemiStock.GetComponent<StateOfEntity>();
     stateOfEntity.entity = StateOfEntity.EntityState.Catch;
+    
     }
 
     private void PlayerChange()
@@ -220,6 +222,14 @@ private float input ;
         {
             currentRight = false;
         }
+    }
+
+    private void BlockEnnemiLinks()
+    {
+        ennemiStock.GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+        ennemiStock.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ennemiStock.transform.eulerAngles = Vector3.zero;
+        ennemiStock.transform.position = new Vector3(ennemiStock.transform.position.x,1,ennemiStock.transform.position.z);
     }
 
     private void  DeactiveLien()

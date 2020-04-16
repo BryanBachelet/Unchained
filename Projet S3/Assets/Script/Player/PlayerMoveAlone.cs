@@ -9,6 +9,7 @@ public class PlayerMoveAlone : MonoBehaviour
     [Header("Projection")]
     public float powerOfProjection;
     public float DecelerationOfProjection = 60;
+    public AnimationCurve ratioOfExpulsion;
     [HideInInspector] public Vector3 DirProjection;
     [HideInInspector] public float currentPowerOfProjection;
 
@@ -30,6 +31,8 @@ public class PlayerMoveAlone : MonoBehaviour
     private LineRenderer lineRenderer;
     private EnnemiStock stock;
     private  bool isStickGround = true;
+    private float _timeProjection;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -72,7 +75,9 @@ public class PlayerMoveAlone : MonoBehaviour
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
         {
-            currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
+            _timeProjection +=Time.deltaTime;
+            float ratio =  ratioOfExpulsion.Evaluate(_timeProjection);
+            currentPowerOfProjection -= (DecelerationOfProjection* ratio )* Time.deltaTime;
             if(transform.position.y<1)
             {
                 isStickGround =true;
@@ -111,10 +116,11 @@ public class PlayerMoveAlone : MonoBehaviour
     }
 
 
-public void DeactiveStickHGround(){
+    public void DeactiveStickHGround()
+    {
     isStickGround = !isStickGround;
 
-}
+    }
 
 
     public void OnCollisionEnter(Collision collision)

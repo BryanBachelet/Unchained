@@ -52,6 +52,8 @@ public class RotationPlayer : MonoBehaviour
     public float tempsAcceleration;
 
     int checkSensRotation;
+     private Keyframe key;
+     private bool start;
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -87,8 +89,10 @@ public class RotationPlayer : MonoBehaviour
                 pointPivot = stocks.ennemiStock.transform.position;
             }
 
-            angleSpeed = accelerationValue.Evaluate(tempsEcouleAcceleration) * checkSensRotation;
+          
+            angleSpeed = accelerationValue.Evaluate(tempsEcouleAcceleration*0.5f) * checkSensRotation;
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
+    
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
 
             if (limitationLongeur)
@@ -145,6 +149,10 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
+        key  = accelerationValue.keys[0];
+        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
+        accelerationValue.MoveKey(0,key);
+
         if (changeRotate)
         {
             if (angleSpeed > 0)
@@ -170,6 +178,10 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
+        key  = accelerationValue.keys[0];
+        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
+        accelerationValue.MoveKey(0,key);
+        
         if (changeRotate)
         {
             if (angleSpeed > 0)
