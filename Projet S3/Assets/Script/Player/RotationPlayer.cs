@@ -23,7 +23,8 @@ public class RotationPlayer : MonoBehaviour
     private float forceOfSortie;
 
     private GameObject gameObjectPointPivot;
-    private Vector3 pointPivot;
+    [HideInInspector]
+    public Vector3 pointPivot;
     private string tagEnter;
 
     public bool rotate = false;
@@ -51,6 +52,7 @@ public class RotationPlayer : MonoBehaviour
     public float tempsEcouleAcceleration;
     public float tempsAcceleration;
 
+public bool right;
     int checkSensRotation;
      private Keyframe key;
      private bool start;
@@ -141,6 +143,7 @@ public class RotationPlayer : MonoBehaviour
   
     public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
+        StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
         tagEnter = null;
         gameObjectPointPivot = positionPivot;
         pointPivot = positionPivot.transform.position;
@@ -149,13 +152,14 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
-     
+        right = true;
 
         if (changeRotate)
         {
             if (angleSpeed > 0)
             {
                 angleSpeed = -angleSpeed;
+                right = false;
                 checkSensRotation = -1;
             }
         }
@@ -169,6 +173,7 @@ public class RotationPlayer : MonoBehaviour
 
     public bool StartRotationWall(GameObject objetRotate, Vector3 positionPivotWall, GameObject positionPivot, float forceSortie, bool changeRotate)
     {
+        StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
         tagEnter = null;
         gameObjectPointPivot = positionPivot;
         pointPivot = positionPivotWall;
@@ -176,12 +181,13 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
-     
+      right = true;
         
         if (changeRotate)
         {
             if (angleSpeed > 0)
             {
+                right = false;
                 angleSpeed = -angleSpeed;
                 checkSensRotation = -1;
             }

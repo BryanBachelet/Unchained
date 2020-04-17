@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMoveAlone : MonoBehaviour
 {
+    public static Rigidbody playerRigidStatic;
     private Rigidbody playerRigid;
     private float speedOfDeplacement = 10;
     [Header("Projection")]
@@ -44,7 +45,7 @@ public class PlayerMoveAlone : MonoBehaviour
         isStickGround = true;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
-        playerRigid = GetComponent<Rigidbody>();
+        playerRigidStatic = playerRigid = GetComponent<Rigidbody>();
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
@@ -141,7 +142,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void AddProjection(Vector3 dir)
     {
-       
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir;
@@ -149,7 +150,7 @@ public class PlayerMoveAlone : MonoBehaviour
     }
      public void AddProjection(Vector3 dir, float power)
     {
-      
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
         DirProjection = Vector3.Lerp(DirProjection,dir,0.5f);
@@ -158,7 +159,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void AnimationAvatar()
     {
-        if (StateAnim.state == StateAnim.CurrentState.Walk)
+        if (StateAnim.state == StateAnim.CurrentState.Projection || StateAnim.state == StateAnim.CurrentState.Idle )
         {
             float angleConversion = transform.eulerAngles.y;
             angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
@@ -181,10 +182,7 @@ public class PlayerMoveAlone : MonoBehaviour
             StateAnim.ChangeState(StateAnim.CurrentState.Idle);
         }
 
-        if (StateAnim.state == StateAnim.CurrentState.Idle && Direction() != Vector3.zero)
-        {
-            StateAnim.ChangeState(StateAnim.CurrentState.Walk);
-        }
+      
     }
 
     public Vector3 Direction()
