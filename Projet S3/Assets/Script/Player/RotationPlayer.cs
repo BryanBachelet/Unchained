@@ -149,9 +149,7 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
-        key  = accelerationValue.keys[0];
-        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
-        accelerationValue.MoveKey(0,key);
+     
 
         if (changeRotate)
         {
@@ -178,9 +176,7 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
-        key  = accelerationValue.keys[0];
-        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
-        accelerationValue.MoveKey(0,key);
+     
         
         if (changeRotate)
         {
@@ -196,6 +192,13 @@ public class RotationPlayer : MonoBehaviour
             checkSensRotation = 1;
         }
         return rotate = true;
+    }
+
+    public void MoveKey()
+    {   
+        key  = accelerationValue.keys[0];
+        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
+        accelerationValue.MoveKey(0,key);
     }
 
     public void StopRotation(bool isWall)
