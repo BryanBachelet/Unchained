@@ -169,6 +169,7 @@ public class CultistLaser : MonoBehaviour
             break;
 
             case (StateAttackCultist.FinishCharging):
+            spriteGo.GetComponent<SpriteRenderer>().color = Color.black;
             float distanceHit = 0;
             RaycastHit hit ;
             if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
@@ -205,6 +206,7 @@ public class CultistLaser : MonoBehaviour
 
 
             case(StateAttackCultist.Reload):
+                spriteGo.GetComponent<SpriteRenderer>().color = Color.white;
                 spriteGo.SetActive(false);
                 attackCollideGo.GetComponent<MeshRenderer>().enabled =false;
                 attackCollider.enabled = false;

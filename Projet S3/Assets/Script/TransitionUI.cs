@@ -14,9 +14,9 @@ public class TransitionUI : MonoBehaviour
     float coroutineValue;
     public float tempsChargement;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        isLoading = false;
     }
 
     // Update is called once per frame
@@ -35,8 +35,10 @@ public class TransitionUI : MonoBehaviour
 
         if(isLoading)
         {
+            coroutineValue = 0;
             loadingBar.gameObject.SetActive(true);
             StartCoroutine(LoadYourAsyncScene());
+            isLoading = false;
 
 
         }
@@ -50,12 +52,25 @@ public class TransitionUI : MonoBehaviour
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
             loadingBar.fillAmount = (coroutineValue / tempsChargement) * 20;
             // Wait until the asynchronous scene fully loads
+
             while (!asyncLoad.isDone && coroutineValue < tempsChargement)
             {
-               
+                if(coroutineValue >= tempsChargement -0.1f)
+                {
+                    isLoading = false;
+                    isActive = true;
+                    myRT.localScale = new Vector3(0.5f, 12f, 7f);
+                    gameObject.SetActive(false);
+                }
                 yield return null;
             }
+
         }
+    }
+
+    private void OnDestroy()
+    {
+
     }
 }
 
