@@ -45,8 +45,7 @@ public class BoulierBehavior : MonoBehaviour
                 dashState = DashEntityState.Dash;
                 if (Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit))
                 {
-                    Debug.Log(hit.collider.gameObject);
-
+                    
                 }
             }
         }

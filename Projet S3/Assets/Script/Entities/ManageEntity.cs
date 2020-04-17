@@ -47,7 +47,7 @@ public class ManageEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(nonActiveRitualPoint.Count);
+    
         if(nonActiveRitualPoint.Count>0 && _timeCounter>spawnTime)
         {
             if(nonActiveRitualPoint.Count>5)

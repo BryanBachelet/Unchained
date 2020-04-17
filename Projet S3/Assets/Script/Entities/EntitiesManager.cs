@@ -18,6 +18,10 @@ public class EntitiesManager : MonoBehaviour
     private CultistLaser cultistLaser;
 
     private int indexOfPatrol = 0;
+    private int indexCircleEntities;
+    private bool runPlayer;
+    private int countOfDeath;
+
     void Start()
     {
         circle = GetComponent<CircleFormation>();
@@ -39,19 +43,77 @@ public class EntitiesManager : MonoBehaviour
 
         switch(cultisteBehavior) {
         case(BeheaviorCultiste.RituelPoint):
-
-            if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
+            if(circle.attack >=0)
             {
-                transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
-            }else
-            {
-                if(!circle.activeRituel)
+                if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
                 {
-               
-                circle.activeRituel = true;
+                    if(circle.activeRituel)
+                    {
+                        circle.activeRituel = false;                        
+                    }
+                    transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
+                    
+                }else
+                {
+                    if(!circle.activeRituel)
+                    {
+                
+                    circle.activeRituel = true;
+                    }
+                    circle.CastInvoq();
                 }
-                circle.CastInvoq();
             }
+            if(circle.attack ==-1)
+            {  
+                if(circle.activeRituel)
+                {
+                    circle.activeRituel = false;                        
+                }
+                if(!runPlayer)
+                {
+
+                    if (Vector3.Distance(transform.position, circle.childEntities[indexCircleEntities].transform.position) > 20 && 
+                    circle.childEntities[indexCircleEntities].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                    {
+                        Debug.DrawLine(transform.position,circle.childEntities[indexCircleEntities].transform.position, Color.green);
+                        Vector3 posToGoEntity = new Vector3(circle.childEntities[indexCircleEntities].transform.position.x,1,circle.childEntities[indexCircleEntities].transform.position.z);
+                        transform.position = Vector3.MoveTowards(transform.position, circle.childEntities[indexCircleEntities].transform.position, speedOfMouvement*Time.deltaTime);
+                    }
+                    else
+                    {
+                        countOfDeath = 0;
+                        for(int i =0; i<circle.childEntities.Length;i++)
+                        {if(circle.childEntities[i].GetComponent<StateOfEntity>() == null)
+                        {   Debug.Log(circle.childEntities[i]);
+                                Debug.Break();
+                        }
+                         if(circle.childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Dead)
+                         {
+                             countOfDeath++;
+                         }
+                         if(countOfDeath>10)
+                         {
+                             runPlayer = true;
+                             break;
+                         }
+                        }
+                         
+                        if(indexCircleEntities<circle.childEntities.Length-1)
+                        {
+                            indexCircleEntities++;
+                        }
+                        else
+                        {
+                            indexCircleEntities=0;
+                        }
+                    }
+                }
+                else
+                {
+                    circle.ActiveRunPlayer();
+                }
+            }
+
         break;
         case(BeheaviorCultiste.Harass):
         

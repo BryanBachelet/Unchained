@@ -56,7 +56,7 @@ public class CultistLaser : MonoBehaviour
     void Update()
     {
 
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == true)
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == 1)
         {    
             switch (attackCultist)
             {
@@ -80,10 +80,9 @@ public class CultistLaser : MonoBehaviour
                 float angle = Vector3.SignedAngle( Vector3.forward ,  (player.transform.position -transform.position).normalized, Vector3.up );
                 spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
                 RaycastHit hit ;
-                Debug.DrawRay(transform.position + Vector3.up,spriteGo.transform.right*100);
+             
                 if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
                 {    
-                    Debug.Log(hit.collider.gameObject);
                     spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
                 }
                 if(_timeToCharge>timeToCharge)

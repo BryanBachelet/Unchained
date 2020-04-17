@@ -141,7 +141,7 @@ public class PlayerMoveAlone : MonoBehaviour
 
     public void AddProjection(Vector3 dir)
     {
-        Debug.Log("Propulsion");
+       
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir;
@@ -149,7 +149,7 @@ public class PlayerMoveAlone : MonoBehaviour
     }
      public void AddProjection(Vector3 dir, float power)
     {
-        Debug.Log("Propulsion");
+      
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
         DirProjection = Vector3.Lerp(DirProjection,dir,0.5f);
