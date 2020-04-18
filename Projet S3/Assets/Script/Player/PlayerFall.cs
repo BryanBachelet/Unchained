@@ -27,13 +27,14 @@ private Vector3 dirProj;
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(activeFall)
+        if(activeFall&& mouse.instanceBullet == null )
         {
             DeactiveController();
             dirProj = new Vector3(dirProj.x,0,dirProj.z);
             rigidPlayer.velocity += new Vector3(0,-10*Time.deltaTime,0); 
             rigidPlayer.velocity = dirProj.normalized * 25 + new Vector3(0, rigidPlayer.velocity.y,0);
         }
+   
     }
 
     public void OnTriggerExit(Collider collider)
@@ -53,7 +54,7 @@ private Vector3 dirProj;
     public void  CollideWallActive(Collider collider)
     {
        Debug.Log(collider.gameObject.layer);
-        if(collider.gameObject.layer == 13 && !activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate )
+        if(collider.gameObject.layer == 13 && !activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate && mouse.instanceBullet == null )
         {
             //Debug.Break();
            dirProj= playerMove.DirProjection;
@@ -63,7 +64,7 @@ private Vector3 dirProj;
 
         }
         
-        if(collider.gameObject.layer == 11   && activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate )
+        if(collider.gameObject.layer == 11   && activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate  &&  mouse.instanceBullet == null )
         {
             killCountPlayer.ActiveDeathCondition();   
         }
@@ -72,6 +73,7 @@ private Vector3 dirProj;
 
     public void DeactiveController()
     {
+        
         mouse.enabled =false;
         playerMove.enabled = false;
     }
