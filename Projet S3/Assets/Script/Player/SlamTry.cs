@@ -65,10 +65,6 @@ public class SlamTry : MonoBehaviour
                 lineRenderer.SetPosition(1, agent.transform.position);
             }
         }
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManagement.LoadCurrentScene();
-        }
 
     /*    if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
         {

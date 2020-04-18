@@ -21,6 +21,9 @@ public class BoulierBehavior : MonoBehaviour
     public float speed;
     MeshRenderer myMR;
     RaycastHit hit;
+    bool checkStich = false;
+    public bool isGrab = false;
+    Vector3 stichPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,8 +80,36 @@ public class BoulierBehavior : MonoBehaviour
                 dashState = DashEntityState.Preparation;
             }
         }
+        if(PlayerMoveAlone.Player1.GetComponent<EnnemiStock>().ennemiStock != null)
+        {
+            isGrab = false;
+            stichPos = Vector3.zero;
+            gameObject.layer = 9;
+            gameObject.tag = "Ennemi";
+        }
+        if(isGrab)
+        {
+            PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
+            
+        }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject == PlayerMoveAlone.Player1)
+        {
+            if(checkStich == false)
+            {
+                checkStich = true;
+                stichPos = collision.transform.position - transform.position;
+                collision.gameObject.GetComponent<EnnemiStock>().DetachPlayer();
+                isGrab = true;
+                gameObject.layer = 0;
+                gameObject.tag = "Untagged";
+            }
+
+        }
+    }
     public void OnDestroy()
     {
         ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);

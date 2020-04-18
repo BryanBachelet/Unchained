@@ -17,7 +17,8 @@ public class VictoryCondition : MonoBehaviour
     public float timeBeforeRestart = 2f;
     private float compteurRestart = 0;
 
-        private int firstFramePhase3;
+    private int firstFramePhase3;
+
 
     public void Update()
     {
@@ -61,7 +62,7 @@ public class VictoryCondition : MonoBehaviour
         if(victoryRestart==false)
         {
        
-       victoryRestart = true;
+        victoryRestart = true;
         victoryText.SetActive(true);
         }
     }
