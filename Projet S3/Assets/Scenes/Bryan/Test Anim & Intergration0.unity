@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 47285940}
   m_Layer: 13
   m_Name: Wall (19)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1481,7 +1481,7 @@ GameObject:
   - component: {fileID: 214786252}
   m_Layer: 13
   m_Name: Wall (16)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   - {fileID: 745528700}
   - {fileID: 363093457}
   - {fileID: 1245469924}
-  - {fileID: 1731264403}
+  - {fileID: 0}
   - {fileID: 1687825359}
   spawnTime: 20
   _timeCounter: 0
@@ -2100,6 +2100,10 @@ MonoBehaviour:
   maxCultisteInspec: 0
   maxDistanceInspec: 0
   maxColossInspec: 10
+  ritualPoint: []
+  spawnersList: []
+  spawnTime: 0
+  _timeCounter: 0
 --- !u!1 &307060810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,7 +2729,7 @@ GameObject:
   - component: {fileID: 410662030}
   m_Layer: 13
   m_Name: Wall (20)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2833,7 +2837,7 @@ GameObject:
   - component: {fileID: 456708132}
   m_Layer: 13
   m_Name: Wall (18)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3830,7 +3834,7 @@ GameObject:
   - component: {fileID: 641910004}
   m_Layer: 13
   m_Name: Wall (21)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4335,7 +4339,7 @@ GameObject:
   - component: {fileID: 731400488}
   m_Layer: 13
   m_Name: Wall (14)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6658,7 +6662,7 @@ GameObject:
   - component: {fileID: 1395495719}
   m_Layer: 13
   m_Name: Wall (13)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6766,7 +6770,7 @@ GameObject:
   - component: {fileID: 1402086397}
   m_Layer: 13
   m_Name: Wall (12)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6886,7 +6890,7 @@ GameObject:
   - component: {fileID: 1427962769}
   m_Layer: 13
   m_Name: Wall (15)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7436,6 +7440,11 @@ PrefabInstance:
       propertyPath: weight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 225778051621930966, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: priority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7621,7 +7630,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: controllerPc
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -7721,7 +7730,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439573, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: powerOfProjection
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439573, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -7845,7 +7854,12 @@ PrefabInstance:
     - target: {fileID: 181744757907397934, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 181744757907397934, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3008899309093366012, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -8581,7 +8595,7 @@ GameObject:
   - component: {fileID: 1599438464}
   m_Layer: 13
   m_Name: Wall (10)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10492,7 +10506,7 @@ GameObject:
   - component: {fileID: 1941523537}
   m_Layer: 13
   m_Name: Wall (11)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10783,7 +10797,7 @@ GameObject:
   - component: {fileID: 1959244761}
   m_Layer: 11
   m_Name: Wall (22)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11571,7 +11585,7 @@ GameObject:
   - component: {fileID: 2032901825}
   m_Layer: 13
   m_Name: Wall (17)
-  m_TagString: wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12098,11 +12112,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager General
       objectReference: {fileID: 0}
-    - target: {fileID: 528789736122426247, guid: d06fe01f0ffb8dd41a0ad7f10306c092,
-        type: 3}
-      propertyPath: canvasUI
-      value: 
-      objectReference: {fileID: 1858276174}
     - target: {fileID: 528789736122426360, guid: d06fe01f0ffb8dd41a0ad7f10306c092,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12158,6 +12167,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 528789736122426247, guid: d06fe01f0ffb8dd41a0ad7f10306c092,
+        type: 3}
+      propertyPath: canvasUI
+      value: 
+      objectReference: {fileID: 1858276174}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d06fe01f0ffb8dd41a0ad7f10306c092, type: 3}
 --- !u!1001 &2078716914735093804

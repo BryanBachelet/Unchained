@@ -38,35 +38,24 @@ private Vector3 dirProj;
 
     public void OnTriggerExit(Collider collider)
     {
-        if(collider.gameObject.layer == fallTriggerLayer && !activeFall )  
-        {
-            activeFall = true;
-            Debug.Break();
-        }
-        
-        if(collider.gameObject.layer == deadMaskLayer && activeFall )
-        {
-            killCountPlayer.ActiveDeathCondition();   
-        }
+      CollideWallActive(collider);
     }
      public void OnTriggerStay(Collider collider)
     {
-        if(collider.gameObject.layer == fallTriggerLayer && !activeFall )  
-        {
-            activeFall = true;
-            Debug.Break();
-        }
-        
-        if(collider.gameObject.layer == deadMaskLayer && activeFall )
-        {
-            killCountPlayer.ActiveDeathCondition();   
-        }
+         CollideWallActive(collider);
     }
    private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(collider.gameObject.layer);
-        if(collider.gameObject.layer == 13 && !activeFall)
+       CollideWallActive(collider);
+    }
+
+
+    public void  CollideWallActive(Collider collider)
+    {
+       Debug.Log(collider.gameObject.layer);
+        if(collider.gameObject.layer == 13 && !activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate )
         {
+            //Debug.Break();
            dirProj= playerMove.DirProjection;
            
            rigidPlayer.velocity = Vector3.zero;
@@ -74,13 +63,12 @@ private Vector3 dirProj;
 
         }
         
-        if(collider.gameObject.layer == 11   && activeFall )
+        if(collider.gameObject.layer == 11   && activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate )
         {
             killCountPlayer.ActiveDeathCondition();   
         }
+
     }
-
-
 
     public void DeactiveController()
     {
