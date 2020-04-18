@@ -24,6 +24,6 @@ public class VfxTrailOnPlayer : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(false);
         }
-        transform.position = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+        transform.position = new Vector3(playerTransform.position.x, 2, playerTransform.position.z);
     }
 }
