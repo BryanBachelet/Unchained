@@ -73,6 +73,7 @@ private float input ;
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
         slamTry = GetComponent<SlamTry>();
+        
 
     }
 
@@ -100,6 +101,7 @@ private float input ;
             
             if(!isSlaming)
             {
+                BlockEnnemiLinks();
                 FeedbackDuringRotation();
                 InputCheck();
                 DeactiveLien();
@@ -133,6 +135,7 @@ private float input ;
     ennemiStock.tag = "Untagged";
     stateOfEntity = ennemiStock.GetComponent<StateOfEntity>();
     stateOfEntity.entity = StateOfEntity.EntityState.Catch;
+    
     }
 
     private void PlayerChange()
@@ -221,6 +224,14 @@ private float input ;
         }
     }
 
+    private void BlockEnnemiLinks()
+    {
+        ennemiStock.GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+        ennemiStock.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        ennemiStock.transform.eulerAngles = Vector3.zero;
+        ennemiStock.transform.position = new Vector3(ennemiStock.transform.position.x,1,ennemiStock.transform.position.z);
+    }
+
     private void  DeactiveLien()
 {
          if (!Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
@@ -238,12 +249,12 @@ private float input ;
 
     public void DetachPlayer()
     {
-        stateOfEntity.DestroyProjection(false,Vector3.up);
         if(ennemiStock!=null) 
         {
+        stateOfEntity.DestroyProjection(false,Vector3.up);
             ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
         }
-        rotationPlayer.StopRotation(true);
+        rotationPlayer.StopRotation(false);
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);

@@ -25,6 +25,10 @@ public class CultistLaser : MonoBehaviour
     public LayerMask wallHit;
 
     public float strenghProjection;
+    
+    public float prediction;
+
+    public float anglePrediction;
 
     private GameObject player;
 
@@ -33,12 +37,16 @@ public class CultistLaser : MonoBehaviour
     private float _timeToCharge;
     private float _timeReload;
     private int _frameAttackTime;
-
+    
     private SpriteRenderer spriteRend;
     private CultistLaserEffect cultistLaserEffect;
 
     [FMODUnity.EventRef]
     public string shotSound;
+
+    private RotationPlayer rotation;
+
+    private Vector3 posToShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +64,7 @@ public class CultistLaser : MonoBehaviour
     void Update()
     {
 
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == true)
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == 1)
         {    
             switch (attackCultist)
             {
@@ -77,13 +85,14 @@ public class CultistLaser : MonoBehaviour
 
             case (StateAttackCultist.Charging) :
 
-                float angle = Vector3.SignedAngle( Vector3.forward ,  (player.transform.position -transform.position).normalized, Vector3.up );
+                posToShoot = PredictAttack();
+             
+                float angle = Vector3.SignedAngle( Vector3.forward ,  (posToShoot -transform.position).normalized, Vector3.up );
                 spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
                 RaycastHit hit ;
-                Debug.DrawRay(transform.position + Vector3.up,spriteGo.transform.right*100);
+             
                 if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
                 {    
-                    Debug.Log(hit.collider.gameObject);
                     spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
                 }
                 if(_timeToCharge>timeToCharge)
@@ -162,7 +171,7 @@ public class CultistLaser : MonoBehaviour
             break;
 
             case(StateAttackCultist.Charging):
-            
+         
             spriteGo.SetActive(true);
             attackCultist = attackCultistState;
             _timeToCharge = 0;
@@ -215,4 +224,46 @@ public class CultistLaser : MonoBehaviour
             break;
         }
      }
+
+    public Vector3 PredictAttack()
+    {
+        Vector3 pos =  Vector3.zero;
+        if(StateAnim.state ==  StateAnim.CurrentState.Rotate)
+        {
+            
+            if(rotation == null)
+            {
+                rotation = PlayerMoveAlone.Player1.GetComponent<RotationPlayer>();
+            }   
+                Vector3 dir = (PlayerMoveAlone.Player1.transform.position - rotation.pointPivot);
+                float distance = Vector3.Distance(PlayerMoveAlone.Player1.transform.position, rotation.pointPivot);
+
+              
+                if(rotation.right)
+                {
+                    pos= rotation.pointPivot + (Quaternion.Euler(0,50,0) *  dir.normalized * distance);
+                }
+                else
+                {
+                    pos = rotation.pointPivot + (Quaternion.Euler(0,-50,0) *  dir.normalized * distance);
+                }
+                
+            }
+
+        else
+        {
+            if(PlayerMoveAlone.playerRigidStatic.velocity.magnitude >= 0.5f)
+            {
+                pos = PlayerMoveAlone.Player1.transform.position + PlayerMoveAlone.playerRigidStatic.velocity.normalized *prediction;
+            }
+            else
+            {
+                pos = PlayerMoveAlone.Player1.transform.position;
+            }
+            
+        }
+        return pos;
+
+    }
+
 }

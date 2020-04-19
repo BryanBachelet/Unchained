@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerMoveAlone : MonoBehaviour
 {
+    public static Rigidbody playerRigidStatic;
     private Rigidbody playerRigid;
     private float speedOfDeplacement = 10;
     [Header("Projection")]
     public float powerOfProjection;
     public float DecelerationOfProjection = 60;
+    public AnimationCurve ratioOfExpulsion;
     [HideInInspector] public Vector3 DirProjection;
     [HideInInspector] public float currentPowerOfProjection;
 
@@ -30,6 +32,8 @@ public class PlayerMoveAlone : MonoBehaviour
     private LineRenderer lineRenderer;
     private EnnemiStock stock;
     private  bool isStickGround = true;
+    private float _timeProjection;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -41,7 +45,7 @@ public class PlayerMoveAlone : MonoBehaviour
         isStickGround = true;
         GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
-        playerRigid = GetComponent<Rigidbody>();
+        playerRigidStatic = playerRigid = GetComponent<Rigidbody>();
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
@@ -72,7 +76,9 @@ public class PlayerMoveAlone : MonoBehaviour
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
         {
-            currentPowerOfProjection -= DecelerationOfProjection * Time.deltaTime;
+            _timeProjection +=Time.deltaTime;
+            float ratio =  ratioOfExpulsion.Evaluate(_timeProjection);
+            currentPowerOfProjection -= (DecelerationOfProjection* ratio )* Time.deltaTime;
             if(transform.position.y<1)
             {
                 isStickGround =true;
@@ -111,10 +117,11 @@ public class PlayerMoveAlone : MonoBehaviour
     }
 
 
-public void DeactiveStickHGround(){
+    public void DeactiveStickHGround()
+    {
     isStickGround = !isStickGround;
 
-}
+    }
 
 
     public void OnCollisionEnter(Collision collision)
@@ -135,7 +142,7 @@ public void DeactiveStickHGround(){
 
     public void AddProjection(Vector3 dir)
     {
-        Debug.Log("Propulsion");
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir;
@@ -143,7 +150,7 @@ public void DeactiveStickHGround(){
     }
      public void AddProjection(Vector3 dir, float power)
     {
-        Debug.Log("Propulsion");
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
         DirProjection = Vector3.Lerp(DirProjection,dir,0.5f);
@@ -152,7 +159,7 @@ public void DeactiveStickHGround(){
 
     public void AnimationAvatar()
     {
-        if (StateAnim.state == StateAnim.CurrentState.Walk)
+        if (StateAnim.state == StateAnim.CurrentState.Projection || StateAnim.state == StateAnim.CurrentState.Idle )
         {
             float angleConversion = transform.eulerAngles.y;
             angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
@@ -175,10 +182,7 @@ public void DeactiveStickHGround(){
             StateAnim.ChangeState(StateAnim.CurrentState.Idle);
         }
 
-        if (StateAnim.state == StateAnim.CurrentState.Idle && Direction() != Vector3.zero)
-        {
-            StateAnim.ChangeState(StateAnim.CurrentState.Walk);
-        }
+      
     }
 
     public Vector3 Direction()
