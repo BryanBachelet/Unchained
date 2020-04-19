@@ -155,7 +155,7 @@ public class SlamTry : MonoBehaviour
                 if(!ennmi[i].GetComponent<StateOfEntity>())
                 {
                     Debug.Log(ennmi[i].name);
-                    Debug.Break();
+                    
                 }
                 else
                 {

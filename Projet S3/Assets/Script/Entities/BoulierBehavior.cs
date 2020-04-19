@@ -29,69 +29,92 @@ public class BoulierBehavior : MonoBehaviour
     {
         myMR = GetComponent<MeshRenderer>();
         player = PlayerMoveAlone.Player1;
+        myMR.material.color = Color.blue;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(dashState == DashEntityState.Preparation)
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            myMR.material.color = Color.blue;
-            if(tempsEcoulePrep < tempsForPrep)
+
+            switch(dashState) 
             {
-                tempsEcoulePrep += Time.deltaTime;
-                transform.LookAt(player.transform);
-            }
-            else
-            {
-                dirDash = player.transform.position - transform.position;
-                dashState = DashEntityState.Dash;
-                if (Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit))
-                {
+                case(DashEntityState.Preparation):
                     
+                    transform.LookAt(player.transform);
+                    tempsEcoulePrep += Time.deltaTime;
+                    
+                    if(tempsEcoulePrep > tempsForPrep)
+                    {
+                        ChangeDashState(DashEntityState.Dash);
+                    }
+                
+                break;
+            }
+
+            if (dashState == DashEntityState.Dash)
+            {
+                myMR.material.color = Color.black;
+                
+                if(Vector3.Distance(transform.position, hit.point) > 20)
+                {
+                    //transform.Translate(dirDash.normalized * speed * Time.deltaTime);
+                    transform.position += dirDash.normalized * speed * Time.deltaTime;
+                }
+                else
+                {
+                    tempsForRepos = 0;
+                    dashState = DashEntityState.Repos;
                 }
             }
-        }
-        if (dashState == DashEntityState.Dash)
-        {
-            myMR.material.color = Color.black;
-            
-            if(Vector3.Distance(transform.position, hit.point) > 20)
+            if(dashState == DashEntityState.Repos)
             {
-                //transform.Translate(dirDash.normalized * speed * Time.deltaTime);
-                transform.position += dirDash.normalized * speed * Time.deltaTime;
+                myMR.material.color = Color.cyan;
+                if(tempsEcouleRepos < tempsForRepos)
+                {
+                    tempsEcouleRepos += Time.deltaTime;
+                }
+                else
+                {
+                    tempsEcoulePrep = 0;
+                    dashState = DashEntityState.Preparation;
+                }
             }
-            else
+            if(PlayerMoveAlone.Player1.GetComponent<EnnemiStock>().ennemiStock != null)
             {
-                tempsForRepos = 0;
-                dashState = DashEntityState.Repos;
+                isGrab = false;
+                stichPos = Vector3.zero;
+                gameObject.layer = 9;
+                gameObject.tag = "Ennemi";
             }
-        }
-        if(dashState == DashEntityState.Repos)
-        {
-            myMR.material.color = Color.cyan;
-            if(tempsEcouleRepos < tempsForRepos)
+            if(isGrab)
             {
-                tempsEcouleRepos += Time.deltaTime;
-            }
-            else
-            {
-                tempsEcoulePrep = 0;
-                dashState = DashEntityState.Preparation;
+                PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
+                
             }
         }
-        if(PlayerMoveAlone.Player1.GetComponent<EnnemiStock>().ennemiStock != null)
+    }
+
+    private void ChangeDashState(DashEntityState stateChange)
+    {
+        switch(stateChange)
         {
-            isGrab = false;
-            stichPos = Vector3.zero;
-            gameObject.layer = 9;
-            gameObject.tag = "Ennemi";
+                case(DashEntityState.Preparation):
+                    myMR.material.color = Color.blue;
+
+                break;
+                case(DashEntityState.Dash):
+                    dirDash = player.transform.position - transform.position;
+                    Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit);
+                    dashState = stateChange;
+
+                break;
+                case(DashEntityState.Repos):
+
+                break;
         }
-        if(isGrab)
-        {
-            PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
-            
-        }
+
     }
 
     private void OnCollisionEnter(Collision collision)

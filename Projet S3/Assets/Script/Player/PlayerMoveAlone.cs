@@ -153,7 +153,7 @@ public class PlayerMoveAlone : MonoBehaviour
         StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
-        DirProjection = Vector3.Lerp(DirProjection,dir,0.5f);
+        DirProjection = dir.normalized;
         currentPowerOfProjection = power;
     }
 
@@ -211,6 +211,6 @@ public class PlayerMoveAlone : MonoBehaviour
         currentPowerOfProjection = 0;
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
-
+        aura.SetActive(false);
     }
 }
