@@ -43,7 +43,7 @@ private Vector3 dirProj;
     }
      public void OnTriggerStay(Collider collider)
     {
-         CollideWallActive(collider);
+        CollideWallActive(collider);
     }
    private void OnTriggerEnter(Collider collider)
     {
@@ -53,13 +53,18 @@ private Vector3 dirProj;
 
     public void  CollideWallActive(Collider collider)
     {
+        if(collider.gameObject.layer == 13)
+        {
+        Debug.Log(collider.gameObject);
+
+        }
      
         if(collider.gameObject.layer == 13 && !activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate && mouse.instanceBullet == null )
         {
             //Debug.Break();
-           dirProj= playerMove.DirProjection;
+            dirProj= playerMove.DirProjection;
            
-           rigidPlayer.velocity = Vector3.zero;
+            rigidPlayer.velocity = Vector3.zero;
             activeFall = true;  
 
         }

@@ -49,6 +49,7 @@ public class PlayerMoveAlone : MonoBehaviour
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
+        currentPowerOfProjection = 0;
        
     }
 
@@ -87,6 +88,7 @@ public class PlayerMoveAlone : MonoBehaviour
         }
         else
         {
+            _timeProjection  = 0;
             aura.SetActive(false);
          
         }
@@ -145,7 +147,7 @@ public class PlayerMoveAlone : MonoBehaviour
         StateAnim.ChangeState(StateAnim.CurrentState.Projection);
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
-        DirProjection = dir;
+        DirProjection = dir.normalized;
         currentPowerOfProjection = powerOfProjection;
     }
      public void AddProjection(Vector3 dir, float power)
