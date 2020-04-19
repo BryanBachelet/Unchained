@@ -31,7 +31,7 @@ public class EnnemiDestroy : MonoBehaviour
     private StateOfEntity stateOfEntity;
 
 
-    void Start()
+    void Awake()
     {
         stateOfEntity = GetComponent<StateOfEntity>();
         ennemiRigidBody = GetComponent<Rigidbody>();
@@ -69,6 +69,10 @@ public class EnnemiDestroy : MonoBehaviour
     {
         isExplosion = false;
         dirProjection = dir.normalized;
+        if(ennemiRigidBody ==  null )
+        {
+            ennemiRigidBody = GetComponent<Rigidbody>();
+        }
         ennemiRigidBody.velocity = (upForce * Vector3.up);
         currentForceOfEjection  = ejectionPower;
     }

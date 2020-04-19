@@ -15,28 +15,31 @@ public class CircleFormation : MonoBehaviour
     public float timeForInvoq;
     public bool startInvoq = false;
     public float tempsEcouleInvoq;
+    public int attack;
+    public GameObject invoq1;
+    public GameObject fbCastInvoq;
 
     private float radiusUse;
     private int currentCircleNumber;
     private float angleByCircle;
     private bool doDestruct;
     private float[] compteurOfMouvement;
-
     private float angle;
+    private EntitiesManager entityManage;
 
-    public bool attack;
-    public GameObject invoq1;
-    public GameObject fbCastInvoq;
+private bool activeRunPlayer;
+
     void Start()
     {
-        childEntities = new GameObject[transform.childCount - 2];
-        for (int i = 0; i < transform.childCount - 2; i++)
+        childEntities = new GameObject[transform.childCount - 3];
+        for (int i = 0; i < transform.childCount - 3; i++)
         {
 
             childEntities[i] = transform.GetChild(i).gameObject;
 
         }
         compteurOfMouvement = new float[childEntities.Length];
+        entityManage = GetComponent<EntitiesManager>();
     }
 
     // Update is called once per frame
@@ -49,8 +52,14 @@ public class CircleFormation : MonoBehaviour
         }
         else
         {
+            activeRunPlayer =true;
+        }
+        if(activeRunPlayer == true)
+        {
             RunPlayer();
         }
+        
+
         if (startInvoq && activeRituel)
         {
 
@@ -62,7 +71,7 @@ public class CircleFormation : MonoBehaviour
 
             if (tempsEcouleInvoq > timeForInvoq)
             {
-                Debug.Log("INVOQ NOW");
+                
                 if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Coloss))
                 {
                     Instantiate(invoq1, fbCastInvoq.transform.position, fbCastInvoq.transform.rotation);
@@ -73,10 +82,27 @@ public class CircleFormation : MonoBehaviour
 
 
         }
+        if(!activeRituel)
+        {
+            startInvoq =false;
+            tempsEcouleInvoq = 0;
+            if(fbCastInvoq.transform.localScale.x>0.1 && fbCastInvoq.activeInHierarchy)
+            {
+                fbCastInvoq.transform.position = new Vector3 (entityManage.pointToGo.transform.position.x ,fbCastInvoq.transform.position.y, entityManage.pointToGo.transform.position.z);
+                fbCastInvoq.transform.localScale -= Vector3.one  *10*Time.deltaTime;  
+            }else
+            {
+                 fbCastInvoq.SetActive(false);
+            }
+        }
+
         Destruct();
     }
 
-
+public void ActiveRunPlayer()
+{
+    activeRunPlayer = true;
+}
     private void Destruct()
     {
         doDestruct = true;
@@ -91,8 +117,23 @@ public class CircleFormation : MonoBehaviour
         }
         if (doDestruct)
         {
+            if(entityManage.cultisteBehavior == EntitiesManager.BeheaviorCultiste.Harass)
+            {
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Distance);
+            }
+            else
+            {
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Cultiste);
+            }
+
+            if(activeRituel)
+            {
+                ManageEntity.SetActiveRitualPoint(entityManage.pointToGo.gameObject,false);
+            }
+
 
             Destroy(gameObject);
+
         }
     }
 
@@ -116,7 +157,7 @@ public class CircleFormation : MonoBehaviour
             if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
             {
                 float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
-                Debug.DrawLine(pos, childEntities[i].transform.position, Color.blue);
+               
                 if (distanceDestination > 0.01f)
                 {
                     Vector3 dir = pos - childEntities[i].transform.position;
@@ -127,8 +168,6 @@ public class CircleFormation : MonoBehaviour
                             childEntities[i].transform.position += Quaternion.Euler(0,angle,0)*childEntities[i].transform.forward;
                             Quaternion.Euler(0,angle,0)*(dir.normalized* Vector3.Distance(childEntities[i].transform.position , transform.position))
                         }*/
-
-                        
 
                          
                         if (distanceDestination > 1f)
@@ -143,22 +182,26 @@ public class CircleFormation : MonoBehaviour
                             childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                             childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
-                            numFor++;
                         }
                     }
 
 
+                }
+                    if (distanceDestination < 6)
+                {
+
+                    numFor++;
                 }
             }
         }
 
         if(numFor>10)
         {
-            attack = true;
+            attack = 1;
         }
-        else
+        if(numFor<10 && attack != 0) 
         {
-            attack =false;
+            attack =-1;
         }
         ResetCircle();
     }

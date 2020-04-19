@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateAnim : MonoBehaviour
 {
-    public enum CurrentState { Idle, Walk, Tir, Rotate, Projection };
+    public enum CurrentState { Idle, Tir, Rotate, Projection, Slam };
     public static CurrentState state;
     public CurrentState current;
     private float speed;
@@ -13,15 +13,15 @@ public class StateAnim : MonoBehaviour
     public float speedOfTransistionAnimaiton = 4;
     public void Start()
     {
-        if (GetComponent<Animator>())
+        /*if (GetComponent<Animator>())
         {
             animator = GetComponent<Animator>();
-        }
+        }*/
     }
     public void Update()
     {
-        current = state;
-        if (animator != null)
+      current = state;
+      /*  if (animator != null)
         {
 
             switch (state)
@@ -50,7 +50,7 @@ public class StateAnim : MonoBehaviour
             }
             t += speedOfTransistionAnimaiton * Time.deltaTime;
         }
-        transform.localPosition = Vector3.zero; 
+        transform.localPosition = Vector3.zero; */
     }
 
 
