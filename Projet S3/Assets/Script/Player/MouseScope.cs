@@ -58,7 +58,9 @@ public class MouseScope : MonoBehaviour
 
     private float _compteurBetweenBullet;
 
-   
+   private Color enemmiColor;
+
+
     void Start()
     {
         Cursor.visible = true;
@@ -169,7 +171,7 @@ public class MouseScope : MonoBehaviour
         directionIMG.localPosition = new Vector3(aimInput.x * 960, aimInput.y * 540, 0);
      
         Ray camera = Camera.main.ScreenPointToRay(directionIMG.position);
-       RaycastHit hit;
+        RaycastHit hit;
        
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, maskPC))
         {
@@ -303,11 +305,12 @@ public class MouseScope : MonoBehaviour
     {
         if (entitySnap != null)
         {
-            entitySnap.GetComponent<MeshRenderer>().material.color = Color.white;
+            entitySnap.GetComponent<MeshRenderer>().material.color = enemmiColor;
         }
         if (entityGive != null)
         {
             entitySnap = entityGive;
+            enemmiColor = entitySnap.GetComponent<MeshRenderer>().material.color;
             entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
         }
     }

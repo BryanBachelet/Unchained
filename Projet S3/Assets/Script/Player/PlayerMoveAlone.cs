@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Colorful;
 
 public class PlayerMoveAlone : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class PlayerMoveAlone : MonoBehaviour
     private  bool isStickGround = true;
     private float _timeProjection;
 
+    private Colorful.RadialBlur blur;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -49,6 +52,8 @@ public class PlayerMoveAlone : MonoBehaviour
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
+        currentPowerOfProjection = 0;
+        blur = Camera.main.GetComponent<RadialBlur>();       
        
     }
 
@@ -76,6 +81,9 @@ public class PlayerMoveAlone : MonoBehaviour
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
         {
+            blur.Strength += (0.1f/15);
+            blur.Strength = Mathf.Clamp(blur.Strength,0,0.11f);
+            _timeProjection  = 0;
             _timeProjection +=Time.deltaTime;
             float ratio =  ratioOfExpulsion.Evaluate(_timeProjection);
             currentPowerOfProjection -= (DecelerationOfProjection* ratio )* Time.deltaTime;
@@ -86,9 +94,11 @@ public class PlayerMoveAlone : MonoBehaviour
             aura.SetActive( true);
         }
         else
-        {
+        {   blur.Strength -= (0.1f/15);
+            blur.Strength = Mathf.Clamp(blur.Strength,0,1);
+            _timeProjection  = 0;
             aura.SetActive(false);
-         
+           // blur.enabled = false;
         }
 
          
@@ -145,7 +155,7 @@ public class PlayerMoveAlone : MonoBehaviour
         StateAnim.ChangeState(StateAnim.CurrentState.Projection);
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
-        DirProjection = dir;
+        DirProjection = dir.normalized;
         currentPowerOfProjection = powerOfProjection;
     }
      public void AddProjection(Vector3 dir, float power)

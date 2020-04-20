@@ -179,8 +179,8 @@ public class LineRend : MonoBehaviour
            
             if (activeParticle)
             {
-                Transform transfChild = collision.transform.GetChild(0);
-                transfChild.gameObject.SetActive(true);
+               // Transform transfChild = collision.transform.GetChild(0);
+              //  transfChild.gameObject.SetActive(true);
             }
 
         }

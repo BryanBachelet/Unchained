@@ -13,12 +13,12 @@ public class Spawner : MonoBehaviour
     public Transform[] listOfPoint;
     public float speedOfAgent;
 
-    private float compteur = 13;
+    private float compteur;
     private bool followPlayer;
 
     private void Start()
     {
-
+        compteur = timeOfSpawn - 7;
 
 
     }

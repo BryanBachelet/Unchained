@@ -307,14 +307,14 @@ MonoBehaviour:
   distance: 40
   spriteGo: {fileID: 1556097146}
   attackCollideGo: {fileID: 994313740}
-  timeBeforeHit: 0.5
+  timeBeforeHit: 0.7
   timeToCharge: 2
   timeReload: 1
   frameAttackTime: 10
   wallHit:
     serializedVersion: 2
     m_Bits: 10240
-  strenghProjection: 50
+  strenghProjection: 100
   prediction: 50
   anglePrediction: 45
   shotSound: event:/Mob/WindPropulsion
@@ -2318,6 +2318,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8024430327093355756, guid: 3dbe3b664f17293439c3ba5ddd205fee,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cab913969b3296f4a912a6112414984d, type: 2}
     m_RemovedComponents:
     - {fileID: 1178078019520511303, guid: 3dbe3b664f17293439c3ba5ddd205fee, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3dbe3b664f17293439c3ba5ddd205fee, type: 3}
