@@ -186,7 +186,7 @@ private float input ;
 
     private void ActiveSlam()
     {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button2)|| Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2)|| Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Mouse3))
         {
             slamTry.StartSlam(ennemiStock);
             rotationPlayer.StopRotateSlam();

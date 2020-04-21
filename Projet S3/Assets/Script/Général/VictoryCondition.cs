@@ -71,6 +71,7 @@ public class VictoryCondition : MonoBehaviour
     {
        if( GameObject.FindGameObjectsWithTag("Formation").Length == 0)
        {
+           Debug.Break();
            ActiveVictory();
        }
     }
