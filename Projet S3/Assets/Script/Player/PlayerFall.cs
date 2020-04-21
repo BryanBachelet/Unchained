@@ -53,11 +53,7 @@ private Vector3 dirProj;
 
     public void  CollideWallActive(Collider collider)
     {
-        if(collider.gameObject.layer == 13)
-        {
-        Debug.Log(collider.gameObject);
-
-        }
+       
      
         if(collider.gameObject.layer == 13 && !activeFall && StateAnim.state !=StateAnim.CurrentState.Rotate && mouse.instanceBullet == null )
         {

@@ -20,14 +20,14 @@ public class VfxTrailOnPlayer : MonoBehaviour
     {
         if(pmaPlayer.currentPowerOfProjection > 0 || esPlayer.ennemiStock != null)
         {
-            transform.GetChild(0).gameObject.SetActive(true);
+        transform.position = new Vector3(playerTransform.position.x, 2, playerTransform.position.z);
+           // transform.GetChild(0).gameObject.SetActive(true);
         }
         else
         {
-            transform.GetChild(0).gameObject.SetActive(false);
+          //  transform.GetChild(0).gameObject.SetActive(false);
         }
 
 
-        transform.position = new Vector3(playerTransform.position.x, 2, playerTransform.position.z);
     }
 }

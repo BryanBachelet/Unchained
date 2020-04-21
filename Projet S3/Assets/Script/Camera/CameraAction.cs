@@ -14,6 +14,9 @@ public class CameraAction : MonoBehaviour
     public Camera orthoCam;
 
     private Vector3 rotAtStart;
+
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +58,7 @@ public class CameraAction : MonoBehaviour
         if (!activeBehavior)
         {
             basePosition = player.transform.position + ecartJoueur;
-            transform.position = Vector3.Lerp(transform.position, basePosition,10* Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, basePosition,speed* Time.deltaTime);
             transform.eulerAngles = rotAtStart;
         }
 
