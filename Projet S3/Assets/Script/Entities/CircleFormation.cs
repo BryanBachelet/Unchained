@@ -145,7 +145,7 @@ public void ActiveRunPlayer()
         {     
             angle += rotateRituelSpeed*Time.deltaTime;
         }
-        for (int i = 0; i < childEntities.Length - 1; i++)
+        for (int i = 0; i < childEntities.Length ; i++)
         {
             if (i >= numberByCircle * currentCircleNumber)
             {

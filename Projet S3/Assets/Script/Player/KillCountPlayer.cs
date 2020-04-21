@@ -15,6 +15,12 @@ public class KillCountPlayer : MonoBehaviour
     public float activeLoseEffect;
     public float maxEffectTimeBeforDeath;
     public float timeToWeightReturn;
+
+    public Image uiFeedback;
+
+    public float speedOfUiFeedback = 10;
+
+
     public PostProcessVolume postProcesse;
 
     [HideInInspector] public bool activeDecrease;
@@ -37,11 +43,12 @@ public class KillCountPlayer : MonoBehaviour
     public MusicPlayer myMP;
 
 
-private float maxTime;
-private float frameStartReturn;
-private float currentweight;
-private float realTimeToWeightRetur;
-private float compteurWeightReturn;
+    private float maxTime;
+    private float frameStartReturn;
+    private float currentweight;
+    private float realTimeToWeightRetur;
+    private float compteurWeightReturn;
+
 
     public void Awake()
     {
@@ -63,7 +70,9 @@ private float compteurWeightReturn;
         compteur = compteurOfDeath;
         
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {
+        {   
+           
+            uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
 
             if (compteurOfDeath > timeBeforeDeath)
             {

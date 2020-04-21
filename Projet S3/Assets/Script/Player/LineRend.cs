@@ -179,8 +179,8 @@ public class LineRend : MonoBehaviour
            
             if (activeParticle)
             {
-                Transform transfChild = collision.transform.GetChild(0);
-                transfChild.gameObject.SetActive(true);
+               // Transform transfChild = collision.transform.GetChild(0);
+              //  transfChild.gameObject.SetActive(true);
             }
 
         }
@@ -196,6 +196,8 @@ public class LineRend : MonoBehaviour
             EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();
             float sensRotate = Vector3.Dot( (ennemi.transform.position -transform.parent.position), dir.normalized);
           
+          if(!mouseScope.controllerPc)
+          {
             if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
                 ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized)* -mouseScope.FireInputValueEntier(mouseScope.controllerPc) ,ejectionForce *2);
@@ -204,11 +206,13 @@ public class LineRend : MonoBehaviour
             {
                 ennemi.DestroyProjection(true,Vector3.Cross(Vector3.up, dir.normalized) * -mouseScope.FireInputValueEntier(mouseScope.controllerPc),ejectionForce);
             }
-            
-          if(mouseScope.controllerPc){
 
-            if (mouseScope.lastInput <= 1) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1)*-mouseScope.FireInputValueEntier(mouseScope.controllerPc), ejectionForce);
-            if (mouseScope.lastInput <= 1 && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1) * -mouseScope.FireInputValueEntier(mouseScope.controllerPc), ejectionForce);
+          }
+            
+          if(mouseScope.controllerPc)
+          {
+            if (mouseScope.lastInput <= 1) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1)*mouseScope.FireInputValueEntier(mouseScope.controllerPc), ejectionForce);
+            if (mouseScope.lastInput <= 1 && StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3) ennemi.DestroyProjection(true, Vector3.Cross(Vector3.up, dir.normalized *-1) * mouseScope.FireInputValueEntier(mouseScope.controllerPc), ejectionForce);
           }
         }
     }

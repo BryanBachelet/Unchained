@@ -36,6 +36,8 @@ public class SlamTry : MonoBehaviour
     public string slamLaunch;
     [FMODUnity.EventRef]
     public string slamImpact;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -64,10 +66,6 @@ public class SlamTry : MonoBehaviour
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, agent.transform.position);
             }
-        }
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManagement.LoadCurrentScene();
         }
 
     /*    if (Input.GetKey(KeyCode.A) && currentState == ProjectioState.Start)
@@ -146,20 +144,23 @@ public class SlamTry : MonoBehaviour
         feed.transform.position = point2.transform.position;
         feed.transform.localScale = Vector3.one *25;
         agent.transform.position = Vector3.Lerp(point1.transform.position, point2.transform.position, t);
+        agent.layer = 1;
         t = compteur / time2;
         compteur += Time.deltaTime;
         if (t > 1)
         {
-            Collider[] ennmi = Physics.OverlapSphere(point2.transform.position, 25, layer);
+            Collider[] ennmi = Physics.OverlapSphere(point2.transform.position, 14, layer);
 
+            Debug.Log(ennmi.Length);
             for (int i = 0; i < ennmi.Length; i++)
             {
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
+                countPlayer.ResetTiming();
                 //  ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
                 if(!ennmi[i].GetComponent<StateOfEntity>())
                 {
                     Debug.Log(ennmi[i].name);
-                    Debug.Break();
+                    
                 }
                 else
                 {
