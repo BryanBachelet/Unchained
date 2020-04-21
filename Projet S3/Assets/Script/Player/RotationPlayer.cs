@@ -56,6 +56,18 @@ public bool right;
     int checkSensRotation;
      private Keyframe key;
      private bool start;
+
+    private float angleAjout;
+ 
+    private bool activeBool;
+
+    private float ratioDist;
+
+    public float distRatio;
+
+    public float timeApplyDist;
+
+    private float _timeApplyDist;
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -84,33 +96,50 @@ public bool right;
                 rotationSound.start();
                 checksound = true;
             }
-            playerRigid.velocity = Vector3.zero;
-
+          
             if (tagEnter == tag)
             {
                 pointPivot = stocks.ennemiStock.transform.position;
             }
+            if(_timeApplyDist<timeApplyDist)
+            {
+                _timeApplyDist += Time.deltaTime;
+                ratioDist = 1/(GetDistance()/limitLongeur);
+           
+            }
+            else
+            {
+             ratioDist += 0.5f * Time.deltaTime;
+            }
 
-          
+            ratioDist = Mathf.Clamp(ratioDist,0,1);  
+
             angleSpeed = accelerationValue.Evaluate(tempsEcouleAcceleration*0.5f) * checkSensRotation;
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
     
-            transform.RotateAround(pointPivot, Vector3.up, angleSpeed * Time.deltaTime);
+            transform.RotateAround(pointPivot, Vector3.up, angleSpeed * ratioDist  * Time.deltaTime);
+            if(angleAjout >0)
+            {
+                angleAjout -=10 *Time.deltaTime;
+            }
 
             if (limitationLongeur)
             {
-                if (GetDistance() > limitLongeur)
-                {
+               
+                
+                    if (GetDistance() > limitLongeur)
+                    {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeur;
                     transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
-                }
-                if (GetDistance() < limitLongeurMin)
-                {
+                    }
+                    if (GetDistance() < limitLongeurMin)
+                    {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeurMin;
                     transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
-                }
+                    }
+                
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
@@ -152,8 +181,16 @@ public bool right;
         changeSens = false;
         i = 0;
 
+        _timeApplyDist =0;
         right = true;
 
+         /* Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
+            if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
+            {
+                angleAjout = 70 * -Mathf.Sign(angleSpeed);
+                activeBool = true;
+            }   
+        */
         if (changeRotate)
         {
             if (angleSpeed > 0)
@@ -181,8 +218,17 @@ public bool right;
         changeSens = false;
         i = 0;
 
-      right = true;
-        
+        _timeApplyDist = 0;
+
+        right = true;
+
+      /*  Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
+        if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
+        {
+            angleAjout = 70 * -Mathf.Sign(angleSpeed);
+            activeBool = true;
+        }   
+*/
         if (changeRotate)
         {
             if (angleSpeed > 0)
