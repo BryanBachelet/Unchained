@@ -359,6 +359,18 @@ public class MouseScope : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
     }
 
+    public void ChangeController()
+    {
+        if(!controllerPc)
+        {
+            controllerPc = true;
+        }
+        else if(controllerPc)
+        {
+            controllerPc = false;
+        }
+    }
+
 
 
 
