@@ -7,12 +7,15 @@ public class VfxTrailOnPlayer : MonoBehaviour
     Transform playerTransform;
     PlayerMoveAlone pmaPlayer;
     EnnemiStock esPlayer;
+    PlayerFall pfPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = PlayerMoveAlone.Player1.transform;
         pmaPlayer = playerTransform.GetComponent<PlayerMoveAlone>();
         esPlayer = playerTransform.GetComponent<EnnemiStock>();
+        pfPlayer = playerTransform.GetComponent<PlayerFall>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,10 @@ public class VfxTrailOnPlayer : MonoBehaviour
         else
         {
           //  transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if(pfPlayer.activeFall)
+        {
+            gameObject.SetActive(false);
         }
 
 

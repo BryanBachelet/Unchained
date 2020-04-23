@@ -36,6 +36,9 @@ public class ManageEntity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nbCultiste = 0;
+        nbDistance = 0;
+        nbColoss = 0;
         maxCultiste = maxCultisteInspec;
         maxDistance = maxDistanceInspec;
         maxColoss = maxColossInspec;
