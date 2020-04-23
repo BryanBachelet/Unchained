@@ -148,6 +148,7 @@ public class KillCountPlayer : MonoBehaviour
     {
         ResetTiming();
         countKillEnnemi++;
+        DataPlayer.entityHit++;
     }
 
     public  void ResetTiming()

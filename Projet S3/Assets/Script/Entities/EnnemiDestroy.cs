@@ -123,7 +123,9 @@ public class EnnemiDestroy : MonoBehaviour
     private void DestroyAgent()
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Dead;
+        DataPlayer.entityKill++;
         gameObject.SetActive(false);
+        
         
     }
 

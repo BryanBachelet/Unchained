@@ -109,6 +109,7 @@ public class CamMouvement : MonoBehaviour
         this.enabled = false;
         if (myMP != null)
         {
+            DataPlayer.isCountingTime = true;
             myMP.track1.start();
         }
         transform.position = cams[cams.Count - 1].destination.position;
