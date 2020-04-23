@@ -6,7 +6,7 @@ public class Autodestroy : MonoBehaviour
 {
     public float tpsDestroy = 1000;
     public float tpsEcoule;
-
+    public bool isEntity = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,12 @@ public class Autodestroy : MonoBehaviour
         if (tpsEcoule >= tpsDestroy)
         {
             Destroy(gameObject);
+        }
+
+        if(Vector3.Distance(transform.position, Vector3.zero) > 280 && isEntity)
+        {
+            gameObject.GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Dead;
+            gameObject.SetActive(false);
         }
     }
 }
