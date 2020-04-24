@@ -21,6 +21,7 @@ public class DataPlayer : MonoBehaviour
     public Text goText;
     static public bool isCountingTime = false;
 
+    static public bool isGivingData = false;
     public int nbHit;
     public int nbKill;
     static float tempsEcouleWin;
@@ -46,16 +47,20 @@ public class DataPlayer : MonoBehaviour
         {
             tempsEcoulePartie += Time.deltaTime;
         }
+        if(isGivingData)
+        {
+            GiveData();
+        }
     }
 
     static public void GiveData()
     {
         isCountingTime = false;
-        //tempsEcouleWin += 0.5f * Time.deltaTime;
-        //afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
-        //afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
-        //afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
-        //dataText.text = "Temps : " + afficheTempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill;
-        dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
+        tempsEcouleWin += 0.1f * Time.deltaTime;
+        afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
+        afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
+        afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
+        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill;
+        //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
 }
