@@ -182,15 +182,9 @@ public class TransformationAgent : MonoBehaviour
         for (int i = 0; i < agentList.Count; i++)
         {
 
-            // if (Vector3.Distance(agentList[i].position, posSphere[i]) < 10)
-            // {
-
-                agentList[i].position = Vector3.Lerp(agentList[i].position, posSphere[i], timing);
-            // }
-            // else
-            // {
-            //     agentList[i].position = Vector3.Lerp(agentList[i].position, (posSphere[i] - new Vector3(0, posSphere[i].y - 1, 0)), timing);
-            // }
+            
+            agentList[i].position = Vector3.Lerp(agentList[i].position, posSphere[i], timing);
+           
 
             agentList[i].rotation = angleSphere[i];
 
