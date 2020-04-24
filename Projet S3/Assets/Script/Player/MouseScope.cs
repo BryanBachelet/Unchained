@@ -11,6 +11,7 @@ public class MouseScope : MonoBehaviour
 
     [Header("Input")]
     public bool controllerPc;
+    static bool stateOfController;
     public LayerMask maskPC = 12;
 
     [Tooltip("Only for Contoller")]
@@ -63,6 +64,7 @@ public class MouseScope : MonoBehaviour
 
     void Start()
     {
+        controllerPc = stateOfController;
         Cursor.visible = true;
         directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
@@ -77,6 +79,7 @@ public class MouseScope : MonoBehaviour
 
     void Update()
     {
+        stateOfController = controllerPc;
         aimDirection = DirectionOfAim(controllerPc);
 
 

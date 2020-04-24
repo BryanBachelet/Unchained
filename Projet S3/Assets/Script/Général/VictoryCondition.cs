@@ -25,12 +25,12 @@ public class VictoryCondition : MonoBehaviour
 
     if(StateOfGames.currentPhase ==  StateOfGames.PhaseOfDefaultPlayable.Phase3)
     {
-      ReseachFormation();
+        ReseachFormation();
     }
 
         if (victoryRestart)
         {
-            if (compteurRestart > timeBeforeRestart)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
                 if (!restartSameScene)
                 {
@@ -41,11 +41,6 @@ public class VictoryCondition : MonoBehaviour
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
-            else
-            {
-                compteurRestart += Time.deltaTime;
-            }
-
         }
     }
 
@@ -64,6 +59,7 @@ public class VictoryCondition : MonoBehaviour
        
         victoryRestart = true;
         victoryText.SetActive(true);
+        DataPlayer.GiveData();
         }
     }
 
