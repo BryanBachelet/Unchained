@@ -122,7 +122,7 @@ public class TransformationAgent : MonoBehaviour
             agentList[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir); 
         
             LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
-            line.enabled =false;
+            line.enabled = false;
            
 
       
