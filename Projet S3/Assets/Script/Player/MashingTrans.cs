@@ -84,7 +84,7 @@ public class MashingTrans : MonoBehaviour
 
         }
         numberInput = i.Count;
-        numberToAim = hitColliders.Length / ratioMashingToEntities;
+        numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
         debugMinRatio = numberToAim * ratioMinimumMashing;
         if(activePos)

@@ -31,20 +31,24 @@ public class TransformationAgent : MonoBehaviour
    // public float numberMax = 50;
     public int Height;
     public int numberMax;
+    public float radius;
     // Start is called before the first frame update
     void OnEnable()
     {
         if (this.enabled == true)
         {
-            numberMax =0;
+            
             lightPlayer = GetComponentInChildren<Light>();
             frame = 0;
             agentList.Clear();
             startAnim = false;
             active = false;
-  for (int j = 0; j < this.Height; j++) {
-        numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
-  }
+      /*  for (int j = 0; j < this.Height; j++) 
+        {
+            numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
+        }
+        */
+
         }
     }
 
@@ -90,7 +94,7 @@ public class TransformationAgent : MonoBehaviour
     {
         this.timeExplosion = timeExplosionGive;
         DetectAgent();
-        RandomSphere();
+        RandomSphere(true);
         startAnim = true;
         stop = false;
     }
@@ -141,27 +145,34 @@ public class TransformationAgent : MonoBehaviour
     }
 
 
-    void RandomSphere()
+    void RandomSphere(bool circle)
     {
             int k =0; 
-        
-        for (int j = 0; j < this.Height; j++) 
+        if(!circle)
         {
-         
-                
-            var circlePerimeter = (2f * Mathf.PI * this.distance-j) + 1;
-            for (int i = 0; i < circlePerimeter; i++) 
+            for (int j = 0; j < this.Height; j++) 
             {
-                float angle = 360f / circlePerimeter * i;
-                Vector3 position = transform.position + new Vector3(0,j,0) + Quaternion.Euler(0, angle, 0) * new Vector3(this.distance-j, 0, 0);
-                Quaternion dir = Quaternion.LookRotation(position - (this.transform.position + new Vector3(0,0,0)));
-       
-                posSphere[k] = position;
-        
-                angleSphere[k] =  dir;
-            k++;
-            k = Mathf.Clamp(k,0,numberMax-1);
+                
+                    
+                var circlePerimeter = (2f * Mathf.PI * this.distance-j) + 1;
+                for (int i = 0; i < circlePerimeter; i++) 
+                {
+                    float angle = 360f / circlePerimeter * i;
+                    Vector3 position = transform.position + new Vector3(0,j,0) + Quaternion.Euler(0, angle, 0) * new Vector3(this.distance-j, 0, 0);
+                    Quaternion dir = Quaternion.LookRotation(position - (this.transform.position + new Vector3(0,0,0)));
+            
+                    posSphere[k] = position;
+            
+                    angleSphere[k] =  dir;
+                k++;
+                k = Mathf.Clamp(k,0,numberMax-1);
+                }
             }
+        }
+        float anglePerAgent = 360 /agentList.Count;
+        for(int i =0; i<agentList.Count;i++ )
+        {   
+          posSphere[i] = transform.position +(Quaternion.Euler(0,anglePerAgent*i,0)  * transform.forward * radius);
         }
         
     }
@@ -183,6 +194,15 @@ public class TransformationAgent : MonoBehaviour
 
             agentList[i].rotation = angleSphere[i];
 
+        if(Vector3.Distance(agentList[i].transform.position, posSphere[i])<3)
+        {
+            LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
+            line.enabled =true;
+            line.SetPosition(0, transform.position);
+            line.SetPosition(1,agentList[i].transform.position );
+
+        }
+
             if (frame > 1 && frame < 3)
             {
                 agentList[i].GetComponent<Rigidbody>().useGravity = false;
@@ -197,7 +217,7 @@ public class TransformationAgent : MonoBehaviour
             Physics.IgnoreLayerCollision(9, 10, true);
 
         }
-        transform.position = new Vector3(transform.position.x, 2, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         frame++;
     }
 }
