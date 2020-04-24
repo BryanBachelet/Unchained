@@ -37,7 +37,7 @@ public class TransformationAgent : MonoBehaviour
     {
         if (this.enabled == true)
         {
-            
+            distanceGrap = 10;
             lightPlayer = GetComponentInChildren<Light>();
             frame = 0;
             agentList.Clear();
@@ -120,6 +120,12 @@ public class TransformationAgent : MonoBehaviour
                 agentList[i].tag ="Untagged";
             Vector3 dir = agentList[i].position - transform.position;
             agentList[i].GetComponent<StateOfEntity>().DestroyProjection(false,dir); 
+        
+            LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
+            line.enabled =false;
+           
+
+      
         }
         StateOfGames.currentPhase++;
     }
@@ -127,18 +133,25 @@ public class TransformationAgent : MonoBehaviour
     public void DetectAgent()
     {
         LayerMask layer = ~1 << 8;
+        while(agentList.Count< numberMax)
+        {
         Collider[] agent = Physics.OverlapSphere(transform.position, distanceGrap, layer);
     
-        for (int i = 0; i < agent.Length; i++)
-        {
-            if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax)
+            for (int i = 0; i < agent.Length; i++)
             {
-                agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
-                agentList.Add(agent[i].transform);
-            
+                if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax)
+                {
+                   if(!agentList.Contains(agent[i].transform))
+                   {
+                    agentList.Add(agent[i].transform);
+                    agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+                   }
+                
 
 
+                }
             }
+            distanceGrap +=10;
         }
         posSphere = new Vector3[agentList.Count];
         angleSphere = new Quaternion[agentList.Count];
