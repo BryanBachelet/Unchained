@@ -47,7 +47,14 @@ public class CultistLaser : MonoBehaviour
     private RotationPlayer rotation;
 
     private Vector3 posToShoot;
-    // Start is called before the first frame update
+
+    [Header("Test")]
+    public bool test;
+    
+    public bool isAttacking;
+    public float timeAttack;
+    private float _AttackTime;
+
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -63,6 +70,7 @@ public class CultistLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(test== false){
 
         if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == 1)
         {    
@@ -155,8 +163,43 @@ public class CultistLaser : MonoBehaviour
             attackCollider.enabled = false;
             ChangeStateAttack(StateAttackCultist.Movement);
         }
-        
+        }else
+        {      
+             if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        {   
+            if(isAttacking)
+            {  
+            float angle = Vector3.SignedAngle( Vector3.forward ,  (player.transform.position -transform.position).normalized, Vector3.up );
+            spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
+            RaycastHit hit ;
+            float distanceHit = 0;
+            if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
+            {      
+                distanceHit = Vector3.Distance(transform.position,  hit.point);
+                spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
+            }
+            #region Collider
+            attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
+            attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized *(distanceHit/2); 
+            attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y ,  5, distanceHit); 
+          
+            attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
+            attackCollider.enabled = true;
+            #endregion
+            }else
+            {  attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
+                attackCollider.enabled = false;
+            }
+            if(_AttackTime>timeAttack)
+            {
+                isAttacking = isAttacking == false?true : false;
+                _AttackTime = 0;
+            }
+            _AttackTime +=Time.deltaTime;
+        }
     }
+    
+}
 
 
     public void ChangeStateAttack(StateAttackCultist attackCultistState)

@@ -15,9 +15,19 @@ public class CultistLaserEffect : MonoBehaviour
     {
         if(collider.gameObject.layer == 10 && hit ==false) 
         {
-                collider.GetComponent<EnnemiStock>().DetachPlayer();
-                collider.GetComponent<PlayerMoveAlone>().AddProjection(ejectionDirection.normalized, ejectionForce);
+               // collider.GetComponent<EnnemiStock>().DetachPlayer();
+                collider.GetComponentInChildren<KillCountPlayer>().multiLoseCondition = 1f;
                 hit = true;
+        }   
+    }
+
+       public void OnTriggerExit(Collider collider)
+    {
+        if(collider.gameObject.layer == 10 && hit ==true) 
+        {
+                //collider.GetComponent<EnnemiStock>().DetachPlayer();
+                collider.GetComponentInChildren<KillCountPlayer>().multiLoseCondition = 0;
+                hit = false;
         }   
     }
 

@@ -15,7 +15,7 @@ public class VfxTrailOnPlayer : MonoBehaviour
         playerTransform = PlayerMoveAlone.Player1.transform;
         pmaPlayer = playerTransform.GetComponent<PlayerMoveAlone>();
         esPlayer = playerTransform.GetComponent<EnnemiStock>();
-        pfPlayer = playerTransform.GetComponent<PlayerFall>();
+        // pfPlayer = playerTransform.GetComponent<PlayerFall>();
     }
 
     // Update is called once per frame
@@ -30,10 +30,10 @@ public class VfxTrailOnPlayer : MonoBehaviour
         {
           //  transform.GetChild(0).gameObject.SetActive(false);
         }
-        if(pfPlayer.activeFall)
-        {
-            gameObject.SetActive(false);
-        }
+        // if(pfPlayer.activeFall)
+        // {
+        //     gameObject.SetActive(false);
+        // }
 
 
     }

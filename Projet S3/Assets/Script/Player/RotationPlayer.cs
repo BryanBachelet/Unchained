@@ -32,7 +32,7 @@ public class RotationPlayer : MonoBehaviour
     private int i;
     private LineRenderer lineRenderer;
     private LineRend line;
-  [Range(0, 1)] public float predictionMvtRotate = 0.5f;
+    [Range(0, 1)] public float predictionMvtRotate = 0.5f;
     [HideInInspector] public Vector3 newDir;
     [HideInInspector] public Vector3 nextDir;
     private GameObject Chara;
@@ -52,10 +52,10 @@ public class RotationPlayer : MonoBehaviour
     public float tempsEcouleAcceleration;
     public float tempsAcceleration;
 
-public bool right;
+    public bool right;
     int checkSensRotation;
-     private Keyframe key;
-     private bool start;
+    private Keyframe key;
+    private bool start;
 
     private float angleAjout;
  
@@ -68,6 +68,10 @@ public bool right;
     public float timeApplyDist;
 
     private float _timeApplyDist;
+
+  
+
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -151,10 +155,7 @@ public bool right;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
 
-            if (angleCompteur > currentAngleMax)
-            {
-                angleCompteur = 0;
-            }
+         
 
             GetNextDirection();
         }
@@ -253,7 +254,7 @@ public bool right;
         accelerationValue.MoveKey(0,key);
     }
 
-    public void StopRotation(bool isWall)
+    public void StopRotation(bool isWall, float strenghPropulsion, float deprojectionStrenght)
     {
         if (StateAnim.state == StateAnim.CurrentState.Rotate)
         {
@@ -266,7 +267,7 @@ public bool right;
 
         CheckEnnnemi(isWall, angleSpeed);
        
-        playerRigid.AddForce(newDir.normalized * forceOfSortie, ForceMode.Impulse);
+        moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
         {
@@ -303,7 +304,7 @@ public bool right;
         rotate = false;
 
     }
-  public void StopRotation(Vector3 dir)
+  public void StopRotation(Vector3 dir,  float strenghPropulsion, float deprojectionStrenght)
     {
         if (StateAnim.state == StateAnim.CurrentState.Rotate)
         {
@@ -317,7 +318,7 @@ public bool right;
         CheckEnnnemi(false, angleSpeed, dir);
        
        dir = new Vector3(dir.x,0,dir.z);
-        playerRigid.AddForce(dir.normalized * forceOfSortie, ForceMode.Impulse);
+        moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
         playerRigid.AddForce(-Vector3.up.normalized * 50, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
@@ -355,9 +356,18 @@ public bool right;
         rotate = false;
 
     }
-public void StopRotateSlam(){
+
+    public void StopRotateSlam()
+    {
       rotate = false;
-}
+    }
+
+    public float GetAngle()
+    {
+            float angleToReturn = 0;
+            angleToReturn = angleCompteur;
+            return angleToReturn;
+    }
 
     private void CheckEnnnemi(bool isEnnemi, float rightRotate)
     {
@@ -371,8 +381,8 @@ public void StopRotateSlam(){
         {
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
-            moveAlone.DirProjection = newDir;
-            moveAlone.currentPowerOfProjection = forceOfSortie;
+          //  moveAlone.DirProjection = newDir;
+           // moveAlone.currentPowerOfProjection = forceOfSortie;
         }
 
     }
@@ -389,8 +399,8 @@ public void StopRotateSlam(){
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
             Dir = new Vector3(Dir.x,0,Dir.z);
-            moveAlone.DirProjection = Dir;
-            moveAlone.currentPowerOfProjection = forceOfSortie;
+            //moveAlone.DirProjection = Dir;
+            //moveAlone.currentPowerOfProjection = forceOfSortie;
         }
 
     }
