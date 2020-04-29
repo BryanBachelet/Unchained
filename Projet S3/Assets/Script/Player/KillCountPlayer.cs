@@ -65,7 +65,7 @@ public class KillCountPlayer : MonoBehaviour
     {
         if(FastTest.debugLoseCondition)
         {
-            timeBeforeDeath = 100;
+            timeBeforeDeath = 10000;
         }
 
         compteur = compteurOfDeath;
