@@ -88,7 +88,7 @@ public class MouseScope : MonoBehaviour
 
             if (!resetShoot && FireInputActive(controllerPc))
             {
-             
+                DataPlayer.shotCount();
                 if (!activeSnap)
                 {
                     InstantiateProjectile(aimDirection.normalized);

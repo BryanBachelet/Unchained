@@ -24,6 +24,7 @@ public class DataPlayer : MonoBehaviour
     static public bool isGivingData = false;
     public int nbHit;
     public int nbKill;
+    static public int nbSnhot;
     static float tempsEcouleWin;
     // Start is called before the first frame update
     void Start()
@@ -62,5 +63,10 @@ public class DataPlayer : MonoBehaviour
         afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
         dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill;
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
+    }
+
+    static public void shotCount()
+    {
+        
     }
 }
