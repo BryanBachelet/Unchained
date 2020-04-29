@@ -51,8 +51,18 @@ public class EnnemiStock : MonoBehaviour
     private SlamTry slamTry;
     private bool isSlaming;
     private StateOfEntity  stateOfEntity;
-private float input ;
-    // Start is called before the first frame update
+    private float input ;
+    
+    [Header("Propulsion")]
+    public float maxValueOFVarationOfProjection;
+    public AnimationCurve powerOfStrengh;
+
+    public AnimationCurve declerationStrengh;
+
+    private float _declerationStrengh;
+    
+    private float _powerOfStrengh;
+
     void Start()
     {
         line = GetComponentInChildren<LineRend>();
@@ -61,6 +71,7 @@ private float input ;
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
         playerRigid = GetComponent<Rigidbody>();
+        slamTry = GetComponent<SlamTry>();
         
 
 // Line Renderer
@@ -72,7 +83,8 @@ private float input ;
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
-        slamTry = GetComponent<SlamTry>();
+
+        
         
 
     }
@@ -254,7 +266,8 @@ private float input ;
         stateOfEntity.DestroyProjection(false,Vector3.up);
             ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
         }
-        rotationPlayer.StopRotation(false);
+        GetProjectionStat();
+        rotationPlayer.StopRotation(false, _powerOfStrengh,_declerationStrengh);
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -264,7 +277,8 @@ private float input ;
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-        rotationPlayer.StopRotation(dir);
+        GetProjectionStat();
+        rotationPlayer.StopRotation(dir, _powerOfStrengh,_declerationStrengh) ;
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -275,6 +289,16 @@ private float input ;
     {
         DetachPlayer();
         playerRigid.velocity = Vector3.zero;
+    }
+
+
+    public void GetProjectionStat()
+    {
+        float angleReturn = rotationPlayer.GetAngle();
+        angleReturn =  Mathf.Clamp(angleReturn,0,maxValueOFVarationOfProjection);
+        _powerOfStrengh = powerOfStrengh.Evaluate(angleReturn);
+        _declerationStrengh = declerationStrengh.Evaluate(angleReturn);
+    
     }
 
     public void StopRotate()

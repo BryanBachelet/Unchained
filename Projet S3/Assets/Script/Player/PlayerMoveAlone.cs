@@ -11,9 +11,11 @@ public class PlayerMoveAlone : MonoBehaviour
     [Header("Projection")]
     public float powerOfProjection;
     public float DecelerationOfProjection = 60;
+    public float currentDeprojectionOfProjection;
+    
     public AnimationCurve ratioOfExpulsion;
     [HideInInspector] public Vector3 DirProjection;
-    [HideInInspector] public float currentPowerOfProjection;
+   /* [HideInInspector]*/ public float currentPowerOfProjection;
 
     [Header("Expulsion")]
     public float expulsionStrengh;
@@ -54,7 +56,7 @@ public class PlayerMoveAlone : MonoBehaviour
         TransmitionOfStrenghOfExpulsion();
         currentPowerOfProjection = 0;
         blur = Camera.main.GetComponent<RadialBlur>();       
-       
+     //  currentPowerOfProjection = DecelerationOfProjection;
     }
 
     // Update is called once per frame
@@ -86,7 +88,7 @@ public class PlayerMoveAlone : MonoBehaviour
             _timeProjection  = 0;
             _timeProjection +=Time.deltaTime;
             float ratio =  ratioOfExpulsion.Evaluate(_timeProjection);
-            currentPowerOfProjection -= (DecelerationOfProjection* ratio )* Time.deltaTime;
+            currentPowerOfProjection -= (currentDeprojectionOfProjection* ratio )* Time.deltaTime;
             if(transform.position.y<1)
             {
                 isStickGround =true;
@@ -107,12 +109,12 @@ public class PlayerMoveAlone : MonoBehaviour
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         }
         Ray ray = new Ray(transform.position, DirProjection.normalized);
-       // RaycastHit hit;
+       RaycastHit hit;
 
-       /* if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.tag == "wall")
+       if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
         {
             DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        }*/
+        }
     }
 
 
@@ -139,10 +141,10 @@ public class PlayerMoveAlone : MonoBehaviour
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
         Physics.Raycast(ray, out hit, currentPowerOfProjection);
-       // if (collision.collider.tag == "wall")
-        //{
-          //  DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        //}
+        if (collision.collider.gameObject.layer == 13)
+        {
+          DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+        }
     }
 
     public void TransmitionOfStrenghOfExpulsion()
@@ -156,6 +158,7 @@ public class PlayerMoveAlone : MonoBehaviour
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = DecelerationOfProjection;
         currentPowerOfProjection = powerOfProjection;
     }
      public void AddProjection(Vector3 dir, float power)
@@ -164,6 +167,16 @@ public class PlayerMoveAlone : MonoBehaviour
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
         DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = DecelerationOfProjection;
+        currentPowerOfProjection = power;
+    }
+       public void AddProjection(Vector3 dir, float power, float deprojection )
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
+        DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = deprojection;
         currentPowerOfProjection = power;
     }
 

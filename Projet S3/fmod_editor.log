@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000000004BA6DB08 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000003A4F1B58 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -20,9 +20,576 @@
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
 [LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
-[LOG] Manager::readBank                        : fileversion = 123, compatVersion = 119 (oldest = 44, newest = 123)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Music.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 114688, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E4BC8 : node = 000000001F19BFA0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E4BC8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Music.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 10337920
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 17312
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000001F19C0B0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='RefraQ-RUKDecoupe-001', format=2, channels=2, frequency=48000, lengthbytes=369088, lengthpcm=1450827, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.975301.
+[LOG] Thread::initThread                       :     Init FMOD file thread. Priority: 1, Stack Size: 49152, Semaphore: No, Sleep Time: 10, Looping: Yes.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E4BC8
+[LOG] SoundI::getSubSound                      : sound 00000000356E4BC8.  Subsound index 0 / 1
+[WRN] SoundSourceInstrumentInstance::startChannelIfReady : Loading delay exceeded, sound may play at incorrect time
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3428 : node = 0000000078E33880
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3428
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000078E33990
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 8800
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E46B8 : node = 0000000078E33B00
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3428
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E46B8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000078E33C10
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E46B8
+[LOG] SoundI::getSubSound                      : sound 00000000356E3428.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 00000000356E46B8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3278 : node = 000000001F0E9780
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3278
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E41A8 : node = 000000001F0E84C0
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000001F0E9890
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3278
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E41A8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000001F0E85D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E41A8
+[LOG] SoundI::getSubSound                      : sound 00000000356E3278.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
+[LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
+[LOG] SoundI::getSubSound                      : sound 00000000356E41A8.  Subsound index 0 / 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3E48
+[LOG] AsyncThread::threadFunc                  :     done setposition
+[LOG] AsyncThread::threadFunc                  :     done flush
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3E48
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3E48
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3E48
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E3428)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (000000003C7BD468)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3FF8)
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3278)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000693190B8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3E48)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000079161BD8 : node = 00000000415015C0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161BD8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000415016D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161BD8
+[LOG] SoundI::getSubSound                      : sound 0000000079161BD8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
+[LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  :     done setposition
+[LOG] AsyncThread::threadFunc                  :     done flush
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161D88
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E41A8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000693198D8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000791616C8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000791616C8 : node = 0000000041501700
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000791616C8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041501810
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000791616C8
+[LOG] SoundI::getSubSound                      : sound 00000000791616C8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000791616C8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003C7BB8C8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3FF8)
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161BD8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000001F753BF8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161D88)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3278 : node = 0000000041501480
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3278
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E3E48 : node = 00000000415024C0
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041501590
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 8800
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3278
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3E48
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000415025D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3E48
+[LOG] SoundI::getSubSound                      : sound 00000000356E3278.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 00000000356E3E48.  Subsound index 0 / 1
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E46B8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000693186F8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3AE8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E41A8 : node = 0000000041502EC0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E41A8
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E46B8 : node = 0000000041501FC0
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502FD0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3278)
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekposition = 8800
+[LOG] SoundI::release                          :         508396__lord-of-dank-memes__chains (00000000417A6608)
+[LOG] SystemI::createSoundInternal             :         exinfo->initialseekpostype = 1
+[LOG] SoundI::release                          :         508396__lord-of-dank-memes__chains (00000000356E3428)
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E41A8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E46B8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000415020D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E46B8
+[LOG] SoundI::getSubSound                      : sound 00000000356E41A8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 00000000356E46B8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E3E48)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000417A67A8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3FF8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3E48 : node = 0000000041502600
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3E48
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E3FF8 : node = 0000000041502100
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502710
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3E48
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3FF8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502210
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3FF8
+[LOG] SoundI::getSubSound                      : sound 00000000356E3E48.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
+[LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
+[LOG] SoundI::getSubSound                      : sound 00000000356E3FF8.  Subsound index 0 / 1
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000791616C8
+[LOG] AsyncThread::threadFunc                  :     done setposition
+[LOG] AsyncThread::threadFunc                  :     done flush
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000791616C8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000791616C8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000791616C8
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E41A8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (0000000069319C18)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3278)
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3E48)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003C7BD948)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000791616C8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000791616C8 : node = 00000000415029C0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000791616C8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502AD0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000791616C8
+[LOG] SoundI::getSubSound                      : sound 00000000791616C8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
+[LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  :     done setposition
+[LOG] AsyncThread::threadFunc                  :     done flush
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161D88
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161D88
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3FF8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003C7BE648)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161BD8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000079161BD8 : node = 0000000041502380
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161BD8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502490
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161BD8
+[LOG] SoundI::getSubSound                      : sound 0000000079161BD8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000791616C8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000001F753BF8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161D88)
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161BD8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000001F753A58)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3278)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3278 : node = 0000000041502C40
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3278
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E3E48 : node = 0000000041501C00
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502D50
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 8800
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3278
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3E48
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041501D10
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3E48
+[LOG] SoundI::getSubSound                      : sound 00000000356E3278.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : sound 00000000356E3E48.  Subsound index 0 / 1
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E46B8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (0000000069319738)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3428)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E46B8 : node = 00000000415024C0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E46B8
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000356E3428 : node = 0000000041501FC0
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000415025D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSound                     :     filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 0000000079161BD8 : node = 0000000041501700
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 1
+[LOG] SystemI::createSound                     :     filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     :     FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     :     setdata soundi = 00000000791616C8 : node = 0000000041502EC0
+[LOG] SystemI::createSound                     :     add node to async list : head = 000000003C7BEE18.  list count = 2
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E46B8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3428
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 00000000415020D0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3428
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000079161BD8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041501810
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9880
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000079161BD8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000791616C8
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502FD0
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 180
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2', format=2, channels=2, frequency=48000, lengthbytes=131520, lengthpcm=488073, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.312529.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000791616C8
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E3428)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000417A6608)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003B7B4F38)
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000356E46B8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000417A5C48)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161D88)
+[LOG] SoundI::getSubSound                      : sound 0000000079161BD8.  Subsound index 0 / 1
+[LOG] SoundI::getSubSound                      : starting non blocking seek and setting sound to not ready state
+[LOG] SoundI::getSubSound                      : finished preparing nonblocking getSubSound seek
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B7B61C8
+[LOG] SoundI::getSubSound                      : sound 00000000791616C8.  Subsound index 0 / 1
+[LOG] AsyncThread::threadFunc                  :     done setposition
+[LOG] AsyncThread::threadFunc                  :     done flush
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B7B61C8
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B7B61C8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B7B61C8
+[LOG] SoundI::release                          : Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000079161BD8)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (0000000041503C18)
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003B7B61C8)
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E3278)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000417A67A8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E3FF8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Music.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000003B7B4F38 : node = 0000000041502100
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000003B7B4F38
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Music.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 10337920
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 17312
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041502210
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 4000
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 1550880
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37856
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004B8BF5FC
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->useropen           = 00007FFAD8EC7F20
+[LOG] SystemI::createSoundInternal             :     exinfo->userclose          = 00007FFAD8EC7EF0
+[LOG] SystemI::createSoundInternal             :     exinfo->userread           = 00007FFAD8EC7FF0
+[LOG] SystemI::createSoundInternal             :     exinfo->userseek           = 00007FFAD8EC80B0
+[LOG] SystemI::createSoundInternal             :     exinfo->fileuserdata       = 000000006941C2B8
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            :     register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='RefraQ-RUKDecoupe-004', format=2, channels=2, frequency=48000, lengthbytes=936544, lengthpcm=3874536, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=1.000000.
+[LOG] SystemI::createSoundInternal             :     Sample 0/1: name='34961__grandpablaine2__grenade-reverse-reverb', format=2, channels=2, frequency=48000, lengthbytes=75936, lengthpcm=331967, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.682404.
+[LOG] SoundI::release                          :     Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000791616C8)
+[LOG] SoundI::release                          :         Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (00000000415038D8)
+[LOG] SoundI::release                          :         Weather, Wind, Rumbling, Mountain, Low End, Calm  SND0037 2 (000000003B7B4878)
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000003B7B4F38
+[LOG] SoundI::getSubSound                      : sound 000000003B7B4F38.  Subsound index 0 / 1
+[WRN] EventInstance::update                    : Event {52758a68-1d1f-4396-9a31-0982d02a942d} waited 70 milliseconds for sample data to load.  Preload sample data to avoid this delay.
+[LOG] SoundI::release                          : RefraQ-RUKDecoupe-001 (00000000356E4BC8)
+[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-001 (00000000417A6468)
+[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-001 (00000000356E3C98)
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E3E48)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000417A5AA8)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E41A8)
+[LOG] SystemI::createSound                     : filename = Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 00000000356E3278 : node = 0000000041501840
+[LOG] SystemI::createSound                     : add node to async list : head = 000000003C7BEE18.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 00000000356E3278
+[LOG] SystemI::createSoundInternal             :     Create name='Assets\Sons\ProjetFmod3gd\Build\Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 674528
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 31776
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000041501950
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekposition = 9300
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='508396__lord-of-dank-memes__chains', format=2, channels=2, frequency=48000, lengthbytes=120736, lengthpcm=495281, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.970917.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 00000000356E3278
+[LOG] SoundI::getSubSound                      : sound 00000000356E3278.  Subsound index 0 / 1
+[LOG] SoundI::release                          : 508396__lord-of-dank-memes__chains (00000000356E3278)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000417A6608)
+[LOG] SoundI::release                          :     508396__lord-of-dank-memes__chains (00000000356E4BC8)
+[LOG] SoundI::release                          : RefraQ-RUKDecoupe-004 (000000003B7B4F38)
+[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-004 (000000001F754418)
+[LOG] SoundI::release                          :     RefraQ-RUKDecoupe-004 (000000003B7B61C8)
+[LOG] SoundI::release                          :  (000000003B0784D8)
+[LOG] SoundI::release                          :     88550__movingplaid__pull-chain-02 (000000003C7BEB28)
+[LOG] SoundI::release                          :  (00000000398BD178)
+[LOG] SoundI::release                          :     Sound_Design_Rotate_1 (000000003C7BD7A8)
+[LOG] SoundI::release                          :  (00000000398BE2B8)
+[LOG] SoundI::release                          :     heartbeat_loop (000000003C7BE7E8)
+[LOG] SoundI::release                          :  (000000003B078C08)
+[LOG] SoundI::release                          :     HeartMonitorHighFreq (000000003C7BDE28)
+[LOG] SoundI::release                          :  (00000000398BD738)
+[LOG] SoundI::release                          :     HeartMonitorHighFreq2 (000000003C7BC428)
+[LOG] SoundI::release                          :  (00000000398BDB88)
+[LOG] SoundI::release                          :     272018__aldenroth2__blowing-air (000000003C7BE988)
+[LOG] SoundI::release                          :  (00000000398BD8A8)
+[LOG] SoundI::release                          :     Slash air (000000003C7BC288)
+[LOG] SoundI::release                          :  (00000000153DBD88)
+[LOG] SoundI::release                          :     34961__grandpablaine2__grenade-reverse-reverb (000000003C7BEE68)
+[LOG] SoundI::release                          :  (000000003B0798F8)
+[LOG] SoundI::release                          :     ChainHit - Copie (000000003C7BB728)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] SystemI::close                           : Closed.
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
+[LOG] SystemI::close                           : Closed.
