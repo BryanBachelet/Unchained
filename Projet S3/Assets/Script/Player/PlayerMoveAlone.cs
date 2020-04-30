@@ -73,7 +73,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {    
             if(!isStickGround)
             {
-            playerRigid.velocity = new Vector3(0,playerRigid.velocity.y,0)+ (DirProjection.normalized * currentPowerOfProjection);
+                playerRigid.velocity = new Vector3(0,playerRigid.velocity.y,0)+ (DirProjection.normalized * currentPowerOfProjection);
             }
             else
             {
@@ -109,7 +109,7 @@ public class PlayerMoveAlone : MonoBehaviour
             transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         }
         Ray ray = new Ray(transform.position, DirProjection.normalized);
-       RaycastHit hit;
+        RaycastHit hit;
 
        if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
         {
@@ -230,10 +230,15 @@ public class PlayerMoveAlone : MonoBehaviour
     }
     public void GoTransformation()
     {
-        stock.DetachPlayer();
+        stock.DetachPlayer(true);
         currentPowerOfProjection = 0;
+        
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
         aura.SetActive(false);
+    }
+    public void  StopVelocity()
+    {
+        playerRigid.velocity = Vector3.zero;
     }
 }

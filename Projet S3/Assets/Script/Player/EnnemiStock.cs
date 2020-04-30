@@ -283,6 +283,19 @@ public class EnnemiStock : MonoBehaviour
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
+     public void DetachPlayer(bool active)
+    {
+        stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        GetProjectionStat();
+        if(active)
+        {
+        rotationPlayer.StopRotation(false, 0,0) ;
+        }
+        isSlaming =false;
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
 
     
     public void ResetPlayer()

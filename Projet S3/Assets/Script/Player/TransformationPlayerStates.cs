@@ -26,9 +26,14 @@ public class TransformationPlayerStates : MonoBehaviour
     bool expulseSoundPlay = false;
     bool isTransforming = false;
 
+    private  MashingFeedback mash;
+
+   
     // Start is called before the first frame update
     void Start()
     {
+        
+        mash = GetComponent<MashingFeedback>();
         playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
     }
@@ -91,7 +96,9 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public void GoTranformation()
     {
+        mash.ActiveFeedback();
         playerMove.GoTransformation();
+        CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
 
     }

@@ -43,11 +43,7 @@ public class TransformationAgent : MonoBehaviour
             agentList.Clear();
             startAnim = false;
             active = false;
-      /*  for (int j = 0; j < this.Height; j++) 
-        {
-            numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
-        }
-        */
+     
 
         }
     }
@@ -133,22 +129,30 @@ public class TransformationAgent : MonoBehaviour
     public void DetectAgent()
     {
         LayerMask layer = ~1 << 8;
-        while(agentList.Count< numberMax)
+        for(int j = 0 ;j< 10;j++)
         {
         Collider[] agent = Physics.OverlapSphere(transform.position, distanceGrap, layer);
-    
-            for (int i = 0; i < agent.Length; i++)
+            if(agentList.Count < numberMax )
             {
-                if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax)
+                for (int i = 0; i < agent.Length; i++)
                 {
-                   if(!agentList.Contains(agent[i].transform))
-                   {
-                    agentList.Add(agent[i].transform);
-                    agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
-                   }
-                
+                    
+                    
+                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax  )
+                    {
+                        if(agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation || agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.ReturnFormation )
+                        {
+
+                            if(!agentList.Contains(agent[i].transform))
+                            {
+                            agentList.Add(agent[i].transform);
+                            agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+                            }
+                        }
+                    
 
 
+                    }
                 }
             }
             distanceGrap +=10;
@@ -216,7 +220,7 @@ public class TransformationAgent : MonoBehaviour
 
             }
         }
-        timing = speedOfAgent * Time.deltaTime;
+        timing += 0.25f* Time.deltaTime;
         if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
@@ -224,7 +228,7 @@ public class TransformationAgent : MonoBehaviour
             Physics.IgnoreLayerCollision(9, 10, true);
 
         }
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+      
         frame++;
     }
 }

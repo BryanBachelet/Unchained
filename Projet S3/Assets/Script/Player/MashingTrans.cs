@@ -41,6 +41,10 @@ public class MashingTrans : MonoBehaviour
     private Collider[] hitColliders;
     private Vector3 posStart;
     private bool activePos;
+    private int h;
+
+    private bool setMashingActive;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -53,6 +57,7 @@ public class MashingTrans : MonoBehaviour
     {
         if (this.enabled == true)
         {
+          
             activationTransformation = false;
             i.Clear();
             currentmax = maxNumberToAim;
@@ -88,10 +93,10 @@ public class MashingTrans : MonoBehaviour
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
         debugMinRatio = numberToAim * ratioMinimumMashing;
         if(activePos)
-        {
-            transform.position = posStart;
+       {
+          moveAlone.StopVelocity();
         }
-        if (camMouvement.i >= camMouvement.cams.Count)
+        if (setMashingActive)
         {
             if (!activationTransformation)
             {
@@ -134,12 +139,19 @@ public class MashingTrans : MonoBehaviour
 
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                    setMashingActive =false;
 
                 }
             }
 
         }
 
+    }
+
+
+    public void ActiveMashing()
+    {
+        setMashingActive = true;
     }
 
     public void PropulsionAtFinish()
@@ -168,7 +180,7 @@ public class MashingTrans : MonoBehaviour
         }
 
         CheckDirection(distShort, index);
-       
+       CinematicCam.StartTransformation(false);
 
     }
 
