@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &994313741
 Transform:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ BoxCollider:
   m_GameObject: {fileID: 994313740}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994313740}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -323,6 +323,8 @@ MonoBehaviour:
   isAttacking: 0
   timeAttack: 5
   myMouseTargetLasersScript: {fileID: 1036685528635999334}
+  maxFrameDelayAim: 10
+  playPreviousPos: []
 --- !u!135 &135593847278972914
 SphereCollider:
   m_ObjectHideFlags: 0

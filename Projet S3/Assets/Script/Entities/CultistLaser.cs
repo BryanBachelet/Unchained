@@ -60,6 +60,8 @@ public class CultistLaser : MonoBehaviour
     private MouseTargetLasers lasersScript;
     private Vector3 hitPos;
     bool launchLaser = false;
+    public int maxFrameDelayAim;
+    public List<Vector3> playPreviousPos = new List<Vector3>();
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -188,8 +190,18 @@ public class CultistLaser : MonoBehaviour
                         lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
                         launchLaser = false;
                     }
-                    float angle = Vector3.SignedAngle(Vector3.forward, (player.transform.position - transform.position).normalized, Vector3.up);
+                    if(playPreviousPos.Count <= maxFrameDelayAim)
+                    {
+                        playPreviousPos.Add(player.transform.position);
+                    }
+                    else
+                    {
+                        playPreviousPos.RemoveAt(0);
+                        playPreviousPos.Add(player.transform.position);
+                    }
+                    float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
                     spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
+                    Debug.Log(angle - 90);
                     RaycastHit hit;
                     float distanceHit = 0;
                     if (Physics.Raycast(transform.position + Vector3.up, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
@@ -346,4 +358,12 @@ public class CultistLaser : MonoBehaviour
 
     }
 
+    private void OnDrawGizmos()
+    {
+        for(int i = 0; i < playPreviousPos.Count; i++)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(playPreviousPos[i], 2);
+        }
+    }
 }
