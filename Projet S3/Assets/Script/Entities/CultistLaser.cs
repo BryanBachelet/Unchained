@@ -56,6 +56,7 @@ public class CultistLaser : MonoBehaviour
     private float _AttackTime;
 
     public GameObject myMouseTargetLasersScript;
+    private ConLaser ConLaserScript;
     private MouseTargetLasers lasersScript;
     private Vector3 hitPos;
     bool launchLaser = false;
@@ -68,6 +69,7 @@ public class CultistLaser : MonoBehaviour
         spriteRend = spriteGo.GetComponent<SpriteRenderer>();
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
+        ConLaserScript = myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
     }
 
     // Update is called once per frame
@@ -181,6 +183,8 @@ public class CultistLaser : MonoBehaviour
                     if(launchLaser)
                     {
                         lasersScript.startWavePS.Emit(1);
+                        ConLaserScript.hitPsArray[1].Emit(100);
+
                         lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
                         launchLaser = false;
                     }
@@ -204,15 +208,22 @@ public class CultistLaser : MonoBehaviour
                     myMouseTargetLasersScript.SetActive(true);
                     lasersScript.mouseWorldPosition = hitPos;
                     lasersScript.anim.SetBool("Fire", true);
+                    ConLaserScript.globalProgress = 0;
+
 
                     #endregion
                 }
                 else
                 {
+                    ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
                     //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
                     //attackCollider.enabled = false;
                     lasersScript.anim.SetBool("Fire", false);
-                    myMouseTargetLasersScript.SetActive(false);
+                    if(ConLaserScript.globalProgress > 1)
+                    {
+                        myMouseTargetLasersScript.SetActive(false);
+                    }
+
 
                 }
                 if (_AttackTime > timeAttack)

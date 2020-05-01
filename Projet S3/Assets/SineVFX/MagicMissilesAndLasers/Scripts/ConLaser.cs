@@ -20,10 +20,11 @@ public class ConLaser : MonoBehaviour
     private LineRenderer lr;
     private Vector3[] resultVectors;
     private float dist;
-    private float globalProgress;
+    [HideInInspector]
+    public float globalProgress;
     private Vector3 hitPosition;
     private Vector3 currentPosition;
-
+    public LayerMask layerHit;
     void Start()
     {
         globalProgress = 1f;
@@ -46,7 +47,7 @@ public class ConLaser : MonoBehaviour
         }
         resultVectors[0] = transform.forward;
         resultVectors[segmentCount] = resultVectors[segmentCount - 1];
-        float blockLength = maxLength / segmentCount;
+        float blockLength = (maxLength / segmentCount) * 15;
 
 
         currentPosition = new Vector3(0, 0, 0);
@@ -56,6 +57,7 @@ public class ConLaser : MonoBehaviour
             currentPosition = transform.position;
             for (int j = 0; j < i; j++)
             {
+                //currentPosition = new Vector3(currentPosition.x + resultVectors[j].x * blockLength, currentPosition.y + resultVectors[j].y * blockLength * 15);
                 currentPosition += resultVectors[j] * blockLength;
             }
             lr.SetPosition(i, currentPosition);
@@ -77,16 +79,21 @@ public class ConLaser : MonoBehaviour
                 }
 
                 RaycastHit hit;
-                if (Physics.Raycast(currentPosition, resultVectors[i], out hit, blockLength))
+                if (Physics.Raycast(currentPosition, resultVectors[i], out hit, blockLength, layerHit))
                 {
+                //**/Debug.Log(hit.collider.name);
+                
+                   //Debug.Log(hit.distance + "//" + Vector3.Distance(currentPosition, PlayerMoveAlone.playerPos));
+                   //Debug.DrawLine(hit.point, PlayerMoveAlone.playerPos);
+                   //Vector3 dirPos = (hit.point - currentPosition).normalized; 
                     hitPosition = currentPosition + resultVectors[i] * hit.distance;
                     hitPosition = Vector3.MoveTowards(hitPosition, transform.position, moveHitToSource);
                     if (hitEffect)
                     {
-                        hitEffect.transform.position = hitPosition;
+                        hitEffect.transform.position = hit.point;
                     }
 
-                    dist = Vector3.Distance(hitPosition, transform.position);
+                    dist = Vector3.Distance(hit.point, transform.position);
 
                     break;
                 }
@@ -128,16 +135,16 @@ public class ConLaser : MonoBehaviour
         GetComponent<Renderer>().material.SetFloat("_Distance", dist);
         GetComponent<Renderer>().material.SetVector("_Position", transform.position);
 
-        if (Input.GetMouseButton(0))
-        {
-            globalProgress = 0f;
-        }
-
-        if (globalProgress <= 1f)
-        {
-            globalProgress += Time.deltaTime * globalProgressSpeed;
-        }
-
+        //if (Input.GetMouseButton(0))
+        //{
+        //    globalProgress = 0f;
+        //}
+        //
+        //if (globalProgress <= 1f)
+        //{
+        //    globalProgress += Time.deltaTime * globalProgressSpeed;
+        //}
+        //
         if (hitEffect)
         {
             pl.intensity = shaderProgressCurve.Evaluate(globalProgress)*1.5f;
@@ -155,10 +162,10 @@ public class ConLaser : MonoBehaviour
         float width = lineWidthCurve.Evaluate(globalProgress);
         lr.widthMultiplier = width;
 
-        if (Input.GetMouseButtonDown(0) && hitEffect)
-        {
-            hitPsArray[1].Emit(100);
-        }
+        //if (Input.GetMouseButtonDown(0) && hitEffect)
+        //{
+        //    hitPsArray[1].Emit(100);
+        //}
 
     }
 }

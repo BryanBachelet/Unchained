@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseTargetLasers : MonoBehaviour {
 
     public Transform laserShotPosition;
-    public float speed = 1f;
+    public float speed = 30f;
     public ParticleSystem startWavePS;
     public ParticleSystem startParticles;
     public int startParticlesCount = 100;
