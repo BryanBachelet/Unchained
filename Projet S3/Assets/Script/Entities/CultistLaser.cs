@@ -60,7 +60,7 @@ public class CultistLaser : MonoBehaviour
     private MouseTargetLasers lasersScript;
     private Vector3 hitPos;
     bool launchLaser = false;
-    public int maxFrameDelayAim;
+    public int maxFrameDelayAim = 10;
     public List<Vector3> playPreviousPos = new List<Vector3>();
     void Start()
     {
