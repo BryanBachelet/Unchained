@@ -39,6 +39,7 @@ public class KillCountPlayer : MonoBehaviour
     public float compteur;
     public  int countKillEnnemi;
 
+    public float multiLoseCondition;
 
     public MusicPlayer myMP;
 
@@ -64,7 +65,7 @@ public class KillCountPlayer : MonoBehaviour
     {
         if(FastTest.debugLoseCondition)
         {
-            timeBeforeDeath = 100;
+            timeBeforeDeath = 10000;
         }
 
         compteur = compteurOfDeath;
@@ -81,7 +82,7 @@ public class KillCountPlayer : MonoBehaviour
             else
             {
 
-                compteurOfDeath += Time.deltaTime;
+                compteurOfDeath += (Time.deltaTime * (1 + multiLoseCondition ));
             }
 
             if (compteurOfDeath > activeLoseEffect)

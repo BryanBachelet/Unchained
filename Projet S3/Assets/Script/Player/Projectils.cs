@@ -91,6 +91,7 @@ public class Projectils : MonoBehaviour
         {
             player.GetComponent<EnnemiStock>().ennemiStock = other.gameObject;
             player.GetComponent<EnnemiStock>().onHitEnter = true;
+            DataPlayer.nbShotHit++;
             
            
             other.transform.position += dir.normalized * 3;

@@ -109,7 +109,7 @@ public class CamMouvement : MonoBehaviour
         this.enabled = false;
         if (myMP != null)
         {
-            DataPlayer.isCountingTime = true;
+
             myMP.track1.start();
         }
         transform.position = cams[cams.Count - 1].destination.position;
@@ -244,6 +244,8 @@ public class CamMouvement : MonoBehaviour
             compteurStart = 0;
             if (nbT == 1 && myMP != null)
             {
+                DataPlayer.isCountingTime = true;
+                Debug.Log("LE TEMPS SECOULE");
                 myMP.track1.start();
             }
             nbT++;

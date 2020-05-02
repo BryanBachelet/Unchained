@@ -16,14 +16,19 @@ public class DataPlayer : MonoBehaviour
     static float afficheTempsEcoulePartie;
     static float afficheEntityHit;
     static float afficheKill;
+    static float affichePercentAim;
 
     static Text dataText;
     public Text goText;
     static public bool isCountingTime = false;
 
+    static public bool isGivingData = false;
     public int nbHit;
     public int nbKill;
+    static public int nbShot;
+    static public int nbShotHit;
     static float tempsEcouleWin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,16 +51,26 @@ public class DataPlayer : MonoBehaviour
         {
             tempsEcoulePartie += Time.deltaTime;
         }
+        if(isGivingData)
+        {
+            GiveData();
+        }
     }
 
     static public void GiveData()
     {
         isCountingTime = false;
-        //tempsEcouleWin += 0.5f * Time.deltaTime;
-        //afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
-        //afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
-        //afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
-        //dataText.text = "Temps : " + afficheTempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill;
-        dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
+        tempsEcouleWin += 0.1f * Time.deltaTime;
+        afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
+        afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
+        afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
+        affichePercentAim = Mathf.Lerp(affichePercentAim,nbShotHit * 100 / nbShot,tempsEcouleWin);
+        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill + "\nAiming : " + affichePercentAim + " %";
+        //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
+    }
+
+    static public void shotCount()
+    {
+        nbShot++;
     }
 }

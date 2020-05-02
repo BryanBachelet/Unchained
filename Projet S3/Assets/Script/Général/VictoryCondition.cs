@@ -59,7 +59,7 @@ public class VictoryCondition : MonoBehaviour
        
         victoryRestart = true;
         victoryText.SetActive(true);
-        DataPlayer.GiveData();
+        DataPlayer.isGivingData = true;
         }
     }
 
