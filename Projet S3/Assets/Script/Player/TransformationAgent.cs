@@ -6,6 +6,7 @@ public class TransformationAgent : MonoBehaviour
 {
     public List<Transform> agentList = new List<Transform>();
     private Vector3[] posSphere;
+    private Vector3[] posStart;
     private Quaternion[] angleSphere;
     public int distance = 1;
 
@@ -32,6 +33,8 @@ public class TransformationAgent : MonoBehaviour
     public int Height;
     public int numberMax;
     public float radius;
+
+    public float timeToCome;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -158,6 +161,7 @@ public class TransformationAgent : MonoBehaviour
             distanceGrap +=10;
         }
         posSphere = new Vector3[agentList.Count];
+        posStart = new Vector3[agentList.Count];
         angleSphere = new Quaternion[agentList.Count];
     }
 
@@ -186,10 +190,11 @@ public class TransformationAgent : MonoBehaviour
                 }
             }
         }
-        float anglePerAgent = 360 /agentList.Count;
+        float anglePerAgent = 360 /(agentList.Count+1);
         for(int i =0; i<agentList.Count;i++ )
         {   
-          posSphere[i] = transform.position +(Quaternion.Euler(0,anglePerAgent*i,0)  * transform.forward * radius);
+          posSphere[i] = transform.position +(Quaternion.Euler(0,anglePerAgent*(i+1),0)  * -Vector3.forward * radius);
+          posStart[i] = agentList[i].position;
         }
         
     }
@@ -200,19 +205,18 @@ public class TransformationAgent : MonoBehaviour
         {
 
             
-            agentList[i].position = Vector3.Lerp(agentList[i].position, posSphere[i], timing);
+            agentList[i].position = Vector3.Lerp(posStart[i], posSphere[i], timing);
            
 
             agentList[i].rotation = angleSphere[i];
 
-        if(Vector3.Distance(agentList[i].transform.position, posSphere[i])<3)
-        {
+      
             LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
             line.enabled =true;
             line.SetPosition(0, transform.position);
             line.SetPosition(1,agentList[i].transform.position );
 
-        }
+        
 
             if (frame > 1 && frame < 3)
             {
@@ -220,7 +224,7 @@ public class TransformationAgent : MonoBehaviour
 
             }
         }
-        timing += 0.25f* Time.deltaTime;
+        timing += (1/timeToCome)* Time.deltaTime;
         if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;

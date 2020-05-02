@@ -2561,7 +2561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLoseConditionActive: 0
-  debugMashingActive: 1
+  debugMashingActive: 0
   debugPalierActive: 1
   radiusMaxSize: 286.4
 --- !u!1 &307060810
@@ -6781,12 +6781,13 @@ MonoBehaviour:
   currentPlan: 0
   activeBehavior: 0
   pointFocus: {fileID: 2027631131}
-  timeOfPlan: 5
+  timeOfPlan: 7
   numberofTurn: 2
-  posFinish: {x: 0, y: -1, z: -2}
+  posFinish: {x: 0, y: -0.2, z: -4}
   timeOfPlan2: 10
   numberofTurn2: 0
   posFinish2: {x: 0, y: 2, z: -15}
+  durationTotal: 0
 --- !u!114 &1246053384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6815,8 +6816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 601d83f113eed6c4e9ee285c9f69b171, type: 3}
-  Value: 2
-  NoiseRange: 24
+  Value: 91.8
+  NoiseRange: 53.1
   UseNoise: 1
 --- !u!114 &1246053386
 MonoBehaviour:
@@ -6849,8 +6850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 5675fc85342982e4aa19f32d906706e4, type: 3}
-  Levels: 55
-  Amount: 1
+  Levels: 200
+  Amount: 0.579
   LuminosityOnly: 1
 --- !u!114 &1246053388
 MonoBehaviour:
@@ -6917,16 +6918,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 589797c62ca68254ea3643767841da50, type: 3}
-  StripAngle: 3.87
-  StripDensity: 54.18
-  StripThickness: 0.244
-  StripLimits: {x: 0.024494741, y: 0.10101056}
+  StripAngle: 7.38
+  StripDensity: 155.67
+  StripThickness: 1
+  StripLimits: {x: 0.060556743, y: 0.24230963}
   StripInnerColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
   StripOuterColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  FillColor: {r: 0.6886792, g: 0.26962438, b: 0.26962438, a: 1}
+  FillColor: {r: 1, g: 1, b: 1, a: 1}
   BackgroundColor: {r: 0.066037714, g: 0.0233624, b: 0.0233624, a: 1}
-  EdgeDetection: 0
-  EdgeThreshold: 5
+  EdgeDetection: 1
+  EdgeThreshold: 8.27
   EdgeColor: {r: 0, g: 0, b: 0, a: 1}
   Amount: 1
 --- !u!114 &1246053392
@@ -12440,6 +12441,7 @@ MonoBehaviour:
   Height: 3
   numberMax: 10
   radius: 3
+  timeToCome: 7
 --- !u!114 &2027631153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12486,6 +12488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberTransformation: 0
+  FirstVfxFeedback: {fileID: 987722345958938901, guid: b330992e70130374d91c7891ee64bcc3,
+    type: 3}
   feedbackSecondTransformation: {fileID: 3760582440097357505, guid: 7fdc829aa3cc6474283f61956490a1e1,
     type: 3}
 --- !u!4 &2032901824

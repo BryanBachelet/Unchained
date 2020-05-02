@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Colorful;
 public class MashingTrans : MonoBehaviour
 {
     [Header("Paramètre")]
@@ -97,7 +97,9 @@ public class MashingTrans : MonoBehaviour
           moveAlone.StopVelocity();
         }
         if (setMashingActive)
-        {
+        { 
+            
+            Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
@@ -140,7 +142,7 @@ public class MashingTrans : MonoBehaviour
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
                     setMashingActive =false;
-
+                        Camera.main.GetComponent<Threshold>().enabled =false;
                 }
             }
 

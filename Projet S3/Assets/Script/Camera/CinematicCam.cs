@@ -26,6 +26,8 @@ public class CinematicCam : MonoBehaviour
 
     public Vector3 posFinish2;
 
+    [HideInInspector]
+    public  float durationTotal;
 
     private float speedAngle;
     private float angleCompteur;
@@ -44,12 +46,14 @@ public class CinematicCam : MonoBehaviour
     private TransformationAgent agentTransfo;
 
     private MashingTrans mashing;
+
     // Start is called before the first frame update
     void Start()
     {
         activeCinematicCam =false;
         mashing = pointFocus.GetComponent<MashingTrans>();
         agentTransfo = pointFocus.GetComponent<TransformationAgent>();
+        durationTotal = timeOfPlan +timeOfPlan2;
     }
 
     // Update is called once per frame
@@ -84,6 +88,7 @@ public class CinematicCam : MonoBehaviour
                 compteurTimePlan +=Time.deltaTime;
                 ratioTimePlan = compteurTimePlan /timeOfPlan;
                 angleCompteur += speedAngle*Time.deltaTime;
+              
                 transform.LookAt(pointFocus.transform);
 
                 break;
@@ -143,7 +148,7 @@ public class CinematicCam : MonoBehaviour
             finishDistance = Vector3.Distance(pointFocus.transform.position,pointFocus.transform.position + posFinish);
             currentDistance = startDistance;
             startdirection = (pointFocus.transform.position - transform.position).normalized;
-            finishDirection = (pointFocus.transform.position - posFinish).normalized;
+            finishDirection = (pointFocus.transform.position - (pointFocus.transform.position + posFinish)).normalized;
             currentDirection =  startdirection;
            agentTransfo.startTranformationAnim(10);
         }
@@ -155,7 +160,7 @@ public class CinematicCam : MonoBehaviour
             finishDistance = Vector3.Distance(pointFocus.transform.position, pointFocus.transform.position + posFinish2);
             currentDistance = startDistance;
             startdirection = (pointFocus.transform.position - transform.position).normalized;
-            finishDirection = (pointFocus.transform.position - posFinish2).normalized;
+            finishDirection = (pointFocus.transform.position -(pointFocus.transform.position + posFinish2)).normalized;
             currentDirection =  startdirection;
             
         }
