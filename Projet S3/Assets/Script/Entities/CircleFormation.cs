@@ -31,8 +31,8 @@ private bool activeRunPlayer;
 
     void Start()
     {
-        childEntities = new GameObject[transform.childCount - 3];
-        for (int i = 0; i < transform.childCount - 3; i++)
+        childEntities = new GameObject[transform.childCount - 4];
+        for (int i = 0; i < transform.childCount - 4; i++)
         {
 
             childEntities[i] = transform.GetChild(i).gameObject;
