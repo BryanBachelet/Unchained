@@ -31,8 +31,7 @@ public class TransformationPlayerStates : MonoBehaviour
    
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {      
         mash = GetComponent<MashingFeedback>();
         playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
