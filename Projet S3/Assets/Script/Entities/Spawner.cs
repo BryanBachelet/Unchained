@@ -57,23 +57,54 @@ public class Spawner : MonoBehaviour
 
     private void SpawnEntities(bool patrol)
     {
-        GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
-        EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
-   
+        bool checkCultiste = false;
 
-        if (patrol)
+        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste))
         {
-            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Patrol;
-            manager.listOfPointOfPatrol = listOfPoint;
+
+            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+            ManageEntity.nbEntity += 20;
+            ManageEntity.nbEntityTotal += 20;
+            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
+            manager.pointToGo = target.transform;
+            manager.speedOfMouvement = speedOfAgent;
+            checkCultiste = true;
+        }
+        else if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) && checkCultiste == false)
+        {
+            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+            ManageEntity.nbEntity += 20;
+            ManageEntity.nbEntityTotal += 20;
+            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            Debug.Log("+1");
+            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
+            manager.pointToGo = target.transform;
+            manager.speedOfMouvement = speedOfAgent;
         }
         else
         {
-            manager.cultisteBehavior  = startBehavior;
-            manager.pointToGo = target.transform;
-            
+           // manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;
         }
 
-        manager.speedOfMouvement = speedOfAgent;
+        
+
+
+
+        // if (patrol)
+        // {
+        //     if()
+        //     manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Patrol;
+        //     manager.listOfPointOfPatrol = listOfPoint;
+        // }
+        // else
+        // {
+        //     manager.cultisteBehavior  = startBehavior;
+        //     manager.pointToGo = target.transform;
+        //     
+        // }
+
+
     }
 
 
