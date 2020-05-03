@@ -257,7 +257,7 @@ public class CamMouvement : MonoBehaviour
             if (nbT == 1 && myMP != null)
             {
                 DataPlayer.isCountingTime = true;
-                Debug.Log("LE TEMPS SECOULE");
+                
                 myMP.track1.start();
             }
             nbT++;

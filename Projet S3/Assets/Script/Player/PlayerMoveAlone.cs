@@ -106,7 +106,7 @@ public class PlayerMoveAlone : MonoBehaviour
          
         if(isStickGround)
         {
-            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+           transform.position = new Vector3(transform.position.x, 0.4f, transform.position.z);
         }
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;

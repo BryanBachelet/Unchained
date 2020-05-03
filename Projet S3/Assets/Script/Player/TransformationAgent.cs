@@ -150,6 +150,11 @@ public class TransformationAgent : MonoBehaviour
                             {
                             agentList.Add(agent[i].transform);
                             agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+                                
+                                if(agent[i].GetComponentInChildren<Anim_Cultist_States>() != null)
+                                {
+                                    agent[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState( Anim_Cultist_States.AnimCultistState.Entrave_Idle);
+                                }
                             }
                         }
                     
@@ -208,8 +213,14 @@ public class TransformationAgent : MonoBehaviour
             agentList[i].position = Vector3.Lerp(posStart[i], posSphere[i], timing);
            
 
-            agentList[i].rotation = angleSphere[i];
-
+            Vector3 dirProjection = transform.position - agentList[i].position;
+           
+            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+            {
+                float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                agentList[i].eulerAngles =  new Vector3(0, angle,0);
+             
+            }               
       
             LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
             line.enabled =true;
@@ -235,4 +246,5 @@ public class TransformationAgent : MonoBehaviour
       
         frame++;
     }
+    
 }

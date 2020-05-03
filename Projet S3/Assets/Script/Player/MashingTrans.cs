@@ -99,7 +99,7 @@ public class MashingTrans : MonoBehaviour
         if (setMashingActive)
         { 
             
-            Camera.main.GetComponent<Threshold>().enabled =true;
+           // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
@@ -142,7 +142,7 @@ public class MashingTrans : MonoBehaviour
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
                     setMashingActive =false;
-                        Camera.main.GetComponent<Threshold>().enabled =false;
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
                 }
             }
 

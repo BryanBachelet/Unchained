@@ -97,7 +97,7 @@ public class CinematicCam : MonoBehaviour
 
                 currentDistance = Mathf.Lerp(startDistance,finishDistance,ratioTimePlan);
                 currentDirection = Vector3.Lerp(startdirection, finishDirection,ratioTimePlan);
-                 posAdd = Quaternion.Euler(0,angleCompteur ,0) *((-currentDirection) * currentDistance);
+                posAdd = Quaternion.Euler(0,angleCompteur ,0) *((-currentDirection) * currentDistance);
                 transform.position  = pointFocus.transform.position + posAdd;
                 
                 if(compteurTimePlan>timeOfPlan)

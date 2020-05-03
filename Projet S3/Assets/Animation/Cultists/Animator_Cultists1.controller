@@ -8,7 +8,121 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Animator_Cultists1
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: Intro_Jump
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Intro_Reception
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Intro_Finish
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Invocation
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Invocatio_Idle
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Invocation_Fin
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Invocation_Entree
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Invocation_Exit
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_Vol
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_Face
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_Back
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_StandUpFace
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_StandUpBack
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_Exit
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Entrave_Idle
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Entrave_Repousse
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Entrave_Exit
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Entrave_Entre
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Percute_Entree
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -29,7 +143,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Invocation_Exit
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107323830366486802}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -51,7 +168,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_Entree
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107323830366486802}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -95,7 +215,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Entrave_Entre
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107099377535156220}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -117,7 +240,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_StandUpFace
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102045811393221098}
   m_Solo: 0
@@ -161,7 +287,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Invocation
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107151917789186256}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -183,7 +312,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Intro_Jump
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102103200460117368}
   m_Solo: 0
@@ -205,7 +337,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Entrave_Repousse
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102919094815191806}
   m_Solo: 0
@@ -227,7 +362,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Invocation_Exit
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107323830366486802}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -249,7 +387,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Intro_Reception
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102900064350150300}
   m_Solo: 0
@@ -271,7 +412,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_Exit
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102116694232049032}
   m_Solo: 0
@@ -293,7 +437,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Intro_Finish
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102116694232049032}
   m_Solo: 0
@@ -359,7 +506,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Entrave_Entre
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 1107099377535156220}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -381,7 +531,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Entrave_Exit
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102045811393221098}
   m_Solo: 0
@@ -425,7 +578,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_Face
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102363014346618966}
   m_Solo: 0
@@ -491,7 +647,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_Exit
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102116694232049032}
   m_Solo: 0
@@ -513,7 +672,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_Back
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102354210124387470}
   m_Solo: 0
@@ -535,7 +697,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Percute_StandUpBack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102631239556670396}
   m_Solo: 0
@@ -1004,7 +1169,7 @@ AnimatorStateMachine:
     m_Position: {x: 504, y: 96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102500177921547286}
-    m_Position: {x: 516, y: -36, z: 0}
+    m_Position: {x: 504, y: -36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102919094815191806}
     m_Position: {x: 504, y: -156, z: 0}
@@ -1016,7 +1181,7 @@ AnimatorStateMachine:
   m_AnyStatePosition: {x: 84, y: 60, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 240, y: -120, z: 0}
+  m_ParentStateMachinePosition: {x: 504, y: -276, z: 0}
   m_DefaultState: {fileID: 1102443831556087052}
 --- !u!1107 &1107151917789186256
 AnimatorStateMachine:
@@ -1067,24 +1232,24 @@ AnimatorStateMachine:
     m_Position: {x: 456, y: 492, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107426571325509906}
-    m_Position: {x: 456, y: 144, z: 0}
+    m_Position: {x: 456, y: 156, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107151917789186256}
     m_Position: {x: 768, y: 336, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 1107099377535156220}
-    second: []
-  - first: {fileID: 1107323830366486802}
-    second: []
   - first: {fileID: 1107426571325509906}
     second: []
   - first: {fileID: 1107151917789186256}
     second: []
+  - first: {fileID: 1107099377535156220}
+    second: []
+  - first: {fileID: 1107323830366486802}
+    second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 576, y: -120, z: 0}
-  m_EntryPosition: {x: 480, y: 72, z: 0}
+  m_EntryPosition: {x: 480, y: 96, z: 0}
   m_ExitPosition: {x: 864, y: -36, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102736793741700470}
@@ -1099,31 +1264,31 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102185379400218034}
-    m_Position: {x: 132, y: -96, z: 0}
+    m_Position: {x: 36, y: -96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102511898207264616}
-    m_Position: {x: 372, y: -96, z: 0}
+    m_Position: {x: 300, y: -96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102363014346618966}
     m_Position: {x: 612, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102045811393221098}
-    m_Position: {x: 852, y: -120, z: 0}
+    m_Position: {x: 900, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102354210124387470}
     m_Position: {x: 612, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102631239556670396}
-    m_Position: {x: 852, y: -60, z: 0}
+    m_Position: {x: 888, y: -60, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 432, y: 48, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_EntryPosition: {x: 60, y: -24, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 1092, y: -96, z: 0}
+  m_ParentStateMachinePosition: {x: 1200, y: -96, z: 0}
   m_DefaultState: {fileID: 1102185379400218034}
 --- !u!1107 &1107407041241414566
 AnimatorStateMachine:

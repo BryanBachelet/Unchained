@@ -175,6 +175,13 @@ public void ActiveRunPlayer()
                             childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                             childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
+
+                            if(Vector3.SignedAngle(Vector3.forward, dir.normalized, Vector3.up)!=0)
+                            {
+                                float angle = Vector3.SignedAngle(Vector3.forward,dir.normalized,Vector3.up);
+                                childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                            
+                            }               
                         }
                         else
                         {
@@ -182,6 +189,15 @@ public void ActiveRunPlayer()
                             childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
                             childEntities[i].transform.eulerAngles = Vector3.zero;
                             childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
+                            
+                            Vector3 dirProjection = entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+           
+                            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                            {
+                                float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                                childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                            
+                            }               
                         }
                     }
 
@@ -214,6 +230,14 @@ public void ActiveRunPlayer()
             {
                 childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position, PlayerMoveAlone.Player1.transform.position, 2 * speedAgent * Time.deltaTime);
                 childEntities[i].transform.eulerAngles = Vector3.zero;
+               childEntities[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState(Anim_Cultist_States.AnimCultistState.Run);
+                Vector3 dirProjection = PlayerMoveAlone.playerPos - childEntities[i].transform.position;
+           
+                if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                {
+                    float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                    childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);   
+                }               
             }
         }
     }
@@ -238,5 +262,17 @@ public void ActiveRunPlayer()
             startInvoq = true;
         }
 
+    }
+
+    public void AnimRituel(Anim_Cultist_States.AnimCultistState animToChange)
+    {
+        for(int i = 0 ; i< childEntities.Length;i++)
+        {
+            if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
+            {
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().animCultist =  animToChange;
+
+            }
+        }
     }
 }
