@@ -9135,6 +9135,11 @@ PrefabInstance:
       propertyPath: uiFeedback
       value: 
       objectReference: {fileID: 1868446455}
+    - target: {fileID: 886880014360157928, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016833369903905, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: ejectionForce
@@ -12492,6 +12497,24 @@ MonoBehaviour:
     type: 3}
   feedbackSecondTransformation: {fileID: 3760582440097357505, guid: 7fdc829aa3cc6474283f61956490a1e1,
     type: 3}
+--- !u!114 &2027631157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027631131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cf21df8b1017242ab58279723ea68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 100
+  currentLife: 50
+  startRegenerationLifeLevel: 30
+  regenerationLifePerSecond: 10
+  uiFeedback: {fileID: 1868446455}
+  speedOfUiFeedback: 10
 --- !u!4 &2032901824
 Transform:
   m_ObjectHideFlags: 0
