@@ -178,7 +178,7 @@ public class CultistLaser : MonoBehaviour
         }
         else
         {
-            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
                 if (isAttacking)
                 {
@@ -246,16 +246,17 @@ public class CultistLaser : MonoBehaviour
                 }
                 _AttackTime += Time.deltaTime;
             }
-            //else if(StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
-            //{
-            //    if(launchLaser)
-            //    {
-            //        _AttackTime = 0;
-            //        isAttacking = false;
-            //        myMouseTargetLasersScript.SetActive(false);
-            //        launchLaser = false;
-            //    }
-            //}
+            if(StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+            {
+                if(launchLaser)
+                {
+                    ConLaserScript.globalProgress = 1;
+                    _AttackTime = 0;
+                    isAttacking = false;
+                    myMouseTargetLasersScript.SetActive(false);
+                    launchLaser = false;
+                }
+            }
         }
 
     }
