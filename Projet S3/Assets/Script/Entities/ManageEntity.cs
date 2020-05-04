@@ -67,8 +67,10 @@ public class ManageEntity : MonoBehaviour
         PercentKillInspec = PercentKill;
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            PercentKill = 100 - (nbEntity * 100 / nbEntityTotal);
-
+            if(nbEntityTotal != 0)
+            {
+                PercentKill = 100 - (nbEntity * 100 / nbEntityTotal);
+            }
         }
 
         //if(nonActiveRitualPoint.Count>0 && _timeCounter>spawnTime)

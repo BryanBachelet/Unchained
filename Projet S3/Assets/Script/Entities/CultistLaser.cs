@@ -178,11 +178,11 @@ public class CultistLaser : MonoBehaviour
         }
         else
         {
-            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
                 if (isAttacking)
                 {
-                    if(launchLaser)
+                    if (launchLaser)
                     {
                         lasersScript.startWavePS.Emit(1);
                         ConLaserScript.hitPsArray[1].Emit(100);
@@ -190,7 +190,7 @@ public class CultistLaser : MonoBehaviour
                         lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
                         launchLaser = false;
                     }
-                    if(playPreviousPos.Count <= maxFrameDelayAim)
+                    if (playPreviousPos.Count <= maxFrameDelayAim)
                     {
                         playPreviousPos.Add(player.transform.position);
                     }
@@ -231,7 +231,7 @@ public class CultistLaser : MonoBehaviour
                     //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
                     //attackCollider.enabled = false;
                     lasersScript.anim.SetBool("Fire", false);
-                    if(ConLaserScript.globalProgress > 1)
+                    if (ConLaserScript.globalProgress > 1)
                     {
                         myMouseTargetLasersScript.SetActive(false);
                     }
@@ -246,6 +246,16 @@ public class CultistLaser : MonoBehaviour
                 }
                 _AttackTime += Time.deltaTime;
             }
+            //else if(StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+            //{
+            //    if(launchLaser)
+            //    {
+            //        _AttackTime = 0;
+            //        isAttacking = false;
+            //        myMouseTargetLasersScript.SetActive(false);
+            //        launchLaser = false;
+            //    }
+            //}
         }
 
     }
@@ -360,7 +370,7 @@ public class CultistLaser : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        for(int i = 0; i < playPreviousPos.Count; i++)
+        for (int i = 0; i < playPreviousPos.Count; i++)
         {
             Gizmos.color = Color.magenta;
             Gizmos.DrawSphere(playPreviousPos[i], 2);
