@@ -318,7 +318,7 @@ public class RotationPlayer : MonoBehaviour
         CheckEnnnemi(false, angleSpeed, dir);
        
        dir = new Vector3(dir.x,0,dir.z);
-        moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
+        moveAlone.AddProjection(dir.normalized, strenghPropulsion, deprojectionStrenght);
         playerRigid.AddForce(-Vector3.up.normalized * 50, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
