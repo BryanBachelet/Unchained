@@ -22,7 +22,7 @@ public class MashingTrans : MonoBehaviour
 
     public float debugMinRatio;
 
-    List<float> i = new List<float>();
+    public List<float> i = new List<float>();
     public float timing;
 
     public Image text;
@@ -41,6 +41,12 @@ public class MashingTrans : MonoBehaviour
     private Collider[] hitColliders;
     private Vector3 posStart;
     private bool activePos;
+
+    public float tempsEcouleMashing;
+    public int tempsMinMashing;
+
+    GainVelocitySystem gainVelocitySyst;
+    bool isP2 = false;
     private int h;
 
     private bool setMashingActive;
@@ -51,6 +57,7 @@ public class MashingTrans : MonoBehaviour
         agentTransfo = GetComponent<TransformationAgent>();
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
+        gainVelocitySyst = GetComponent<GainVelocitySystem>();
     }
 
     private void OnEnable()
@@ -66,6 +73,7 @@ public class MashingTrans : MonoBehaviour
             numberInput = 0;
             numberToAim = 0;
             debugMinRatio = 0;
+            tempsEcouleMashing = 0;
             posStart = transform.position;
             activePos =true;
             if(FastTest.debugMashing)
@@ -143,6 +151,46 @@ public class MashingTrans : MonoBehaviour
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
                     setMashingActive =false;
                     //Camera.main.GetComponent<Threshold>().enabled =false;
+                    tempsEcouleMashing += Time.deltaTime;
+                    if(tempsEcouleMashing > tempsMinMashing)
+                    {
+                        if(!isP2)
+                        {
+                            if (i.Count <= 5)
+                            {
+                                gainVelocitySyst.gainMashP1 = 10;
+                            }
+                            else if (i.Count > 5 && i.Count <= 7)
+                            {
+                                gainVelocitySyst.gainMashP1 = 20;
+                            }
+                            else if (i.Count > 7)
+                            {
+                                gainVelocitySyst.gainMashP1 = 30;
+                            }
+                        }
+                        else
+                        {
+                            if (i.Count <= 5)
+                            {
+                                gainVelocitySyst.gainMashP2 = 10;
+                            }
+                            else if (i.Count > 5 && i.Count <= 7)
+                            {
+                                gainVelocitySyst.gainMashP2 = 20;
+                            }
+                            else if (i.Count > 7)
+                            {
+                                gainVelocitySyst.gainMashP2 = 30;
+                            }
+                        }
+                        
+                        activePos = false;
+                        // Physics.IgnoreLayerCollision(9, 9, false);
+                        Physics.IgnoreLayerCollision(9, 10, false);
+                        text.gameObject.SetActive(false);
+                        agentTransfo.ActiveExplosion();
+                        activeExplode = true;
                 }
             }
 

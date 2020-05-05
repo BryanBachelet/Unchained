@@ -65,5 +65,10 @@ public class StateOfEntity : MonoBehaviour
         
     }
 
+    public void OnDisable()
+    {
+        ManageEntity.nbEntity--;
+    }
+
 
 }

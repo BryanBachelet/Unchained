@@ -15,7 +15,7 @@ public class ManageEntity : MonoBehaviour
     public int maxColossInspec;
 
     public List<GameObject> ritualPoint;
-    
+
 
     public static List<GameObject> nonActiveRitualPoint;
 
@@ -32,10 +32,22 @@ public class ManageEntity : MonoBehaviour
     private static int maxDistance;
     private static int maxColoss;
 
+    public int currentNbCultiste;
+    public int currentNbDistance;
+    public int currentNbColoss;
+
     public float _timeCounter;
+
+    public int nbEntityInspec;
+    public static int nbEntity;
+    public static int nbEntityTotal;
+    public static int PercentKill;
+    public int nbEntityTotalInspec;
+    public int PercentKillInspec;
     // Start is called before the first frame update
     void Start()
     {
+        nbEntity = 0;
         nbCultiste = 0;
         nbDistance = 0;
         nbColoss = 0;
@@ -43,45 +55,59 @@ public class ManageEntity : MonoBehaviour
         maxDistance = maxDistanceInspec;
         maxColoss = maxColossInspec;
 
-       nonActiveRitualPoint =  ritualPoint; 
-       _timeCounter= spawnTime/1.5f;
+        nonActiveRitualPoint = ritualPoint;
+        _timeCounter = spawnTime / 1.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-    
-        if(nonActiveRitualPoint.Count>0 && _timeCounter>spawnTime)
+        nbEntityInspec = nbEntity;
+        nbEntityTotalInspec = nbEntityTotal;
+        PercentKillInspec = PercentKill;
+        if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            if(nonActiveRitualPoint.Count>5)
+            if(nbEntityTotal != 0)
             {
-                for(int i=0; i<3;i++)
-                {
-                    DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
-                    SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
-                }
-                _timeCounter = 0;
-            }
-            else
-            {
-                DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
-                SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
-                _timeCounter= 0;
+                PercentKill = 100 - (nbEntity * 100 / nbEntityTotal);
             }
         }
-        else
-        {
-            _timeCounter += Time.deltaTime;
-        }
+
+        //if(nonActiveRitualPoint.Count>0 && _timeCounter>spawnTime)
+        //{
+        //    if(nonActiveRitualPoint.Count>5)
+        //    {
+        //        for(int i=0; i<3;i++)
+        //        {
+        //            DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
+        //            SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
+        //        }
+        //        _timeCounter = 0;
+        //    }
+        //    else
+        //    {
+        //        DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
+        //        SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
+        //        _timeCounter= 0;
+        //    }
+        //}
+        //else
+        //{
+        //    _timeCounter += Time.deltaTime;
+        //}
+
+        currentNbCultiste = nbCultiste;
+        currentNbDistance = nbDistance;
+        currentNbColoss = nbColoss;
     }
 
     public static bool CheckInstantiateInvoq(EntityType typeToInstiate)
     {
-        if(typeToInstiate == EntityType.Cultiste)
+        if (typeToInstiate == EntityType.Cultiste)
         {
-            if(nbCultiste < maxCultiste)
+            if (nbCultiste < maxCultiste)
             {
-                
+                nbCultiste++;
                 return true;
             }
             else
@@ -94,6 +120,7 @@ public class ManageEntity : MonoBehaviour
         {
             if (nbDistance < maxDistance)
             {
+                nbDistance++;
                 return true;
             }
             else
@@ -122,24 +149,21 @@ public class ManageEntity : MonoBehaviour
     {
         if (typeToDestroy == EntityType.Cultiste)
         {
-            if (nbCultiste < maxCultiste)
-            {
-                nbCultiste--;
-            }
+
+            nbCultiste--;
+
         }
         else if (typeToDestroy == EntityType.Distance)
         {
-            if (nbDistance < maxDistance)
-            {
-                nbDistance--;
-            }
+
+            nbDistance--;
+
         }
         else if (typeToDestroy == EntityType.Coloss)
         {
-            if (nbColoss < maxColoss)
-            {
-                nbColoss--;
-            }
+
+            nbColoss--;
+
         }
     }
 
@@ -147,24 +171,24 @@ public class ManageEntity : MonoBehaviour
 
     public static void SetActiveRitualPoint(GameObject ritualPointGive, bool active)
     {
-        if(active)
-        {
-            nonActiveRitualPoint.RemoveAt(nonActiveRitualPoint.IndexOf(ritualPointGive));
-            activeRitualPoint.Add(ritualPointGive);
-        }
-
-        if(!active)
-        {
-            activeRitualPoint.RemoveAt(activeRitualPoint.IndexOf(ritualPointGive));
-            nonActiveRitualPoint.Add(ritualPointGive);
-        }
+        // if(active)
+        // {
+        //     nonActiveRitualPoint.RemoveAt(nonActiveRitualPoint.IndexOf(ritualPointGive));
+        //     activeRitualPoint.Add(ritualPointGive);
+        // }
+        //
+        // if(!active)
+        // {
+        //     activeRitualPoint.RemoveAt(activeRitualPoint.IndexOf(ritualPointGive));
+        //     nonActiveRitualPoint.Add(ritualPointGive);
+        // }
     }
 
     public void DirectiveInstantiate(GameObject ritualPointGive)
     {
-            int rand = Random.Range(0, spawnersList.Count);
-            spawnersList[rand].startBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
-            spawnersList[rand].target = ritualPointGive;
+        //int rand = Random.Range(0, spawnersList.Count);
+        //spawnersList[rand].startBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
+        //spawnersList[rand].target = ritualPointGive;
     }
 
 }

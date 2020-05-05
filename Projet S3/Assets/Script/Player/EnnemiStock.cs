@@ -62,7 +62,7 @@ public class EnnemiStock : MonoBehaviour
     private float _declerationStrengh;
     
     private float _powerOfStrengh;
-
+    GainVelocitySystem myGainVelocitySystScript;
     void Start()
     {
         line = GetComponentInChildren<LineRend>();
@@ -72,6 +72,7 @@ public class EnnemiStock : MonoBehaviour
         rotationPlayer = GetComponent<RotationPlayer>();
         playerRigid = GetComponent<Rigidbody>();
         slamTry = GetComponent<SlamTry>();
+        myGainVelocitySystScript = GetComponent<GainVelocitySystem>();
         
 
 // Line Renderer
@@ -309,7 +310,7 @@ public class EnnemiStock : MonoBehaviour
     {
         float angleReturn = rotationPlayer.GetAngle();
         angleReturn =  Mathf.Clamp(angleReturn,0,maxValueOFVarationOfProjection);
-        _powerOfStrengh = powerOfStrengh.Evaluate(angleReturn);
+        _powerOfStrengh = myGainVelocitySystScript.CalculGain(powerOfStrengh.Evaluate(angleReturn));
         _declerationStrengh = declerationStrengh.Evaluate(angleReturn);
     
     }

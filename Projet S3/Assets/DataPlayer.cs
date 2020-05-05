@@ -65,7 +65,7 @@ public class DataPlayer : MonoBehaviour
         afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
         afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
         affichePercentAim = Mathf.Lerp(affichePercentAim,nbShotHit * 100 / nbShot,tempsEcouleWin);
-        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill + "\nAiming : " + affichePercentAim + " %";
+        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill + "\nAiming : " + affichePercentAim + " %" + "\nRythmeKill : " + ManageEntity.PercentKill + " %";
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
 
