@@ -77,7 +77,7 @@ public class Spawner : MonoBehaviour
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
             EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
-            Debug.Log("+1");
+          
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
             manager.pointToGo = target.transform;
             manager.speedOfMouvement = speedOfAgent;

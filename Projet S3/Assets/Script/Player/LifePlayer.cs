@@ -34,7 +34,7 @@ public class LifePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        Debug.Log("Etape 1 = " + currentLife);
+       
         ratioHp = GetRatioHealth();
         if(Input.GetKeyDown(KeyCode.A))
         {
@@ -49,7 +49,7 @@ public class LifePlayer : MonoBehaviour
 
     private void RegenerationBehavior()
     {
-        Debug.Log(startRegenerationLifeLevel/100 + " // " + GetRatioHealth());
+        
         if(ratioHp<(startRegenerationLifeLevel/100))
         {
            AddHealth(regenerationLifePerSecond *Time.deltaTime);
@@ -86,7 +86,7 @@ public class LifePlayer : MonoBehaviour
         float ratioToReturn = 0 ;
         ratioToReturn = currentLife/maxLife;
      
-        Debug.Log("Currrent Life = " + currentLife + " // " + ratioToReturn + " // " + maxLife);
+       
         return  ratioToReturn;
     }
 

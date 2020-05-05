@@ -35,7 +35,7 @@ public class MashingFeedback : MonoBehaviour
             numberTransformation++;
             if(numberTransformation == 1 )
             {
-                Debug.Log("Instantiate"); 
+              
                 fd =Instantiate(FirstVfxFeedback, transform.position+Vector3.up,Quaternion.Euler( 0,0,0)); 
                 fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;
             }

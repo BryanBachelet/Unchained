@@ -39,6 +39,8 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private Colorful.RadialBlur blur;
 
+    private RotationPlayer rotationPlayer;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -55,7 +57,8 @@ public class PlayerMoveAlone : MonoBehaviour
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
         currentPowerOfProjection = 0;
-        blur = Camera.main.GetComponent<RadialBlur>();       
+        blur = Camera.main.GetComponent<RadialBlur>();  
+        rotationPlayer = GetComponent<RotationPlayer>();     
      //  currentPowerOfProjection = DecelerationOfProjection;
     }
 
@@ -108,13 +111,15 @@ public class PlayerMoveAlone : MonoBehaviour
         {
            transform.position = new Vector3(transform.position.x, 0.4f, transform.position.z);
         }
-        Ray ray = new Ray(transform.position, DirProjection.normalized);
+        Ray ray = new Ray(transform.position, DirProjection.normalized );
         RaycastHit hit;
-
-       if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
-        {
-            DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        }
+       
+            if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
+            {
+                Debug.Log("1");
+                DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+            }
+        
     }
 
 

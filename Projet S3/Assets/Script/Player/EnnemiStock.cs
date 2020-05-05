@@ -287,7 +287,10 @@ public class EnnemiStock : MonoBehaviour
      public void DetachPlayer(bool active)
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
+        if(ennemiStock.gameObject.GetComponent<Renderer>()!= null)
+        {
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        }
         GetProjectionStat();
         if(active)
         {

@@ -45,8 +45,8 @@ public class MashingTrans : MonoBehaviour
     public float tempsEcouleMashing;
     public int tempsMinMashing;
 
-    GainVelocitySystem gainVelocitySyst;
-    bool isP2 = false;
+    private GainVelocitySystem gainVelocitySyst;
+    private bool isP2 = false;
     private int h;
 
     private bool setMashingActive;
@@ -184,18 +184,13 @@ public class MashingTrans : MonoBehaviour
                                 gainVelocitySyst.gainMashP2 = 30;
                             }
                         }
-                        
-                        activePos = false;
-                        // Physics.IgnoreLayerCollision(9, 9, false);
-                        Physics.IgnoreLayerCollision(9, 10, false);
-                        text.gameObject.SetActive(false);
-                        agentTransfo.ActiveExplosion();
-                        activeExplode = true;
+                       
+                    }
                 }
+
             }
 
         }
-
     }
 
 

@@ -117,10 +117,11 @@ public class RotationPlayer : MonoBehaviour
                 ratioDist += 0.5f * Time.deltaTime;
             }
 
+
             ratioDist = Mathf.Clamp(ratioDist, 0, 1);
 
             angleSpeed = gainVelocitySyst.CalculGain((accelerationValue.Evaluate(tempsEcouleAcceleration * 0.5f)) * checkSensRotation);
-            Debug.Log(angleSpeed + "Current speed");
+           
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
 
             transform.RotateAround(pointPivot, Vector3.up, angleSpeed * ratioDist * Time.deltaTime);
@@ -156,10 +157,21 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
-
-
-
             GetNextDirection();
+            Vector3 dirRay = (pointPivot - transform.position).normalized;
+        
+            Ray ray = new Ray(transform.position, GetDirection(dirRay));
+            Debug.DrawRay(transform.position, ray.direction.normalized* (2*( Mathf.Abs(angleSpeed) * Time.deltaTime)), Color.yellow);
+            RaycastHit hit;
+                
+            if (Physics.Raycast(ray, out hit, 2*( Mathf.Abs(angleSpeed) * Time.deltaTime)) )
+            {
+                Debug.Log(hit.collider.gameObject.layer);
+                if(hit.collider.gameObject.layer == 13)
+                {
+                    stocks.DetachPlayer();
+                }
+            }
         }
         else
         {
@@ -170,6 +182,11 @@ public class RotationPlayer : MonoBehaviour
             }
             angleAvatar = 0;
         }
+    }
+
+    private void DetectWall()
+    {
+        
     }
 
 
@@ -421,6 +438,21 @@ public class RotationPlayer : MonoBehaviour
         }
 
         return newDir;
+    }
+
+    private Vector3 GetDirection(Vector3 dirGive)
+    {
+        Vector3 dir =  new Vector3(0,0,0) ;
+        if (angleSpeed > 0)
+        {
+            dir = Quaternion.Euler(0, -90, 0) * dirGive;
+        }
+        if(angleSpeed<0)
+        {
+            dir = Quaternion.Euler(0, 90, 0) * dirGive;
+        }
+        return dir;
+
     }
     private float GetDistance()
     {
