@@ -7,6 +7,8 @@ public class CamMouvement : MonoBehaviour
 
     public bool smoothTransition = false;
     public StateOfGames.StateOfGame state = StateOfGames.StateOfGame.DefaultPlayable;
+    
+    public int stepOfTransitionEtat = 3;
     public List<CamBehavior[]> camTab = new List<CamBehavior[]>(0);
 
     public Dictionary<int, CamBehavior[]> camTan = new Dictionary<int, CamBehavior[]>(3);
@@ -150,10 +152,15 @@ public class CamMouvement : MonoBehaviour
         }
         if (rotatePast >= cams[i].angleToRotate)
         {
-            if (i >= (cams.Count - 1))
+            if (i >= stepOfTransitionEtat)
             {
                 StateOfGames.currentState = state;
 
+            
+            }
+               if(i>=(cams.Count-1))
+            {
+                 i++;
                 this.enabled = false;
             }
             if (i < (cams.Count - 1))
@@ -228,11 +235,16 @@ public class CamMouvement : MonoBehaviour
     {
         if (transform.position == cams[i].destination.position)
         {
-            if (i >= (cams.Count - 1))
+            if (i >= stepOfTransitionEtat)
             {
                 //cameraAc.enabled = true;
-                i++;
+             
                 StateOfGames.currentState = state;
+              
+            }
+            if(i>=(cams.Count-1))
+            {
+                 i++;
                 this.enabled = false;
             }
             if (i < (cams.Count - 1))
@@ -245,7 +257,7 @@ public class CamMouvement : MonoBehaviour
             if (nbT == 1 && myMP != null)
             {
                 DataPlayer.isCountingTime = true;
-                Debug.Log("LE TEMPS SECOULE");
+                
                 myMP.track1.start();
             }
             nbT++;

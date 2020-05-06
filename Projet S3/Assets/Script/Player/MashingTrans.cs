@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Colorful;
 public class MashingTrans : MonoBehaviour
 {
     [Header("Paramètre")]
@@ -45,8 +45,12 @@ public class MashingTrans : MonoBehaviour
     public float tempsEcouleMashing;
     public int tempsMinMashing;
 
-    GainVelocitySystem gainVelocitySyst;
-    bool isP2 = false;
+    private GainVelocitySystem gainVelocitySyst;
+    private bool isP2 = false;
+    private int h;
+
+    private bool setMashingActive;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -60,6 +64,7 @@ public class MashingTrans : MonoBehaviour
     {
         if (this.enabled == true)
         {
+          
             activationTransformation = false;
             i.Clear();
             currentmax = maxNumberToAim;
@@ -96,11 +101,13 @@ public class MashingTrans : MonoBehaviour
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
         debugMinRatio = numberToAim * ratioMinimumMashing;
         if(activePos)
-        {
-            transform.position = posStart;
+       {
+          moveAlone.StopVelocity();
         }
-        if (camMouvement.i >= camMouvement.cams.Count)
-        {
+        if (setMashingActive)
+        { 
+            
+           // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
@@ -132,6 +139,18 @@ public class MashingTrans : MonoBehaviour
                 }
                 if (i.Count > numberToAim)
                 {
+                    activePos =false;
+                   // Physics.IgnoreLayerCollision(9, 9, false);
+                    Physics.IgnoreLayerCollision(9, 10, false);
+                    text.gameObject.SetActive(false);
+                    agentTransfo.ActiveExplosion();
+                    activeExplode = true;
+                    PropulsionAtFinish();
+
+                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                    setMashingActive =false;
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
                     tempsEcouleMashing += Time.deltaTime;
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
@@ -165,24 +184,19 @@ public class MashingTrans : MonoBehaviour
                                 gainVelocitySyst.gainMashP2 = 30;
                             }
                         }
-                        
-                        activePos = false;
-                        // Physics.IgnoreLayerCollision(9, 9, false);
-                        Physics.IgnoreLayerCollision(9, 10, false);
-                        text.gameObject.SetActive(false);
-                        agentTransfo.ActiveExplosion();
-                        activeExplode = true;
-                        PropulsionAtFinish();
-
-                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                        isP2 = true;
+                       
                     }
                 }
+
             }
 
         }
+    }
 
+
+    public void ActiveMashing()
+    {
+        setMashingActive = true;
     }
 
     public void PropulsionAtFinish()
@@ -211,7 +225,7 @@ public class MashingTrans : MonoBehaviour
         }
 
         CheckDirection(distShort, index);
-       
+       CinematicCam.StartTransformation(false);
 
     }
 

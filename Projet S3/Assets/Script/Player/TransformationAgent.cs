@@ -6,6 +6,7 @@ public class TransformationAgent : MonoBehaviour
 {
     public List<Transform> agentList = new List<Transform>();
     private Vector3[] posSphere;
+    private Vector3[] posStart;
     private Quaternion[] angleSphere;
     public int distance = 1;
 
@@ -32,6 +33,8 @@ public class TransformationAgent : MonoBehaviour
     public int Height;
     public int numberMax;
     public float radius;
+
+    public float timeToCome;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -43,11 +46,7 @@ public class TransformationAgent : MonoBehaviour
             agentList.Clear();
             startAnim = false;
             active = false;
-      /*  for (int j = 0; j < this.Height; j++) 
-        {
-            numberMax += (int)(2f * Mathf.PI * this.distance-j) +1;
-        }
-        */
+     
 
         }
     }
@@ -133,27 +132,41 @@ public class TransformationAgent : MonoBehaviour
     public void DetectAgent()
     {
         LayerMask layer = ~1 << 8;
-        while(agentList.Count< numberMax)
+        for(int j = 0 ;j< 10;j++)
         {
         Collider[] agent = Physics.OverlapSphere(transform.position, distanceGrap, layer);
-    
-            for (int i = 0; i < agent.Length; i++)
+            if(agentList.Count < numberMax )
             {
-                if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax)
+                for (int i = 0; i < agent.Length; i++)
                 {
-                   if(!agentList.Contains(agent[i].transform))
-                   {
-                    agentList.Add(agent[i].transform);
-                    agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
-                   }
-                
+                    
+                    
+                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax  )
+                    {
+                        if(agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation || agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.ReturnFormation )
+                        {
+
+                            if(!agentList.Contains(agent[i].transform))
+                            {
+                            agentList.Add(agent[i].transform);
+                            agent[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Catch;
+                                
+                                if(agent[i].GetComponentInChildren<Anim_Cultist_States>() != null)
+                                {
+                                    agent[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState( Anim_Cultist_States.AnimCultistState.Entrave_Idle);
+                                }
+                            }
+                        }
+                    
 
 
+                    }
                 }
             }
             distanceGrap +=10;
         }
         posSphere = new Vector3[agentList.Count];
+        posStart = new Vector3[agentList.Count];
         angleSphere = new Quaternion[agentList.Count];
     }
 
@@ -182,10 +195,11 @@ public class TransformationAgent : MonoBehaviour
                 }
             }
         }
-        float anglePerAgent = 360 /agentList.Count;
+        float anglePerAgent = 360 /(agentList.Count+1);
         for(int i =0; i<agentList.Count;i++ )
         {   
-          posSphere[i] = transform.position +(Quaternion.Euler(0,anglePerAgent*i,0)  * transform.forward * radius);
+          posSphere[i] = transform.position +(Quaternion.Euler(0,anglePerAgent*(i+1),0)  * -Vector3.forward * radius);
+          posStart[i] = agentList[i].position;
         }
         
     }
@@ -196,19 +210,24 @@ public class TransformationAgent : MonoBehaviour
         {
 
             
-            agentList[i].position = Vector3.Lerp(agentList[i].position, posSphere[i], timing);
+            agentList[i].position = Vector3.Lerp(posStart[i], posSphere[i], timing);
            
 
-            agentList[i].rotation = angleSphere[i];
-
-        if(Vector3.Distance(agentList[i].transform.position, posSphere[i])<3)
-        {
+            Vector3 dirProjection = transform.position - agentList[i].position;
+           
+            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+            {
+                float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                agentList[i].eulerAngles =  new Vector3(0, angle,0);
+             
+            }               
+      
             LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
             line.enabled =true;
             line.SetPosition(0, transform.position);
             line.SetPosition(1,agentList[i].transform.position );
 
-        }
+        
 
             if (frame > 1 && frame < 3)
             {
@@ -216,7 +235,7 @@ public class TransformationAgent : MonoBehaviour
 
             }
         }
-        timing = speedOfAgent * Time.deltaTime;
+        timing += (1/timeToCome)* Time.deltaTime;
         if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
@@ -224,7 +243,8 @@ public class TransformationAgent : MonoBehaviour
             Physics.IgnoreLayerCollision(9, 10, true);
 
         }
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+      
         frame++;
     }
+    
 }
