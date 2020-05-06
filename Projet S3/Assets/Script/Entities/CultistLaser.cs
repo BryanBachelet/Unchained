@@ -46,6 +46,9 @@ public class CultistLaser : MonoBehaviour
     bool launchLaser = false;
     public int maxFrameDelayAim = 10;
     public List<Vector3> playPreviousPos = new List<Vector3>();
+
+    public float LaserDamagePerSecond = 10;
+    private LifePlayer lifePlayer;
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -56,6 +59,7 @@ public class CultistLaser : MonoBehaviour
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
         ConLaserScript = myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
+        
     }
 
     // Update is called once per frame
@@ -94,14 +98,22 @@ public class CultistLaser : MonoBehaviour
                         distanceHit = Vector3.Distance(transform.position, hit.point);
                         hitPos = hit.point;
                         spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
+                        if(hit.collider.gameObject.layer == 10)
+                        {
+                            if(lifePlayer == null)
+                            {
+                               lifePlayer = hit.collider.gameObject.GetComponent<LifePlayer>();
+                            }
+                            lifePlayer.AddDamage(LaserDamagePerSecond*Time.deltaTime);
+                        }
                     }
                     #region Collider
                     attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
                     attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized * (distanceHit / 2);
-                    attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit);
+                    attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit+10);
 
-                    //attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
-                    //attackCollider.enabled = true;
+                   // attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
+                    attackCollider.enabled = true;
                     myMouseTargetLasersScript.SetActive(true);
                     lasersScript.mouseWorldPosition = hitPos;
                     lasersScript.anim.SetBool("Fire", true);
@@ -114,7 +126,7 @@ public class CultistLaser : MonoBehaviour
                 {
                     ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
                     //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
-                    //attackCollider.enabled = false;
+                    attackCollider.enabled = false;
                     lasersScript.anim.SetBool("Fire", false);
                     if (ConLaserScript.globalProgress > 1)
                     {

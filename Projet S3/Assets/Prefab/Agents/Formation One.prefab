@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &994313741
 Transform:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994313740}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -303,21 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a93a8b62dacb340952d2fe563d59a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCultist: 0
-  speedOfDeplacement: 10
   distance: 40
   spriteGo: {fileID: 1556097146}
   attackCollideGo: {fileID: 994313740}
-  timeBeforeHit: 0.55
-  timeToCharge: 2
-  timeReload: 1
-  frameAttackTime: 200
   wallHit:
     serializedVersion: 2
     m_Bits: 9216
-  strenghProjection: 100
-  prediction: 50
-  anglePrediction: 50
   shotSound: event:/Mob/WindPropulsion
   test: 1
   isAttacking: 0
@@ -325,6 +316,7 @@ MonoBehaviour:
   myMouseTargetLasersScript: {fileID: 1036685528635999334}
   maxFrameDelayAim: 10
   playPreviousPos: []
+  LaserDamagePerSecond: 9
 --- !u!135 &135593847278972914
 SphereCollider:
   m_ObjectHideFlags: 0

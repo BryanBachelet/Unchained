@@ -24,32 +24,43 @@ public class LifePlayer : MonoBehaviour
     private float frameHealth = 0;
     
     private float ratioHp;
+
+    public float deathTimeBeforeReset= 2;
+    [HideInInspector]
+    public bool deathState =false;
+
+    private float compteurDeath = 0;
+
+
+     
     // Start is called before the first frame update
     void Start()
     {
         currentLife = maxLife;   
-         ratioHp = GetRatioHealth();     
+        ratioHp = GetRatioHealth();     
     }
 
     // Update is called once per frame
     void Update()
     { 
-       
-        ratioHp = GetRatioHealth();
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            AddDamage(95);
-        }
+       if(!deathState)
+       {
+      
         ApplyLifeChange();
-        uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount ,ratioHp,speedOfUiFeedback* Time.deltaTime);
         ResetFrame();
+       }else
+       {
+        Debug.Log("Dead");
+        DeathGestion();
+       }
+        ratioHp = GetRatioHealth();
+        uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount ,ratioHp,speedOfUiFeedback* Time.deltaTime);
     }
 
 #region Regeneration
 
     private void RegenerationBehavior()
     {
-        
         if(ratioHp<(startRegenerationLifeLevel/100))
         {
            AddHealth(regenerationLifePerSecond *Time.deltaTime);
@@ -62,11 +73,11 @@ public class LifePlayer : MonoBehaviour
 
     public void AddHealth(float health)
     {
-        frameHealth = health;
+        frameHealth += health;
     }
     public void AddDamage(float damage)
     {
-        frameDamage = damage;
+        frameDamage += damage;
     }
     private void ApplyLifeChange()
     {
@@ -107,8 +118,23 @@ public class LifePlayer : MonoBehaviour
 
     private void PlayerDead()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        deathState = true;
     }
+
+    private void DeathGestion()
+    {
+        if(compteurDeath>deathTimeBeforeReset)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            compteurDeath = 0;
+        }
+        else
+        {
+            compteurDeath +=Time.deltaTime;
+        }
+
+    }
+
 #endregion
     private void ResetFrame()
     {
