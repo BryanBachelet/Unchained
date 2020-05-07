@@ -150,12 +150,14 @@ public class MashingTrans : MonoBehaviour
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
                     setMashingActive =false;
+                     ResetMash();
                     //Camera.main.GetComponent<Threshold>().enabled =false;
                     tempsEcouleMashing += Time.deltaTime;
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
                         if(!isP2)
                         {
+                        Debug.Log("work");
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
@@ -193,10 +195,30 @@ public class MashingTrans : MonoBehaviour
         }
     }
 
+    public void ResetMash()
+    {
+         activationTransformation = false;
+        i.Clear();
+        currentmax = maxNumberToAim;
+        hitColliders = new Collider[0];
+        compteur = 0;
+        numberInput = 0;
+        numberToAim = 0;
+        debugMinRatio = 0;
+        tempsEcouleMashing = 0;
+        posStart = transform.position;
+        activePos =true;
+        if(FastTest.debugMashing)
+        {
+            maxNumberToAim = 6;
+        }
+    }
 
     public void ActiveMashing()
     {
         setMashingActive = true;
+        ResetMash();
+       
     }
 
     public void PropulsionAtFinish()

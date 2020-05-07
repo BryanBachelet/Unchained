@@ -189,12 +189,12 @@ public class EnnemiStock : MonoBehaviour
 
     private void FeedbackHit()
     {
-    Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
-    baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
-    ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-    #region  Son
-    contactSound.start();
-    #endregion
+        Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
+        baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        #region  Son
+        contactSound.start();
+        #endregion
     }
 
     private void ActiveSlam()
@@ -287,7 +287,7 @@ public class EnnemiStock : MonoBehaviour
      public void DetachPlayer(bool active)
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
-        if(ennemiStock.gameObject.GetComponent<Renderer>()!= null)
+        if( ennemiStock != null&& ennemiStock.gameObject.GetComponent<Renderer>()!= null)
         {
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
         }

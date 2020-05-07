@@ -69,7 +69,7 @@ public class CultistLaser : MonoBehaviour
         {
             if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
-                if (isAttacking)
+                if (isAttacking & circle.attack == 1)
                 {
                     if (launchLaser)
                     {
@@ -145,14 +145,13 @@ public class CultistLaser : MonoBehaviour
             }
             if(StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
-                if(launchLaser)
-                {
-                    ConLaserScript.globalProgress = 1;
-                    _AttackTime = 0;
-                    isAttacking = false;
-                    myMouseTargetLasersScript.SetActive(false);
-                    launchLaser = false;
-                }
+                
+                ConLaserScript.globalProgress = 1;
+                _AttackTime = 0;
+                isAttacking = false;
+                myMouseTargetLasersScript.SetActive(false);
+                launchLaser = false;
+             
             }
         }
 
