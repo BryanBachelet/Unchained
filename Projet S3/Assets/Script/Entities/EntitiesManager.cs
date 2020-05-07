@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EntitiesManager : MonoBehaviour
 {
-    public enum BeheaviorCultiste{ RituelPoint,Patrol,Harass}
+    public enum BeheaviorCultiste { RituelPoint, Patrol, Harass }
     public BeheaviorCultiste cultisteBehavior = BeheaviorCultiste.RituelPoint;
     public Transform pointToGo;
     [Header("Patrol")]
@@ -31,7 +31,7 @@ public class EntitiesManager : MonoBehaviour
 
     void Update()
     {
-        if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
             MovementOfManager(patrolMode);
         }
@@ -41,98 +41,109 @@ public class EntitiesManager : MonoBehaviour
     public void MovementOfManager(bool patrol)
     {
 
-        switch(cultisteBehavior) {
-        case(BeheaviorCultiste.RituelPoint):
-            if(circle.attack >=0)
-            {
-                if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
+        switch (cultisteBehavior)
+        {
+            case (BeheaviorCultiste.RituelPoint):
+                if (circle.attack >= 0)
                 {
-                    if(circle.activeRituel)
+                    if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
                     {
+                        if (circle.activeRituel)
+                        {
+                            circle.activeRituel = false;
+                        }
+                        transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement * Time.deltaTime);
+
+                    if(circle.activeRituel)
+                    {  
+                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                         circle.activeRituel = false;                        
                     }
                     transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
                     
-                }else
-                {
-                    if(!circle.activeRituel)
-                    {
-                
-                    circle.activeRituel = true;
-                    }
-                    circle.CastInvoq();
-                }
-            }
-            if(circle.attack ==-1)
-            {  
-                if(circle.activeRituel)
-                {
-                    circle.activeRituel = false;                        
-                }
-                if(!runPlayer)
-                {
-
-                    if (Vector3.Distance(transform.position, circle.childEntities[indexCircleEntities].transform.position) > 20 && 
-                    circle.childEntities[indexCircleEntities].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
-                    {
-                        Debug.DrawLine(transform.position,circle.childEntities[indexCircleEntities].transform.position, Color.green);
-                        Vector3 posToGoEntity = new Vector3(circle.childEntities[indexCircleEntities].transform.position.x,1,circle.childEntities[indexCircleEntities].transform.position.z);
-                        transform.position = Vector3.MoveTowards(transform.position, circle.childEntities[indexCircleEntities].transform.position, speedOfMouvement*Time.deltaTime);
                     }
                     else
                     {
-                        countOfDeath = 0;
-                        for(int i =0; i<circle.childEntities.Length;i++)
-                        {if(circle.childEntities[i].GetComponent<StateOfEntity>() == null)
-                        {   Debug.Log(circle.childEntities[i]);
-                                Debug.Break();
-                        }
-                         if(circle.childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Dead)
-                         {
-                             countOfDeath++;
-                         }
-                         if(countOfDeath>10)
-                         {
-                             runPlayer = true;
-                             break;
-                         }
-                        }
-                         
-                        if(indexCircleEntities<circle.childEntities.Length-1)
+                        if (!circle.activeRituel)
                         {
-                            indexCircleEntities++;
+
+                            circle.activeRituel = true;
+                        }
+                        circle.CastInvoq();
+                    }
+                }
+                if (circle.attack == -1)
+                {
+                    if (circle.activeRituel)
+                    {
+                        circle.activeRituel = false;
+                    }
+                    if (!runPlayer)
+                    {
+
+                        if (Vector3.Distance(transform.position, circle.childEntities[indexCircleEntities].transform.position) > 20 &&
+                        circle.childEntities[indexCircleEntities].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                        {
+                            Debug.DrawLine(transform.position, circle.childEntities[indexCircleEntities].transform.position, Color.green);
+                            Vector3 posToGoEntity = new Vector3(circle.childEntities[indexCircleEntities].transform.position.x, 1, circle.childEntities[indexCircleEntities].transform.position.z);
+                            transform.position = Vector3.MoveTowards(transform.position, circle.childEntities[indexCircleEntities].transform.position, speedOfMouvement * Time.deltaTime);
                         }
                         else
                         {
-                            indexCircleEntities=0;
+                            countOfDeath = 0;
+                            for (int i = 0; i < circle.childEntities.Length; i++)
+                            {
+                                if (circle.childEntities[i].GetComponent<StateOfEntity>() == null)
+                                {
+                                    Debug.Log(circle.childEntities[i]);
+                                    Debug.Break();
+                                }
+                                if (circle.childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Dead)
+                                {
+                                    countOfDeath++;
+                                }
+                                if (countOfDeath > 10)
+                                {
+                                    runPlayer = true;
+                                    break;
+                                }
+                            }
+
+                            if (indexCircleEntities < circle.childEntities.Length - 1)
+                            {
+                                indexCircleEntities++;
+                            }
+                            else
+                            {
+                                indexCircleEntities = 0;
+                            }
                         }
                     }
+                    else
+                    {
+                        circle.ActiveRunPlayer();
+                    }
+                }
+
+                break;
+            case (BeheaviorCultiste.Harass):
+
+
+                cultistLaser.enabled = true;
+
+
+                break;
+            case (BeheaviorCultiste.Patrol):
+
+                if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement * Time.deltaTime);
                 }
                 else
                 {
-                    circle.ActiveRunPlayer();
+                    ChangeIndex();
                 }
-            }
-
-        break;
-        case(BeheaviorCultiste.Harass):
-        
-            
-        cultistLaser.enabled = true;
-
-
-        break;
-        case(BeheaviorCultiste.Patrol) :
-        
-            if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement*Time.deltaTime);
-            }
-            else
-            {
-                ChangeIndex();
-            }
-        break;
+                break;
 
         }
         if (!patrol)
@@ -141,7 +152,7 @@ public class EntitiesManager : MonoBehaviour
         }
         else
         {
-            
+
         }
     }
 

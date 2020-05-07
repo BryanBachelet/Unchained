@@ -16,7 +16,7 @@ public class KillCountPlayer : MonoBehaviour
     public float maxEffectTimeBeforDeath;
     public float timeToWeightReturn;
 
-    public Image uiFeedback;
+  //  public Image uiFeedback;
 
     public float speedOfUiFeedback = 10;
 
@@ -73,7 +73,7 @@ public class KillCountPlayer : MonoBehaviour
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {   
            
-            uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
+          //  uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
 
             if (compteurOfDeath > timeBeforeDeath)
             {

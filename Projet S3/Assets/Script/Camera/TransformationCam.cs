@@ -30,7 +30,7 @@ public class TransformationCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log("test");
         if(cam.i == cam.cams.Count && StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
         {
             originRotation = transform.rotation;

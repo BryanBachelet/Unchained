@@ -179,8 +179,12 @@ public class BoulierBehavior : MonoBehaviour
 
         if(collision.tag =="Wall Layer")
         {
-            isFall = true;
-            transform.GetComponent<Rigidbody>().AddForce(dirDash.normalized* speed,ForceMode.Impulse);
+           if(isGrab)
+            {
+                PlayerMoveAlone.Player1.GetComponent<LifePlayer>().AddDamage(30);
+                PlayerMoveAlone.Player1.GetComponent<PlayerMoveAlone>().AddProjection(-(hit.point -transform.position ).normalized, 60,30);
+                dashState = DashEntityState.Repos;
+            }
         }
     }
     public void OnDestroy()

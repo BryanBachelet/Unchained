@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Colorful;
 public class MashingTrans : MonoBehaviour
 {
     [Header("Paramètre")]
@@ -22,7 +22,7 @@ public class MashingTrans : MonoBehaviour
 
     public float debugMinRatio;
 
-    List<float> i = new List<float>();
+    public List<float> i = new List<float>();
     public float timing;
 
     public Image text;
@@ -41,18 +41,30 @@ public class MashingTrans : MonoBehaviour
     private Collider[] hitColliders;
     private Vector3 posStart;
     private bool activePos;
+
+    public float tempsEcouleMashing;
+    public int tempsMinMashing;
+
+    private GainVelocitySystem gainVelocitySyst;
+    private bool isP2 = false;
+    private int h;
+
+    private bool setMashingActive;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
         agentTransfo = GetComponent<TransformationAgent>();
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
+        gainVelocitySyst = GetComponent<GainVelocitySystem>();
     }
 
     private void OnEnable()
     {
         if (this.enabled == true)
         {
+          
             activationTransformation = false;
             i.Clear();
             currentmax = maxNumberToAim;
@@ -61,6 +73,7 @@ public class MashingTrans : MonoBehaviour
             numberInput = 0;
             numberToAim = 0;
             debugMinRatio = 0;
+            tempsEcouleMashing = 0;
             posStart = transform.position;
             activePos =true;
             if(FastTest.debugMashing)
@@ -88,11 +101,13 @@ public class MashingTrans : MonoBehaviour
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
         debugMinRatio = numberToAim * ratioMinimumMashing;
         if(activePos)
-        {
-            transform.position = posStart;
+       {
+          moveAlone.StopVelocity();
         }
-        if (camMouvement.i >= camMouvement.cams.Count)
-        {
+        if (setMashingActive)
+        { 
+            
+           // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
@@ -134,12 +149,76 @@ public class MashingTrans : MonoBehaviour
 
                     StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
-
+                    setMashingActive =false;
+                     ResetMash();
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
+                    tempsEcouleMashing += Time.deltaTime;
+                    if(tempsEcouleMashing > tempsMinMashing)
+                    {
+                        if(!isP2)
+                        {
+                        Debug.Log("work");
+                            if (i.Count <= 5)
+                            {
+                                gainVelocitySyst.gainMashP1 = 10;
+                            }
+                            else if (i.Count > 5 && i.Count <= 7)
+                            {
+                                gainVelocitySyst.gainMashP1 = 20;
+                            }
+                            else if (i.Count > 7)
+                            {
+                                gainVelocitySyst.gainMashP1 = 30;
+                            }
+                        }
+                        else
+                        {
+                            if (i.Count <= 5)
+                            {
+                                gainVelocitySyst.gainMashP2 = 10;
+                            }
+                            else if (i.Count > 5 && i.Count <= 7)
+                            {
+                                gainVelocitySyst.gainMashP2 = 20;
+                            }
+                            else if (i.Count > 7)
+                            {
+                                gainVelocitySyst.gainMashP2 = 30;
+                            }
+                        }
+                       
+                    }
                 }
+
             }
 
         }
+    }
 
+    public void ResetMash()
+    {
+         activationTransformation = false;
+        i.Clear();
+        currentmax = maxNumberToAim;
+        hitColliders = new Collider[0];
+        compteur = 0;
+        numberInput = 0;
+        numberToAim = 0;
+        debugMinRatio = 0;
+        tempsEcouleMashing = 0;
+        posStart = transform.position;
+        activePos =true;
+        if(FastTest.debugMashing)
+        {
+            maxNumberToAim = 6;
+        }
+    }
+
+    public void ActiveMashing()
+    {
+        setMashingActive = true;
+        ResetMash();
+       
     }
 
     public void PropulsionAtFinish()
@@ -168,7 +247,7 @@ public class MashingTrans : MonoBehaviour
         }
 
         CheckDirection(distShort, index);
-       
+       CinematicCam.StartTransformation(false);
 
     }
 

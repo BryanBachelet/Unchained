@@ -14,7 +14,7 @@ public class RotationPlayer : MonoBehaviour
     public bool limitationLongeur;
     public float limitLongeur;
     float limitLongeurMin = 20;
-    public float speedOfDeplacement= 5;
+    public float speedOfDeplacement = 5;
     private float angleCompteur;
     private float currentAngleMax;
 
@@ -58,7 +58,7 @@ public class RotationPlayer : MonoBehaviour
     private bool start;
 
     private float angleAjout;
- 
+
     private bool activeBool;
 
     private float ratioDist;
@@ -69,8 +69,8 @@ public class RotationPlayer : MonoBehaviour
 
     private float _timeApplyDist;
 
-  
 
+    GainVelocitySystem gainVelocitySyst;
 
     private void Start()
     {
@@ -84,6 +84,7 @@ public class RotationPlayer : MonoBehaviour
         rotationSound = FMODUnity.RuntimeManager.CreateInstance(rotation);
         rotationSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         angleSpeedIni = angleSpeed;
+        gainVelocitySyst = GetComponent<GainVelocitySystem>();
     }
 
     public void FixedUpdate()
@@ -91,59 +92,61 @@ public class RotationPlayer : MonoBehaviour
 
         if (rotate)
         {
-            if(tempsAcceleration > tempsEcouleAcceleration)
+            if (tempsAcceleration > tempsEcouleAcceleration)
             {
                 tempsEcouleAcceleration += Time.deltaTime;
             }
-            if(!checksound)
+            if (!checksound)
             {
                 rotationSound.start();
                 checksound = true;
             }
-          
+
             if (tagEnter == tag)
             {
                 pointPivot = stocks.ennemiStock.transform.position;
             }
-            if(_timeApplyDist<timeApplyDist)
+            if (_timeApplyDist < timeApplyDist)
             {
                 _timeApplyDist += Time.deltaTime;
-                ratioDist = 1/(GetDistance()/limitLongeur);
-           
+                ratioDist = 1 / (GetDistance() / limitLongeur);
+
             }
             else
             {
-             ratioDist += 0.5f * Time.deltaTime;
+                ratioDist += 0.5f * Time.deltaTime;
             }
 
-            ratioDist = Mathf.Clamp(ratioDist,0,1);  
 
-            angleSpeed = accelerationValue.Evaluate(tempsEcouleAcceleration*0.5f) * checkSensRotation;
+            ratioDist = Mathf.Clamp(ratioDist, 0, 1);
+
+            angleSpeed = gainVelocitySyst.CalculGain((accelerationValue.Evaluate(tempsEcouleAcceleration * 0.5f)) * checkSensRotation);
+           
             angleCompteur += Mathf.Abs(angleSpeed) * Time.deltaTime;
-    
-            transform.RotateAround(pointPivot, Vector3.up, angleSpeed * ratioDist  * Time.deltaTime);
-            if(angleAjout >0)
+
+            transform.RotateAround(pointPivot, Vector3.up, angleSpeed * ratioDist * Time.deltaTime);
+            if (angleAjout > 0)
             {
-                angleAjout -=10 *Time.deltaTime;
+                angleAjout -= 10 * Time.deltaTime;
             }
 
             if (limitationLongeur)
             {
-               
-                
-                    if (GetDistance() > limitLongeur)
-                    {
+
+
+                if (GetDistance() > limitLongeur)
+                {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeur;
                     transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
-                    }
-                    if (GetDistance() < limitLongeurMin)
-                    {
+                }
+                if (GetDistance() < limitLongeurMin)
+                {
                     Vector3 dir = (transform.position - pointPivot).normalized;
                     Vector3 posToGo = pointPivot + dir * limitLongeurMin;
                     transform.position = Vector3.Lerp(transform.position, posToGo, speedOfDeplacement * Time.deltaTime);
-                    }
-                
+                }
+
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
@@ -154,14 +157,25 @@ public class RotationPlayer : MonoBehaviour
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
-
-         
-
             GetNextDirection();
+            Vector3 dirRay = (pointPivot - transform.position).normalized;
+        
+            Ray ray = new Ray(transform.position, GetDirection(dirRay));
+            Debug.DrawRay(transform.position, ray.direction.normalized* (2*( Mathf.Abs(angleSpeed) * Time.deltaTime)), Color.yellow);
+            RaycastHit hit;
+                
+            if (Physics.Raycast(ray, out hit, 2*( Mathf.Abs(angleSpeed) * Time.deltaTime)) )
+            {
+                Debug.Log(hit.collider.gameObject.layer);
+                if(hit.collider.gameObject.layer == 13)
+                {
+                    stocks.DetachPlayer();
+                }
+            }
         }
         else
         {
-            if(checksound)
+            if (checksound)
             {
                 rotationSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 checksound = false;
@@ -170,7 +184,12 @@ public class RotationPlayer : MonoBehaviour
         }
     }
 
-  
+    private void DetectWall()
+    {
+        
+    }
+
+
     public bool StartRotation(GameObject objetRotate, GameObject positionPivot, string tag, float forceSortie, bool changeRotate)
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Rotate);
@@ -182,16 +201,16 @@ public class RotationPlayer : MonoBehaviour
         changeSens = false;
         i = 0;
 
-        _timeApplyDist =0;
+        _timeApplyDist = 0;
         right = true;
 
-         /* Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
-            if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
-            {
-                angleAjout = 70 * -Mathf.Sign(angleSpeed);
-                activeBool = true;
-            }   
-        */
+        /* Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
+           if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
+           {
+               angleAjout = 70 * -Mathf.Sign(angleSpeed);
+               activeBool = true;
+           }   
+       */
         if (changeRotate)
         {
             if (angleSpeed > 0)
@@ -223,13 +242,13 @@ public class RotationPlayer : MonoBehaviour
 
         right = true;
 
-      /*  Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
-        if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
-        {
-            angleAjout = 70 * -Mathf.Sign(angleSpeed);
-            activeBool = true;
-        }   
-*/
+        /*  Vector3 dirTry = Quaternion.Euler(0,90 *Mathf.Sign(angleSpeed),0)* (transform.position - pointPivot).normalized;
+          if(Vector3.Dot(moveAlone.DirProjection.normalized,dirTry.normalized)>0)
+          {
+              angleAjout = 70 * -Mathf.Sign(angleSpeed);
+              activeBool = true;
+          }   
+  */
         if (changeRotate)
         {
             if (angleSpeed > 0)
@@ -248,10 +267,10 @@ public class RotationPlayer : MonoBehaviour
     }
 
     public void MoveKey()
-    {   
-        key  = accelerationValue.keys[0];
-        key.value = 80 + (moveAlone.currentPowerOfProjection *1.5f);
-        accelerationValue.MoveKey(0,key);
+    {
+        key = accelerationValue.keys[0];
+        key.value = 80 + (moveAlone.currentPowerOfProjection * 1.5f);
+        accelerationValue.MoveKey(0, key);
     }
 
     public void StopRotation(bool isWall, float strenghPropulsion, float deprojectionStrenght)
@@ -266,7 +285,7 @@ public class RotationPlayer : MonoBehaviour
         }
 
         CheckEnnnemi(isWall, angleSpeed);
-       
+
         moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
@@ -304,7 +323,7 @@ public class RotationPlayer : MonoBehaviour
         rotate = false;
 
     }
-  public void StopRotation(Vector3 dir,  float strenghPropulsion, float deprojectionStrenght)
+    public void StopRotation(Vector3 dir, float strenghPropulsion, float deprojectionStrenght)
     {
         if (StateAnim.state == StateAnim.CurrentState.Rotate)
         {
@@ -318,7 +337,7 @@ public class RotationPlayer : MonoBehaviour
         CheckEnnnemi(false, angleSpeed, dir);
        
        dir = new Vector3(dir.x,0,dir.z);
-        moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
+        moveAlone.AddProjection(dir.normalized, strenghPropulsion, deprojectionStrenght);
         playerRigid.AddForce(-Vector3.up.normalized * 50, ForceMode.Impulse);
         transform.GetComponent<WallRotate>().hasHitWall = false;
         if (vfxShockWave != null)
@@ -359,14 +378,14 @@ public class RotationPlayer : MonoBehaviour
 
     public void StopRotateSlam()
     {
-      rotate = false;
+        rotate = false;
     }
 
     public float GetAngle()
     {
-            float angleToReturn = 0;
-            angleToReturn = angleCompteur;
-            return angleToReturn;
+        float angleToReturn = 0;
+        angleToReturn = angleCompteur;
+        return angleToReturn;
     }
 
     private void CheckEnnnemi(bool isEnnemi, float rightRotate)
@@ -375,30 +394,30 @@ public class RotationPlayer : MonoBehaviour
 
         if (gameObjectPointPivot != null)
         {
-            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false,Vector3.up);
+            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false, Vector3.up);
         }
         if (moveAlone != null)
         {
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
-          //  moveAlone.DirProjection = newDir;
-           // moveAlone.currentPowerOfProjection = forceOfSortie;
+            //  moveAlone.DirProjection = newDir;
+            // moveAlone.currentPowerOfProjection = forceOfSortie;
         }
 
     }
-     private void CheckEnnnemi(bool isEnnemi, float rightRotate, Vector3 Dir)
+    private void CheckEnnnemi(bool isEnnemi, float rightRotate, Vector3 Dir)
     {
 
 
         if (gameObjectPointPivot != null)
         {
-            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false,Vector3.up);
+            gameObjectPointPivot.GetComponent<StateOfEntity>().DestroyProjection(false, Vector3.up);
         }
         if (moveAlone != null)
         {
             GetDirection();
             //Chara.transform.localEulerAngles = Vector3.zero;
-            Dir = new Vector3(Dir.x,0,Dir.z);
+            Dir = new Vector3(Dir.x, 0, Dir.z);
             //moveAlone.DirProjection = Dir;
             //moveAlone.currentPowerOfProjection = forceOfSortie;
         }
@@ -419,6 +438,21 @@ public class RotationPlayer : MonoBehaviour
         }
 
         return newDir;
+    }
+
+    private Vector3 GetDirection(Vector3 dirGive)
+    {
+        Vector3 dir =  new Vector3(0,0,0) ;
+        if (angleSpeed > 0)
+        {
+            dir = Quaternion.Euler(0, -90, 0) * dirGive;
+        }
+        if(angleSpeed<0)
+        {
+            dir = Quaternion.Euler(0, 90, 0) * dirGive;
+        }
+        return dir;
+
     }
     private float GetDistance()
     {

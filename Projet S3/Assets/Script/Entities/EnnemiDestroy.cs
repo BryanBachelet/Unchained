@@ -30,6 +30,7 @@ public class EnnemiDestroy : MonoBehaviour
     private float currentForce = 0;
     private StateOfEntity stateOfEntity;
 
+    private Anim_Cultist_States anim_Cultist_States;
 
     void Awake()
     {
@@ -37,6 +38,10 @@ public class EnnemiDestroy : MonoBehaviour
         ennemiRigidBody = GetComponent<Rigidbody>();
         player = PlayerMoveAlone.Player1;
         currentForceOfEjection =  ejectionPower;
+        if(GetComponentInChildren<Anim_Cultist_States>() != null)
+        {
+            anim_Cultist_States  =  GetComponentInChildren<Anim_Cultist_States>();
+        }
     }
 
     void Update()
@@ -91,6 +96,11 @@ public class EnnemiDestroy : MonoBehaviour
         if (currentForceOfEjection > 0)
         {
             currentForceOfEjection -= deccelerationOfForceOfEjection * Time.deltaTime;
+            RotateAgent();
+           if(anim_Cultist_States != null)
+           {
+            anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Projection_FallAir);
+           } 
         }
         else
         {
@@ -111,13 +121,16 @@ public class EnnemiDestroy : MonoBehaviour
             ennemiRigidBody.velocity += (Vector3.up * Physics.gravity.y * (lowMultiplier - 1) * Time.deltaTime);
         }
 
-
     }
 
     public void ExplosionAgent()
     {
        
         ennemiRigidBody.velocity = (dirProjection.normalized * currentForceOfEjection);
+        if(anim_Cultist_States != null)
+        {
+            anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Projection_FallAir);
+        } 
     }
 
     private void DestroyAgent()
@@ -133,7 +146,11 @@ public class EnnemiDestroy : MonoBehaviour
     {
         currentForceOfEjection = ejectionPower;
         compteur = 0;
-        stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation;
+        stateOfEntity.entity = StateOfEntity.EntityState.ReturnFormation; 
+        if(GetComponentInChildren<Anim_Cultist_States>() != null)
+        {
+          anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Run);
+        }
     }
 
     private void DetectWall()
@@ -163,6 +180,16 @@ public class EnnemiDestroy : MonoBehaviour
         if (collision.collider.tag == "wall" && stateOfEntity.entity ==StateOfEntity.EntityState.Destroy)
         {
             DestroyAgent();
+        }
+    }
+
+    public void RotateAgent()
+    {
+        if(Vector3.Angle(transform.forward, -dirProjection.normalized)>1)
+        {
+         
+            float angle =   Vector3.SignedAngle(transform.forward,-dirProjection.normalized, Vector3.up);
+           transform.eulerAngles =  new Vector3(0, angle,0);
         }
     }
 }
