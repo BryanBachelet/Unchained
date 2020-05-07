@@ -59,7 +59,7 @@ public class CultistLaser : MonoBehaviour
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
         ConLaserScript = myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
-        moveTo = Random.insideUnitSphere * radiusRNDTogo;
+        moveTo = new Vector3(4.2f, 0, 34.9f) + Random.insideUnitSphere * radiusRNDTogo;
     }
 
     // Update is called once per frame
@@ -67,6 +67,7 @@ public class CultistLaser : MonoBehaviour
     {
         if (test != false)
         {
+
             if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
                 if (!isMoving)

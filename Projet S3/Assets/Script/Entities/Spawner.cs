@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
         }
         else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
         {
-            if (compteur > timeOfSpawn + 10)
+            if (compteur > timeOfSpawn - 10)
             {
                 SpawnEntities(patrolMode);
                 compteur = 0;
