@@ -5,22 +5,22 @@ using UnityEngine;
 public class CultistLaser : MonoBehaviour
 {
 
-   
+
     public float distance;
 
     public GameObject spriteGo;
 
     public GameObject attackCollideGo;
-    
+
 
     public LayerMask wallHit;
 
-  
+
     private GameObject player;
 
     private CircleFormation circle;
     private BoxCollider attackCollider;
- 
+
 
     private SpriteRenderer spriteRend;
     private CultistLaserEffect cultistLaserEffect;
@@ -49,6 +49,9 @@ public class CultistLaser : MonoBehaviour
 
     public float LaserDamagePerSecond = 10;
     private LifePlayer lifePlayer;
+    public bool isMoving = true;
+    public Vector3 moveTo = new Vector3(4.2f, 0, 34.9f);
+    public float radiusRNDTogo;
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -59,7 +62,7 @@ public class CultistLaser : MonoBehaviour
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
         ConLaserScript = myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
-        
+        moveTo = Random.insideUnitSphere * radiusRNDTogo;
     }
 
     // Update is called once per frame
@@ -69,23 +72,77 @@ public class CultistLaser : MonoBehaviour
         {
             if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
-                if (isAttacking & circle.attack == 1)
+                if (!isMoving)
                 {
-                    if (launchLaser)
+                    if (isAttacking  & circle.attack == 1)
                     {
-                        lasersScript.startWavePS.Emit(1);
-                        ConLaserScript.hitPsArray[1].Emit(100);
+                        if (launchLaser)
+                        {
+                            lasersScript.startWavePS.Emit(1);
+                            ConLaserScript.hitPsArray[1].Emit(100);
 
-                        lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
-                        launchLaser = false;
-                    }
-                    if (playPreviousPos.Count <= maxFrameDelayAim)
-                    {
-                        playPreviousPos.Add(player.transform.position);
+                            lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
+                            launchLaser = false;
+                        }
+                        if (playPreviousPos.Count <= maxFrameDelayAim)
+                        {
+                            playPreviousPos.Add(player.transform.position);
+                        }
+                        else
+                        {
+                            playPreviousPos.RemoveAt(0);
+                            playPreviousPos.Add(player.transform.position);
+                        }
+                        float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
+                        spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
+
+                        RaycastHit hit;
+                        float distanceHit = 0;
+                        if (Physics.Raycast(transform.position + Vector3.up, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
+                        {
+                            distanceHit = Vector3.Distance(transform.position, hit.point);
+                            hitPos = hit.point;
+                            spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
+                        }
+                        #region Collider
+                        attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
+                        attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized * (distanceHit / 2);
+                        attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit);
+
+                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
+                        //attackCollider.enabled = true;
+                        myMouseTargetLasersScript.SetActive(true);
+                        lasersScript.mouseWorldPosition = hitPos;
+                        lasersScript.anim.SetBool("Fire", true);
+                        ConLaserScript.globalProgress = 0;
+
+
+                        #endregion
                     }
                     else
                     {
-                        playPreviousPos.RemoveAt(0);
+                        ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
+                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
+                        //attackCollider.enabled = false;
+                        lasersScript.anim.SetBool("Fire", false);
+                        if (ConLaserScript.globalProgress > 1)
+                        {
+                            myMouseTargetLasersScript.SetActive(false);
+                        }
+
+
+                    }
+                    if (_AttackTime > timeAttack)
+                    {
+                        isAttacking = isAttacking == false ? true : false;
+                        _AttackTime = 0;
+                        launchLaser = true;
+                    }
+                    _AttackTime += Time.deltaTime;
+                }
+                else
+                {
+                    if(Vector3.Distance(transform.position, new Vector3(moveTo.x, 1, moveTo.z)) > 1f)
                         playPreviousPos.Add(player.transform.position);
                     }
                     float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
@@ -132,6 +189,18 @@ public class CultistLaser : MonoBehaviour
                     {
                         myMouseTargetLasersScript.SetActive(false);
                     }
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTo.x, 1, moveTo.z), 8 * Time.deltaTime);
+                        Debug.Log("je me déplace vraiment vite");
+                    }
+                    else
+                    {
+                        isMoving = false;
+                    }
+                }
+            }
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+            {
 
 
                 }
@@ -147,14 +216,14 @@ public class CultistLaser : MonoBehaviour
             {
                 
                 ConLaserScript.globalProgress = 1;
-                _AttackTime = 0;
-                isAttacking = false;
-                myMouseTargetLasersScript.SetActive(false);
-                launchLaser = false;
-             
             }
         }
 
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(new Vector3(4.2f, 1, 34.9f), radiusRNDTogo);
+        Gizmos.DrawSphere(new Vector3(moveTo.x, 1, moveTo.z), 1f);
     }
 
 }
