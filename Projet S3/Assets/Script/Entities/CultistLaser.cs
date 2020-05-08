@@ -62,7 +62,7 @@ public class CultistLaser : MonoBehaviour
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
         ConLaserScript = myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
-        moveTo = Random.insideUnitSphere * radiusRNDTogo;
+        moveTo = new Vector3(4.2f, 0, 34.9f) + Random.insideUnitSphere * radiusRNDTogo;
     }
 
     // Update is called once per frame
@@ -70,6 +70,7 @@ public class CultistLaser : MonoBehaviour
     {
         if (test != false)
         {
+
             if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
                 if (!isMoving)
@@ -93,70 +94,22 @@ public class CultistLaser : MonoBehaviour
                             playPreviousPos.RemoveAt(0);
                             playPreviousPos.Add(player.transform.position);
                         }
-                        float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
-                        spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
-
-                        RaycastHit hit;
-                        float distanceHit = 0;
-                        if (Physics.Raycast(transform.position + Vector3.up, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
-                        {
-                            distanceHit = Vector3.Distance(transform.position, hit.point);
-                            hitPos = hit.point;
-                            spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
-                        }
-                        #region Collider
-                        attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
-                        attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized * (distanceHit / 2);
-                        attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit);
-
-                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
-                        //attackCollider.enabled = true;
-                        myMouseTargetLasersScript.SetActive(true);
-                        lasersScript.mouseWorldPosition = hitPos;
-                        lasersScript.anim.SetBool("Fire", true);
-                        ConLaserScript.globalProgress = 0;
-
-
-                        #endregion
-                    }
-                    else
-                    {
-                        ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
-                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
-                        //attackCollider.enabled = false;
-                        lasersScript.anim.SetBool("Fire", false);
-                        if (ConLaserScript.globalProgress > 1)
-                        {
-                            myMouseTargetLasersScript.SetActive(false);
-                        }
-
-
-                    }
-                    if (_AttackTime > timeAttack)
-                    {
-                        isAttacking = isAttacking == false ? true : false;
-                        _AttackTime = 0;
-                        launchLaser = true;
-                    }
-                    _AttackTime += Time.deltaTime;
-                }
-                else
-                {
-                    if(Vector3.Distance(transform.position, new Vector3(moveTo.x, 1, moveTo.z)) > 1f)
-                        playPreviousPos.Add(player.transform.position);
-                    }
+                      
+                        
                     float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
                     spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
                    
                     RaycastHit hit;
                     float distanceHit = 0;
-                    if (Physics.Raycast(transform.position + Vector3.up, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
+                    Debug.DrawRay(transform.position,spriteGo.transform.right*100);
+                    if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
                     {
                         distanceHit = Vector3.Distance(transform.position, hit.point);
                         hitPos = hit.point;
                         spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
                         if(hit.collider.gameObject.layer == 10)
                         {
+                            Debug.Log("Work life");
                             if(lifePlayer == null)
                             {
                                lifePlayer = hit.collider.gameObject.GetComponent<LifePlayer>();
@@ -165,36 +118,43 @@ public class CultistLaser : MonoBehaviour
                         }
                     }
                     #region Collider
-                    attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
-                    attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized * (distanceHit / 2);
-                    attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit+10);
-
-                   // attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
-                    attackCollider.enabled = true;
+                   
                     myMouseTargetLasersScript.SetActive(true);
                     lasersScript.mouseWorldPosition = hitPos;
                     lasersScript.anim.SetBool("Fire", true);
                     ConLaserScript.globalProgress = 0;
 
-
-                    #endregion
-                }
-                else
-                {
-                    ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
-                    //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
-                    attackCollider.enabled = false;
-                    lasersScript.anim.SetBool("Fire", false);
-                    if (ConLaserScript.globalProgress > 1)
+                    if(_AttackTime>timeAttack)
                     {
-                        myMouseTargetLasersScript.SetActive(false);
+                        isAttacking = false;
+                        _AttackTime  = 0;
                     }
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTo.x, 1, moveTo.z), 8 * Time.deltaTime);
-                        Debug.Log("je me déplace vraiment vite");
+                            _AttackTime +=Time.deltaTime;
+                         
+                    #endregion
                     }
                     else
                     {
+                    if(_AttackTime>timeAttack)
+                    {
+                        isAttacking = true;
+                        _AttackTime  = 0;
+                    }
+                     myMouseTargetLasersScript.SetActive(false);
+                    _AttackTime +=Time.deltaTime;
+                         
+                    }
+                }
+                else
+                {
+                 
+                 
+                    if(Vector3.Distance(transform.position, new Vector3(moveTo.x, 1, moveTo.z)) > 1f)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTo.x, 1, moveTo.z), 8 * Time.deltaTime);
+                    }
+                    else
+                    {     isAttacking =true;
                         isMoving = false;
                     }
                 }
@@ -202,28 +162,14 @@ public class CultistLaser : MonoBehaviour
             if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
 
-
-                }
-                if (_AttackTime > timeAttack)
-                {
-                    isAttacking = isAttacking == false ? true : false;
+                  isAttacking = false;
                     _AttackTime = 0;
-                    launchLaser = true;
-                }
-                _AttackTime += Time.deltaTime;
+                 launchLaser = true;
+               
             }
-            if(StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
-            {
-                
-                ConLaserScript.globalProgress = 1;
-            }
+           
         }
 
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(new Vector3(4.2f, 1, 34.9f), radiusRNDTogo);
-        Gizmos.DrawSphere(new Vector3(moveTo.x, 1, moveTo.z), 1f);
-    }
-
+   
 }

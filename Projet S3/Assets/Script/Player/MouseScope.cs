@@ -13,6 +13,8 @@ public class MouseScope : MonoBehaviour
     public bool controllerPc;
     static bool stateOfController;
     public LayerMask maskPC = 12;
+    public GameObject uiImageGamePad;
+    public GameObject uiImageKeyboard;
 
     [Tooltip("Only for Contoller")]
     public float deadZone = 0.1f;
@@ -367,10 +369,14 @@ public class MouseScope : MonoBehaviour
         if(!controllerPc)
         {
             controllerPc = true;
+            uiImageKeyboard.SetActive(true);
+            uiImageGamePad.SetActive(false);
         }
         else if(controllerPc)
         {
             controllerPc = false;
+            uiImageKeyboard.SetActive(false);
+            uiImageGamePad.SetActive(true);
         }
     }
 

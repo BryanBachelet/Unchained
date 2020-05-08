@@ -6,13 +6,14 @@ public class ManageEntity : MonoBehaviour
 {
     public enum EntityType
     {
-        Cultiste, Distance, Coloss
+        Cultiste, Distance, Coloss, Patrole
     }
     public EntityType Type = EntityType.Cultiste;
 
     public int maxCultisteInspec;
     public int maxDistanceInspec;
     public int maxColossInspec;
+    public int maxPatrolInspec;
 
     public List<GameObject> ritualPoint;
 
@@ -28,13 +29,16 @@ public class ManageEntity : MonoBehaviour
     private static int nbCultiste;
     private static int nbDistance;
     private static int nbColoss;
+    private static int nbPatrol;
     private static int maxCultiste;
     private static int maxDistance;
     private static int maxColoss;
+    private static int maxPatrol;
 
     public int currentNbCultiste;
     public int currentNbDistance;
     public int currentNbColoss;
+    public int currentNbPatrol;
 
     public float _timeCounter;
 
@@ -51,9 +55,11 @@ public class ManageEntity : MonoBehaviour
         nbCultiste = 0;
         nbDistance = 0;
         nbColoss = 0;
+        nbPatrol = 0;
         maxCultiste = maxCultisteInspec;
         maxDistance = maxDistanceInspec;
         maxColoss = maxColossInspec;
+        maxPatrol = maxPatrolInspec;
 
         nonActiveRitualPoint = ritualPoint;
         _timeCounter = spawnTime / 1.5f;
@@ -140,6 +146,18 @@ public class ManageEntity : MonoBehaviour
                 return false;
             }
         }
+        else if (typeToInstiate == EntityType.Patrole)
+        {
+            if (nbPatrol < maxPatrol)
+            {
+                nbPatrol++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         else
         {
             return false;
@@ -163,6 +181,12 @@ public class ManageEntity : MonoBehaviour
         {
 
             nbColoss--;
+
+        }
+        else if (typeToDestroy == EntityType.Patrole)
+        {
+
+            nbPatrol--;
 
         }
     }

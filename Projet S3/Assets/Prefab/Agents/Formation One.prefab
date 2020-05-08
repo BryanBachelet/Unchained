@@ -312,11 +312,13 @@ MonoBehaviour:
   shotSound: event:/Mob/WindPropulsion
   test: 1
   isAttacking: 0
-  timeAttack: 5
+  timeAttack: 1
   myMouseTargetLasersScript: {fileID: 1036685528635999334}
   maxFrameDelayAim: 10
   playPreviousPos: []
-  LaserDamagePerSecond: 9
+  LaserDamagePerSecond: 10
+  isMoving: 1
+  moveTo: {x: 4.2, y: 0, z: 34.9}
   radiusRNDTogo: 10
 --- !u!135 &135593847278972914
 SphereCollider:
@@ -968,6 +970,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 120089399277149298, guid: 801f3278414a8834da90f8e956d6ce51,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31a66b25363113c4e9d6234f73c76361, type: 2}
     - target: {fileID: 6955470692709581098, guid: 801f3278414a8834da90f8e956d6ce51,
         type: 3}
       propertyPath: fallMultiplier
@@ -988,11 +995,6 @@ PrefabInstance:
       propertyPath: upForce
       value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 120089399277149298, guid: 801f3278414a8834da90f8e956d6ce51,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 31a66b25363113c4e9d6234f73c76361, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 801f3278414a8834da90f8e956d6ce51, type: 3}
 --- !u!4 &6588766864839571149 stripped
