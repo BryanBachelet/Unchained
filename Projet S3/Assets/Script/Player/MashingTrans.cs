@@ -125,6 +125,7 @@ public class MashingTrans : MonoBehaviour
 
                 }
                 compteur += Time.deltaTime;
+                tempsEcouleMashing += Time.deltaTime;
                 text.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
@@ -137,7 +138,7 @@ public class MashingTrans : MonoBehaviour
                     text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
                 }
-                if (i.Count > numberToAim)
+                if (tempsEcouleMashing > tempsMinMashing)
                 {
                     activePos =false;
                    // Physics.IgnoreLayerCollision(9, 9, false);
@@ -151,7 +152,7 @@ public class MashingTrans : MonoBehaviour
                     transform.GetComponent<PlayerMoveAlone>().enabled = true;
                     setMashingActive =false;
                     //Camera.main.GetComponent<Threshold>().enabled =false;
-                    tempsEcouleMashing += Time.deltaTime;
+
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
                         if(!isP2)
@@ -159,14 +160,17 @@ public class MashingTrans : MonoBehaviour
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
+                                DataPlayer.ChangeScore(1000);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 20;
+                                DataPlayer.ChangeScore(2500);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 30;
+                                DataPlayer.ChangeScore(5000);
                             }
                         }
                         else
@@ -174,14 +178,17 @@ public class MashingTrans : MonoBehaviour
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP2 = 10;
+                                DataPlayer.ChangeScore(1000);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 20;
+                                DataPlayer.ChangeScore(2500);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 30;
+                                DataPlayer.ChangeScore(5000);
                             }
                         }
                        

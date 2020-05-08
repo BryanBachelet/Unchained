@@ -58,8 +58,20 @@ public class Spawner : MonoBehaviour
     private void SpawnEntities(bool patrol)
     {
         bool checkCultiste = false;
-
-        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste))
+        bool checkPatrol = false;
+        if(ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Patrole))
+        {
+            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+            ManageEntity.nbEntity += 20;
+            ManageEntity.nbEntityTotal += 20;
+            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;
+            manager.pointToGo = target.transform;
+            manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
+            manager.speedOfMouvement = speedOfAgent;
+            checkPatrol = true;
+        }
+        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste) && checkPatrol == false)
         {
 
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);

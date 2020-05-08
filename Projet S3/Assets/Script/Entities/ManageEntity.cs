@@ -15,7 +15,8 @@ public class ManageEntity : MonoBehaviour
     public int maxColossInspec;
     public int maxPatrolInspec;
 
-    public List<GameObject> ritualPoint;
+    public static Transform[] ritualPoint = new Transform[8];
+    public GameObject[] ritualPointPublic;
 
 
     public static List<GameObject> nonActiveRitualPoint;
@@ -61,7 +62,12 @@ public class ManageEntity : MonoBehaviour
         maxColoss = maxColossInspec;
         maxPatrol = maxPatrolInspec;
 
-        nonActiveRitualPoint = ritualPoint;
+        for(int i = 0; i < ritualPointPublic.Length ; i++)
+        {
+            ritualPoint[i] = ritualPointPublic[i].transform;
+        }
+
+        //nonActiveRitualPoint = ;
         _timeCounter = spawnTime / 1.5f;
     }
 
