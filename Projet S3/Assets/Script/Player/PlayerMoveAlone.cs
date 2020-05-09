@@ -140,6 +140,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             TransmitionOfStrenghOfExpulsion();
         }
+        
     }
 
 
@@ -250,6 +251,8 @@ public class PlayerMoveAlone : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
         aura.SetActive(false);
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        this.enabled =false;
     }
     public void  StopVelocity()
     {

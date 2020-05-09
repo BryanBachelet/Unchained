@@ -51,6 +51,15 @@ public class MashingTrans : MonoBehaviour
 
     private bool setMashingActive;
 
+    private PlayerAnimState playerAnim;
+
+    public float timeFinishMash;
+
+    private float compteurFinishMash;
+
+    private bool activeFinishMash;
+
+    [HideInInspector] public bool activeMash;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -58,6 +67,7 @@ public class MashingTrans : MonoBehaviour
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
         gainVelocitySyst = GetComponent<GainVelocitySystem>();
+        playerAnim  = GetComponent<PlayerAnimState>(); 
     }
 
     private void OnEnable()
@@ -113,8 +123,9 @@ public class MashingTrans : MonoBehaviour
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
             }
-            if (hitColliders.Length > 7)
+            if (activeMash)
             {
+             
                 if (timeSave + timeToDeacrese < compteur)
                 {
                     if (currentmax > minNumberToAim + 2)
@@ -125,36 +136,51 @@ public class MashingTrans : MonoBehaviour
 
                 }
                 compteur += Time.deltaTime;
-                text.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
+                }
+                  if (i.Count < numberToAim)
+                {
+                    
+                    text.gameObject.SetActive(true);
+
                 }
                 if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
                 {
                   //  Physics.IgnoreLayerCollision(9, 9, false);
                     Physics.IgnoreLayerCollision(9, 10, false);
-                    text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
                 }
                 if (i.Count > numberToAim)
                 {
-                    activePos =false;
-                   // Physics.IgnoreLayerCollision(9, 9, false);
-                    Physics.IgnoreLayerCollision(9, 10, false);
-                    text.gameObject.SetActive(false);
-                    agentTransfo.ActiveExplosion();
-                    activeExplode = true;
-                    PropulsionAtFinish();
-
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                    setMashingActive =false;
-                     ResetMash();
-                    //Camera.main.GetComponent<Threshold>().enabled =false;
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveFinish);
                     tempsEcouleMashing += Time.deltaTime;
+                    text.gameObject.SetActive(false);
+                        
+                   if(compteurFinishMash>timeFinishMash)
+                   {
+                        activePos =false;
+                    // Physics.IgnoreLayerCollision(9, 9, false);
+                        Physics.IgnoreLayerCollision(9, 10, false);
+                        agentTransfo.ActiveExplosion();
+                        activeExplode = true;
+                        PropulsionAtFinish();
+
+                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                        setMashingActive =false;
+                        ResetMash();
+                        compteurFinishMash =0;
+                        activeMash = false; 
+                   }
+                   
+                   compteurFinishMash +=Time.deltaTime;
+
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
+                    
                         if(!isP2)
                         {
                         Debug.Log("work");

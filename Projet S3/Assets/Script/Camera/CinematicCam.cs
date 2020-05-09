@@ -51,8 +51,8 @@ public class CinematicCam : MonoBehaviour
     void Start()
     {
         activeCinematicCam =false;
-        mashing = pointFocus.GetComponent<MashingTrans>();
-        agentTransfo = pointFocus.GetComponent<TransformationAgent>();
+        mashing = PlayerMoveAlone.Player1.GetComponent<MashingTrans>();
+        agentTransfo = PlayerMoveAlone.Player1.GetComponent<TransformationAgent>();
         durationTotal = timeOfPlan +timeOfPlan2;
     }
 
@@ -84,6 +84,7 @@ public class CinematicCam : MonoBehaviour
                     currentPlan =NamePlan.Plan2;
                     SetPosition(false);
                     compteurTimePlan = 0;
+                    mashing.activeMash = true; 
                 }
                 compteurTimePlan +=Time.deltaTime;
                 ratioTimePlan = compteurTimePlan /timeOfPlan;
