@@ -150,7 +150,8 @@ public class RotationPlayer : MonoBehaviour
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
-            float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+           // float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+            float angle = Vector3.SignedAngle(Vector3.forward, (pointPivot-transform.position).normalized,Vector3.up);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, pointPivot);

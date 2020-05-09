@@ -46,6 +46,9 @@ public class CultistLaser : MonoBehaviour
     bool launchLaser = false;
     public int maxFrameDelayAim = 10;
     public List<Vector3> playPreviousPos = new List<Vector3>();
+
+    public float LaserDamagePerSecond = 10;
+    private LifePlayer lifePlayer;
     public bool isMoving = true;
     public Vector3 moveTo = new Vector3(4.2f, 0, 34.9f);
     public float radiusRNDTogo;
@@ -72,8 +75,9 @@ public class CultistLaser : MonoBehaviour
             {
                 if (!isMoving)
                 {
-                    if (isAttacking)
+                    if (isAttacking  & circle.attack == 1)
                     {
+                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                         if (launchLaser)
                         {
                             lasersScript.startWavePS.Emit(1);
@@ -91,84 +95,117 @@ public class CultistLaser : MonoBehaviour
                             playPreviousPos.RemoveAt(0);
                             playPreviousPos.Add(player.transform.position);
                         }
-                        float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
-                        spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
-
-                        RaycastHit hit;
-                        float distanceHit = 0;
-                        if (Physics.Raycast(transform.position + Vector3.up, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
+                      
+                        
+                    float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
+                    spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);
+                   
+                    RaycastHit hit;
+                    float distanceHit = 0;
+                    Debug.DrawRay(transform.position,spriteGo.transform.right*100);
+                    if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
+                    {
+                        distanceHit = Vector3.Distance(transform.position, hit.point);
+                        hitPos = hit.point;
+                        spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
+                        if(hit.collider.gameObject.layer == 10)
                         {
-                            distanceHit = Vector3.Distance(transform.position, hit.point);
-                            hitPos = hit.point;
-                            spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
+                            
+                            if(lifePlayer == null)
+                            {
+                               lifePlayer = hit.collider.gameObject.GetComponent<LifePlayer>();
+                            }
+                            lifePlayer.AddDamage(LaserDamagePerSecond*Time.deltaTime);
                         }
-                        #region Collider
-                        attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
-                        attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized * (distanceHit / 2);
-                        attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y, 5, distanceHit);
+                    }
+                    #region Collider
 
-                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = true;
-                        //attackCollider.enabled = true;
-                        myMouseTargetLasersScript.SetActive(true);
-                        lasersScript.mouseWorldPosition = hitPos;
-                        lasersScript.anim.SetBool("Fire", true);
-                        ConLaserScript.globalProgress = 0;
+                    for(int i= 0;i <circle.childEntities.Length;i++)
+                    {
+                        if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
+                        {
+                              if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);      
+                                }        
+                           
+                        }             
+                    }
+                    
+                    myMouseTargetLasersScript.SetActive(true);
+                    lasersScript.mouseWorldPosition = hitPos;
+                    lasersScript.anim.SetBool("Fire", true);
+                    ConLaserScript.globalProgress = 0;
 
-
-                        #endregion
+                    if(_AttackTime>timeAttack)
+                    {
+                        isAttacking = false;
+                        _AttackTime  = 0;
+                    }
+                            _AttackTime +=Time.deltaTime;
+                         
+                    #endregion
                     }
                     else
                     {
-                        ConLaserScript.globalProgress += Time.deltaTime * ConLaserScript.globalProgressSpeed;
-                        //attackCollideGo.GetComponent<MeshRenderer>().enabled = false;
-                        //attackCollider.enabled = false;
-                        lasersScript.anim.SetBool("Fire", false);
-                        if (ConLaserScript.globalProgress > 1)
-                        {
-                            myMouseTargetLasersScript.SetActive(false);
-                        }
-
-
-                    }
-                    if (_AttackTime > timeAttack)
+                    if(_AttackTime>timeAttack)
                     {
-                        isAttacking = isAttacking == false ? true : false;
-                        _AttackTime = 0;
-                        launchLaser = true;
+                        isAttacking = true;
+                        _AttackTime  = 0;
                     }
-                    _AttackTime += Time.deltaTime;
+                     myMouseTargetLasersScript.SetActive(false);
+                    _AttackTime +=Time.deltaTime;
+
+                        for(int i= 0;i <circle.childEntities.Length;i++)
+                        {
+                            if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
+                            {
+                                if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);    
+                                }   
+                            }          
+                        }
+                    }
                 }
                 else
                 {
+                 
+                 Vector3 dirProjection =  new Vector3(moveTo.x ,1,moveTo.z) - transform.position;
                     if(Vector3.Distance(transform.position, new Vector3(moveTo.x, 1, moveTo.z)) > 1f)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTo.x, 1, moveTo.z), 8 * Time.deltaTime);
-                        Debug.Log("je me déplace vraiment vite");
+                        for(int i= 0;i <circle.childEntities.Length;i++)
+                        {
+                            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                            {
+                                 if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);    
+                                }        
+                            }     
+                        }
                     }
                     else
-                    {
+                    {     isAttacking =true;
                         isMoving = false;
                     }
                 }
             }
             if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation || StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
             {
-                if (launchLaser)
-                {
-                    ConLaserScript.globalProgress = 1;
+
+                  isAttacking = false;
                     _AttackTime = 0;
-                    isAttacking = false;
-                    myMouseTargetLasersScript.SetActive(false);
-                    launchLaser = false;
-                }
+                 launchLaser = true;
+               
             }
+           
         }
 
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(new Vector3(4.2f, 1, 34.9f), radiusRNDTogo);
-        Gizmos.DrawSphere(new Vector3(moveTo.x, 1, moveTo.z), 1f);
-    }
-
+   
 }

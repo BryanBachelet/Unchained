@@ -56,10 +56,10 @@ public class EntitiesManager : MonoBehaviour
 
                     if(circle.activeRituel)
                     {  
-                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                         circle.activeRituel = false;                        
                     }
                     transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
+                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                     
                     }
                     else
@@ -67,6 +67,7 @@ public class EntitiesManager : MonoBehaviour
                         if (!circle.activeRituel)
                         {
 
+                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                             circle.activeRituel = true;
                         }
                         circle.CastInvoq();

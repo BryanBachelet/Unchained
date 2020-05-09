@@ -41,6 +41,8 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private RotationPlayer rotationPlayer;
 
+    private PlayerAnimState playerAnim;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -50,7 +52,7 @@ public class PlayerMoveAlone : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         stock = GetComponent<EnnemiStock>();
         isStickGround = true;
-        GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
+        stock.powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigidStatic = playerRigid = GetComponent<Rigidbody>();
         mouseScop = GetComponent<MouseScope>();
@@ -58,7 +60,8 @@ public class PlayerMoveAlone : MonoBehaviour
         TransmitionOfStrenghOfExpulsion();
         currentPowerOfProjection = 0;
         blur = Camera.main.GetComponent<RadialBlur>();  
-        rotationPlayer = GetComponent<RotationPlayer>();     
+        rotationPlayer = GetComponent<RotationPlayer>(); 
+        playerAnim = GetComponent<PlayerAnimState>();    
      //  currentPowerOfProjection = DecelerationOfProjection;
     }
 
@@ -85,7 +88,8 @@ public class PlayerMoveAlone : MonoBehaviour
         }
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
-        {
+        {   
+            playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Projection);
             blur.Strength += (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,0.11f);
             _timeProjection  = 0;
@@ -99,7 +103,12 @@ public class PlayerMoveAlone : MonoBehaviour
             aura.SetActive( true);
         }
         else
-        {   blur.Strength -= (0.1f/15);
+        {   
+            if(stock.ennemiStock== null)
+            {
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Idle);
+            }
+            blur.Strength -= (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,1);
             _timeProjection  = 0;
             aura.SetActive(false);
@@ -131,6 +140,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             TransmitionOfStrenghOfExpulsion();
         }
+        
     }
 
 
@@ -241,6 +251,8 @@ public class PlayerMoveAlone : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
         aura.SetActive(false);
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        this.enabled =false;
     }
     public void  StopVelocity()
     {

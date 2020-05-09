@@ -61,8 +61,9 @@ public class MouseScope : MonoBehaviour
 
     private float _compteurBetweenBullet;
 
-   private Color enemmiColor;
+    private Color enemmiColor;
 
+    private PlayerAnimState playerAnim;
 
     void Start()
     {
@@ -71,7 +72,7 @@ public class MouseScope : MonoBehaviour
         directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
-
+        playerAnim = GetComponent<PlayerAnimState>();
 
         shotSound = FMODUnity.RuntimeManager.CreateInstance(shootEvent);
         shotSound.setVolume(volume);
@@ -103,12 +104,17 @@ public class MouseScope : MonoBehaviour
                 {
                     lastInput = 1;
                     resetShoot = true;
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Shoot);
+                    playerAnim.right = true;
+
                 }
 
                 if (FireInputValue(controllerPc) < 0)
                 {
                     lastInput = 0;
                     resetShoot = true;
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Shoot);
+                    playerAnim.right = false;
                 }
 
             }

@@ -28,13 +28,15 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private  MashingFeedback mash;
 
-   
+    private PlayerAnimState playerAnim;
+
     // Start is called before the first frame update
     void Start()
     {      
         mash = GetComponent<MashingFeedback>();
         playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
+        playerAnim  = GetComponent<PlayerAnimState>(); 
     }
 
     // Update is called once per frame
@@ -99,6 +101,7 @@ public class TransformationPlayerStates : MonoBehaviour
         playerMove.GoTransformation();
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
 
     }
 
