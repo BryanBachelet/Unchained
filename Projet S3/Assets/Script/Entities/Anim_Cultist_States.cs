@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Anim_Cultist_States : MonoBehaviour
 {
@@ -14,13 +15,16 @@ public class Anim_Cultist_States : MonoBehaviour
 
     private bool activeOnetime;
 
+    public RuntimeAnimatorController[] controler;
+
     // Start is called before the first frame update
     void Start()
     {
         stateOfEntity = GetComponentInParent<StateOfEntity>();
         animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = controler[Random.Range(0,3)];
         animator.Play("Anim_Cultist_Run");
-         animCultist = AnimCultistState.Run;
+        animCultist = AnimCultistState.Run;
     }
 
     // Update is called once per frame
@@ -31,7 +35,7 @@ public class Anim_Cultist_States : MonoBehaviour
            case (AnimCultistState.Run):
            
                animator.Play("Anim_Cultist_Run");
-           
+                
            break;
            case (AnimCultistState.Invocation_Idle):
             
@@ -51,6 +55,7 @@ public class Anim_Cultist_States : MonoBehaviour
             if(!activeOnetime)
             {
                 animator.Play("Anim_Cultist_AttackChain_Entree");
+                
                 activeOnetime = true;
             }
         break;

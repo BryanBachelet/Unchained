@@ -2648,8 +2648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLoseConditionActive: 1
-  debugMashingActive: 1
-  debugPalierActive: 0
+  debugMashingActive: 0
+  debugPalierActive: 1
   radiusMaxSize: 286.4
 --- !u!1 &307060810
 GameObject:
@@ -4670,6 +4670,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676651470}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &679876610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6918804214843183136, guid: 8236f9e913e4036458f4cc37466ef116,
+    type: 3}
+  m_PrefabInstance: {fileID: 1241955859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &690768703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5377,6 +5383,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578d1b678d944e49bd8249184f6c698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &767504631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 767504632}
+  m_Layer: 10
+  m_Name: Camera Focus Poinnt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &767504632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767504631}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.4599999, z: 0.28999963}
+  m_LocalScale: {x: 0.3333333, y: 0.3333333, z: 0.3333333}
+  m_Children: []
+  m_Father: {fileID: 679876610}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793176270
 GameObject:
   m_ObjectHideFlags: 0
@@ -7079,21 +7115,21 @@ MonoBehaviour:
     timeBeforeStart: 0.2
     timeOfDeplacement: 3
     destination: {fileID: 1598215979}
-    pointOfPivot: {fileID: 1490979554}
+    pointOfPivot: {fileID: 767504632}
     angleToRotate: 180
   - type: 1
     startPos: {fileID: 1598215979}
     timeBeforeStart: 0
     timeOfDeplacement: 2
     destination: {fileID: 243337778}
-    pointOfPivot: {fileID: 1490979554}
+    pointOfPivot: {fileID: 767504632}
     angleToRotate: 360
   - type: 0
     startPos: {fileID: 1598215979}
     timeBeforeStart: 0
     timeOfDeplacement: 3
     destination: {fileID: 243337778}
-    pointOfPivot: {fileID: 1490979554}
+    pointOfPivot: {fileID: 767504632}
     angleToRotate: 180
   i: 0
   posStart: 0
@@ -7226,13 +7262,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPlan: 0
   activeBehavior: 0
-  pointFocus: {fileID: 2027631131}
+  pointFocus: {fileID: 767504631}
   timeOfPlan: 7
   numberofTurn: 2
-  posFinish: {x: 0, y: -0.2, z: -4}
+  posFinish: {x: 0, y: -0.2, z: -10}
   timeOfPlan2: 10
   numberofTurn2: 0
-  posFinish2: {x: 0, y: 2, z: -15}
+  posFinish2: {x: 0, y: 2, z: -26}
   durationTotal: 0
 --- !u!114 &1246053384
 MonoBehaviour:
@@ -7940,6 +7976,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1352480005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918804214843149328, guid: 8236f9e913e4036458f4cc37466ef116,
+    type: 3}
+  m_PrefabInstance: {fileID: 1241955859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1357438089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2470063517672433849, guid: e8488d4d6d8a2d64bb56892eacf465fd,
@@ -9321,6 +9363,11 @@ PrefabInstance:
       propertyPath: currentDeclerationOfProjection
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016834285439573, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439578, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: powerOfStrengh.m_Curve.Array.size
@@ -10176,7 +10223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598215978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.3, y: 1.8, z: -78.659996}
+  m_LocalPosition: {x: 11.3, y: 2.88, z: -86.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10961,7 +11008,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759742219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.4, y: 1.8, z: -105.33}
+  m_LocalPosition: {x: 12.4, y: 2.88, z: -134.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12137,6 +12184,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941523535}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1951049688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918804214843149404, guid: 8236f9e913e4036458f4cc37466ef116,
+    type: 3}
+  m_PrefabInstance: {fileID: 1241955859}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1951879153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5018898853266154360, guid: 229184031d37d5d448781648b66ba6e9,
@@ -12882,6 +12935,8 @@ MonoBehaviour:
   camMouvement: {fileID: 0}
   tempsEcouleMashing: 0
   tempsMinMashing: 5
+  timeFinishMash: 1
+  activeMash: 0
 --- !u!114 &2027631138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13008,8 +13063,10 @@ MonoBehaviour:
     type: 3}
   Height: 3
   numberMax: 10
-  radius: 3
-  timeToCome: 7
+  radius: 10
+  timeToCome: 3.5
+  menotte1: {fileID: 1352480005}
+  menotte2: {fileID: 1951049688}
 --- !u!114 &2027631154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13852,6 +13909,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mashing Ui
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078716915378887920, guid: 7a47948a4bb0ebc4997059a61ae7e738,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2078716915378887921, guid: 7a47948a4bb0ebc4997059a61ae7e738,
         type: 3}

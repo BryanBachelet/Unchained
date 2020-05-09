@@ -77,6 +77,7 @@ public class CultistLaser : MonoBehaviour
                 {
                     if (isAttacking  & circle.attack == 1)
                     {
+                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                         if (launchLaser)
                         {
                             lasersScript.startWavePS.Emit(1);
@@ -109,7 +110,7 @@ public class CultistLaser : MonoBehaviour
                         spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
                         if(hit.collider.gameObject.layer == 10)
                         {
-                            Debug.Log("Work life");
+                            
                             if(lifePlayer == null)
                             {
                                lifePlayer = hit.collider.gameObject.GetComponent<LifePlayer>();
@@ -118,7 +119,20 @@ public class CultistLaser : MonoBehaviour
                         }
                     }
                     #region Collider
-                   
+
+                    for(int i= 0;i <circle.childEntities.Length;i++)
+                    {
+                        if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
+                        {
+                              if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);      
+                                }        
+                           
+                        }             
+                    }
+                    
                     myMouseTargetLasersScript.SetActive(true);
                     lasersScript.mouseWorldPosition = hitPos;
                     lasersScript.anim.SetBool("Fire", true);
@@ -142,16 +156,38 @@ public class CultistLaser : MonoBehaviour
                     }
                      myMouseTargetLasersScript.SetActive(false);
                     _AttackTime +=Time.deltaTime;
-                         
+
+                        for(int i= 0;i <circle.childEntities.Length;i++)
+                        {
+                            if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
+                            {
+                                if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);    
+                                }   
+                            }          
+                        }
                     }
                 }
                 else
                 {
                  
-                 
+                 Vector3 dirProjection =  new Vector3(moveTo.x ,1,moveTo.z) - transform.position;
                     if(Vector3.Distance(transform.position, new Vector3(moveTo.x, 1, moveTo.z)) > 1f)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(moveTo.x, 1, moveTo.z), 8 * Time.deltaTime);
+                        for(int i= 0;i <circle.childEntities.Length;i++)
+                        {
+                            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                            {
+                                 if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                                {
+                                    float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);    
+                                }        
+                            }     
+                        }
                     }
                     else
                     {     isAttacking =true;
