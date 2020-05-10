@@ -289,33 +289,33 @@ public class RotationPlayer : MonoBehaviour
 
         moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
         transform.GetComponent<WallRotate>().hasHitWall = false;
-        if (vfxShockWave != null)
-        {
-
-            float angleConversion = transform.eulerAngles.y;
-            angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
-            float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
-            if (angleAvatar > 0 && angleAvatar < 90)
-            {
-                angleAvatar = 180 - angleAvatar;
-            }
-            if (angleAvatar < 0 && angleAvatar > -90)
-            {
-                angleAvatar = -180 - angleAvatar;
-            }
-
-
-            if (angleConversion < 0 && angleAvatar == 180)
-            {
-                angleAvatar = -180;
-            }
-
-
-
-            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
-
-
-        }
+        //if (vfxShockWave != null)
+        //{
+        //
+        //    float angleConversion = transform.eulerAngles.y;
+        //    angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
+        //    float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
+        //    if (angleAvatar > 0 && angleAvatar < 90)
+        //    {
+        //        angleAvatar = 180 - angleAvatar;
+        //    }
+        //    if (angleAvatar < 0 && angleAvatar > -90)
+        //    {
+        //        angleAvatar = -180 - angleAvatar;
+        //    }
+        //
+        //
+        //    if (angleConversion < 0 && angleAvatar == 180)
+        //    {
+        //        angleAvatar = -180;
+        //    }
+        //
+        //
+        //
+        //    GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
+        //
+        //
+        //}
 
         currentAngleMax = angleMax;
         angleCompteur = 0;

@@ -9,67 +9,80 @@ public class LifePlayer : MonoBehaviour
     public float maxLife;
     public float currentLife;
     [Header("Regeneration")]
-    [Range (0,100)]
+    [Range(0, 100)]
     public float startRegenerationLifeLevel = 30;
     public float regenerationLifePerSecond = 1;
-        
+
     [Header("Feedback")]
-    public Image uiFeedback;  
+    public Image uiFeedback;
     public float speedOfUiFeedback;
-    
-    
+
+
     private float frameDamage = 0;
     private float countOfDamage = 0;
-    
+
     private float frameHealth = 0;
-    
+
     private float ratioHp;
 
-    public float deathTimeBeforeReset= 2;
+    public float deathTimeBeforeReset = 2;
     [HideInInspector]
-    public bool deathState =false;
+    public bool deathState = false;
 
     private float compteurDeath = 0;
 
+    public GameObject loseTxt;
 
-     
+    bool loseRestart = false;
     // Start is called before the first frame update
     void Start()
     {
-        currentLife = maxLife;   
-        ratioHp = GetRatioHealth();     
+        currentLife = maxLife;
+        ratioHp = GetRatioHealth();
     }
 
     // Update is called once per frame
     void Update()
-    { 
-       if(!deathState)
-       {
-      
-        ApplyLifeChange();
-        ResetFrame();
-       }else
-       {
-        Debug.Log("Dead");
-        DeathGestion();
-       }
-        ratioHp = GetRatioHealth();
-        uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount ,ratioHp,speedOfUiFeedback* Time.deltaTime);
-    }
+    {
+        if (currentLife > maxLife)
+        {
+            currentLife = maxLife;
+        }
+        if (!deathState)
+        {
 
-#region Regeneration
+            ApplyLifeChange();
+            ResetFrame();
+        }
+        else
+        {
+            Debug.Log("Dead");
+            DeathGestion();
+        }
+        ratioHp = GetRatioHealth();
+        uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount, ratioHp, speedOfUiFeedback * Time.deltaTime);
+
+        if (loseRestart)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+    }
+    #region Regeneration
 
     private void RegenerationBehavior()
     {
-        if(ratioHp<(startRegenerationLifeLevel/100))
+        if (ratioHp < (startRegenerationLifeLevel / 100))
         {
-           AddHealth(regenerationLifePerSecond *Time.deltaTime);
+            AddHealth(regenerationLifePerSecond * Time.deltaTime);
         }
     }
 
-#endregion
+    #endregion
 
-#region DamageTake
+    #region DamageTake
 
     public void AddHealth(float health)
     {
@@ -81,31 +94,31 @@ public class LifePlayer : MonoBehaviour
     }
     private void ApplyLifeChange()
     {
-        if(!CountOfDamage())
+        if (!CountOfDamage())
         {
             RegenerationBehavior();
         }
-        currentLife +=  (-frameDamage)+ frameHealth; 
-        frameDamage =0;
-        if(currentLife<=0 )
+        currentLife += (-frameDamage) + frameHealth;
+        frameDamage = 0;
+        if (currentLife <= 0)
         {
             PlayerDead();
         }
     }
     private float GetRatioHealth()
     {
-        float ratioToReturn = 0 ;
-        ratioToReturn = currentLife/maxLife;
-     
-       
-        return  ratioToReturn;
+        float ratioToReturn = 0;
+        ratioToReturn = currentLife / maxLife;
+
+
+        return ratioToReturn;
     }
 
     private bool CountOfDamage()
     {
-        if(frameDamage != 0)
+        if (frameDamage != 0)
         {
-            countOfDamage +=frameDamage;
+            countOfDamage += frameDamage;
             return true;
         }
         else
@@ -123,19 +136,27 @@ public class LifePlayer : MonoBehaviour
 
     private void DeathGestion()
     {
-        if(compteurDeath>deathTimeBeforeReset)
+        if (compteurDeath > deathTimeBeforeReset)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            compteurDeath = 0;
+            if (loseRestart == false)
+            {
+
+                loseRestart = true;
+                loseTxt.SetActive(true);
+                loseTxt.transform.GetChild(1).gameObject.SetActive(true);
+                DataPlayer.isGivingData = true;
+            }
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //compteurDeath = 0;
         }
         else
         {
-            compteurDeath +=Time.deltaTime;
+            compteurDeath += Time.deltaTime;
         }
 
     }
 
-#endregion
+    #endregion
     private void ResetFrame()
     {
         frameHealth = 0;
@@ -143,3 +164,4 @@ public class LifePlayer : MonoBehaviour
     }
 
 }
+

@@ -115,11 +115,23 @@ public class DataPlayer : MonoBehaviour
                             intScoreToAdd.RemoveAt(0);
                             checkAddScore = false;
 
-                            for (int i = 0; i < 10; i++)
+                            if(uiScoreToAdd.Count >= 10)
                             {
-                                float a = 100 - i * 10;
-                                uiScoreToAdd[i].GetComponent<Text>().color = new Vector4(1, 1, 1, a / 100);
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    float a = 100 - i * 10;
+                                    uiScoreToAdd[i].GetComponent<Text>().color = new Vector4(1, 1, 1, a / 100);
+                                }
                             }
+                            else
+                            {
+                                for (int i = 0; i < uiScoreToAdd.Count; i++)
+                                {
+                                    float a = 100 - i * 10;
+                                    uiScoreToAdd[i].GetComponent<Text>().color = new Vector4(1, 1, 1, a / 100);
+                                }
+                            }
+
                             if(uiScoreToAdd.Count <= 0)
                             {
                                 actualiseScore = false;

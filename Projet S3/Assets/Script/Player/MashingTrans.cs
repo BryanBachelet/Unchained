@@ -60,6 +60,8 @@ public class MashingTrans : MonoBehaviour
     private bool activeFinishMash;
 
     [HideInInspector] public bool activeMash;
+
+    LifePlayer lifePlayerScript;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -67,7 +69,8 @@ public class MashingTrans : MonoBehaviour
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
         gainVelocitySyst = GetComponent<GainVelocitySystem>();
-        playerAnim  = GetComponent<PlayerAnimState>(); 
+        playerAnim  = GetComponent<PlayerAnimState>();
+        lifePlayerScript = GetComponent<LifePlayer>();
     }
 
     private void OnEnable()
@@ -195,16 +198,19 @@ public class MashingTrans : MonoBehaviour
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
                                 DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 20;
                                 DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 30;
                                 DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                         else
@@ -213,16 +219,19 @@ public class MashingTrans : MonoBehaviour
                             {
                                 gainVelocitySyst.gainMashP2 = 10;
                                 DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 20;
                                 DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 30;
                                 DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                        
