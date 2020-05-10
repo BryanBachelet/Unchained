@@ -30,7 +30,7 @@ public class PlayerAnimState : MonoBehaviour
             { 
                 if(playerCurrentState == PlayerStateAnim.Projection )
                 {
-                    animator.Play("Anim_State_Chaine_Projection releve");
+                    animator.Play("Anim_State_Chaine_projReleve");
                 }
                 else
                 {
@@ -51,11 +51,11 @@ public class PlayerAnimState : MonoBehaviour
             }
             if(currentState == PlayerStateAnim.Rotation)
             {
-                animator.Play("Anim_State_Chaine_StartRotate");
+                animator.Play("Anim_State_Chaine_StartTurnRotate");
             }
             if(currentState == PlayerStateAnim.Projection)
             {
-                animator.Play("Anim_State_Chaine_ProjectionStart");
+                animator.Play("Anim_State_Chaine_startProj");
             }
             if(currentState == PlayerStateAnim.EntraveStart)
             {

@@ -153,8 +153,8 @@ public class RotationPlayer : MonoBehaviour
            // float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
             float angle = Vector3.SignedAngle(Vector3.forward, (pointPivot-transform.position).normalized,Vector3.up);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, pointPivot);
+            lineRenderer.SetPosition(0, line.pointplayer.transform.position);
+            lineRenderer.SetPosition(1, pointPivot + Vector3.up *2.5f);
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
