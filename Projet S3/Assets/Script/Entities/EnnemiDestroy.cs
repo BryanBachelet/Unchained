@@ -137,6 +137,7 @@ public class EnnemiDestroy : MonoBehaviour
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Dead;
         DataPlayer.entityKill++;
+        DataPlayer.ChangeScore(100);
         gameObject.SetActive(false);
         
         

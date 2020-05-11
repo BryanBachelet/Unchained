@@ -13,7 +13,7 @@ public class CameraAction : MonoBehaviour
 
     public Camera orthoCam;
 
-    private Vector3 rotAtStart;
+    public Vector3 rotAtStart;
 
     public float speed1 = 5;
 

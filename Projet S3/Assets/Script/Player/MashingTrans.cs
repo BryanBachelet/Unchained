@@ -60,6 +60,8 @@ public class MashingTrans : MonoBehaviour
     private bool activeFinishMash;
 
     [HideInInspector] public bool activeMash;
+
+    LifePlayer lifePlayerScript;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -67,7 +69,8 @@ public class MashingTrans : MonoBehaviour
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
         gainVelocitySyst = GetComponent<GainVelocitySystem>();
-        playerAnim  = GetComponent<PlayerAnimState>(); 
+        playerAnim  = GetComponent<PlayerAnimState>();
+        lifePlayerScript = GetComponent<LifePlayer>();
     }
 
     private void OnEnable()
@@ -127,6 +130,8 @@ public class MashingTrans : MonoBehaviour
 
                 }
                 compteur += Time.deltaTime;
+                tempsEcouleMashing += Time.deltaTime;
+                text.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
@@ -145,7 +150,7 @@ public class MashingTrans : MonoBehaviour
                     resetPlayerScript.ResetFonction(true);
 
                 }
-                if (i.Count > numberToAim)
+                if (tempsEcouleMashing > tempsMinMashing)
                 {
                     playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveFinish);
                     tempsEcouleMashing += Time.deltaTime;
@@ -172,6 +177,11 @@ public class MashingTrans : MonoBehaviour
                    
                    compteurFinishMash +=Time.deltaTime;
 
+                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                    setMashingActive =false;
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
+
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
                     //Camera.main.GetComponent<Threshold>().enabled =false;
@@ -182,14 +192,20 @@ public class MashingTrans : MonoBehaviour
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
+                                DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 20;
+                                DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 30;
+                                DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                         else
@@ -197,14 +213,20 @@ public class MashingTrans : MonoBehaviour
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP2 = 10;
+                                DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 20;
+                                DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 30;
+                                DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                        
