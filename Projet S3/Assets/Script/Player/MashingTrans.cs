@@ -171,15 +171,14 @@ public class MashingTrans : MonoBehaviour
                         ResetMash();
                         compteurFinishMash =0;
                         activeMash = false; 
+                        
                    }
                   
                      
                    
                    compteurFinishMash +=Time.deltaTime;
 
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                    setMashingActive =false;
+                   
                     //Camera.main.GetComponent<Threshold>().enabled =false;
 
                     if(tempsEcouleMashing > tempsMinMashing)
@@ -188,7 +187,7 @@ public class MashingTrans : MonoBehaviour
                     
                         if(!isP2)
                         {
-                        Debug.Log("work");
+                       
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
