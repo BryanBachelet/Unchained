@@ -96,22 +96,11 @@ public class MashingTrans : MonoBehaviour
 
     void Update()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, 3);
+        
 
-        for (int j = 0; j < i.Count; j++)
-        {
-            if (i[j] + 1 < Time.time)
-            {
-                i.RemoveAt(j);
-            }
-
-        }
-        numberInput = i.Count;
-        numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
-        numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
-        debugMinRatio = numberToAim * ratioMinimumMashing;
+      
         if(activePos)
-       {
+        {
           moveAlone.StopVelocity();
         }
         if (setMashingActive)
@@ -122,6 +111,8 @@ public class MashingTrans : MonoBehaviour
             {
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
+                GestionInput();
+                   
             }
             if (activeMash)
             {
@@ -149,8 +140,10 @@ public class MashingTrans : MonoBehaviour
                 if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
                 {
                   //  Physics.IgnoreLayerCollision(9, 9, false);
+                    GestionInput();
                     Physics.IgnoreLayerCollision(9, 10, false);
                     resetPlayerScript.ResetFonction(true);
+
                 }
                 if (i.Count > numberToAim)
                 {
@@ -174,6 +167,8 @@ public class MashingTrans : MonoBehaviour
                         compteurFinishMash =0;
                         activeMash = false; 
                    }
+                  
+                     
                    
                    compteurFinishMash +=Time.deltaTime;
 
@@ -238,6 +233,26 @@ public class MashingTrans : MonoBehaviour
         {
             maxNumberToAim = 6;
         }
+    }
+
+
+
+    public void GestionInput()
+    {
+        hitColliders = Physics.OverlapSphere(transform.position, 3);
+
+        for (int j = 0; j < i.Count; j++)
+        {
+            if (i[j] + 1 < Time.time)
+            {
+                i.RemoveAt(j);
+            }
+
+        }
+        numberInput = i.Count;
+        numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
+        numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
+        debugMinRatio = numberToAim * ratioMinimumMashing;
     }
 
     public void ActiveMashing()

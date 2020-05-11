@@ -365,7 +365,7 @@ public class MouseScope : MonoBehaviour
 
     public void DestroyBullet()
     {
-        StateAnim.ChangeState(StateAnim.CurrentState.Idle);
+    
         Destroy(instanceBullet);
         lineRenderer.SetPosition(0, transform.position);
     }

@@ -2648,7 +2648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugLoseConditionActive: 1
-  debugMashingActive: 1
+  debugMashingActive: 0
   debugPalierActive: 0
   radiusMaxSize: 286.4
 --- !u!1 &307060810
@@ -9755,6 +9755,11 @@ PrefabInstance:
       propertyPath: ejectionForce
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2599016833369903905, guid: 6394fff4d6065524694b9d19799eecc4,
+        type: 3}
+      propertyPath: pointplayer
+      value: 
+      objectReference: {fileID: 1352480005}
     - target: {fileID: 136097558, guid: 6394fff4d6065524694b9d19799eecc4, type: 3}
       propertyPath: imgTransformation
       value: 
@@ -13016,6 +13021,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be20895106a11314d87da6ad7a6024de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2027631146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2599016834285439573, guid: 6394fff4d6065524694b9d19799eecc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1490979553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027631131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee78977a3953db54eb0117d2e7df3d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2027631148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13037,6 +13054,7 @@ MonoBehaviour:
   - {fileID: 2027631142}
   - {fileID: 2027631144}
   - {fileID: 2027631138}
+  - {fileID: 2027631146}
   transformation:
   - {fileID: 2027631137}
   - {fileID: 2027631150}

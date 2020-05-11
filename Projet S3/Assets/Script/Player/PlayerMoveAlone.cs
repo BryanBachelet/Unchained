@@ -110,8 +110,9 @@ public class PlayerMoveAlone : MonoBehaviour
         }
         else
         {   
-            if(stock.ennemiStock== null)
+            if(stock.ennemiStock== null && mouseScop.instanceBullet == null)
             {
+                Debug.Log("Idle PlayerMove");
                 playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Idle);
             }
             blur.Strength -= (0.1f/15);
