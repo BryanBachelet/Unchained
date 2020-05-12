@@ -89,7 +89,13 @@ public class PlayerMoveAlone : MonoBehaviour
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
         {   
-            playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Projection);
+            if(stock.ennemiStock == null)
+            {
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Projection);
+            }else
+            {
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Rotation);
+            }
             blur.Strength += (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,0.11f);
             _timeProjection  = 0;
@@ -104,8 +110,9 @@ public class PlayerMoveAlone : MonoBehaviour
         }
         else
         {   
-            if(stock.ennemiStock== null)
+            if(stock.ennemiStock== null && mouseScop.instanceBullet == null)
             {
+                Debug.Log("Idle PlayerMove");
                 playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Idle);
             }
             blur.Strength -= (0.1f/15);

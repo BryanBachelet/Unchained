@@ -8,12 +8,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public static Palier currentPalier = Palier.Palier0;
 
-
+    
     public int[] palierCondition = new int[7];
 
 
     private KillCountPlayer countPlayer;
-    [HideInInspector]
+    
     public int palierStep;
 
 
