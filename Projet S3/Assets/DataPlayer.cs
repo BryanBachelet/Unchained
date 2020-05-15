@@ -82,7 +82,7 @@ public class DataPlayer : MonoBehaviour
             else
             {
                 comboMultiplier = 1 + killCountEnnemi / 40;
-                Debug.Log(comboMultiplier + "MON CUL LE SCORE D ECOMBO IL EST PETER");
+               
             }
         }
         if(scoringText != null)
@@ -183,9 +183,9 @@ public class DataPlayer : MonoBehaviour
         {
             GameObject uiInstantiate = Instantiate(uiTextAdd, new Vector3(600 + uiScoreToAdd.Count * 12, 1000 + uiScoreToAdd.Count * 12, 1), Quaternion.identity, goScoreUiContainerSttic.transform); //253.81f --> X, 31.88f --> Y
             uiScoreToAdd.Add(uiInstantiate);
-            uiInstantiate.GetComponent<Text>().text = "+" + scoreToAdd;
+            uiInstantiate.GetComponent<Text>().text = "+" + (scoreToAdd * comboMultiplier);
             float vCanalInHSVColor = (100 - uiScoreToAdd.Count * 10);
-            Debug.Log(vCanalInHSVColor);
+        
             if (vCanalInHSVColor < 0) vCanalInHSVColor = 0;
             uiInstantiate.GetComponent<Text>().color = new Vector4(1, 1, 1, vCanalInHSVColor / 100);
         }

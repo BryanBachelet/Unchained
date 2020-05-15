@@ -10,38 +10,38 @@ public class BoulierBehavior : MonoBehaviour
     }
     public DashEntityState dashState = DashEntityState.Preparation;
 
-    GameObject player;
-    float tempsEcoulePrep;
+    private GameObject player;
+    private float tempsEcoulePrep;
     public float tempsForPrep;
-    float tempsEcouleRepos;
+    private float tempsEcouleRepos;
     public float tempsForRepos;
 
-    Vector3 dirDash;
+    private Vector3 dirDash;
     public LayerMask wallHit;
     public float speed;
-    MeshRenderer myMR;
-    RaycastHit hit;
-    bool checkStich = false;
+    private MeshRenderer myMR;
+    private RaycastHit hit;
+    private bool checkStich = false;
     public bool isGrab = false;
-    Vector3 stichPos;
+    private Vector3 stichPos;
 
     private bool isFall = false;
     
     private StateOfEntity stateOfEntity;
 
+    public float distanceStopWall = 1;
+
     // Start is called before the first frame update
     void Start()
     {
-        myMR = GetComponent<MeshRenderer>();
-        player = PlayerMoveAlone.Player1;
-        myMR.material.color = Color.blue;
-        stateOfEntity = GetComponent<StateOfEntity>();
+       Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy )
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
+        && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
         {
 
             switch(dashState) 
@@ -77,7 +77,7 @@ public class BoulierBehavior : MonoBehaviour
                     }
                     else
                     {
-                        if(Vector3.Distance(transform.position, hit.point) < 20)
+                        if(Vector3.Distance(transform.position, hit.point) < distanceStopWall)
                         {
                             ChangeDashState(DashEntityState.Repos);
                         }
@@ -106,6 +106,14 @@ public class BoulierBehavior : MonoBehaviour
         {
             ChangeDashState(DashEntityState.Repos);
         }
+    }
+
+    private void Init()
+    {
+        myMR = GetComponent<MeshRenderer>();
+        player = PlayerMoveAlone.Player1;
+        myMR.material.color = Color.blue;
+        stateOfEntity = GetComponent<StateOfEntity>();
     }
 
     private void ChangeDashState(DashEntityState stateChange)

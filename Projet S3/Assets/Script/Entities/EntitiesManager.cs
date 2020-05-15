@@ -34,7 +34,13 @@ public class EntitiesManager : MonoBehaviour
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
             MovementOfManager(patrolMode);
+        }else
+        {
+            cultistLaser.enabled = true;
+            circle.activeRituel = false;
         }
+
+        transform.position =  new Vector3(transform.position.x, 0, transform.position.y);
     }
 
 
@@ -129,7 +135,7 @@ public class EntitiesManager : MonoBehaviour
                 break;
             case (BeheaviorCultiste.Harass):
 
-
+               
                 cultistLaser.enabled = true;
 
 

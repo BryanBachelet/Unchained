@@ -46,18 +46,18 @@ private bool activeRunPlayer;
     void Update()
     {
 
+            Formation();
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            Formation();
         }
-        else
-        {
-            activeRunPlayer =true;
-        }
-        if(activeRunPlayer == true && StateOfGames.currentState !=StateOfGames.StateOfGame.Transformation )
-        {
-            RunPlayer();
-        }
+        // else
+        // {
+        //     activeRunPlayer =true;
+        // }
+        // if(activeRunPlayer == true && StateOfGames.currentState !=StateOfGames.StateOfGame.Transformation )
+        // {
+        //     RunPlayer();
+        // }
         
 
         if (startInvoq && activeRituel)

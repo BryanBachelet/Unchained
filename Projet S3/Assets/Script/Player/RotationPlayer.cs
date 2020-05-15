@@ -167,7 +167,7 @@ public class RotationPlayer : MonoBehaviour
                 
             if (Physics.Raycast(ray, out hit, 2*( Mathf.Abs(angleSpeed) * Time.deltaTime)) )
             {
-                Debug.Log(hit.collider.gameObject.layer);
+                
                 if(hit.collider.gameObject.layer == 13)
                 {
                     stocks.DetachPlayer();
