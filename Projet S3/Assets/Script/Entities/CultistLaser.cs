@@ -66,6 +66,7 @@ public class CultistLaser : MonoBehaviour
         cultistLaserEffect = attackCollideGo.GetComponent<CultistLaserEffect>();
         player = PlayerMoveAlone.Player1;
         circle = GetComponent<CircleFormation>();
+        circle.activeCircle = true;
         spriteRend = spriteGo.GetComponent<SpriteRenderer>();
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();

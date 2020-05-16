@@ -83,7 +83,7 @@ public class Spawner : MonoBehaviour
             manager.speedOfMouvement = speedOfAgent;
             checkCultiste = true;
         }
-        else if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) && checkCultiste == false)
+       if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) && checkCultiste == false)
         {
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
@@ -116,6 +116,7 @@ public class Spawner : MonoBehaviour
         //     
         // }
 
+        
 
     }
 

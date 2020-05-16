@@ -40,7 +40,7 @@ public class EntitiesManager : MonoBehaviour
             circle.activeRituel = false;
         }
 
-        transform.position =  new Vector3(transform.position.x, 0, transform.position.y);
+        transform.position =  new Vector3(transform.position.x, 0, transform.position.z);
     }
 
 
@@ -57,11 +57,12 @@ public class EntitiesManager : MonoBehaviour
                         if (circle.activeRituel)
                         {
                             circle.activeRituel = false;
+                            circle.activeCircle =false;
                         }
                         transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement * Time.deltaTime);
 
                     if(circle.activeRituel)
-                    {  
+                    {     circle.activeCircle =false;
                         circle.activeRituel = false;                        
                     }
                     transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
@@ -75,6 +76,7 @@ public class EntitiesManager : MonoBehaviour
 
                             circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                             circle.activeRituel = true;
+                            circle.activeCircle =true;
                         }
                         circle.CastInvoq();
                     }
@@ -84,6 +86,7 @@ public class EntitiesManager : MonoBehaviour
                     if (circle.activeRituel)
                     {
                         circle.activeRituel = false;
+                         circle.activeCircle =false;
                     }
                     if (!runPlayer)
                     {
