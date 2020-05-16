@@ -60,6 +60,8 @@ public class CultistLaser : MonoBehaviour
 
     public float speedMouvement = 10;
 
+    public float laserPositionHeight = 1;
+
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -187,7 +189,7 @@ public class CultistLaser : MonoBehaviour
     {
         RaycastHit hit;
         float distanceHit = 0;
-        myMouseTargetLasersScript.transform.position = transform.position;
+        myMouseTargetLasersScript.transform.position = transform.position+ Vector3.up* laserPositionHeight;
         if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
         {
             distanceHit = Vector3.Distance(transform.position, hit.point);

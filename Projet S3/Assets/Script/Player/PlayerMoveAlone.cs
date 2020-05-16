@@ -43,6 +43,12 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private PlayerAnimState playerAnim;
 
+    private bool isTouchWall =false;
+
+    public int frameDetection = 3;
+
+    private int compteurFrameDetection= 0;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -130,11 +136,24 @@ public class PlayerMoveAlone : MonoBehaviour
         Ray ray = new Ray(transform.position, DirProjection.normalized );
         RaycastHit hit;
        
-            if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
-            {
-                Debug.Log("1");
+        if (Physics.Raycast(ray, out hit, frameDetection* currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
+        {
+            isTouchWall = true;
+            Debug.Log("isTouchWall");
+        }
+        if(isTouchWall)
+        {
+            if(compteurFrameDetection<frameDetection)
+            { 
+                compteurFrameDetection++;
+            }
+            else
+            {                
+                Debug.Log("Reflet");
                 DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
             }
+        }
+            
         
     }
 
@@ -168,6 +187,8 @@ public class PlayerMoveAlone : MonoBehaviour
           DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
         }
     }
+
+ 
 
     public void TransmitionOfStrenghOfExpulsion()
     {

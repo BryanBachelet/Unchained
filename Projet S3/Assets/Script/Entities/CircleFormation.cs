@@ -63,18 +63,12 @@ public class CircleFormation : MonoBehaviour
     void Update()
     {
 
-            Formation();
-        if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        Formation();
+        
+        if(entityManage.autoDestruct)
         {
+            ActiveAutoDestruct();
         }
-        // else
-        // {
-        //     activeRunPlayer =true;
-        // }
-        // if(activeRunPlayer == true && StateOfGames.currentState !=StateOfGames.StateOfGame.Transformation )
-        // {
-        //     RunPlayer();
-        // }
         
 
         if (startInvoq && activeRituel)
@@ -83,7 +77,7 @@ public class CircleFormation : MonoBehaviour
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
-                fbCastInvoq.transform.position = transform.position + Vector3.up*fxInvocationHeight ;
+                fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
                 fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
             }
 
@@ -105,36 +99,56 @@ public class CircleFormation : MonoBehaviour
             startInvoq =false;
             tempsEcouleInvoq = 0;
             fbCastInvoq.transform.position = transform.position;
-            if(fbCastInvoq.transform.localScale.x>0.1 && fbCastInvoq.activeInHierarchy)
+            if(fbCastInvoq.transform.localScale.x > 0.1f && fbCastInvoq.activeInHierarchy)
             {
                 fbCastInvoq.transform.position = new Vector3 (entityManage.pointToGo.transform.position.x ,fbCastInvoq.transform.position.y, entityManage.pointToGo.transform.position.z);
                 fbCastInvoq.transform.localScale -= Vector3.one  *10*Time.deltaTime;  
-            }else
+            }
+            else
             {
-                 fbCastInvoq.SetActive(false);
+                fbCastInvoq.SetActive(false);
             }
         }
 
         Destruct();
     }
 
-public int CurrentActiveChild()
-{
-    int k = 0;
-    for (int i = 0; i < childEntities.Length; i++)
-        {
-            if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+    public int CurrentActiveChild()
+    {
+        int k = 0;
+        for (int i = 0; i < childEntities.Length; i++)
             {
-              k++;   
+                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                {
+                k++;   
+                }
             }
-        }
-    return k;
-}
+        return k;
+    }
 
-public void ActiveRunPlayer()
-{
-    activeRunPlayer = true;
-}
+    public void ActiveAutoDestruct()
+    {
+        for(int i = 0 ; i < childEntities.Length; i++)
+        {   
+                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                {
+                    Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
+                    if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
+                    {
+                        Debug.Log("active");
+                        Debug.Break();
+                        childEntities[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Dead;
+                    }
+
+                }
+        }
+    }
+
+    public void ActiveRunPlayer()
+    {
+        activeRunPlayer = true;
+    }
+
     private void Destruct()
     {
         doDestruct = true;
@@ -285,11 +299,11 @@ public void ActiveRunPlayer()
             }
         }
 
-        if(numFor>10)
+        if(numFor>5)
         {
             attack = 1;
         }
-        if(numFor<10 && attack != 0) 
+        if(numFor<5 && attack != 0) 
         {
             attack =-1;
         }
@@ -312,7 +326,7 @@ public void ActiveRunPlayer()
                     childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position, PlayerMoveAlone.Player1.transform.position, 2 * speedAgent * Time.deltaTime);
                 }
                 childEntities[i].transform.eulerAngles = Vector3.zero;
-               childEntities[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState(Anim_Cultist_States.AnimCultistState.Run);
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState(Anim_Cultist_States.AnimCultistState.Run);
                 Vector3 dirProjection = PlayerMoveAlone.playerPos - childEntities[i].transform.position;
            
                 if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
