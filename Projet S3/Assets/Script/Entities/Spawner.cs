@@ -64,7 +64,7 @@ public class Spawner : MonoBehaviour
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;
             manager.pointToGo = target.transform;
             manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
@@ -77,7 +77,7 @@ public class Spawner : MonoBehaviour
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
             manager.pointToGo = target.transform;
             manager.speedOfMouvement = speedOfAgent;
@@ -88,7 +88,7 @@ public class Spawner : MonoBehaviour
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
           
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
             manager.pointToGo = target.transform;

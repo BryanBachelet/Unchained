@@ -32,13 +32,15 @@ public class CircleFormation : MonoBehaviour
 
     public bool activeCircle;
 
+    public float fxInvocationHeight;
+
     void Start()
     {
-        childEntities = new GameObject[transform.childCount - 4];
-        for (int i = 0; i < transform.childCount - 4; i++)
+        childEntities = new GameObject[transform.parent.childCount - 5];
+        for (int i = 0; i < childEntities.Length; i++)
         {
 
-            childEntities[i] = transform.GetChild(i).gameObject;
+            childEntities[i] = transform.parent.GetChild(i).gameObject;
 
         }
         compteurOfMouvement = new float[childEntities.Length];
@@ -81,6 +83,7 @@ public class CircleFormation : MonoBehaviour
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
+                fbCastInvoq.transform.position = transform.position + Vector3.up*fxInvocationHeight ;
                 fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
             }
 
@@ -101,6 +104,7 @@ public class CircleFormation : MonoBehaviour
         {
             startInvoq =false;
             tempsEcouleInvoq = 0;
+            fbCastInvoq.transform.position = transform.position;
             if(fbCastInvoq.transform.localScale.x>0.1 && fbCastInvoq.activeInHierarchy)
             {
                 fbCastInvoq.transform.position = new Vector3 (entityManage.pointToGo.transform.position.x ,fbCastInvoq.transform.position.y, entityManage.pointToGo.transform.position.z);
@@ -258,20 +262,23 @@ public void ActiveRunPlayer()
                     horizontal +=3; 
                 }
                 pos = transform.position + posAlea[i] ;
-                Vector3 dir = pos - childEntities[i].transform.position;
-                Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
-                if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
+                if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch)
                 {
-                    childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
-                }
-                childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
-                childEntities[i].transform.eulerAngles = Vector3.zero;
-                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
-                Vector3 orientationDir =  entityManage.pointToGo.transform.position - childEntities[i].transform.position;
-                if(Vector3.SignedAngle(Vector3.forward, orientationDir.normalized, Vector3.up)!=0)
-                {
-                    float angle = Vector3.SignedAngle(Vector3.forward,orientationDir.normalized,Vector3.up);
-                    childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                    Vector3 dir = pos - childEntities[i].transform.position;
+                    Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
+                    if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
+                    {
+                        childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                    }
+                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
+                    Vector3 orientationDir =  entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+                    if(Vector3.SignedAngle(Vector3.forward, orientationDir.normalized, Vector3.up)!=0)
+                    {
+                        float angle = Vector3.SignedAngle(Vector3.forward,orientationDir.normalized,Vector3.up);
+                        childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                    }
                 }               
 
 

@@ -86,15 +86,18 @@ public class CultistLaser : MonoBehaviour
                     {
                        
                         ActivationLaser();
-                        GetPlayerPosition();
                         LaserHit();
                     }  
+                        circle.activeCircle = true;
+                        GetPlayerPosition();
                         OrientationEntities();
                         OrientationCultist();                   
                         TimingAttack();
                 }
                 else
                 {
+                    
+                        
                     if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
                     {
                         MouvementPlay( moveTo,1f);
@@ -184,7 +187,7 @@ public class CultistLaser : MonoBehaviour
     {
         RaycastHit hit;
         float distanceHit = 0;
-        
+        myMouseTargetLasersScript.transform.position = transform.position;
         if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
         {
             distanceHit = Vector3.Distance(transform.position, hit.point);
