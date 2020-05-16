@@ -62,7 +62,9 @@ public class EnnemiStock : MonoBehaviour
     private float _declerationStrengh;
     
     private float _powerOfStrengh;
-    GainVelocitySystem myGainVelocitySystScript;
+    private GainVelocitySystem myGainVelocitySystScript;
+    
+    private PlayerAnimState playerAnim;
     void Start()
     {
         line = GetComponentInChildren<LineRend>();
@@ -73,6 +75,7 @@ public class EnnemiStock : MonoBehaviour
         playerRigid = GetComponent<Rigidbody>();
         slamTry = GetComponent<SlamTry>();
         myGainVelocitySystScript = GetComponent<GainVelocitySystem>();
+        playerAnim = GetComponent<PlayerAnimState>();
         
 
 // Line Renderer
@@ -192,6 +195,7 @@ public class EnnemiStock : MonoBehaviour
         Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
         baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Rotation);
         #region  Son
         contactSound.start();
         #endregion

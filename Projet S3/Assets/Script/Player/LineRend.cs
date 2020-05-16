@@ -23,6 +23,7 @@ public class LineRend : MonoBehaviour
     private float distance;
     private EnnemiStock ennemiStock;
 
+    public GameObject pointplayer;
 
     [Header("Feedback")]
     public GameObject particuleContact;
@@ -41,6 +42,7 @@ public class LineRend : MonoBehaviour
     private MouseScope mouseScope;
     private PlayerMoveAlone moveAlone;
     private KillCountPlayer countPlayer;
+
 
     // Start is called before the first frame update
     void Start()

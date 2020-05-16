@@ -50,7 +50,8 @@ public class KillCountPlayer : MonoBehaviour
     private float realTimeToWeightRetur;
     private float compteurWeightReturn;
 
-
+    float tempsEcouleComboReset;
+    public float tempsAvantComboReset = 3;
     public void Awake()
     {
         loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
@@ -71,8 +72,18 @@ public class KillCountPlayer : MonoBehaviour
         compteur = compteurOfDeath;
         
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {   
-           
+        {
+            tempsEcouleComboReset += Time.deltaTime;
+            if(tempsEcouleComboReset > tempsAvantComboReset)
+            {
+                DataPlayer.comboMultiplier = 1;
+                countKillEnnemi = 0;
+            }
+            else
+            {
+                DataPlayer.comboMultiplier = 1 + (countKillEnnemi / 40);
+                Debug.LogError(DataPlayer.comboMultiplier + "MON CUL LE SCORE D ECOMBO IL EST PETER");
+            }
           //  uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
 
             if (compteurOfDeath > timeBeforeDeath)
@@ -148,13 +159,16 @@ public class KillCountPlayer : MonoBehaviour
     public void HitEnnemi()
     {
         ResetTiming();
-        countKillEnnemi++;
+        DataPlayer.killCountEnnemi++;
+        DataPlayer.tempsEcouleCombo = 0;
         DataPlayer.entityHit++;
+        countKillEnnemi++;
     }
 
     public  void ResetTiming()
     {
         loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        tempsEcouleComboReset = 0;
         compteurOfDeath = 0;
         activeReset = true;
         myMP.track1.setParameterByName("TrackEffect", 1.0F);

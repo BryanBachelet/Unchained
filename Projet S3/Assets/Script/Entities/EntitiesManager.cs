@@ -34,7 +34,13 @@ public class EntitiesManager : MonoBehaviour
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
             MovementOfManager(patrolMode);
+        }else
+        {
+            cultistLaser.enabled = true;
+            circle.activeRituel = false;
         }
+
+        transform.position =  new Vector3(transform.position.x, 0, transform.position.y);
     }
 
 
@@ -56,10 +62,10 @@ public class EntitiesManager : MonoBehaviour
 
                     if(circle.activeRituel)
                     {  
-                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                         circle.activeRituel = false;                        
                     }
                     transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
+                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                     
                     }
                     else
@@ -67,6 +73,7 @@ public class EntitiesManager : MonoBehaviour
                         if (!circle.activeRituel)
                         {
 
+                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                             circle.activeRituel = true;
                         }
                         circle.CastInvoq();
@@ -128,7 +135,7 @@ public class EntitiesManager : MonoBehaviour
                 break;
             case (BeheaviorCultiste.Harass):
 
-
+               
                 cultistLaser.enabled = true;
 
 

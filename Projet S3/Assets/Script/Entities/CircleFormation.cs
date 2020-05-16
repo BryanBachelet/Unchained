@@ -46,23 +46,23 @@ private bool activeRunPlayer;
     void Update()
     {
 
+            Formation();
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            Formation();
         }
-        else
-        {
-            activeRunPlayer =true;
-        }
-        if(activeRunPlayer == true)
-        {
-            RunPlayer();
-        }
+        // else
+        // {
+        //     activeRunPlayer =true;
+        // }
+        // if(activeRunPlayer == true && StateOfGames.currentState !=StateOfGames.StateOfGame.Transformation )
+        // {
+        //     RunPlayer();
+        // }
         
 
         if (startInvoq && activeRituel)
         {
-
+          
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
@@ -143,7 +143,7 @@ public void ActiveRunPlayer()
         int numFor = 0;
         if(activeRituel)
         {     
-            angle += rotateRituelSpeed*Time.deltaTime;
+            //angle += rotateRituelSpeed*Time.deltaTime;
         }
         for (int i = 0; i < childEntities.Length ; i++)
         {
@@ -153,7 +153,7 @@ public void ActiveRunPlayer()
             }
             Vector3 pos = new Vector3(0, 0, 0);
             Vector3 transformFor = transform.forward;
-            pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0) * transform.forward * radiusUse);
+            pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
             if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
             {
                 float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);

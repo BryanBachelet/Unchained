@@ -8,12 +8,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public static Palier currentPalier = Palier.Palier0;
 
-
+    
     public int[] palierCondition = new int[7];
 
 
     private KillCountPlayer countPlayer;
-    [HideInInspector]
+    
     public int palierStep;
 
 
@@ -28,13 +28,21 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private  MashingFeedback mash;
 
-   
+    private PlayerAnimState playerAnim;
+
+    public float timeActivePlayerAnim = 1;
+
+    private float compteurTime;
+
+    private bool activePanel;
+
     // Start is called before the first frame update
     void Start()
     {      
         mash = GetComponent<MashingFeedback>();
         playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
+        playerAnim  = GetComponent<PlayerAnimState>(); 
     }
 
     // Update is called once per frame
@@ -62,7 +70,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]/10))
             {
-                ChangeStates();
+                activePanel =true;
             }
         }
     }
@@ -72,12 +80,26 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
             {
-                ChangeStates();
+                activePanel = false;
             }
         }
 
     }
+    if(activePanel)
+    {
         
+        if(compteurTime>timeActivePlayerAnim)
+        {
+            ChangeStates();
+            compteurTime = 0;
+            activePanel = false;
+        }
+        else
+        {
+            Debug.Log(compteurTime);
+            compteurTime +=Time.deltaTime;
+        }   
+    }
 
     }
 
@@ -99,6 +121,7 @@ public class TransformationPlayerStates : MonoBehaviour
         playerMove.GoTransformation();
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
 
     }
 

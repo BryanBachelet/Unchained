@@ -150,10 +150,11 @@ public class RotationPlayer : MonoBehaviour
             }
             angleAvatar += speedRotationAnim * Time.deltaTime;   /* Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);*/
             //Chara.transform.eulerAngles = new Vector3(0, angleAvatar, 0);
-            float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+           // float angle = Vector3.SignedAngle(Vector3.forward, GetDirection(), Vector3.up);
+            float angle = Vector3.SignedAngle(Vector3.forward, (pointPivot-transform.position).normalized,Vector3.up);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, pointPivot);
+            lineRenderer.SetPosition(0, line.pointplayer.transform.position);
+            lineRenderer.SetPosition(1, pointPivot + Vector3.up *2.5f);
             line.p1 = transform.position;
             line.p2 = stocks.ennemiStock.transform.position;
             line.ColliderSize();
@@ -166,7 +167,7 @@ public class RotationPlayer : MonoBehaviour
                 
             if (Physics.Raycast(ray, out hit, 2*( Mathf.Abs(angleSpeed) * Time.deltaTime)) )
             {
-                Debug.Log(hit.collider.gameObject.layer);
+                
                 if(hit.collider.gameObject.layer == 13)
                 {
                     stocks.DetachPlayer();
@@ -288,33 +289,33 @@ public class RotationPlayer : MonoBehaviour
 
         moveAlone.AddProjection(newDir.normalized, strenghPropulsion, deprojectionStrenght);
         transform.GetComponent<WallRotate>().hasHitWall = false;
-        if (vfxShockWave != null)
-        {
-
-            float angleConversion = transform.eulerAngles.y;
-            angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
-            float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
-            if (angleAvatar > 0 && angleAvatar < 90)
-            {
-                angleAvatar = 180 - angleAvatar;
-            }
-            if (angleAvatar < 0 && angleAvatar > -90)
-            {
-                angleAvatar = -180 - angleAvatar;
-            }
-
-
-            if (angleConversion < 0 && angleAvatar == 180)
-            {
-                angleAvatar = -180;
-            }
-
-
-
-            GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
-
-
-        }
+        //if (vfxShockWave != null)
+        //{
+        //
+        //    float angleConversion = transform.eulerAngles.y;
+        //    angleConversion = angleConversion > 180 ? angleConversion - 360 : angleConversion;
+        //    float angleAvatar = Vector3.SignedAngle(Vector3.forward, newDir.normalized, Vector3.up);
+        //    if (angleAvatar > 0 && angleAvatar < 90)
+        //    {
+        //        angleAvatar = 180 - angleAvatar;
+        //    }
+        //    if (angleAvatar < 0 && angleAvatar > -90)
+        //    {
+        //        angleAvatar = -180 - angleAvatar;
+        //    }
+        //
+        //
+        //    if (angleConversion < 0 && angleAvatar == 180)
+        //    {
+        //        angleAvatar = -180;
+        //    }
+        //
+        //
+        //
+        //    GameObject vfxSW = Instantiate(vfxShockWave, transform.position, Quaternion.Euler(0, angleAvatar, 0));
+        //
+        //
+        //}
 
         currentAngleMax = angleMax;
         angleCompteur = 0;

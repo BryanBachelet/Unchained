@@ -19,15 +19,18 @@ public class Projectils : MonoBehaviour
     private float distanceProjectilePlayer;
     private bool hitWall;
     private bool oneHit;
+
+    private LineRend lineRend;
     private void Start()
-    {
+    {   
+        lineRend = player.GetComponentInChildren<LineRend>();
 
         if (!lineRenderer.enabled)
         {
            //lineRenderer.enabled = true;
         }
         lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, player.transform.position);
+        lineRenderer.SetPosition(1, lineRend.pointplayer.transform.position);
 
 
     }

@@ -51,6 +51,17 @@ public class MashingTrans : MonoBehaviour
 
     private bool setMashingActive;
 
+    private PlayerAnimState playerAnim;
+
+    public float timeFinishMash;
+
+    private float compteurFinishMash;
+
+    private bool activeFinishMash;
+
+    [HideInInspector] public bool activeMash;
+
+    LifePlayer lifePlayerScript;
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -58,6 +69,8 @@ public class MashingTrans : MonoBehaviour
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
         gainVelocitySyst = GetComponent<GainVelocitySystem>();
+        playerAnim  = GetComponent<PlayerAnimState>();
+        lifePlayerScript = GetComponent<LifePlayer>();
     }
 
     private void OnEnable()
@@ -86,22 +99,11 @@ public class MashingTrans : MonoBehaviour
 
     void Update()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, 3);
+        
 
-        for (int j = 0; j < i.Count; j++)
-        {
-            if (i[j] + 1 < Time.time)
-            {
-                i.RemoveAt(j);
-            }
-
-        }
-        numberInput = i.Count;
-        numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
-        numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
-        debugMinRatio = numberToAim * ratioMinimumMashing;
+      
         if(activePos)
-       {
+        {
           moveAlone.StopVelocity();
         }
         if (setMashingActive)
@@ -112,9 +114,12 @@ public class MashingTrans : MonoBehaviour
             {
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
+                GestionInput();
+                   
             }
-            if (hitColliders.Length > 7)
+            if (activeMash)
             {
+             
                 if (timeSave + timeToDeacrese < compteur)
                 {
                     if (currentmax > minNumberToAim + 2)
@@ -125,50 +130,81 @@ public class MashingTrans : MonoBehaviour
 
                 }
                 compteur += Time.deltaTime;
+                tempsEcouleMashing += Time.deltaTime;
                 text.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
                 }
+                  if (i.Count < numberToAim)
+                {
+                    
+                    text.gameObject.SetActive(true);
+
+                }
                 if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
                 {
                   //  Physics.IgnoreLayerCollision(9, 9, false);
+                    GestionInput();
                     Physics.IgnoreLayerCollision(9, 10, false);
-                    text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
-                }
-                if (i.Count > numberToAim)
-                {
-                    activePos =false;
-                   // Physics.IgnoreLayerCollision(9, 9, false);
-                    Physics.IgnoreLayerCollision(9, 10, false);
-                    text.gameObject.SetActive(false);
-                    agentTransfo.ActiveExplosion();
-                    activeExplode = true;
-                    PropulsionAtFinish();
 
-                    StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
-                    transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                    setMashingActive =false;
-                     ResetMash();
-                    //Camera.main.GetComponent<Threshold>().enabled =false;
+                }
+                if (tempsEcouleMashing > tempsMinMashing)
+                {
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveFinish);
                     tempsEcouleMashing += Time.deltaTime;
+                    text.gameObject.SetActive(false);
+                        
+                   if(compteurFinishMash>timeFinishMash)
+                   {
+                        activePos =false;
+                    // Physics.IgnoreLayerCollision(9, 9, false);
+                        Physics.IgnoreLayerCollision(9, 10, false);
+                        agentTransfo.ActiveExplosion();
+                        activeExplode = true;
+                        PropulsionAtFinish();
+
+                        StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
+                        transform.GetComponent<PlayerMoveAlone>().enabled = true;
+                        setMashingActive =false;
+                        ResetMash();
+                        compteurFinishMash =0;
+                        activeMash = false; 
+                        
+                   }
+                  
+                     
+                   
+                   compteurFinishMash +=Time.deltaTime;
+
+                   
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
+
                     if(tempsEcouleMashing > tempsMinMashing)
                     {
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
+                    
                         if(!isP2)
                         {
-                        Debug.Log("work");
+                       
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP1 = 10;
+                                DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 20;
+                                DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP1 = 30;
+                                DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                         else
@@ -176,14 +212,20 @@ public class MashingTrans : MonoBehaviour
                             if (i.Count <= 5)
                             {
                                 gainVelocitySyst.gainMashP2 = 10;
+                                DataPlayer.ChangeScore(1000);
+                                lifePlayerScript.AddHealth(10);
                             }
                             else if (i.Count > 5 && i.Count <= 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 20;
+                                DataPlayer.ChangeScore(2500);
+                                lifePlayerScript.AddHealth(25);
                             }
                             else if (i.Count > 7)
                             {
                                 gainVelocitySyst.gainMashP2 = 30;
+                                DataPlayer.ChangeScore(5000);
+                                lifePlayerScript.AddHealth(50);
                             }
                         }
                        
@@ -212,6 +254,26 @@ public class MashingTrans : MonoBehaviour
         {
             maxNumberToAim = 6;
         }
+    }
+
+
+
+    public void GestionInput()
+    {
+        hitColliders = Physics.OverlapSphere(transform.position, 3);
+
+        for (int j = 0; j < i.Count; j++)
+        {
+            if (i[j] + 1 < Time.time)
+            {
+                i.RemoveAt(j);
+            }
+
+        }
+        numberInput = i.Count;
+        numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
+        numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
+        debugMinRatio = numberToAim * ratioMinimumMashing;
     }
 
     public void ActiveMashing()

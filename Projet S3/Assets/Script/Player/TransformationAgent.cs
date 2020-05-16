@@ -35,6 +35,10 @@ public class TransformationAgent : MonoBehaviour
     public float radius;
 
     public float timeToCome;
+
+    public GameObject menotte1;
+    public GameObject menotte2;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -224,8 +228,15 @@ public class TransformationAgent : MonoBehaviour
       
             LineRenderer line =  agentList[i].GetComponent<LineRenderer>();
             line.enabled =true;
-            line.SetPosition(0, transform.position);
-            line.SetPosition(1,agentList[i].transform.position );
+            if(i>(agentList.Count-1)/2)
+            {
+                line.SetPosition(0, menotte1.transform.position);
+            }
+            else
+            { 
+                line.SetPosition(0, menotte2.transform.position);
+            }
+            line.SetPosition(1,agentList[i].transform.position + Vector3.up*2.5f);
 
         
 

@@ -68,8 +68,20 @@ public class GestionScript : MonoBehaviour
     public void ActivePlaytime(bool states)
     {
         for (int i = 0; i < playtime.Length; i++)
-        {
-            playtime[i].enabled = states;
+        { 
+            if(StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
+            { 
+                if(playtime[i] is PlayerMoveAlone )
+                {
+                    
+                }else
+                {
+                    playtime[i].enabled = states;
+                }
+            }else
+            {   
+                playtime[i].enabled = states;
+            }
         }
 
     }
