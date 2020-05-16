@@ -30,6 +30,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private PlayerAnimState playerAnim;
 
+    public float timeActivePlayerAnim = 1;
+
+    private float compteurTime;
+
+    private bool activePanel;
+
     // Start is called before the first frame update
     void Start()
     {      
@@ -64,7 +70,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]/10))
             {
-                ChangeStates();
+                activePanel =true;
             }
         }
     }
@@ -74,12 +80,26 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
             {
-                ChangeStates();
+                activePanel = false;
             }
         }
 
     }
+    if(activePanel)
+    {
         
+        if(compteurTime>timeActivePlayerAnim)
+        {
+            ChangeStates();
+            compteurTime = 0;
+            activePanel = false;
+        }
+        else
+        {
+            Debug.Log(compteurTime);
+            compteurTime +=Time.deltaTime;
+        }   
+    }
 
     }
 
