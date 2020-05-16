@@ -99,6 +99,19 @@ private bool activeRunPlayer;
         Destruct();
     }
 
+public int CurrentActiveChild()
+{
+    int k = 0;
+    for (int i = 0; i < childEntities.Length; i++)
+        {
+            if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+            {
+              k++;   
+            }
+        }
+    return k;
+}
+
 public void ActiveRunPlayer()
 {
     activeRunPlayer = true;
