@@ -31,6 +31,8 @@ public class BoulierBehavior : MonoBehaviour
 
     public float distanceStopWall = 1;
 
+    public float distanceDead = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +61,7 @@ public class BoulierBehavior : MonoBehaviour
                 break;
 
                 case(DashEntityState.Dash):
-                
+                    transform.position =  new Vector3(transform.position.x, 1.5f, transform.position.z);
                     if(!isFall)
                     {
                         transform.position += dirDash.normalized * speed * Time.deltaTime;
@@ -106,6 +108,14 @@ public class BoulierBehavior : MonoBehaviour
         {
             ChangeDashState(DashEntityState.Repos);
         }
+       Vector3 center =  new Vector3(4.2f, 0, 34.9f);
+
+        if(Vector3.Distance(center,transform.position)>distanceDead)
+        {
+            ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
+            Destroy(gameObject);
+        } 
+
     }
 
     private void Init()

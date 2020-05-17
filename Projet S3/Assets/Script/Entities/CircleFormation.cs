@@ -18,7 +18,6 @@ public class CircleFormation : MonoBehaviour
     public int attack;
     public GameObject invoq1;
     public GameObject fbCastInvoq;
-
     private float radiusUse;
     private int currentCircleNumber;
     private float angleByCircle;
@@ -65,7 +64,7 @@ public class CircleFormation : MonoBehaviour
 
         Formation();
         
-        if(entityManage.autoDestruct)
+        if(entityManage.autoDestruct && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             ActiveAutoDestruct();
         }
@@ -130,13 +129,12 @@ public class CircleFormation : MonoBehaviour
     {
         for(int i = 0 ; i < childEntities.Length; i++)
         {   
-                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead &&  childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch )
                 {
                     Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                     if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                        Debug.Log("active");
-                        Debug.Break();
+                       Debug.Log("Death");
                         childEntities[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Dead;
                     }
 
@@ -178,7 +176,8 @@ public class CircleFormation : MonoBehaviour
             }
 
 
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
+
 
         }
     }
@@ -209,7 +208,7 @@ public class CircleFormation : MonoBehaviour
                 if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
                 {
                     
-                float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
+                      float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
                     if (distanceDestination > 0.01f)
                     {
                         Vector3 dir = pos - childEntities[i].transform.position;
@@ -242,7 +241,7 @@ public class CircleFormation : MonoBehaviour
                                 childEntities[i].transform.eulerAngles = Vector3.zero;
                                 childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
                                 
-                                Vector3 dirProjection = entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+                                Vector3 dirProjection = entityManage.GetPointToGo() - childEntities[i].transform.position;
                 
                                 if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
                                 {
@@ -286,12 +285,18 @@ public class CircleFormation : MonoBehaviour
                     }
                     childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
                     childEntities[i].transform.eulerAngles = Vector3.zero;
-                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
-                    Vector3 orientationDir =  entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+                  
+                    Vector3 orientationDir =  entityManage.GetPointToGo() - childEntities[i].transform.position;
                     if(Vector3.SignedAngle(Vector3.forward, orientationDir.normalized, Vector3.up)!=0)
                     {
                         float angle = Vector3.SignedAngle(Vector3.forward,orientationDir.normalized,Vector3.up);
                         childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                    }
+                    float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
+                    if (distanceDestination < 6)
+                    {
+
+                        numFor++;
                     }
                 }               
 
