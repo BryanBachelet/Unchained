@@ -60,12 +60,15 @@ public class CultistLaser : MonoBehaviour
 
     public float speedMouvement = 10;
 
+    public float laserPositionHeight = 1;
+
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
         cultistLaserEffect = attackCollideGo.GetComponent<CultistLaserEffect>();
         player = PlayerMoveAlone.Player1;
         circle = GetComponent<CircleFormation>();
+        circle.activeCircle = true;
         spriteRend = spriteGo.GetComponent<SpriteRenderer>();
         distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
         lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
@@ -85,15 +88,18 @@ public class CultistLaser : MonoBehaviour
                     {
                        
                         ActivationLaser();
-                        GetPlayerPosition();
                         LaserHit();
                     }  
+                        circle.activeCircle = true;
+                        GetPlayerPosition();
                         OrientationEntities();
                         OrientationCultist();                   
                         TimingAttack();
                 }
                 else
                 {
+                    
+                        
                     if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
                     {
                         MouvementPlay( moveTo,1f);
@@ -183,7 +189,7 @@ public class CultistLaser : MonoBehaviour
     {
         RaycastHit hit;
         float distanceHit = 0;
-        
+        myMouseTargetLasersScript.transform.position = transform.position+ Vector3.up* laserPositionHeight;
         if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
         {
             distanceHit = Vector3.Distance(transform.position, hit.point);

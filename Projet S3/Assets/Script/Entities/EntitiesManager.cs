@@ -19,8 +19,10 @@ public class EntitiesManager : MonoBehaviour
 
     private int indexOfPatrol = 0;
     private int indexCircleEntities;
-    private bool runPlayer;
+    public bool autoDestruct;
     private int countOfDeath;
+
+    public int autoDestruction = 5;
 
     void Start()
     {
@@ -40,7 +42,7 @@ public class EntitiesManager : MonoBehaviour
             circle.activeRituel = false;
         }
 
-        transform.position =  new Vector3(transform.position.x, 0, transform.position.y);
+        transform.position =  new Vector3(transform.position.x, 0, transform.position.z);
     }
 
 
@@ -57,15 +59,16 @@ public class EntitiesManager : MonoBehaviour
                         if (circle.activeRituel)
                         {
                             circle.activeRituel = false;
+                            circle.activeCircle =false;
                         }
                         transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement * Time.deltaTime);
 
-                    if(circle.activeRituel)
-                    {  
-                        circle.activeRituel = false;                        
-                    }
-                    transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
-                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
+                        if(circle.activeRituel)
+                        {     circle.activeCircle =false;
+                            circle.activeRituel = false;                        
+                        }
+                        transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
+                        circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                     
                     }
                     else
@@ -75,6 +78,7 @@ public class EntitiesManager : MonoBehaviour
 
                             circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
                             circle.activeRituel = true;
+                            circle.activeCircle =true;
                         }
                         circle.CastInvoq();
                     }
@@ -84,8 +88,9 @@ public class EntitiesManager : MonoBehaviour
                     if (circle.activeRituel)
                     {
                         circle.activeRituel = false;
+                         circle.activeCircle =false;
                     }
-                    if (!runPlayer)
+                    if (!autoDestruct)
                     {
 
                         if (Vector3.Distance(transform.position, circle.childEntities[indexCircleEntities].transform.position) > 20 &&
@@ -109,9 +114,9 @@ public class EntitiesManager : MonoBehaviour
                                 {
                                     countOfDeath++;
                                 }
-                                if (countOfDeath > 10)
+                                if (countOfDeath > autoDestruction)
                                 {
-                                    runPlayer = true;
+                                    autoDestruct = true;
                                     break;
                                 }
                             }

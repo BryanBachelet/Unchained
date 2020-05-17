@@ -61,38 +61,39 @@ public class Spawner : MonoBehaviour
         bool checkPatrol = false;
         if(ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Patrole))
         {
+            checkCultiste = true;
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;
             manager.pointToGo = target.transform;
             manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
             manager.speedOfMouvement = speedOfAgent;
-            checkPatrol = true;
         }
-        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste) && checkPatrol == false)
+        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste) && checkCultiste == false)
         {
 
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
             manager.pointToGo = target.transform;
             manager.speedOfMouvement = speedOfAgent;
             checkCultiste = true;
         }
-        else if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) && checkCultiste == false)
+       if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) && checkCultiste == false)
         {
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
           
             manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
             manager.pointToGo = target.transform;
             manager.speedOfMouvement = speedOfAgent;
+            checkCultiste = true;
         }
         else
         {
@@ -116,6 +117,7 @@ public class Spawner : MonoBehaviour
         //     
         // }
 
+        
 
     }
 

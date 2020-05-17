@@ -26,38 +26,49 @@ public class CircleFormation : MonoBehaviour
     private float[] compteurOfMouvement;
     private float angle;
     private EntitiesManager entityManage;
+    private bool activeRunPlayer;
 
-private bool activeRunPlayer;
+    private Vector3[] posAlea;
+
+    public bool activeCircle;
+
+    public float fxInvocationHeight;
 
     void Start()
     {
-        childEntities = new GameObject[transform.childCount - 4];
-        for (int i = 0; i < transform.childCount - 4; i++)
+        childEntities = new GameObject[transform.parent.childCount - 5];
+        for (int i = 0; i < childEntities.Length; i++)
         {
 
-            childEntities[i] = transform.GetChild(i).gameObject;
+            childEntities[i] = transform.parent.GetChild(i).gameObject;
 
         }
         compteurOfMouvement = new float[childEntities.Length];
         entityManage = GetComponent<EntitiesManager>();
+        posAlea = new Vector3[childEntities.Length];
+        float rangeAdd = 0;
+        for(int i = 0 ; i<posAlea.Length;i++)
+        {
+            
+            if(i%10 == 0)
+            {
+                rangeAdd +=2.5f;
+            }
+            Vector3 spherePos = new Vector3 (Random.insideUnitCircle.x,0, Random.insideUnitCircle.y).normalized * Random.Range(1 +rangeAdd, 3 +rangeAdd);
+            posAlea[i]= spherePos;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-            Formation();
-        if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        Formation();
+        
+        if(entityManage.autoDestruct)
         {
+            ActiveAutoDestruct();
         }
-        // else
-        // {
-        //     activeRunPlayer =true;
-        // }
-        // if(activeRunPlayer == true && StateOfGames.currentState !=StateOfGames.StateOfGame.Transformation )
-        // {
-        //     RunPlayer();
-        // }
         
 
         if (startInvoq && activeRituel)
@@ -66,6 +77,7 @@ private bool activeRunPlayer;
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
+                fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
                 fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
             }
 
@@ -86,36 +98,57 @@ private bool activeRunPlayer;
         {
             startInvoq =false;
             tempsEcouleInvoq = 0;
-            if(fbCastInvoq.transform.localScale.x>0.1 && fbCastInvoq.activeInHierarchy)
+            fbCastInvoq.transform.position = transform.position;
+            if(fbCastInvoq.transform.localScale.x > 0.1f && fbCastInvoq.activeInHierarchy)
             {
                 fbCastInvoq.transform.position = new Vector3 (entityManage.pointToGo.transform.position.x ,fbCastInvoq.transform.position.y, entityManage.pointToGo.transform.position.z);
                 fbCastInvoq.transform.localScale -= Vector3.one  *10*Time.deltaTime;  
-            }else
+            }
+            else
             {
-                 fbCastInvoq.SetActive(false);
+                fbCastInvoq.SetActive(false);
             }
         }
 
         Destruct();
     }
 
-public int CurrentActiveChild()
-{
-    int k = 0;
-    for (int i = 0; i < childEntities.Length; i++)
-        {
-            if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+    public int CurrentActiveChild()
+    {
+        int k = 0;
+        for (int i = 0; i < childEntities.Length; i++)
             {
-              k++;   
+                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                {
+                k++;   
+                }
             }
-        }
-    return k;
-}
+        return k;
+    }
 
-public void ActiveRunPlayer()
-{
-    activeRunPlayer = true;
-}
+    public void ActiveAutoDestruct()
+    {
+        for(int i = 0 ; i < childEntities.Length; i++)
+        {   
+                if (childEntities[i].GetComponent<StateOfEntity>() && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead)
+                {
+                    Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
+                    if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
+                    {
+                        Debug.Log("active");
+                        Debug.Break();
+                        childEntities[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Dead;
+                    }
+
+                }
+        }
+    }
+
+    public void ActiveRunPlayer()
+    {
+        activeRunPlayer = true;
+    }
+
     private void Destruct()
     {
         doDestruct = true;
@@ -158,82 +191,119 @@ public void ActiveRunPlayer()
         {     
             //angle += rotateRituelSpeed*Time.deltaTime;
         }
+          int vertical = 0;
+          int horizontal = 0;
         for (int i = 0; i < childEntities.Length ; i++)
         {
             if (i >= numberByCircle * currentCircleNumber)
             {
                 NewCircle();
             }
-            Vector3 pos = new Vector3(0, 0, 0);
-            Vector3 transformFor = transform.forward;
-            pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
-            if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
+            
+            if (activeCircle)
             {
+                Vector3 pos = new Vector3(0, 0, 0);
+                Vector3 transformFor = transform.forward;
+                pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
+            
+                if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
+                {
+                    
                 float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos);
-               
-                if (distanceDestination > 0.01f)
+                    if (distanceDestination > 0.01f)
+                    {
+                        Vector3 dir = pos - childEntities[i].transform.position;
+                        if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch)
+                        {
+
+                                
+                            if (distanceDestination > 1f)
+                            {
+                                Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
+                                if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
+                                {
+                                    childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                                }
+                                childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                                childEntities[i].transform.eulerAngles = Vector3.zero;
+                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
+
+                                if(Vector3.SignedAngle(Vector3.forward, dir.normalized, Vector3.up)!=0)
+                                {
+                                    float angle = Vector3.SignedAngle(Vector3.forward,dir.normalized,Vector3.up);
+                                    childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                                
+                                }               
+                            }
+                            else
+                            {
+                                
+                                childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
+                                childEntities[i].transform.eulerAngles = Vector3.zero;
+                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
+                                
+                                Vector3 dirProjection = entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+                
+                                if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                                {
+                                    float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                                    childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                                
+                                }               
+                            }
+                        }
+
+
+                    }
+                        if (distanceDestination < 6)
+                    {
+
+                        numFor++;
+                    }
+                    }
+            }
+            else
+            {
+                Vector3 pos = new Vector3(0, 0, 0);
+                Vector3 transformFor = transform.forward;
+              
+                if(i%5 == 0)
+                {
+                    vertical += 5;
+                    horizontal = 0;
+                }else
+                {
+                    horizontal +=3; 
+                }
+                pos = transform.position + posAlea[i] ;
+                if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch)
                 {
                     Vector3 dir = pos - childEntities[i].transform.position;
-                    if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy && childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch)
+                    Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
+                    if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                        /*if(activeRituel)
-                        {
-                            childEntities[i].transform.position += Quaternion.Euler(0,angle,0)*childEntities[i].transform.forward;
-                            Quaternion.Euler(0,angle,0)*(dir.normalized* Vector3.Distance(childEntities[i].transform.position , transform.position))
-                        }*/
-
-                         
-                        if (distanceDestination > 1f)
-                        {
-                            Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
-                            if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
-                            {
-                                childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
-                            }
-                            childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
-                            childEntities[i].transform.eulerAngles = Vector3.zero;
-                            childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
-
-                            if(Vector3.SignedAngle(Vector3.forward, dir.normalized, Vector3.up)!=0)
-                            {
-                                float angle = Vector3.SignedAngle(Vector3.forward,dir.normalized,Vector3.up);
-                                childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
-                            
-                            }               
-                        }
-                        else
-                        {
-                            
-                            childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
-                            childEntities[i].transform.eulerAngles = Vector3.zero;
-                            childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
-                            
-                            Vector3 dirProjection = entityManage.pointToGo.transform.position - childEntities[i].transform.position;
-           
-                            if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
-                            {
-                                float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
-                                childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
-                            
-                            }               
-                        }
+                        childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
                     }
+                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
+                    Vector3 orientationDir =  entityManage.pointToGo.transform.position - childEntities[i].transform.position;
+                    if(Vector3.SignedAngle(Vector3.forward, orientationDir.normalized, Vector3.up)!=0)
+                    {
+                        float angle = Vector3.SignedAngle(Vector3.forward,orientationDir.normalized,Vector3.up);
+                        childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);
+                    }
+                }               
 
 
-                }
-                    if (distanceDestination < 6)
-                {
-
-                    numFor++;
-                }
             }
         }
 
-        if(numFor>10)
+        if(numFor>5)
         {
             attack = 1;
         }
-        if(numFor<10 && attack != 0) 
+        if(numFor<5 && attack != 0) 
         {
             attack =-1;
         }
@@ -256,7 +326,7 @@ public void ActiveRunPlayer()
                     childEntities[i].transform.position = Vector3.MoveTowards(childEntities[i].transform.position, PlayerMoveAlone.Player1.transform.position, 2 * speedAgent * Time.deltaTime);
                 }
                 childEntities[i].transform.eulerAngles = Vector3.zero;
-               childEntities[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState(Anim_Cultist_States.AnimCultistState.Run);
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().ChangeAnimState(Anim_Cultist_States.AnimCultistState.Run);
                 Vector3 dirProjection = PlayerMoveAlone.playerPos - childEntities[i].transform.position;
            
                 if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
