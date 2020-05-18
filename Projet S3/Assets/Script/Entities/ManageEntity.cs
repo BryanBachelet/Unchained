@@ -9,7 +9,6 @@ public class ManageEntity : MonoBehaviour
         Cultiste, Distance, Coloss, Patrole
     }
     public EntityType Type = EntityType.Cultiste;
-
     public int maxCultisteInspec;
     public int maxDistanceInspec;
     public int maxColossInspec;
@@ -42,13 +41,17 @@ public class ManageEntity : MonoBehaviour
     public int currentNbPatrol;
 
     public float _timeCounter;
-
     public int nbEntityInspec;
     public static int nbEntity;
     public static int nbEntityTotal;
     public static int PercentKill;
     public int nbEntityTotalInspec;
     public int PercentKillInspec;
+
+    private static bool isCultistSpawn ;
+    private static bool isDistanceSpawn;
+    private static bool isPatrolSpawn;
+    private static bool isColossSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +77,7 @@ public class ManageEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ResetByFrame();
         nbEntityInspec = nbEntity;
         nbEntityTotalInspec = nbEntityTotal;
         PercentKillInspec = PercentKill;
@@ -85,41 +89,30 @@ public class ManageEntity : MonoBehaviour
             }
         }
 
-        //if(nonActiveRitualPoint.Count>0 && _timeCounter>spawnTime)
-        //{
-        //    if(nonActiveRitualPoint.Count>5)
-        //    {
-        //        for(int i=0; i<3;i++)
-        //        {
-        //            DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
-        //            SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
-        //        }
-        //        _timeCounter = 0;
-        //    }
-        //    else
-        //    {
-        //        DirectiveInstantiate(nonActiveRitualPoint[nonActiveRitualPoint.Count-1]);
-        //        SetActiveRitualPoint(nonActiveRitualPoint[nonActiveRitualPoint.Count-1],true);
-        //        _timeCounter= 0;
-        //    }
-        //}
-        //else
-        //{
-        //    _timeCounter += Time.deltaTime;
-        //}
 
         currentNbCultiste = nbCultiste;
         currentNbDistance = nbDistance;
+        currentNbPatrol = nbPatrol;
         currentNbColoss = nbColoss;
+    }
+
+
+    public void ResetByFrame()
+    {
+        isColossSpawn =false;
+        isCultistSpawn =false;
+        isDistanceSpawn = false;
+        isPatrolSpawn = false;
     }
 
     public static bool CheckInstantiateInvoq(EntityType typeToInstiate)
     {
         if (typeToInstiate == EntityType.Cultiste)
         {
-            if (nbCultiste < maxCultiste)
+            if (nbCultiste < maxCultiste && !isCultistSpawn)
             {
                 nbCultiste++;
+                isCultistSpawn =true;
                 return true;
             }
             else
@@ -128,11 +121,12 @@ public class ManageEntity : MonoBehaviour
             }
 
         }
-        else if (typeToInstiate == EntityType.Distance)
+        if (typeToInstiate == EntityType.Distance)
         {
-            if (nbDistance < maxDistance)
+            if (nbDistance < maxDistance && !isDistanceSpawn)
             {
                 nbDistance++;
+                isDistanceSpawn =true;
                 return true;
             }
             else
@@ -140,9 +134,9 @@ public class ManageEntity : MonoBehaviour
                 return false;
             }
         }
-        else if (typeToInstiate == EntityType.Coloss)
+         if (typeToInstiate == EntityType.Coloss)
         {
-            if (nbColoss < maxColoss)
+            if (nbColoss < maxColoss )
             {
                 nbColoss++;
                 return true;
@@ -152,10 +146,11 @@ public class ManageEntity : MonoBehaviour
                 return false;
             }
         }
-        else if (typeToInstiate == EntityType.Patrole)
+        if (typeToInstiate == EntityType.Patrole)
         {
-            if (nbPatrol < maxPatrol)
+            if (nbPatrol < maxPatrol && !isPatrolSpawn)
             {
+                isPatrolSpawn = true;
                 nbPatrol++;
                 return true;
             }
@@ -164,10 +159,7 @@ public class ManageEntity : MonoBehaviour
                 return false;
             }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     public static void DestroyEntity(EntityType typeToDestroy)
     {

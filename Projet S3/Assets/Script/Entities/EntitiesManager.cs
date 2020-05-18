@@ -7,6 +7,11 @@ public class EntitiesManager : MonoBehaviour
     public enum BeheaviorCultiste { RituelPoint, Patrol, Harass }
     public BeheaviorCultiste cultisteBehavior = BeheaviorCultiste.RituelPoint;
     public Transform pointToGo;
+
+    public float distanceActiveRituel =1;
+
+    public float distanceChangeFormation = 2;  
+
     [Header("Patrol")]
     public bool patrolMode;
     public Transform[] listOfPointOfPatrol = new Transform[0];
@@ -54,7 +59,7 @@ public class EntitiesManager : MonoBehaviour
             case (BeheaviorCultiste.RituelPoint):
                 if (circle.attack >= 0)
                 {
-                    if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceMinToGo)
+                    if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceActiveRituel)
                     {
                         if (circle.activeRituel)
                         {
@@ -73,6 +78,10 @@ public class EntitiesManager : MonoBehaviour
                     }
                     else
                     {
+                        circle.CastInvoq();
+                    }
+                    if (Vector3.Distance(transform.position, pointToGo.transform.position) < distanceChangeFormation)
+                    {
                         if (!circle.activeRituel)
                         {
 
@@ -80,7 +89,6 @@ public class EntitiesManager : MonoBehaviour
                             circle.activeRituel = true;
                             circle.activeCircle =true;
                         }
-                        circle.CastInvoq();
                     }
                 }
                 if (circle.attack == -1)
@@ -147,9 +155,10 @@ public class EntitiesManager : MonoBehaviour
                 break;
             case (BeheaviorCultiste.Patrol):
 
-                if (Vector3.Distance(transform.position, listOfPointOfPatrol[indexOfPatrol].position) > distanceMinToGo)
+                Vector3 currentPoint = new Vector3 (listOfPointOfPatrol[indexOfPatrol].position.x, 0 ,listOfPointOfPatrol[indexOfPatrol].position.z);
+                if (Vector3.Distance(transform.position, currentPoint) > distanceMinToGo)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, listOfPointOfPatrol[indexOfPatrol].position, speedOfMouvement * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, currentPoint, speedOfMouvement * Time.deltaTime);
                 }
                 else
                 {
@@ -158,14 +167,24 @@ public class EntitiesManager : MonoBehaviour
                 break;
 
         }
-        if (!patrol)
-        {
+     
+    }
 
+    public Vector3 GetPointToGo()
+    {
+        if(cultisteBehavior == BeheaviorCultiste.RituelPoint)
+        {
+            return pointToGo.position;
+        }
+        else if(cultisteBehavior == BeheaviorCultiste.Patrol)
+        {
+            return listOfPointOfPatrol[indexOfPatrol].position;
         }
         else
         {
-
+            return cultistLaser.moveTo;
         }
+
     }
 
     private void ChangeIndex()

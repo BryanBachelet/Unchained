@@ -55,10 +55,7 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-           
-                CheckState();
-
-            
+            CheckState();  
         }
     }
 
@@ -80,7 +77,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
             {
-                activePanel = false;
+                activePanel = true;
             }
         }
 
