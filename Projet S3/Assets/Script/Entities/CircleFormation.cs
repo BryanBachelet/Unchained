@@ -33,6 +33,8 @@ public class CircleFormation : MonoBehaviour
 
     public float fxInvocationHeight;
 
+    public float decalageDegree= 20;
+
     void Start()
     {
         childEntities = new GameObject[transform.parent.childCount - 5];
@@ -203,12 +205,12 @@ public class CircleFormation : MonoBehaviour
             {
                 Vector3 pos = new Vector3(0, 0, 0);
                 Vector3 transformFor = transform.forward;
-                pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
-            
+               // pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
+                pos =  NewFormation(i,numberByCircle);
                 if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
                 {
                     
-                      float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
+                    float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
                     if (distanceDestination > 0.01f)
                     {
                         Vector3 dir = pos - childEntities[i].transform.position;
@@ -313,6 +315,14 @@ public class CircleFormation : MonoBehaviour
             attack =-1;
         }
         ResetCircle();
+    }
+
+    public Vector3 NewFormation(int currentEntities, int divisionLine)
+    {   
+       int addPerLine = currentEntities/divisionLine;
+       Vector3 post =  transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * currentEntities) + (decalageDegree*addPerLine), 0)*  transform.forward * (radiusUse+(addPerLine*sizeBetweenCircle)));
+
+        return post;
     }
 
     public void RunPlayer()

@@ -93,7 +93,8 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         else
         {
-            Debug.Log(compteurTime);
+            
+            
             compteurTime +=Time.deltaTime;
         }   
     }
@@ -119,6 +120,7 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        SlowTime.StopTime();
 
     }
 

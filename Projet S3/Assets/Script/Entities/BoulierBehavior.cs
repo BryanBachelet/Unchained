@@ -6,7 +6,7 @@ public class BoulierBehavior : MonoBehaviour
 {
     public enum DashEntityState
     {
-        Preparation, Dash, Repos
+        Preparation, Dash, Repos, Ejection
     }
     public DashEntityState dashState = DashEntityState.Preparation;
 
@@ -32,6 +32,8 @@ public class BoulierBehavior : MonoBehaviour
     public float distanceStopWall = 1;
 
     public float distanceDead = 100;
+
+    private AnimBoulier animBoulier;
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +108,14 @@ public class BoulierBehavior : MonoBehaviour
 
         if(stateOfEntity.entity == StateOfEntity.EntityState.Destroy)
         {
-            ChangeDashState(DashEntityState.Repos);
+            ChangeDashState(DashEntityState.Ejection);
+          
+        }else
+        {
+            if(dashState == DashEntityState.Ejection)
+            {
+                 ChangeDashState(DashEntityState.Repos);
+            }
         }
        Vector3 center =  new Vector3(4.2f, 0, 34.9f);
 
@@ -124,6 +133,7 @@ public class BoulierBehavior : MonoBehaviour
         player = PlayerMoveAlone.Player1;
         myMR.material.color = Color.blue;
         stateOfEntity = GetComponent<StateOfEntity>();
+        animBoulier = GetComponent<AnimBoulier>();
     }
 
     private void ChangeDashState(DashEntityState stateChange)
@@ -132,6 +142,7 @@ public class BoulierBehavior : MonoBehaviour
         {
                 case(DashEntityState.Preparation):
                   
+                    animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
                     myMR.material.color = Color.blue;
                     tempsEcoulePrep = 0;
                     dashState = stateChange;
@@ -140,6 +151,7 @@ public class BoulierBehavior : MonoBehaviour
 
                 case(DashEntityState.Dash):
                     
+                    animBoulier.ChangeState(AnimBoulier.StateColoss.Charge);
                     dirDash = player.transform.position - transform.position;
                     Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit);
                     myMR.material.color = Color.black;
@@ -149,6 +161,16 @@ public class BoulierBehavior : MonoBehaviour
 
                 case(DashEntityState.Repos):
                      
+                    animBoulier.ChangeState(AnimBoulier.StateColoss.Idle);
+                    tempsForRepos = 0;
+                    myMR.material.color = Color.cyan;
+                    dashState = DashEntityState.Repos;
+                    dashState = stateChange;
+                     
+                break;
+                case(DashEntityState.Ejection):
+                     
+                    animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
                     tempsForRepos = 0;
                     myMR.material.color = Color.cyan;
                     dashState = DashEntityState.Repos;
@@ -182,6 +204,7 @@ public class BoulierBehavior : MonoBehaviour
                 isGrab = true;
                 gameObject.layer = 0;
                 gameObject.tag = "Untagged";
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Grap);
             }
         }
     }
@@ -199,6 +222,7 @@ public class BoulierBehavior : MonoBehaviour
         {
            if(isGrab)
             {
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Jet);
                 PlayerMoveAlone.Player1.GetComponent<LifePlayer>().AddDamage(30);
                 PlayerMoveAlone.Player1.GetComponent<PlayerMoveAlone>().AddProjection(-(hit.point -transform.position ).normalized, 60,30);
                 dashState = DashEntityState.Repos;

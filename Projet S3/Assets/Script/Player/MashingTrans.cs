@@ -171,6 +171,7 @@ public class MashingTrans : MonoBehaviour
                         ResetMash();
                         compteurFinishMash =0;
                         activeMash = false; 
+                        SlowTime.RestartTime();
                         
                    }
                   
