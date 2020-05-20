@@ -77,6 +77,17 @@ public class Spawner : MonoBehaviour
             return true;
             
         }
+          if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) )
+        {
+            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+            ManageEntity.nbEntity += 20;
+            ManageEntity.nbEntityTotal += 20;
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
+
+            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
+            manager.speedOfMouvement = speedOfAgentLaser;
+            return true;
+        }
         if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste))
         {
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
@@ -89,17 +100,7 @@ public class Spawner : MonoBehaviour
             manager.speedOfMouvement = speedOfAgentRitualist;
             return true;
         }
-       if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) )
-        {
-            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
-            ManageEntity.nbEntity += 20;
-            ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
-
-            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
-            manager.speedOfMouvement = speedOfAgentLaser;
-            return true;
-        }
+     
 
         return false;
     }

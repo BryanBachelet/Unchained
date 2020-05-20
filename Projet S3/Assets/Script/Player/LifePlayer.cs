@@ -34,6 +34,9 @@ public class LifePlayer : MonoBehaviour
     public GameObject loseTxt;
 
     bool loseRestart = false;
+
+    public float recoveryLife = 1.5f;
+    private float compteurLife;
     // Start is called before the first frame update
     void Start()
     {
@@ -96,7 +99,14 @@ public class LifePlayer : MonoBehaviour
     {
         if (!CountOfDamage())
         {
-            RegenerationBehavior();
+            if(compteurLife>recoveryLife)
+            {
+                RegenerationBehavior();
+            }
+            else
+            {
+                compteurLife += Time.deltaTime;
+            }
         }
         currentLife += (-frameDamage) + frameHealth;
         frameDamage = 0;
@@ -119,6 +129,7 @@ public class LifePlayer : MonoBehaviour
         if (frameDamage != 0)
         {
             countOfDamage += frameDamage;
+            compteurLife =0;
             return true;
         }
         else

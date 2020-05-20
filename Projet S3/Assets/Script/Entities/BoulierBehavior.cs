@@ -43,7 +43,10 @@ public class BoulierBehavior : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+       
+
+
         if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
         && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
         {
@@ -112,6 +115,11 @@ public class BoulierBehavior : MonoBehaviour
           
         }else
         {
+            if(transform.position.y>0)
+            {
+                transform.position += -Vector3.up*3*Time.deltaTime;
+            }
+
             if(dashState == DashEntityState.Ejection)
             {
                  ChangeDashState(DashEntityState.Repos);
@@ -210,15 +218,15 @@ public class BoulierBehavior : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisioEnter(Collision collision)
     {
         if(collision.gameObject == PlayerMoveAlone.Player1)
         {
-          CatchPlayer(collision);
+          CatchPlayer(collision.collider);
 
         }
 
-        if(collision.tag =="Wall Layer")
+        if(collision.collider.tag =="Wall Layer")
         {
            if(isGrab)
             {

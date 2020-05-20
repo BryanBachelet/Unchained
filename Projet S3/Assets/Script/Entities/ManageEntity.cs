@@ -136,9 +136,10 @@ public class ManageEntity : MonoBehaviour
         }
          if (typeToInstiate == EntityType.Coloss)
         {
-            if (nbColoss < maxColoss )
+            if (nbColoss < maxColoss && !isColossSpawn )
             {
                 nbColoss++;
+                isColossSpawn =true;
                 return true;
             }
             else

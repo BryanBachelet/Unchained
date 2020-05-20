@@ -118,7 +118,7 @@ public class MashingTrans : MonoBehaviour
             if (tempsEcoulePulse < tempsEntreInputPulse)
             {
                 tempsEcoulePulse += Time.deltaTime;
-                Debug.LogError("TEMPS AVANT PULSE = : " + (tempsEntreInputPulse - tempsEcoulePulse));
+             
             }
             // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
@@ -188,6 +188,7 @@ public class MashingTrans : MonoBehaviour
                         ResetMash();
                         compteurFinishMash = 0;
                         activeMash = false;
+                        SlowTime.RestartTime();
                         if (!isP2)
                         {                                                                                    //ScoringSystem + Health
                                                                                                              //ScoringSystem + Health
