@@ -48,6 +48,10 @@ public class ManageEntity : MonoBehaviour
     public int nbEntityTotalInspec;
     public int PercentKillInspec;
 
+    public static int spawnDuringPhase3 = 10;
+    private static int compteurSpawn = 0;
+    
+
     private static bool isCultistSpawn ;
     private static bool isDistanceSpawn;
     private static bool isPatrolSpawn;
@@ -96,6 +100,22 @@ public class ManageEntity : MonoBehaviour
         currentNbColoss = nbColoss;
     }
 
+    public static bool CheckNumber()
+    {
+        if(compteurSpawn>spawnDuringPhase3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;  
+        }
+    }
+
+    public static void CompteurPhase3()
+    {
+        compteurSpawn++;
+    }
 
     public void ResetByFrame()
     {

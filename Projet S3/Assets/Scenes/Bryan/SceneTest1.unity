@@ -2070,7 +2070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugLoseConditionActive: 1
   debugMashingActive: 0
-  debugPalierActive: 0
+  debugPalierActive: 1
   radiusMaxSize: 286.4
 --- !u!114 &303083901
 MonoBehaviour:
@@ -7182,7 +7182,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: controllerPc
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439572, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -10045,7 +10045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minNumberToAim: 2
-  maxNumberToAim: 10
+  maxNumberToAim: 5
   currentmax: 0
   ratioMashingToEntities: 4
   ratioMinimumMashing: 0.5
@@ -10058,7 +10058,7 @@ MonoBehaviour:
   text: {fileID: 1520469214}
   camMouvement: {fileID: 0}
   tempsEcouleMashing: 0
-  tempsMinMashing: 5
+  tempsMinMashing: 2.5
   timeFinishMash: 1
   activeMash: 0
   tempsEntreInputPulse: 1
@@ -10321,6 +10321,7 @@ MonoBehaviour:
   deathTimeBeforeReset: 2
   deathState: 0
   loseTxt: {fileID: 1776229254}
+  recoveryLife: 1.5
 --- !u!114 &2027631158
 MonoBehaviour:
   m_ObjectHideFlags: 0

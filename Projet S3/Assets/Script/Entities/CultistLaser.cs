@@ -77,6 +77,8 @@ public class CultistLaser : MonoBehaviour
         ConLaserScript =  myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
         moveTo = new Vector3(4.2f, 0, 34.9f) + Random.insideUnitSphere * radiusRNDTogo;
         moveTo = new Vector3(moveTo.x,0,moveTo.z);
+        isMoving =true;
+        percentShootTiming = Random.Range(100,200);
     }
 
     // Update is called once per frame

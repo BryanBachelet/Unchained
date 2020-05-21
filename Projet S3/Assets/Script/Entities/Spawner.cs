@@ -19,6 +19,9 @@ public class Spawner : MonoBehaviour
     public float speedOfAgentRitualist = 4;
 
     private float compteur;
+
+    private float compteSpawn;
+    private float conditionSpawn;
  
     private void Start()
     {
@@ -27,6 +30,24 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
+        if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        {
+            if (compteur > timeOfSpawnPhase2)
+            {
+                if(ManageEntity.CheckNumber())
+                {
+                    bool hasSpawn = SpawnEntities();
+                    if(hasSpawn)
+                    {
+                        compteur = 0;
+                    }
+                }
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
+        }
         
         if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
         {
@@ -66,30 +87,28 @@ public class Spawner : MonoBehaviour
        
         if(ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Patrole))
         {  
-            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
-            ManageEntity.nbEntity += 20;
-            ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
+            
+                compteSpawn++;
+                GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+                ManageEntity.nbEntity += 20;
+                ManageEntity.nbEntityTotal += 20;
+                EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
 
-            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;  
-            manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
-            manager.speedOfMouvement = speedOfAgentCultist;
-            return true;
+                manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;  
+                manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
+                manager.speedOfMouvement = speedOfAgentCultist;
+                if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+                {
+                    ManageEntity.CompteurPhase3();
+                }
+                return true;
+            
             
         }
-          if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) )
-        {
-            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
-            ManageEntity.nbEntity += 20;
-            ManageEntity.nbEntityTotal += 20;
-            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
-
-            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
-            manager.speedOfMouvement = speedOfAgentLaser;
-            return true;
-        }
+     
         if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste))
         {
+            compteSpawn++;
             GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
             ManageEntity.nbEntity += 20;
             ManageEntity.nbEntityTotal += 20;
@@ -99,6 +118,22 @@ public class Spawner : MonoBehaviour
             manager.pointToGo = target.transform;
             manager.speedOfMouvement = speedOfAgentRitualist;
             return true;
+        }
+        
+           if(compteSpawn>conditionSpawn)
+        {
+            if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) )
+            {
+                compteSpawn++;
+                GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+                ManageEntity.nbEntity += 20;
+                ManageEntity.nbEntityTotal += 20;
+                EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
+
+                manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
+                manager.speedOfMouvement = speedOfAgentLaser;
+                return true;
+            }
         }
      
 
