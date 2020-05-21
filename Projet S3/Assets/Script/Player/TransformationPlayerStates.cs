@@ -30,6 +30,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private PlayerAnimState playerAnim;
 
+    public float timeActivePlayerAnim = 1;
+
+    private float compteurTime;
+
+    private bool activePanel;
+
     // Start is called before the first frame update
     void Start()
     {      
@@ -49,10 +55,7 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-           
-                CheckState();
-
-            
+            CheckState();  
         }
     }
 
@@ -64,7 +67,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]/10))
             {
-                ChangeStates();
+                activePanel =true;
             }
         }
     }
@@ -74,12 +77,27 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
             {
-                ChangeStates();
+                activePanel = true;
             }
         }
 
     }
+    if(activePanel)
+    {
         
+        if(compteurTime>timeActivePlayerAnim)
+        {
+            ChangeStates();
+            compteurTime = 0;
+            activePanel = false;
+        }
+        else
+        {
+            
+            
+            compteurTime +=Time.deltaTime;
+        }   
+    }
 
     }
 
@@ -102,6 +120,7 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        SlowTime.StopTime();
 
     }
 

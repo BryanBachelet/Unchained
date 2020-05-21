@@ -88,6 +88,9 @@ public class MouseScope : MonoBehaviour
 
         if (ennemiStock.ennemiStock == null)
         {
+            Vector3 rotDir = new Vector3(-aimDirection.x,0,aimDirection.z);
+            float angleChara = Vector3.SignedAngle(rotDir.normalized,Vector3.forward,Vector3.up);
+            transform.eulerAngles =  new Vector3(0,angleChara,0);
 
             if (!resetShoot && FireInputActive(controllerPc))
             {
@@ -164,6 +167,7 @@ public class MouseScope : MonoBehaviour
     {
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
+       
         Vector3 aimInputDirection = new Vector3(aimHorizontal, aimVertical, 0);
         return aimInputDirection.magnitude > deadZone ? aimInputDirection : Vector3.zero;
     }
@@ -186,11 +190,10 @@ public class MouseScope : MonoBehaviour
        
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, maskPC))
         {
-
-      
             posConvert = hit.point + Vector3.up;
         }
         Vector3 dir = (posConvert - transform.position).normalized;
+      
         return dir;
     }
 
@@ -336,7 +339,7 @@ public class MouseScope : MonoBehaviour
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Tir);
         instanceBullet = Instantiate(prefabBullet, transform.position + (directionOfProjectileMouvement).normalized, Quaternion.identity);
-
+     
         _timerOfBullet = 0;
 
         projectils = instanceBullet.GetComponent<Projectils>();

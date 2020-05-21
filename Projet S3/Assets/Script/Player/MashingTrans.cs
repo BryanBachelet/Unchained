@@ -43,7 +43,7 @@ public class MashingTrans : MonoBehaviour
     private bool activePos;
 
     public float tempsEcouleMashing;
-    public int tempsMinMashing;
+    public float tempsMinMashing;
 
     private GainVelocitySystem gainVelocitySyst;
     private bool isP2 = false;
@@ -66,9 +66,11 @@ public class MashingTrans : MonoBehaviour
 
     LifePlayer lifePlayerScript;
 
-    bool setPulse;
-    float tempsEcoulePulse;
-    float tempsminBtwPulse;
+    private  bool setPulse;
+    private  float tempsEcoulePulse;
+    private  float tempsminBtwPulse;
+    private bool winMashing;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -118,15 +120,14 @@ public class MashingTrans : MonoBehaviour
             if (tempsEcoulePulse < tempsEntreInputPulse)
             {
                 tempsEcoulePulse += Time.deltaTime;
-                Debug.LogError("TEMPS AVANT PULSE = : " + (tempsEntreInputPulse - tempsEcoulePulse));
+             
             }
             // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
-                GestionInput();
-
+                SetupMash();
             }
             if (activeMash)
             {
@@ -143,7 +144,7 @@ public class MashingTrans : MonoBehaviour
                 compteur += Time.deltaTime;
                 tempsEcouleMashing += Time.deltaTime;
                 text.gameObject.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
                     if(tempsEcoulePulse >= tempsEntreInputPulse)
@@ -152,87 +153,62 @@ public class MashingTrans : MonoBehaviour
                         Pulse.tempsEcoulePulse = 0;
                     }
                 }
-
-                if (i.Count < numberToAim)
-                {
-
-                    text.gameObject.SetActive(true);
-
-                }
-                if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
-                {
-                    //  Physics.IgnoreLayerCollision(9, 9, false);
-                    GestionInput();
-                    Physics.IgnoreLayerCollision(9, 10, false);
-                    resetPlayerScript.ResetFonction(true);
-
-                }
+              
                 if (tempsEcouleMashing > tempsMinMashing)
                 {
                     playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveFinish);
-                    tempsEcouleMashing += Time.deltaTime;
                     text.gameObject.SetActive(false);
+                    SlowTime.RestartTime();
+                    if((i.Count/tempsMinMashing) > minNumberToAim)
+                    {
+                        winMashing = true;
+                    }else
+                    {
+                        winMashing =false;
+                    }
+                    Debug.Log(winMashing);
 
                     if (compteurFinishMash > timeFinishMash)
                     {
                         activePos = false;
-                        // Physics.IgnoreLayerCollision(9, 9, false);
+                    
                         Physics.IgnoreLayerCollision(9, 10, false);
-                        agentTransfo.ActiveExplosion();
                         activeExplode = true;
                         PropulsionAtFinish();
 
+                        agentTransfo.ActiveExplosion();
                         StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                         transform.GetComponent<PlayerMoveAlone>().enabled = true;
                         setMashingActive = false;
                         ResetMash();
                         compteurFinishMash = 0;
                         activeMash = false;
-                        if (!isP2)
-                        {                                                                                    //ScoringSystem + Health
-                                                                                                             //ScoringSystem + Health
-                            if (i.Count <= 5)                                                                //ScoringSystem + Health
+                        if(winMashing)
+                        {                                                                                 
+                            if ((i.Count/tempsMinMashing) <= 5)                                                                
                             {                                                                                //ScoringSystem + Health
                                 gainVelocitySyst.gainMashP1 = 10;                                            //ScoringSystem + Health
                                 DataPlayer.ChangeScore(1000, false);                                         //ScoringSystem + Health
-                                Debug.Log("JESCORE LE MASH");                                                //ScoringSystem + Health
+                                                                                                            //ScoringSystem + Health
                                 lifePlayerScript.AddHealth(10);                                              //ScoringSystem + Health
                             }                                                                                //ScoringSystem + Health
-                            else if (i.Count > 5 && i.Count <= 7)                                            //ScoringSystem + Health
+                            else if ((i.Count/tempsMinMashing) > 5 && (i.Count/tempsMinMashing) <= 7)                                            //ScoringSystem + Health
                             {                                                                                //ScoringSystem + Health
                                 gainVelocitySyst.gainMashP1 = 20;                                            //ScoringSystem + Health
                                 DataPlayer.ChangeScore(2500, false);                                         //ScoringSystem + Health
-                                Debug.Log("JESCORE LE MASH");                                                //ScoringSystem + Health
+                                                                                                                //ScoringSystem + Health
                                 lifePlayerScript.AddHealth(25);                                              //ScoringSystem + Health
                             }                                                                                //ScoringSystem + Health
-                            else if (i.Count > 7)                                                            //ScoringSystem + Health
+                            else if ((i.Count/tempsMinMashing) > 7)                                                            //ScoringSystem + Health
                             {                                                                                //ScoringSystem + Health
                                 gainVelocitySyst.gainMashP1 = 30;                                            //ScoringSystem + Health
                                 DataPlayer.ChangeScore(5000, false);                                         //ScoringSystem + Health
-                                Debug.Log("JESCORE LE MASH");                                                //ScoringSystem + Health
+                                                                                                                //ScoringSystem + Health
                                 lifePlayerScript.AddHealth(50);                                              //ScoringSystem + Health
                             }                                                                                //ScoringSystem + Health
-                        }                                                                                    //ScoringSystem + Health
-                        else                                                                                 //ScoringSystem + Health
-                        {                                                                                    //ScoringSystem + Health
-                            if (i.Count <= 5)                                                                //ScoringSystem + Health
-                            {                                                                                //ScoringSystem + Health
-                                gainVelocitySyst.gainMashP2 = 10;                                            //ScoringSystem + Health
-                                DataPlayer.ChangeScore(1000, false);                                         //ScoringSystem + Health
-                                lifePlayerScript.AddHealth(10);                                              //ScoringSystem + Health
-                            }                                                                                //ScoringSystem + Health
-                            else if (i.Count > 5 && i.Count <= 7)                                            //ScoringSystem + Health
-                            {                                                                                //ScoringSystem + Health
-                                gainVelocitySyst.gainMashP2 = 20;                                            //ScoringSystem + Health
-                                DataPlayer.ChangeScore(2500, false);                                         //ScoringSystem + Health
-                                lifePlayerScript.AddHealth(25);                                              //ScoringSystem + Health
-                            }                                                                                //ScoringSystem + Health
-                            else if (i.Count > 7)                                                            //ScoringSystem + Health
-                            {                                                                                //ScoringSystem + Health
-                                gainVelocitySyst.gainMashP2 = 30;                                            //ScoringSystem + Health
-                                DataPlayer.ChangeScore(5000, false);                                         //ScoringSystem + Health
-                                lifePlayerScript.AddHealth(50);                                              //ScoringSystem + Health
-                            }                                                                                //ScoringSystem + Health
+                        }else
+                        {
+                             lifePlayerScript.AddDamage(15);       
                         }
 
                     }
@@ -263,21 +239,8 @@ public class MashingTrans : MonoBehaviour
             maxNumberToAim = 6;
         }
     }
-
-
-
-    public void GestionInput()
+    public void SetupMash()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, 3);
-
-        for (int j = 0; j < i.Count; j++)
-        {
-            if (i[j] + 1 < Time.time)
-            {
-                i.RemoveAt(j);
-            }
-
-        }
         numberInput = i.Count;
         numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
@@ -290,7 +253,6 @@ public class MashingTrans : MonoBehaviour
         ResetMash();
 
     }
-
     public void PropulsionAtFinish()
     {
         hitColliders = Physics.OverlapSphere(transform.position, 150, 1 << 9);
