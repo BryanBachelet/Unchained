@@ -18,8 +18,14 @@ public class DataPlayer : MonoBehaviour
     static float afficheKill;
     static float affichePercentAim;
 
-    static Text dataText;
-    public Text goText;
+    static Text dataTime;
+    static Text datakill;
+    static Text dataRythme;
+    static Text dataAim;
+    public Text goTextTime;
+    public Text goTextKill;
+    public Text goTextRythme;
+    public Text goTextAim;
     public Text scoringText;
     public Text scoreMultiplyText;
     Image imgTempsMultiplier;
@@ -78,7 +84,10 @@ public class DataPlayer : MonoBehaviour
         tempsAccroche = 0;
         entityKillBySlam = 0;
         tempsEcouleMashing = 0;
-        dataText = goText;
+        dataTime = goTextTime;
+        datakill = goTextKill;
+        dataRythme = goTextRythme;
+        dataAim = goTextAim;
         tempsEcouleScale = 0;
         tempsEcouleGroupe = 0;
         isOnCombo = false;
@@ -226,7 +235,10 @@ public class DataPlayer : MonoBehaviour
         afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
         afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
         affichePercentAim = Mathf.Lerp(affichePercentAim,nbShotHit * 100 / nbShot,tempsEcouleWin);
-        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill + "\nAiming : " + affichePercentAim + " %" + "\nRythmeKill : " + ManageEntity.PercentKill + " %";
+        dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min";
+        datakill.text = "Entitées tuées : " + afficheKill;
+        dataRythme.text = "RythmeKill : " + ManageEntity.PercentKill + " %";
+        dataAim.text = "Aiming : " + affichePercentAim + " %";
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
 
