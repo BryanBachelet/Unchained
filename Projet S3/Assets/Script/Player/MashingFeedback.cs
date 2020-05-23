@@ -9,8 +9,10 @@ public class MashingFeedback : MonoBehaviour
     public GameObject feedbackSecondTransformation;
     
     
-    private GameObject fd;
+    public GameObject fd;
     private float duration;
+
+    public GameObject roche;
 
     public void Start()
     {

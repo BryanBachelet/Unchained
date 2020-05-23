@@ -36,6 +36,8 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private bool activePanel;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {      
@@ -92,9 +94,7 @@ public class TransformationPlayerStates : MonoBehaviour
             activePanel = false;
         }
         else
-        {
-            
-            
+        {             
             compteurTime +=Time.deltaTime;
         }   
     }

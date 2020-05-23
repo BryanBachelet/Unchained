@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0, g: 0.24528313, b: 0.735849, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.41
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 71f14a2d79f732f4d9893ef1b911f4ff, type: 2}
@@ -418,7 +418,7 @@ PrefabInstance:
     - target: {fileID: 1592513494180059576, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1592513494180059576, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
         type: 3}
@@ -1073,6 +1073,36 @@ PrefabInstance:
     - target: {fileID: 9137534223918067426, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513492943708118, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493678745825, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2989,7 +3019,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &552212718
 GameObject:
@@ -3921,7 +3951,7 @@ PrefabInstance:
     - target: {fileID: 7951619290539249059, guid: c323f01c01629b143927370d43bd1cce,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7951619290539249059, guid: c323f01c01629b143927370d43bd1cce,
         type: 3}
@@ -4512,7 +4542,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.75140506, g: 0.71564615, b: 0.8113208, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -5675,12 +5705,14 @@ MonoBehaviour:
   activeBehavior: 0
   pointFocus: {fileID: 1259576773}
   timeOfPlan: 3.5
-  numberofTurn: 2
-  posFinish: {x: 0, y: -0.2, z: -10}
+  numberofTurn: 1
+  stop: 2
+  posFinish: {x: 0, y: -0.2, z: -15}
   timeOfPlan2: 7
   numberofTurn2: 0
   posFinish2: {x: 0, y: 2, z: -26}
   durationTotal: 0
+  magnitudeShake: 0.2
 --- !u!114 &1246053384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5709,7 +5741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 601d83f113eed6c4e9ee285c9f69b171, type: 3}
-  Value: 75
+  Value: 1
   NoiseRange: 53.1
   UseNoise: 0
 --- !u!114 &1246053386
@@ -5726,9 +5758,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: f1c2bf98023ec1d49a324ffb4746f895, type: 3}
   Mode: 0
-  Shadows: {r: 1, g: 1, b: 1, a: 0.018018022}
-  Midtones: {r: 1, g: 1, b: 1, a: 0.5855856}
-  Highlights: {r: 1, g: 1, b: 1, a: 0.5405405}
+  Shadows: {r: 0.49557513, g: 0.9361512, b: 1, a: 0.5225225}
+  Midtones: {r: 0.31646347, g: 0.98408294, b: 1, a: 0.45945945}
+  Highlights: {r: 1, g: 0.45160916, b: 0.3396129, a: 0.45045042}
   Amount: 1
 --- !u!114 &1246053387
 MonoBehaviour:
@@ -5737,14 +5769,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246053373}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8ff44335507f4749aa70099c187a8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 5675fc85342982e4aa19f32d906706e4, type: 3}
-  Levels: 200
-  Amount: 0.662
+  Levels: 201
+  Amount: 1
   LuminosityOnly: 1
 --- !u!114 &1246053388
 MonoBehaviour:
@@ -5814,11 +5846,11 @@ MonoBehaviour:
   StripAngle: 7.38
   StripDensity: 155.67
   StripThickness: 1
-  StripLimits: {x: 0.060556743, y: 0.24230963}
+  StripLimits: {x: 0.033079088, y: 0.09314523}
   StripInnerColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
   StripOuterColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  FillColor: {r: 1, g: 1, b: 1, a: 1}
-  BackgroundColor: {r: 0.066037714, g: 0.0233624, b: 0.0233624, a: 1}
+  FillColor: {r: 0, g: 0, b: 0, a: 1}
+  BackgroundColor: {r: 0.6603774, g: 0, b: 0, a: 1}
   EdgeDetection: 1
   EdgeThreshold: 8.27
   EdgeColor: {r: 0, g: 0, b: 0, a: 1}
@@ -6458,7 +6490,7 @@ Transform:
   m_LocalScale: {x: 193.90263, y: 15.59893, z: 17.494091}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -29.949001, z: 0}
 --- !u!65 &1317178381
 BoxCollider:
@@ -9672,7 +9704,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -10174,7 +10206,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.56995374, g: 0.5496618, b: 0.6037736, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -10661,6 +10693,8 @@ MonoBehaviour:
     type: 3}
   feedbackSecondTransformation: {fileID: 3760582440097357505, guid: 7fdc829aa3cc6474283f61956490a1e1,
     type: 3}
+  fd: {fileID: 0}
+  roche: {fileID: 0}
 --- !u!114 &2027631157
 MonoBehaviour:
   m_ObjectHideFlags: 0
