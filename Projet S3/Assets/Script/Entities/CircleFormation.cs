@@ -136,7 +136,8 @@ public class CircleFormation : MonoBehaviour
                     Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                     if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                       Debug.Log("Death");
+                        Debug.Log("Death");
+                        childEntities[i].SetActive(false);
                         childEntities[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Dead;
                     }
 
