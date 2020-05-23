@@ -30,12 +30,12 @@ public class CamMouvement : MonoBehaviour
     private Vector3 startPosCam;
     private Vector3 startEulerCam;
     public MusicPlayer myMP;
-    int nbT = 0;
+    public int nbT = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        nbT = 0;
         if (!smoothTransition)
         {
             transform.position = cams[i].startPos.position;
@@ -254,12 +254,14 @@ public class CamMouvement : MonoBehaviour
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
+            Debug.Log("JE PASSSSSSSE PAAAAAAAAAAAAAAAAAAAAAAS     " + nbT);
             if (nbT == 1 && myMP != null)
             {
                 DataPlayer.isCountingTime = true;
-                
-                myMP.track1.start();
+                Debug.Log("JE PASSSSSSSE");
+                //myMP.track1.start();
             }
+
             nbT++;
         }
 

@@ -62,9 +62,13 @@ public class DataPlayer : MonoBehaviour
     static float tempsEcouleGroupe;
     static List<float> groupScore = new List<float>();
     static bool isCountingGroup = false;
+
+    public MusicPlayer musicPlarye;
+    static MusicPlayer musPlayerStatic;
     // Start is called before the first frame update
     void Start()
     {
+        musPlayerStatic = musicPlarye;
         if(uiTextAddTaken != null)
         {
             uiTextAdd = uiTextAddTaken;
@@ -92,6 +96,7 @@ public class DataPlayer : MonoBehaviour
         tempsEcouleGroupe = 0;
         isOnCombo = false;
         isCountingGroup = false;
+        isGivingData = false;
         groupScore.Clear();
         comboMultiplier = 1;
     }
@@ -223,6 +228,7 @@ public class DataPlayer : MonoBehaviour
         }
         if(isGivingData)
         {
+            musPlayerStatic.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             GiveData();
         }
     }
@@ -231,10 +237,15 @@ public class DataPlayer : MonoBehaviour
     {
         isCountingTime = false;
         tempsEcouleWin += 0.1f * Time.deltaTime;
+
         afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
         afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
         afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
-        affichePercentAim = Mathf.Lerp(affichePercentAim,nbShotHit * 100 / nbShot,tempsEcouleWin);
+        if(nbShot != 0)
+        {
+            affichePercentAim = Mathf.Lerp(affichePercentAim, nbShotHit * 100 / nbShot, tempsEcouleWin);
+        }
+
         dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min";
         datakill.text = "Entitées tuées : " + afficheKill;
         dataRythme.text = "RythmeKill : " + ManageEntity.PercentKill + " %";

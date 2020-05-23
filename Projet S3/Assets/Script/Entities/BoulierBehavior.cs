@@ -43,7 +43,7 @@ public class BoulierBehavior : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-       Init();
+        Init();
     }
 
     // Update is called once per frame
@@ -140,22 +140,22 @@ public class BoulierBehavior : MonoBehaviour
             if (dashState == DashEntityState.Ejection)
             {
 
-            if(dashState == DashEntityState.Ejection)
-            {
-              
-                ChangeDashState(DashEntityState.Repos);
+                if (dashState == DashEntityState.Ejection)
+                {
+
+                    ChangeDashState(DashEntityState.Repos);
+                }
+
             }
-            
-        }
-        Vector3 center = new Vector3(4.2f, 0, 34.9f);
+            Vector3 center = new Vector3(4.2f, 0, 34.9f);
 
-        if (Vector3.Distance(center, transform.position) > distanceDead)
-        {
-            
-            ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
-            Destroy(gameObject);
-        }
+            if (Vector3.Distance(center, transform.position) > distanceDead)
+            {
 
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void Init()
