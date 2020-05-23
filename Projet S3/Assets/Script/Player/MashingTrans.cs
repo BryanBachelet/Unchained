@@ -131,7 +131,7 @@ public class MashingTrans : MonoBehaviour
             }
             if (activeMash)
             {
-
+                playerAnim.ChangeSpeedAnimator(1f);
                 if (timeSave + timeToDeacrese < compteur)
                 {
                     if (currentmax > minNumberToAim + 2)

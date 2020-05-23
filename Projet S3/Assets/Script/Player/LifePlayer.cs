@@ -60,6 +60,7 @@ public class LifePlayer : MonoBehaviour
         else
         {
             Debug.Log("Dead");
+            transform.position = transform.position;
             DeathGestion();
         }
         ratioHp = GetRatioHealth();
@@ -143,6 +144,7 @@ public class LifePlayer : MonoBehaviour
     private void PlayerDead()
     {
         deathState = true;
+        StateOfGames.currentState = StateOfGames.StateOfGame.Defaite;
     }
 
     private void DeathGestion()

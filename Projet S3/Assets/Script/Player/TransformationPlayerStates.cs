@@ -120,6 +120,7 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        playerAnim.ChangeSpeedAnimator(0.5f);
         SlowTime.StopTime();
 
     }

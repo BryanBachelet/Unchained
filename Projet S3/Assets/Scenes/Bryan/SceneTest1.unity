@@ -1734,6 +1734,16 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!1 &214786250
@@ -2775,6 +2785,16 @@ PrefabInstance:
       propertyPath: patrolMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!114 &487750012 stripped
@@ -3007,6 +3027,16 @@ PrefabInstance:
         type: 3}
       propertyPath: timeOfSpawn
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
@@ -5091,6 +5121,16 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!1 &1170165554
@@ -5392,6 +5432,22 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1246053379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246053373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f153493337879845baff81a5ae305fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: {fileID: 2027631157}
+  distancePlayer: 25
+  timing: 5
+  angleSpeed: 180
 --- !u!114 &1246053380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5410,6 +5466,8 @@ MonoBehaviour:
   - {fileID: 1246053375}
   - {fileID: 1246053381}
   transformation: []
+  DefAndVictory:
+  - {fileID: 1246053379}
 --- !u!114 &1246053381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5478,9 +5536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 601d83f113eed6c4e9ee285c9f69b171, type: 3}
-  Value: 91.8
+  Value: 75
   NoiseRange: 53.1
-  UseNoise: 1
+  UseNoise: 0
 --- !u!114 &1246053386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5495,9 +5553,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: f1c2bf98023ec1d49a324ffb4746f895, type: 3}
   Mode: 0
-  Shadows: {r: 1, g: 1, b: 1, a: 0.5}
-  Midtones: {r: 1, g: 1, b: 1, a: 0.5}
-  Highlights: {r: 1, g: 1, b: 1, a: 0.5}
+  Shadows: {r: 1, g: 1, b: 1, a: 0.018018022}
+  Midtones: {r: 1, g: 1, b: 1, a: 0.5855856}
+  Highlights: {r: 1, g: 1, b: 1, a: 0.5405405}
   Amount: 1
 --- !u!114 &1246053387
 MonoBehaviour:
@@ -5513,7 +5571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shader: {fileID: 4800000, guid: 5675fc85342982e4aa19f32d906706e4, type: 3}
   Levels: 200
-  Amount: 0.579
+  Amount: 0.662
   LuminosityOnly: 1
 --- !u!114 &1246053388
 MonoBehaviour:
@@ -6860,6 +6918,16 @@ PrefabInstance:
         type: 3}
       propertyPath: patrolMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
@@ -8867,6 +8935,16 @@ PrefabInstance:
       propertyPath: timeOfSpawn
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!1 &1759742219
@@ -9456,6 +9534,16 @@ PrefabInstance:
       propertyPath: patrolMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
 --- !u!4 &1930592904 stripped
@@ -9665,6 +9753,16 @@ PrefabInstance:
         type: 3}
       propertyPath: timeOfSpawn
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
+        type: 3}
+      propertyPath: timeOfSpawnPhase2
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 229184031d37d5d448781648b66ba6e9, type: 3}
@@ -10220,6 +10318,7 @@ MonoBehaviour:
   - {fileID: 2027631137}
   - {fileID: 2027631150}
   - {fileID: 2027631156}
+  DefAndVictory: []
 --- !u!114 &2027631150
 MonoBehaviour:
   m_ObjectHideFlags: 0
