@@ -82,6 +82,13 @@ public class BoulierBehavior : MonoBehaviour
                         PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
                         ExitPlayer();
                 
+                    }else
+                    {
+                      
+                       if( Vector3.Distance(transform.position,player.transform.position)<1.5f)
+                       {
+                           CatchPlayer(player);
+                       }
                     }
                     
                         if(Vector3.Distance(transform.position, hit.point) < distanceStopWall)
@@ -219,7 +226,7 @@ public class BoulierBehavior : MonoBehaviour
             
     }
 
-    public void CatchPlayer( Collider collision)
+    public void CatchPlayer( GameObject collision)
     {
         if(dashState == DashEntityState.Dash && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
@@ -227,8 +234,8 @@ public class BoulierBehavior : MonoBehaviour
             {
                 checkStich = true;
                 stichPos = collision.transform.position - transform.position;
-                collision.gameObject.GetComponent<EnnemiStock>().DetachPlayer();
-                collision.gameObject.GetComponent<PlayerMoveAlone>().currentPowerOfProjection= 0;
+                collision.GetComponent<EnnemiStock>().DetachPlayer();
+                collision.GetComponent<PlayerMoveAlone>().currentPowerOfProjection= 0;
                 isGrab = true;
                 gameObject.layer = 0;
                 gameObject.tag = "Untagged";
@@ -242,7 +249,7 @@ public class BoulierBehavior : MonoBehaviour
     {
         if(collision.gameObject == PlayerMoveAlone.Player1)
         {
-          CatchPlayer(collision.collider);
+         // CatchPlayer(collision.collider);
         }
 
         

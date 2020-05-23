@@ -36,6 +36,8 @@ public class CamMouvement : MonoBehaviour
     void Start()
     {
 
+        
+
         if (!smoothTransition)
         {
             transform.position = cams[i].startPos.position;

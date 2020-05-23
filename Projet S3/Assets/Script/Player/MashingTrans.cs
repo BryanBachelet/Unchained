@@ -172,7 +172,7 @@ public class MashingTrans : MonoBehaviour
                     {
                         activePos = false;
                     
-                        Physics.IgnoreLayerCollision(9, 10, false);
+                        
                         activeExplode = true;
                         PropulsionAtFinish();
 
