@@ -33,6 +33,10 @@ public class CircleFormation : MonoBehaviour
 
     public float fxInvocationHeight;
 
+    public float decalageDegree= 20;
+
+    [FMODUnity.EventRef]
+    public string invoqSound;
     void Start()
     {
         childEntities = new GameObject[transform.parent.childCount - 5];
@@ -86,6 +90,12 @@ public class CircleFormation : MonoBehaviour
                 if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Coloss))
                 {
                     Instantiate(invoq1, fbCastInvoq.transform.position, fbCastInvoq.transform.rotation);
+                    FMODUnity.RuntimeManager.PlayOneShot(invoqSound);
+                    Debug.Log("Invoque Coloss");
+                    tempsEcouleInvoq = 0;
+                }
+                else
+                {
                     tempsEcouleInvoq = 0;
                 }
             }
@@ -134,7 +144,8 @@ public class CircleFormation : MonoBehaviour
                     Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                     if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                       Debug.Log("Death");
+                        Debug.Log("Death");
+                        childEntities[i].SetActive(false);
                         childEntities[i].GetComponent<StateOfEntity>().entity =  StateOfEntity.EntityState.Dead;
                     }
 
@@ -203,12 +214,12 @@ public class CircleFormation : MonoBehaviour
             {
                 Vector3 pos = new Vector3(0, 0, 0);
                 Vector3 transformFor = transform.forward;
-                pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
-            
+               // pos = transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * i), 0)*  transform.forward * radiusUse);
+                pos =  NewFormation(i,numberByCircle);
                 if (childEntities[i].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead && childEntities[i].GetComponent<StateOfEntity>())
                 {
                     
-                      float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
+                    float distanceDestination = Vector3.Distance(childEntities[i].transform.position, pos); 
                     if (distanceDestination > 0.01f)
                     {
                         Vector3 dir = pos - childEntities[i].transform.position;
@@ -313,6 +324,14 @@ public class CircleFormation : MonoBehaviour
             attack =-1;
         }
         ResetCircle();
+    }
+
+    public Vector3 NewFormation(int currentEntities, int divisionLine)
+    {   
+       int addPerLine = currentEntities/divisionLine;
+       Vector3 post =  transform.position + (Quaternion.Euler(0, (angle) + (angleByCircle * currentEntities) + (decalageDegree*addPerLine), 0)*  transform.forward * (radiusUse+(addPerLine*sizeBetweenCircle)));
+
+        return post;
     }
 
     public void RunPlayer()

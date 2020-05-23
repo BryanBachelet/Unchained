@@ -43,7 +43,7 @@ public class MashingTrans : MonoBehaviour
     private bool activePos;
 
     public float tempsEcouleMashing;
-    public int tempsMinMashing;
+    public float tempsMinMashing;
 
     private GainVelocitySystem gainVelocitySyst;
     private bool isP2 = false;
@@ -61,7 +61,16 @@ public class MashingTrans : MonoBehaviour
 
     [HideInInspector] public bool activeMash;
 
+    public float tempsEntreInputPulse = 1;
+    float tempsEcouleInputPulse = 0;
+
     LifePlayer lifePlayerScript;
+
+    private  bool setPulse;
+    private  float tempsEcoulePulse;
+    private  float tempsminBtwPulse;
+    private bool winMashing;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -69,7 +78,7 @@ public class MashingTrans : MonoBehaviour
         currentmax = maxNumberToAim;
         moveAlone = GetComponent<PlayerMoveAlone>();
         gainVelocitySyst = GetComponent<GainVelocitySystem>();
-        playerAnim  = GetComponent<PlayerAnimState>();
+        playerAnim = GetComponent<PlayerAnimState>();
         lifePlayerScript = GetComponent<LifePlayer>();
     }
 
@@ -77,7 +86,7 @@ public class MashingTrans : MonoBehaviour
     {
         if (this.enabled == true)
         {
-          
+
             activationTransformation = false;
             i.Clear();
             currentmax = maxNumberToAim;
@@ -88,38 +97,41 @@ public class MashingTrans : MonoBehaviour
             debugMinRatio = 0;
             tempsEcouleMashing = 0;
             posStart = transform.position;
-            activePos =true;
-            if(FastTest.debugMashing)
+            activePos = true;
+            if (FastTest.debugMashing)
             {
                 maxNumberToAim = 6;
             }
-            
+
         }
     }
 
     void Update()
     {
-        
 
-      
-        if(activePos)
+
+
+        if (activePos)
         {
-          moveAlone.StopVelocity();
+            moveAlone.StopVelocity();
         }
         if (setMashingActive)
-        { 
-            
-           // Camera.main.GetComponent<Threshold>().enabled =true;
+        {
+            if (tempsEcoulePulse < tempsEntreInputPulse)
+            {
+                tempsEcoulePulse += Time.deltaTime;
+             
+            }
+            // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
-                GestionInput();
-                   
+                SetupMash();
             }
             if (activeMash)
             {
-             
+
                 if (timeSave + timeToDeacrese < compteur)
                 {
                     if (currentmax > minNumberToAim + 2)
@@ -132,104 +144,76 @@ public class MashingTrans : MonoBehaviour
                 compteur += Time.deltaTime;
                 tempsEcouleMashing += Time.deltaTime;
                 text.gameObject.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     i.Add(Time.time);
+                    if(tempsEcoulePulse >= tempsEntreInputPulse)
+                    {
+                        tempsEcoulePulse = 0;
+                        Pulse.tempsEcoulePulse = 0;
+                    }
                 }
-                  if (i.Count < numberToAim)
-                {
-                    
-                    text.gameObject.SetActive(true);
-
-                }
-                if (i.Count < numberToAim * ratioMinimumMashing && compteur > 1f)
-                {
-                  //  Physics.IgnoreLayerCollision(9, 9, false);
-                    GestionInput();
-                    Physics.IgnoreLayerCollision(9, 10, false);
-                    resetPlayerScript.ResetFonction(true);
-
-                }
+              
                 if (tempsEcouleMashing > tempsMinMashing)
                 {
                     playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveFinish);
-                    tempsEcouleMashing += Time.deltaTime;
                     text.gameObject.SetActive(false);
-                        
-                   if(compteurFinishMash>timeFinishMash)
-                   {
-                        activePos =false;
-                    // Physics.IgnoreLayerCollision(9, 9, false);
+                    SlowTime.RestartTime();
+                    if((i.Count/tempsMinMashing) > minNumberToAim)
+                    {
+                        winMashing = true;
+                    }else
+                    {
+                        winMashing =false;
+                    }
+                    Debug.Log(winMashing);
+
+                    if (compteurFinishMash > timeFinishMash)
+                    {
+                        activePos = false;
+                    
                         Physics.IgnoreLayerCollision(9, 10, false);
-                        agentTransfo.ActiveExplosion();
                         activeExplode = true;
                         PropulsionAtFinish();
 
+                        agentTransfo.ActiveExplosion();
                         StateOfGames.currentState = StateOfGames.StateOfGame.DefaultPlayable;
                         transform.GetComponent<PlayerMoveAlone>().enabled = true;
-                        setMashingActive =false;
+                        setMashingActive = false;
                         ResetMash();
-                        compteurFinishMash =0;
-                        activeMash = false; 
-                        
-                   }
-                  
-                     
-                   
-                   compteurFinishMash +=Time.deltaTime;
-
-                   
-                    //Camera.main.GetComponent<Threshold>().enabled =false;
-
-                    if(tempsEcouleMashing > tempsMinMashing)
-                    {
-                    //Camera.main.GetComponent<Threshold>().enabled =false;
-                    
-                        if(!isP2)
+                        compteurFinishMash = 0;
+                        activeMash = false;
+                        if(winMashing)
+                        {                                                                                 
+                            if ((i.Count/tempsMinMashing) <= 5)                                                                
+                            {                                                                                //ScoringSystem + Health
+                                gainVelocitySyst.gainMashP1 = 10;                                            //ScoringSystem + Health
+                                DataPlayer.ChangeScore(1000, false);                                         //ScoringSystem + Health
+                                                                                                            //ScoringSystem + Health
+                                lifePlayerScript.AddHealth(10);                                              //ScoringSystem + Health
+                            }                                                                                //ScoringSystem + Health
+                            else if ((i.Count/tempsMinMashing) > 5 && (i.Count/tempsMinMashing) <= 7)                                            //ScoringSystem + Health
+                            {                                                                                //ScoringSystem + Health
+                                gainVelocitySyst.gainMashP1 = 20;                                            //ScoringSystem + Health
+                                DataPlayer.ChangeScore(2500, false);                                         //ScoringSystem + Health
+                                                                                                                //ScoringSystem + Health
+                                lifePlayerScript.AddHealth(25);                                              //ScoringSystem + Health
+                            }                                                                                //ScoringSystem + Health
+                            else if ((i.Count/tempsMinMashing) > 7)                                                            //ScoringSystem + Health
+                            {                                                                                //ScoringSystem + Health
+                                gainVelocitySyst.gainMashP1 = 30;                                            //ScoringSystem + Health
+                                DataPlayer.ChangeScore(5000, false);                                         //ScoringSystem + Health
+                                                                                                                //ScoringSystem + Health
+                                lifePlayerScript.AddHealth(50);                                              //ScoringSystem + Health
+                            }                                                                                //ScoringSystem + Health
+                        }else
                         {
-                       
-                            if (i.Count <= 5)
-                            {
-                                gainVelocitySyst.gainMashP1 = 10;
-                                DataPlayer.ChangeScore(1000);
-                                lifePlayerScript.AddHealth(10);
-                            }
-                            else if (i.Count > 5 && i.Count <= 7)
-                            {
-                                gainVelocitySyst.gainMashP1 = 20;
-                                DataPlayer.ChangeScore(2500);
-                                lifePlayerScript.AddHealth(25);
-                            }
-                            else if (i.Count > 7)
-                            {
-                                gainVelocitySyst.gainMashP1 = 30;
-                                DataPlayer.ChangeScore(5000);
-                                lifePlayerScript.AddHealth(50);
-                            }
+                             lifePlayerScript.AddDamage(15);       
                         }
-                        else
-                        {
-                            if (i.Count <= 5)
-                            {
-                                gainVelocitySyst.gainMashP2 = 10;
-                                DataPlayer.ChangeScore(1000);
-                                lifePlayerScript.AddHealth(10);
-                            }
-                            else if (i.Count > 5 && i.Count <= 7)
-                            {
-                                gainVelocitySyst.gainMashP2 = 20;
-                                DataPlayer.ChangeScore(2500);
-                                lifePlayerScript.AddHealth(25);
-                            }
-                            else if (i.Count > 7)
-                            {
-                                gainVelocitySyst.gainMashP2 = 30;
-                                DataPlayer.ChangeScore(5000);
-                                lifePlayerScript.AddHealth(50);
-                            }
-                        }
-                       
+
                     }
+                    compteurFinishMash += Time.deltaTime;
+                    //Camera.main.GetComponent<Threshold>().enabled =false;
                 }
 
             }
@@ -239,7 +223,7 @@ public class MashingTrans : MonoBehaviour
 
     public void ResetMash()
     {
-         activationTransformation = false;
+        activationTransformation = false;
         i.Clear();
         currentmax = maxNumberToAim;
         hitColliders = new Collider[0];
@@ -249,27 +233,14 @@ public class MashingTrans : MonoBehaviour
         debugMinRatio = 0;
         tempsEcouleMashing = 0;
         posStart = transform.position;
-        activePos =true;
-        if(FastTest.debugMashing)
+        activePos = true;
+        if (FastTest.debugMashing)
         {
             maxNumberToAim = 6;
         }
     }
-
-
-
-    public void GestionInput()
+    public void SetupMash()
     {
-        hitColliders = Physics.OverlapSphere(transform.position, 3);
-
-        for (int j = 0; j < i.Count; j++)
-        {
-            if (i[j] + 1 < Time.time)
-            {
-                i.RemoveAt(j);
-            }
-
-        }
         numberInput = i.Count;
         numberToAim = maxNumberToAim;//hitColliders.Length / ratioMashingToEntities;
         numberToAim = Mathf.Clamp(numberToAim, minNumberToAim, currentmax);
@@ -280,9 +251,8 @@ public class MashingTrans : MonoBehaviour
     {
         setMashingActive = true;
         ResetMash();
-       
-    }
 
+    }
     public void PropulsionAtFinish()
     {
         hitColliders = Physics.OverlapSphere(transform.position, 150, 1 << 9);
@@ -309,7 +279,7 @@ public class MashingTrans : MonoBehaviour
         }
 
         CheckDirection(distShort, index);
-       CinematicCam.StartTransformation(false);
+        CinematicCam.StartTransformation(false);
 
     }
 

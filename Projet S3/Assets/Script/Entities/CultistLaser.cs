@@ -62,6 +62,8 @@ public class CultistLaser : MonoBehaviour
 
     public float laserPositionHeight = 1;
 
+    public float percentShootTiming;
+
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
@@ -75,6 +77,8 @@ public class CultistLaser : MonoBehaviour
         ConLaserScript =  myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
         moveTo = new Vector3(4.2f, 0, 34.9f) + Random.insideUnitSphere * radiusRNDTogo;
         moveTo = new Vector3(moveTo.x,0,moveTo.z);
+        isMoving =true;
+        percentShootTiming = Random.Range(100,200);
     }
 
     // Update is called once per frame
@@ -180,6 +184,7 @@ public class CultistLaser : MonoBehaviour
             isMoving = true;
             myMouseTargetLasersScript.SetActive(false);
             _AttackTime  = 0;
+            percentShootTiming = Random.Range(100,200);
         }
         
         _AttackTime +=Time.deltaTime;
@@ -238,7 +243,7 @@ public class CultistLaser : MonoBehaviour
             }
         }
 
-       if(compteurMouvement>timingMouvement)
+       if(compteurMouvement>timingMouvement * (percentShootTiming/100))
        {
             isMoving =false;
             isAttacking = true;

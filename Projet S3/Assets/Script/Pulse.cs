@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pulse : MonoBehaviour
 {
     public AnimationCurve howItPulse;
-    float tempsEcoulePulse;
+    static public float tempsEcoulePulse;
     public float maxKey;
     Material myMat;
     // Start is called before the first frame update

@@ -93,7 +93,8 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         else
         {
-            Debug.Log(compteurTime);
+            
+            
             compteurTime +=Time.deltaTime;
         }   
     }
@@ -107,8 +108,13 @@ public class TransformationPlayerStates : MonoBehaviour
         if (palierStep % 3 == 0)
         {
             GoTranformation();
+            MusicPlayer.checkP1 = true;
             FMODUnity.RuntimeManager.PlayOneShot(attractSound);
-
+        }
+        if (palierStep % 6 == 0)
+        {
+            MusicPlayer.checkP2 = true;
+            FMODUnity.RuntimeManager.PlayOneShot(attractSound);
         }
     }
 
@@ -119,6 +125,8 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        SlowTime.StopTime();
+
 
     }
 

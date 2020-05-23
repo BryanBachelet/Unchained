@@ -5,7 +5,7 @@
 			<value>Contact Lien2</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{eb4c6537-f119-4136-833f-0c88a1bf0ddc}</destination>
@@ -63,6 +63,7 @@
 	<object class="GroupTrack" id="{8a2eb17c-436c-463d-ac83-4affd120c5b1}">
 		<relationship name="modules">
 			<destination>{98d73daa-4113-4ae8-b908-6d163adb0935}</destination>
+			<destination>{d7af8e19-5361-4a6b-8aa9-371f42f6d408}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{6d3d33c1-0d1e-4dee-8d9a-d6ec72be245c}</destination>
@@ -76,6 +77,7 @@
 	<object class="Timeline" id="{5fccb6e6-d656-4436-aaa4-1ecc4651b3c6}">
 		<relationship name="modules">
 			<destination>{98d73daa-4113-4ae8-b908-6d163adb0935}</destination>
+			<destination>{d7af8e19-5361-4a6b-8aa9-371f42f6d408}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{98698b21-3091-44d0-969e-f1a9f039a4bd}">
@@ -103,9 +105,17 @@
 			<destination>{8d82ade2-fe4e-4776-b574-a238564eb68e}</destination>
 		</relationship>
 	</object>
+	<object class="SingleSound" id="{d7af8e19-5361-4a6b-8aa9-371f42f6d408}">
+		<property name="length">
+			<value>0.25660416666666669</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{3fb12b2b-01ac-4da7-b4dc-ebc17c6fba52}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{6d3d33c1-0d1e-4dee-8d9a-d6ec72be245c}">
 		<property name="volume">
-			<value>-10.5</value>
+			<value>8.5</value>
 		</property>
 		<property name="name">
 			<value>Audio 1</value>
@@ -122,7 +132,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{73664629-4fd7-41ab-8ae8-a582d9756631}">
 		<property name="volume">
-			<value>-20.5</value>
+			<value>-6</value>
 		</property>
 		<property name="name">
 			<value>Audio 2</value>
@@ -164,6 +174,9 @@
 	<object class="MixerBusFader" id="{955ebf50-7471-40d4-b94e-bf1a8bf489e8}" />
 	<object class="MixerBusFader" id="{166e1c3b-c29f-4cd3-bf5a-25b21a5766eb}" />
 	<object class="ThreeEQEffect" id="{4706d0d7-dc3a-41f0-ba8e-3fd2481df7be}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
 		<property name="lowGain">
 			<value>10</value>
 		</property>
@@ -175,6 +188,9 @@
 		</property>
 	</object>
 	<object class="MultibandEqEffect" id="{33de3d32-cd53-4184-abb6-86d9b15dd234}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
 		<property name="frequencyA">
 			<value>1685.17639</value>
 		</property>
