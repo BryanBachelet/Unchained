@@ -24,7 +24,7 @@ public class Projectils : MonoBehaviour
     private void Start()
     {   
         lineRend = player.GetComponentInChildren<LineRend>();
-
+        moveAlone = player.GetComponent<PlayerMoveAlone>();
         if (!lineRenderer.enabled)
         {
            //lineRenderer.enabled = true;

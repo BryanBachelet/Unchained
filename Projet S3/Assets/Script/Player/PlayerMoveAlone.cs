@@ -49,6 +49,8 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private int compteurFrameDetection= 0;
 
+    private bool auraActive;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -70,6 +72,7 @@ public class PlayerMoveAlone : MonoBehaviour
         playerAnim = GetComponent<PlayerAnimState>();    
      //  currentPowerOfProjection = DecelerationOfProjection;
     }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -112,7 +115,8 @@ public class PlayerMoveAlone : MonoBehaviour
             {
                 isStickGround =true;
             }
-            aura.SetActive( true);
+            
+            aura.SetActive( auraActive);
         }
         else
         {   
@@ -203,6 +207,7 @@ public class PlayerMoveAlone : MonoBehaviour
         DirProjection = dir.normalized;
         currentDeprojectionOfProjection = DecelerationOfProjection;
         currentPowerOfProjection = powerOfProjection;
+        auraActive = true;
     }
      public void AddProjection(Vector3 dir, float power)
     {
@@ -212,6 +217,7 @@ public class PlayerMoveAlone : MonoBehaviour
         DirProjection = dir.normalized;
         currentDeprojectionOfProjection = DecelerationOfProjection;
         currentPowerOfProjection = power;
+        auraActive = true;
     }
        public void AddProjection(Vector3 dir, float power, float deprojection )
     {
@@ -221,7 +227,20 @@ public class PlayerMoveAlone : MonoBehaviour
         DirProjection = dir.normalized;
         currentDeprojectionOfProjection = deprojection;
         currentPowerOfProjection = power;
+        auraActive = true;
     }
+    
+      public void AddProjection(Vector3 dir, float power, float deprojection, bool activeAura )
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
+        DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = deprojection;
+        currentPowerOfProjection = power;
+        auraActive = activeAura;
+    }
+    
 
     public void AnimationAvatar()
     {
