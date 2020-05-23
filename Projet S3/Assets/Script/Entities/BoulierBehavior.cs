@@ -24,9 +24,10 @@ public class BoulierBehavior : MonoBehaviour
     private bool checkStich = false;
     public bool isGrab = false;
     private Vector3 stichPos;
+    private Vector3 posOnRepos = Vector3.zero;
 
     private bool isFall = false;
-    
+
     private StateOfEntity stateOfEntity;
 
     public float distanceStopWall = 1;
@@ -36,11 +37,13 @@ public class BoulierBehavior : MonoBehaviour
     private AnimBoulier animBoulier;
     private Rigidbody rigidbody;
 
+    [FMODUnity.EventRef]
+    public string chargeSound;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-       Init();
+        Init();
     }
 
     // Update is called once per frame
@@ -56,27 +59,32 @@ public class BoulierBehavior : MonoBehaviour
         && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
         {
 
-            switch(dashState) 
+            switch (dashState)
             {
-                case(DashEntityState.Preparation):
-                    
+                case (DashEntityState.Preparation):
+
                     transform.LookAt(player.transform);
+                    if (posOnRepos != Vector3.zero)
+                    {
+                        transform.position = posOnRepos;
+                    }
+
                     tempsEcoulePrep += Time.deltaTime;
-                    
-                    if(tempsEcoulePrep > tempsForPrep)
+
+                    if (tempsEcoulePrep > tempsForPrep)
                     {
                         ChangeDashState(DashEntityState.Dash);
                     }
-                
-                break;
 
-                case(DashEntityState.Dash):
-                    transform.position =  new Vector3(transform.position.x, 1.5f, transform.position.z);
-                    if(!isFall)
+                    break;
+
+                case (DashEntityState.Dash):
+                    transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
+                    if (!isFall)
                     {
                         transform.position += dirDash.normalized * speed * Time.deltaTime;
                     }
-                    if(isGrab)
+                    if (isGrab)
                     {
                         Debug.Log(true);
                         PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
@@ -98,56 +106,63 @@ public class BoulierBehavior : MonoBehaviour
                                 animBoulier.ChangeState(AnimBoulier.StateColoss.Jet);
                                 PlayerMoveAlone.Player1.GetComponent<LifePlayer>().AddDamage(30);
                                 PlayerMoveAlone.Player1.GetComponent<PlayerMoveAlone>().AddProjection(-(hit.point -transform.position ).normalized, 60,30,false);
+                                FMODUnity.RuntimeManager.PlayOneShot(chargeSound);
                             }    
                             ChangeDashState(DashEntityState.Repos);
+                            posOnRepos = transform.position;
                         }
 
-                
 
-                break;
 
-                case(DashEntityState.Repos):
+                    break;
 
-                 tempsEcouleRepos += Time.deltaTime;
-                 if(tempsEcouleRepos > tempsForRepos)
-                 {
-                         ChangeDashState(DashEntityState.Preparation);
-                 }
+                case (DashEntityState.Repos):
 
-                break;
+                    tempsEcouleRepos += Time.deltaTime;
+                    transform.position = posOnRepos;
+                    if (tempsEcouleRepos > tempsForRepos)
+                    {
+                        ChangeDashState(DashEntityState.Preparation);
+                    }
+
+                    break;
 
             }
 
-            
+
         }
 
-        if(stateOfEntity.entity == StateOfEntity.EntityState.Destroy)
+        if (stateOfEntity.entity == StateOfEntity.EntityState.Destroy)
         {
             ChangeDashState(DashEntityState.Ejection);
-          
-        }else
-        {
-            if(transform.position.y>0)
-            {
-                transform.position += -Vector3.up*3*Time.deltaTime;
-            }
 
-            if(dashState == DashEntityState.Ejection)
-            {
-              
-                ChangeDashState(DashEntityState.Repos);
-            }
-            
         }
-       Vector3 center =  new Vector3(4.2f, 0, 34.9f);
-
-        if(Vector3.Distance(center,transform.position)>distanceDead)
+        else
         {
-            
-            ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
-            Destroy(gameObject);
-        } 
+            if (transform.position.y > 0)
+            {
+                transform.position += -Vector3.up * 3 * Time.deltaTime;
+            }
 
+            if (dashState == DashEntityState.Ejection)
+            {
+
+                if (dashState == DashEntityState.Ejection)
+                {
+
+                    ChangeDashState(DashEntityState.Repos);
+                }
+
+            }
+            Vector3 center = new Vector3(4.2f, 0, 34.9f);
+
+            if (Vector3.Distance(center, transform.position) > distanceDead)
+            {
+
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void Init()
@@ -161,15 +176,15 @@ public class BoulierBehavior : MonoBehaviour
 
     private void ChangeDashState(DashEntityState stateChange)
     {
-        switch(stateChange)
+        switch (stateChange)
         {
-                case(DashEntityState.Preparation):
-                  
-                    animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
-                    myMR.material.color = Color.blue;
-                    tempsEcoulePrep = 0;
-                    dashState = stateChange;
-                  
+            case (DashEntityState.Preparation):
+
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
+                myMR.material.color = Color.blue;
+                tempsEcoulePrep = 0;
+                dashState = stateChange;
+
                 break;
 
                 case(DashEntityState.Dash):
@@ -208,7 +223,7 @@ public class BoulierBehavior : MonoBehaviour
 
     public void ExitPlayer()
     {
-        if(PlayerMoveAlone.Player1.GetComponent<EnnemiStock>().ennemiStock != null)
+        if (PlayerMoveAlone.Player1.GetComponent<EnnemiStock>().ennemiStock != null)
         {
             isGrab = false;
             stichPos = Vector3.zero;
@@ -228,9 +243,9 @@ public class BoulierBehavior : MonoBehaviour
 
     public void CatchPlayer( GameObject collision)
     {
-        if(dashState == DashEntityState.Dash && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        if (dashState == DashEntityState.Dash && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-              if(checkStich == false)
+            if (checkStich == false)
             {
                 checkStich = true;
                 stichPos = collision.transform.position - transform.position;
@@ -247,7 +262,7 @@ public class BoulierBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject == PlayerMoveAlone.Player1)
+        if (collision.gameObject == PlayerMoveAlone.Player1)
         {
          // CatchPlayer(collision.collider);
         }

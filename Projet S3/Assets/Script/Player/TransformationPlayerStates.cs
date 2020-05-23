@@ -108,8 +108,13 @@ public class TransformationPlayerStates : MonoBehaviour
         if (palierStep % 3 == 0)
         {
             GoTranformation();
+            MusicPlayer.checkP1 = true;
             FMODUnity.RuntimeManager.PlayOneShot(attractSound);
-
+        }
+        if (palierStep % 6 == 0)
+        {
+            MusicPlayer.checkP2 = true;
+            FMODUnity.RuntimeManager.PlayOneShot(attractSound);
         }
     }
 
@@ -122,6 +127,7 @@ public class TransformationPlayerStates : MonoBehaviour
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
         playerAnim.ChangeSpeedAnimator(0.5f);
         SlowTime.StopTime();
+
 
     }
 
