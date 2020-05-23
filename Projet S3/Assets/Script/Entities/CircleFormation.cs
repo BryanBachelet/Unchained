@@ -35,6 +35,8 @@ public class CircleFormation : MonoBehaviour
 
     public float decalageDegree= 20;
 
+    [FMODUnity.EventRef]
+    public string invoqSound;
     void Start()
     {
         childEntities = new GameObject[transform.parent.childCount - 5];
@@ -88,6 +90,12 @@ public class CircleFormation : MonoBehaviour
                 if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Coloss))
                 {
                     Instantiate(invoq1, fbCastInvoq.transform.position, fbCastInvoq.transform.rotation);
+                    FMODUnity.RuntimeManager.PlayOneShot(invoqSound);
+                    Debug.Log("Invoque Coloss");
+                    tempsEcouleInvoq = 0;
+                }
+                else
+                {
                     tempsEcouleInvoq = 0;
                 }
             }

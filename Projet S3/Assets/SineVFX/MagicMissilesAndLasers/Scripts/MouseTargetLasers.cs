@@ -15,9 +15,15 @@ public class MouseTargetLasers : MonoBehaviour {
     public Animator anim;
 
     public bool isTesting;
+    static public bool playSound;
 
+    [FMODUnity.EventRef]
+    public string laser;
+
+    private FMOD.Studio.EventInstance LaserSound;
     void Start () 
     {
+        LaserSound = FMODUnity.RuntimeManager.CreateInstance(laser);
         anim = GetComponent<Animator>();
         if(!isTesting)
         {
@@ -77,8 +83,21 @@ public class MouseTargetLasers : MonoBehaviour {
         {
             mouseWorldPosition = PlayerMoveAlone.playerPos;
         }
+
+        if(!playSound)
+        {
+            playSound = true;
+            LaserSound.start();
+        }
+
         Quaternion toRotation = Quaternion.LookRotation(mouseWorldPosition - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
 
+    }
+
+    private void OnDisable()
+    {
+        playSound = false;
+        LaserSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
 }

@@ -18,8 +18,14 @@ public class DataPlayer : MonoBehaviour
     static float afficheKill;
     static float affichePercentAim;
 
-    static Text dataText;
-    public Text goText;
+    static Text dataTime;
+    static Text datakill;
+    static Text dataRythme;
+    static Text dataAim;
+    public Text goTextTime;
+    public Text goTextKill;
+    public Text goTextRythme;
+    public Text goTextAim;
     public Text scoringText;
     public Text scoreMultiplyText;
     Image imgTempsMultiplier;
@@ -56,9 +62,13 @@ public class DataPlayer : MonoBehaviour
     static float tempsEcouleGroupe;
     static List<float> groupScore = new List<float>();
     static bool isCountingGroup = false;
+
+    public MusicPlayer musicPlarye;
+    static MusicPlayer musPlayerStatic;
     // Start is called before the first frame update
     void Start()
     {
+        musPlayerStatic = musicPlarye;
         if(uiTextAddTaken != null)
         {
             uiTextAdd = uiTextAddTaken;
@@ -78,11 +88,15 @@ public class DataPlayer : MonoBehaviour
         tempsAccroche = 0;
         entityKillBySlam = 0;
         tempsEcouleMashing = 0;
-        dataText = goText;
+        dataTime = goTextTime;
+        datakill = goTextKill;
+        dataRythme = goTextRythme;
+        dataAim = goTextAim;
         tempsEcouleScale = 0;
         tempsEcouleGroupe = 0;
         isOnCombo = false;
         isCountingGroup = false;
+        isGivingData = false;
         groupScore.Clear();
         comboMultiplier = 1;
     }
@@ -214,6 +228,7 @@ public class DataPlayer : MonoBehaviour
         }
         if(isGivingData)
         {
+            musPlayerStatic.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             GiveData();
         }
     }
@@ -222,11 +237,19 @@ public class DataPlayer : MonoBehaviour
     {
         isCountingTime = false;
         tempsEcouleWin += 0.1f * Time.deltaTime;
+
         afficheTempsEcoulePartie = Mathf.Lerp(afficheTempsEcoulePartie, tempsEcoulePartie, tempsEcouleWin);
         afficheEntityHit = Mathf.Lerp(afficheEntityHit, entityHit, tempsEcouleWin);
         afficheKill = Mathf.Lerp(afficheKill, entityKill, tempsEcouleWin);
-        affichePercentAim = Mathf.Lerp(affichePercentAim,nbShotHit * 100 / nbShot,tempsEcouleWin);
-        dataText.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min" + "\nEntitées frappées : " + afficheEntityHit + "\nEntitées tuées : " + afficheKill + "\nAiming : " + affichePercentAim + " %" + "\nRythmeKill : " + ManageEntity.PercentKill + " %";
+        if(nbShot != 0)
+        {
+            affichePercentAim = Mathf.Lerp(affichePercentAim, nbShotHit * 100 / nbShot, tempsEcouleWin);
+        }
+
+        dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min";
+        datakill.text = "Entitées tuées : " + afficheKill;
+        dataRythme.text = "RythmeKill : " + ManageEntity.PercentKill + " %";
+        dataAim.text = "Aiming : " + affichePercentAim + " %";
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
 

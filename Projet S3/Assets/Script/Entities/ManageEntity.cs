@@ -50,9 +50,9 @@ public class ManageEntity : MonoBehaviour
 
     public static int spawnDuringPhase3 = 10;
     private static int compteurSpawn = 0;
-    
 
-    private static bool isCultistSpawn ;
+
+    private static bool isCultistSpawn;
     private static bool isDistanceSpawn;
     private static bool isPatrolSpawn;
     private static bool isColossSpawn;
@@ -69,7 +69,7 @@ public class ManageEntity : MonoBehaviour
         maxColoss = maxColossInspec;
         maxPatrol = maxPatrolInspec;
 
-        for(int i = 0; i < ritualPointPublic.Length ; i++)
+        for (int i = 0; i < ritualPointPublic.Length; i++)
         {
             ritualPoint[i] = ritualPointPublic[i].transform;
         }
@@ -87,7 +87,7 @@ public class ManageEntity : MonoBehaviour
         PercentKillInspec = PercentKill;
         if (StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            if(nbEntityTotal != 0)
+            if (nbEntityTotal != 0)
             {
                 PercentKill = 100 - (nbEntity * 100 / nbEntityTotal);
             }
@@ -102,13 +102,13 @@ public class ManageEntity : MonoBehaviour
 
     public static bool CheckNumber()
     {
-        if(compteurSpawn>spawnDuringPhase3)
+        if (compteurSpawn > spawnDuringPhase3)
         {
             return true;
         }
         else
         {
-            return false;  
+            return false;
         }
     }
 
@@ -119,8 +119,8 @@ public class ManageEntity : MonoBehaviour
 
     public void ResetByFrame()
     {
-        isColossSpawn =false;
-        isCultistSpawn =false;
+        isColossSpawn = false;
+        isCultistSpawn = false;
         isDistanceSpawn = false;
         isPatrolSpawn = false;
     }
@@ -132,7 +132,7 @@ public class ManageEntity : MonoBehaviour
             if (nbCultiste < maxCultiste && !isCultistSpawn)
             {
                 nbCultiste++;
-                isCultistSpawn =true;
+                isCultistSpawn = true;
                 return true;
             }
             else
@@ -146,7 +146,7 @@ public class ManageEntity : MonoBehaviour
             if (nbDistance < maxDistance && !isDistanceSpawn)
             {
                 nbDistance++;
-                isDistanceSpawn =true;
+                isDistanceSpawn = true;
                 return true;
             }
             else
@@ -154,12 +154,13 @@ public class ManageEntity : MonoBehaviour
                 return false;
             }
         }
-         if (typeToInstiate == EntityType.Coloss)
+        if (typeToInstiate == EntityType.Coloss)
         {
-            if (nbColoss < maxColoss && !isColossSpawn )
+            if (nbColoss < maxColoss && !isColossSpawn)
             {
                 nbColoss++;
-                isColossSpawn =true;
+                Debug.Log(nbColoss + "current number of coloss" + ", max number is " + maxColoss);
+                isColossSpawn = true;
                 return true;
             }
             else

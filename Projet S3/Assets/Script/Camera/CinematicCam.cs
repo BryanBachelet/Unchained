@@ -88,7 +88,7 @@ public class CinematicCam : MonoBehaviour
                 }
                 compteurTimePlan +=Time.deltaTime;
                 ratioTimePlan = compteurTimePlan /timeOfPlan;
-                angleCompteur += speedAngle*Time.deltaTime;
+                angleCompteur += speedAngle*Time.deltaTime * 1;
               
                 transform.LookAt(pointFocus.transform);
 
@@ -108,7 +108,7 @@ public class CinematicCam : MonoBehaviour
                 }
                 compteurTimePlan +=Time.deltaTime;
                 ratioTimePlan = compteurTimePlan /timeOfPlan;
-                angleCompteur += speedAngle*Time.deltaTime;
+                angleCompteur += speedAngle*Time.deltaTime * 1;
 
                 transform.LookAt(pointFocus.transform);
 
@@ -171,7 +171,7 @@ public class CinematicCam : MonoBehaviour
 
     public static void StartTransformation( bool active)
     {
-        activeCinematicCam  =active;
+        activeCinematicCam  = active;
                
     }
 

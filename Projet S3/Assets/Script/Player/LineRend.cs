@@ -150,6 +150,9 @@ public class LineRend : MonoBehaviour
             {
 
                 Collision(collision);
+                float rnd = Random.Range(0f, 0.70f);
+                contactSound.start();
+                contactSound.setParameterByName("Entitipersec2", rnd);
 
             }
             else
@@ -192,7 +195,6 @@ public class LineRend : MonoBehaviour
         if (ennemi.entity != StateOfEntity.EntityState.Destroy && collision.gameObject != ennemiStock.ennemiStock)
         {
 
-            FMODUnity.RuntimeManager.PlayOneShot(contact, collision.transform.position);
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();

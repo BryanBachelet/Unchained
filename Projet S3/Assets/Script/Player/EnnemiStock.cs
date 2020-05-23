@@ -26,6 +26,9 @@ public class EnnemiStock : MonoBehaviour
     public string OrbitSound;
     public AnimationCurve curveVolumeOrbitation;
     public float OrbitVolume = 10;
+    [FMODUnity.EventRef]
+    public string Propulsion;
+    public float PropulsionVolume = 20;
 
     private Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
@@ -41,6 +44,7 @@ public class EnnemiStock : MonoBehaviour
     private bool isOnZoom = false;
     private FMOD.Studio.EventInstance OrbitEvent;
     private FMOD.Studio.EventInstance contactSound;
+    private FMOD.Studio.EventInstance PropulsionSound;
     private bool startBool;
     private Rigidbody playerRigid;
     private float tempsEcoule;
@@ -87,9 +91,11 @@ public class EnnemiStock : MonoBehaviour
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
+        PropulsionSound = FMODUnity.RuntimeManager.CreateInstance(Propulsion);
 
-        
-        
+
+
+
 
     }
 
@@ -304,7 +310,7 @@ public class EnnemiStock : MonoBehaviour
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
-
+    
     
     public void ResetPlayer()
     {
@@ -315,6 +321,11 @@ public class EnnemiStock : MonoBehaviour
 
     public void GetProjectionStat()
     {
+        Debug.Log("PROPULSION !!!");
+        PropulsionSound.start();
+        PropulsionSound.setParameterByName("P1", 0.90F);
+        PropulsionSound.setParameterByName("Power1", 0.90F);
+        //if()
         float angleReturn = rotationPlayer.GetAngle();
         angleReturn =  Mathf.Clamp(angleReturn,0,maxValueOFVarationOfProjection);
         _powerOfStrengh = myGainVelocitySystScript.CalculGain(powerOfStrengh.Evaluate(angleReturn));
