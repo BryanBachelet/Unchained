@@ -27,7 +27,7 @@ public class EntitiesManager : MonoBehaviour
     public bool autoDestruct;
     private int countOfDeath;
 
-    public int autoDestruction = 5;
+    public int autoDestruction = 15;
 
     void Start()
     {
