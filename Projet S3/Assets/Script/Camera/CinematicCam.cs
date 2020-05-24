@@ -59,13 +59,18 @@ public class CinematicCam : MonoBehaviour
     private ComicBook comicBook;
     private ShadowsMidtonesHighlights shadows;
     private int frame;
-
+    [Header("Effect")]
     public float magnitudeShake;
-
+    public int frameEffectTime = 3;
+    private int compteurFrameTime;
+    public float timing = 0.7f;
+    private float startTiming = 0.1f;
+    private float compteurEffet;
 
     // Start is called before the first frame update
     void Start()
     {
+        startTiming = timing;
         activeCinematicCam =false;
         mashing = PlayerMoveAlone.Player1.GetComponent<MashingTrans>();
         mashingFeedback = PlayerMoveAlone.Player1.GetComponent<MashingFeedback>();
@@ -82,37 +87,37 @@ public class CinematicCam : MonoBehaviour
     {
       //  activeCinematicCam = activeBehavior; 
 
-          if(Input.GetKeyDown(KeyCode.C))
-          {
-              if(threshold.enabled == true)
-              {
-                  threshold.enabled =false;
-              }else
-              {
-                    threshold.enabled =true;
-              }
-          }
-           if(Input.GetKeyDown(KeyCode.X))
-          {
-              if(comicBook.enabled == true)
-              {
-                  comicBook.enabled =false;
-              }else
-              {
-                    comicBook.enabled =true;
-              }
-          }
-          if(Input.GetKeyDown(KeyCode.V))
-          {
-             if(negative.enabled == true)
-              {
-                  negative.enabled =false;
-                  shadows.enabled = false;
-              }else
-              {     shadows.enabled =true;
-                    negative.enabled =true;
-              }
-          }
+        //   if(Input.GetKeyDown(KeyCode.C))
+        //   {
+        //       if(threshold.enabled == true)
+        //       {
+        //           threshold.enabled =false;
+        //       }else
+        //       {
+        //             threshold.enabled =true;
+        //       }
+        //   }
+        //    if(Input.GetKeyDown(KeyCode.X))
+        //   {
+        //       if(comicBook.enabled == true)
+        //       {
+        //           comicBook.enabled =false;
+        //       }else
+        //       {
+        //             comicBook.enabled =true;
+        //       }
+        //   }
+        //   if(Input.GetKeyDown(KeyCode.V))
+        //   {
+        //      if(negative.enabled == true)
+        //       {
+        //           negative.enabled =false;
+        //           shadows.enabled = false;
+        //       }else
+        //       {     shadows.enabled =true;
+        //             negative.enabled =true;
+        //       }
+        //   }
         if(activeCinematicCam)
         {   
 
@@ -168,16 +173,30 @@ public class CinematicCam : MonoBehaviour
                 currentDirection = Vector3.Lerp(startdirection, finishDirection,ratioTimePlan);
                 posAdd = Quaternion.Euler(0,angleCompteur ,0) *((-currentDirection) * currentDistance);
                 transform.position  = pointFocus.transform.position + posAdd;
-                frame++;
-                if(frame % 5==0)
+               
+                if(compteurEffet>timing)
                 {
+                    EffectCam(true);
+                    
                     float x = Random.Range(-1,1) * magnitudeShake;
                     float y = Random.Range(-1,1) * magnitudeShake;
 
                     transform.position += new Vector3(x,y,0); 
-                    frame = 0;
+                    if(compteurFrameTime>frameEffectTime)
+                    {   
+                        compteurEffet = 0;
+                        timing -=0.1f;
+                        
+                    }
+                    compteurFrameTime++;
                 }
-                
+                else
+                {
+                    compteurFrameTime =0;
+                    EffectCam(false);   
+                    compteurEffet +=Time.deltaTime;
+                }
+
                 if(compteurTimePlan>timeOfPlan)
                 {
                     currentPlan =NamePlan.Plan3;
@@ -197,6 +216,10 @@ public class CinematicCam : MonoBehaviour
         }
         else
         {
+            timing =startTiming;
+            compteurFrameTime =0;
+            EffectCam(false);   
+            compteurEffet = 0;
             currentPlan = NamePlan.Plan1;
             startMouvement =false;
             compteurTimePlan =0;
@@ -205,6 +228,11 @@ public class CinematicCam : MonoBehaviour
     }
 
 
+
+    public void EffectCam(bool test)
+    {
+        threshold.enabled =test;
+    }
 
 
     public void ChangePlan(NamePlan planName)
