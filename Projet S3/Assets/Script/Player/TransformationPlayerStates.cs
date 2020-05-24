@@ -8,12 +8,12 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public static Palier currentPalier = Palier.Palier0;
 
-    
+
     public int[] palierCondition = new int[7];
 
 
     private KillCountPlayer countPlayer;
-    
+
     public int palierStep;
 
 
@@ -26,7 +26,7 @@ public class TransformationPlayerStates : MonoBehaviour
     bool expulseSoundPlay = false;
     bool isTransforming = false;
 
-    private  MashingFeedback mash;
+    private MashingFeedback mash;
 
     private PlayerAnimState playerAnim;
 
@@ -36,18 +36,34 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private bool activePanel;
 
+
+    public float tempsAvantCheckLoop1 = 20.57f;
+    float tempsEcouleCheckLoop1;
+    bool isActivable;
+    public float tempsAvantCheckLoop2 = 63.43f;
+    float tempsEcouleCheckLoop2;
+    bool checkBoucle1 = false;
     // Start is called before the first frame update
     void Start()
-    {      
+    {
         mash = GetComponent<MashingFeedback>();
         playerMove = GetComponent<PlayerMoveAlone>();
         countPlayer = GetComponentInChildren<KillCountPlayer>();
-        playerAnim  = GetComponent<PlayerAnimState>(); 
+        playerAnim = GetComponent<PlayerAnimState>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //if (tempsEcouleCheckLoop2 <= tempsAvantCheckLoop2)
+        //{
+        //    tempsEcouleCheckLoop2 += Time.deltaTime;
+        //}
+        //else
+        //{
+        //    tempsEcouleCheckLoop2 = 0;
+        //}
         if (!expulseSoundPlay && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && palierStep == 3)
         {
             expulseSoundPlay = true;
@@ -55,49 +71,81 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
-            CheckState();  
+            CheckState();
         }
     }
 
     public void CheckState()
     {
-    if(FastTest.debugPalier)
-    {
-        if (palierStep < palierCondition.Length - 1)
+        if (FastTest.debugPalier)
         {
-            if (countPlayer.countKillEnnemi > (palierCondition[palierStep]/10))
+            if (palierStep < palierCondition.Length - 1)
             {
-                activePanel =true;
+                if (countPlayer.countKillEnnemi > (palierCondition[palierStep] / 10))
+                {
+                    activePanel = true;
+                }
             }
-        }
-    }
-    else
-    {
-         if (palierStep < palierCondition.Length - 1)
-        {
-            if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
-            {
-                activePanel = true;
-            }
-        }
-
-    }
-    if(activePanel)
-    {
-        
-        if(compteurTime>timeActivePlayerAnim)
-        {
-            ChangeStates();
-            compteurTime = 0;
-            activePanel = false;
         }
         else
         {
-            
-            
-            compteurTime +=Time.deltaTime;
-        }   
-    }
+            if (tempsEcouleCheckLoop1 <= tempsAvantCheckLoop1 && checkBoucle1)
+            {
+                tempsEcouleCheckLoop1 += Time.deltaTime;
+            }
+            if (tempsEcouleCheckLoop2 <= tempsAvantCheckLoop2 && !checkBoucle1)
+            {
+                tempsEcouleCheckLoop2 += Time.deltaTime;
+            }
+
+            if (palierStep < palierCondition.Length - 1)
+            {
+                if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
+                {
+                    if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && checkBoucle1)
+                    {
+                        tempsEcouleCheckLoop1 = 0;
+                        activePanel = true;
+                    }
+                    if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && !checkBoucle1)
+                    {
+                        tempsEcouleCheckLoop2 = 0;
+                        activePanel = true;
+                    }
+
+                }
+            }
+            if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && checkBoucle1)
+            {
+                tempsEcouleCheckLoop1 = 0;
+                tempsAvantCheckLoop1 = 10.19f;
+            }
+            if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && !checkBoucle1)
+            {
+                tempsEcouleCheckLoop2 = 0;
+                tempsAvantCheckLoop1 = 13.7f;
+            }
+        }
+
+
+
+
+        if (activePanel)
+        {
+
+            if (compteurTime > timeActivePlayerAnim)
+            {
+                ChangeStates();
+                compteurTime = 0;
+                activePanel = false;
+            }
+            else
+            {
+
+
+                compteurTime += Time.deltaTime;
+            }
+        }
 
     }
 
@@ -109,6 +157,7 @@ public class TransformationPlayerStates : MonoBehaviour
         {
             GoTranformation();
             MusicPlayer.checkP1 = true;
+            checkBoucle1 = true;
             FMODUnity.RuntimeManager.PlayOneShot(attractSound);
         }
         if (palierStep % 6 == 0)
