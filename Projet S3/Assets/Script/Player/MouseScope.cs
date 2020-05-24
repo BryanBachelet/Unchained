@@ -11,7 +11,7 @@ public class MouseScope : MonoBehaviour
 
     [Header("Input")]
     public bool controllerPc;
-    static bool stateOfController;
+    static bool stateOfController = true;
     public LayerMask maskPC = 12;
     public GameObject uiImageGamePad;
     public GameObject uiImageKeyboard;
