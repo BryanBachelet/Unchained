@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class TransformationPlayerStates : MonoBehaviour
 {
@@ -43,6 +44,14 @@ public class TransformationPlayerStates : MonoBehaviour
     public float tempsAvantCheckLoop2 = 42.9f;
     public float tempsEcouleCheckLoop2;
     bool checkBoucle1 = false;
+
+    public bool feedbackActive;
+    public PostProcessVolume feedback;
+
+    private float timeFeedback = 3;
+
+    private float compteurFeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,10 +116,18 @@ public class TransformationPlayerStates : MonoBehaviour
                         tempsEcouleCheckLoop1 = 0;
                         activePanel = true;
                     }
+                     if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 -3 && !checkBoucle1 && palierStep == 3)
+                    {
+                        feedbackActive =true;
+                    }
                     if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && checkBoucle1 && palierStep == 6)
                     {
                         tempsEcouleCheckLoop2 = 0;
                         activePanel = true;
+                    }
+                      if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 -3 && checkBoucle1 && palierStep == 6)
+                    {
+
                     }
                     if(palierStep != 3 || palierStep != 6)
                     {
@@ -133,7 +150,17 @@ public class TransformationPlayerStates : MonoBehaviour
         }
 
 
-
+        if(feedbackActive)
+        {
+            feedback.weight = compteurFeed/timeFeedback;
+            compteurFeed +=Time.deltaTime;
+            if(compteurFeed>timeFeedback)
+            {
+                feedback.weight = 0;
+                compteurFeed=0;
+                feedbackActive = false;
+            }
+        }
 
         if (activePanel)
         {
@@ -146,8 +173,7 @@ public class TransformationPlayerStates : MonoBehaviour
             }
             else
             {
-
-
+                 
                 compteurTime += Time.deltaTime;
             }
         }

@@ -79,36 +79,26 @@ public class EntitiesManager : MonoBehaviour
                         }
                         transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement * Time.deltaTime);
 
-                        if(circle.activeRituel)
-                        {     circle.activeCircle =false;
-                            circle.activeRituel = false;                        
-                        }
-                        transform.position = Vector3.MoveTowards(transform.position, pointToGo.transform.position, speedOfMouvement*Time.deltaTime);
                         circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                     
                     }
                     else
                     {
                         circle.CastInvoq();
-                    }
-                    if (Vector3.Distance(transform.position, pointToGo.transform.position) < distanceChangeFormation)
-                    {
-                        if (!circle.activeRituel)
-                        {
+                      
+                            if (!circle.activeRituel)
+                            {
 
-                            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
-                            circle.activeRituel = true;
-                            circle.activeCircle =true;
-                        }
+                                circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
+                                circle.activeRituel = true;
+                                circle.activeCircle =true;
+                            }
+                        
                     }
                 }
                 if (circle.attack == -1)
                 {
-                    if (circle.activeRituel)
-                    {
-                        circle.activeRituel = false;
-                         circle.activeCircle =false;
-                    }
+                 
                     if (!autoDestruct)
                     {
 

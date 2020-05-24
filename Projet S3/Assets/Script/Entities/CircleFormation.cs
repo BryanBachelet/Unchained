@@ -205,10 +205,7 @@ public class CircleFormation : MonoBehaviour
     private void Formation()
     { 
         int numFor = 0;
-        if(activeRituel)
-        {     
-            //angle += rotateRituelSpeed*Time.deltaTime;
-        }
+       
           int vertical = 0;
           int horizontal = 0;
         for (int i = 0; i < childEntities.Length ; i++)
