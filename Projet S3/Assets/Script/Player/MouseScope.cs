@@ -320,10 +320,12 @@ public class MouseScope : MonoBehaviour
         if (entitySnap != null)
         {
             entitySnap.GetComponent<MeshRenderer>().material.color = enemmiColor;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(true);
         }
         if (entityGive != null)
         {
             entitySnap = entityGive;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(true);
             enemmiColor = entitySnap.GetComponent<MeshRenderer>().material.color;
             entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
         }
