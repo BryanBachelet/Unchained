@@ -164,7 +164,7 @@ public class BoulierBehavior : MonoBehaviour
             }
         }
         }
-    }
+    
     private void Init()
     {
         myMR = GetComponent<MeshRenderer>();
@@ -274,4 +274,5 @@ public class BoulierBehavior : MonoBehaviour
     {
         ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
     }
+
 }
