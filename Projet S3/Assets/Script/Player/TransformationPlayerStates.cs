@@ -151,16 +151,11 @@ public class TransformationPlayerStates : MonoBehaviour
                 compteurTime += Time.deltaTime;
             }
         }
-            compteurTime = 0;
-            activePanel = false;
+            
         }
-        else
-        {             
-            compteurTime +=Time.deltaTime;
-        }   
-    }
+        
+    
 
-    }
 
     public void ChangeStates()
     {
