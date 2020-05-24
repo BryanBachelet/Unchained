@@ -164,7 +164,8 @@ public class BoulierBehavior : MonoBehaviour
             }
         }
         }
-    }
+    
+
     private void Init()
     {
         myMR = GetComponent<MeshRenderer>();
