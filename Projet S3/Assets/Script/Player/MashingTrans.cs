@@ -166,7 +166,7 @@ public class MashingTrans : MonoBehaviour
                     {
                         winMashing =false;
                     }
-                    Debug.Log(winMashing);
+                  
 
                     if (compteurFinishMash > timeFinishMash)
                     {

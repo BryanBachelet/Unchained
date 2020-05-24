@@ -321,7 +321,7 @@ public class EnnemiStock : MonoBehaviour
 
     public void GetProjectionStat()
     {
-        Debug.Log("PROPULSION !!!");
+     
         PropulsionSound.start();
         PropulsionSound.setParameterByName("P1", 0.90F);
         PropulsionSound.setParameterByName("Power1", 0.90F);
