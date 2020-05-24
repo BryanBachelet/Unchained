@@ -43,20 +43,20 @@ public class BoulierBehavior : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-       Init();
+        Init();
     }
 
     // Update is called once per frame
     void Update()
-    { 
-       
+    {
+
         Vector3 playerDir = player.transform.position - transform.position;
-        float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir,Vector3.up);
-        transform.eulerAngles = new Vector3(0,angleAgent,0);
-        rigidbody.velocity = new Vector3(0,0,0);
-        Debug.DrawLine(transform.position,hit.point);
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
-        && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
+        float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir, Vector3.up);
+        transform.eulerAngles = new Vector3(0, angleAgent, 0);
+        rigidbody.velocity = new Vector3(0, 0, 0);
+        Debug.DrawLine(transform.position, hit.point);
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy
+        && stateOfEntity.entity != StateOfEntity.EntityState.Dead)
         {
 
             switch (dashState)
@@ -89,21 +89,21 @@ public class BoulierBehavior : MonoBehaviour
                         Debug.Log(true);
                         PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
                         ExitPlayer();
-                
+
                     }
-                    
-                        if(Vector3.Distance(transform.position, hit.point) < distanceStopWall)
+
+                    if (Vector3.Distance(transform.position, hit.point) < distanceStopWall)
+                    {
+                        if (isGrab)
                         {
-                            if(isGrab)
-                            {
-                                animBoulier.ChangeState(AnimBoulier.StateColoss.Jet);
-                                PlayerMoveAlone.Player1.GetComponent<LifePlayer>().AddDamage(30);
-                                PlayerMoveAlone.Player1.GetComponent<PlayerMoveAlone>().AddProjection(-(hit.point -transform.position ).normalized, 60,30,false);
-                                FMODUnity.RuntimeManager.PlayOneShot(chargeSound);
-                            }    
-                            ChangeDashState(DashEntityState.Repos);
-                            posOnRepos = transform.position;
+                            animBoulier.ChangeState(AnimBoulier.StateColoss.Jet);
+                            PlayerMoveAlone.Player1.GetComponent<LifePlayer>().AddDamage(30);
+                            PlayerMoveAlone.Player1.GetComponent<PlayerMoveAlone>().AddProjection(-(hit.point - transform.position).normalized, 60, 30, false);
+                            FMODUnity.RuntimeManager.PlayOneShot(chargeSound);
                         }
+                        ChangeDashState(DashEntityState.Repos);
+                        posOnRepos = transform.position;
+                    }
 
 
 
@@ -140,24 +140,24 @@ public class BoulierBehavior : MonoBehaviour
             if (dashState == DashEntityState.Ejection)
             {
 
-            if(dashState == DashEntityState.Ejection)
-            {
-              
-                ChangeDashState(DashEntityState.Repos);
+                if (dashState == DashEntityState.Ejection)
+                {
+
+                    ChangeDashState(DashEntityState.Repos);
+                }
+
             }
-            
-        }
-        Vector3 center = new Vector3(4.2f, 0, 34.9f);
+            Vector3 center = new Vector3(4.2f, 0, 34.9f);
 
-        if (Vector3.Distance(center, transform.position) > distanceDead)
-        {
-            
-            ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
-            Destroy(gameObject);
-        }
+            if (Vector3.Distance(center, transform.position) > distanceDead)
+            {
 
+                ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
+                Destroy(gameObject);
+            }
+
+        }
     }
-
     private void Init()
     {
         myMR = GetComponent<MeshRenderer>();
@@ -180,35 +180,35 @@ public class BoulierBehavior : MonoBehaviour
 
                 break;
 
-                case(DashEntityState.Dash):
-                    
-                    animBoulier.ChangeState(AnimBoulier.StateColoss.Charge);
-                    dirDash = player.transform.position - transform.position;
-                    Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit);
-                    hit.point = new Vector3(hit.point.x,1.5f,hit.point.z);
-                    myMR.material.color = Color.black;
-                    dashState = stateChange;
+            case (DashEntityState.Dash):
+
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Charge);
+                dirDash = player.transform.position - transform.position;
+                Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit);
+                hit.point = new Vector3(hit.point.x, 1.5f, hit.point.z);
+                myMR.material.color = Color.black;
+                dashState = stateChange;
 
                 break;
 
-                case(DashEntityState.Repos):
-                     
-                    animBoulier.ChangeState(AnimBoulier.StateColoss.Idle);
-                    tempsEcoulePrep = 0;
-                    myMR.material.color = Color.cyan;
-                    dashState = stateChange;
-                    JustReset();
+            case (DashEntityState.Repos):
+
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Idle);
+                tempsEcoulePrep = 0;
+                myMR.material.color = Color.cyan;
+                dashState = stateChange;
+                JustReset();
 
                 break;
-                case(DashEntityState.Ejection):
-                     
-                    animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
-                    tempsEcoulePrep = 0;
-                    myMR.material.color = Color.cyan;
-                    dashState = stateChange;
-                    JustReset();
-                    
-                     
+            case (DashEntityState.Ejection):
+
+                animBoulier.ChangeState(AnimBoulier.StateColoss.Projection);
+                tempsEcoulePrep = 0;
+                myMR.material.color = Color.cyan;
+                dashState = stateChange;
+                JustReset();
+
+
                 break;
         }
 
@@ -224,14 +224,15 @@ public class BoulierBehavior : MonoBehaviour
             gameObject.tag = "Ennemi";
             checkStich = false;
         }
-    }  public void JustReset()
+    }
+    public void JustReset()
     {
-            isGrab = false;
-            stichPos = Vector3.zero;
-            gameObject.layer = 9;
-            gameObject.tag = "Ennemi";
-            checkStich = false;
-            
+        isGrab = false;
+        stichPos = Vector3.zero;
+        gameObject.layer = 9;
+        gameObject.tag = "Ennemi";
+        checkStich = false;
+
     }
 
     public void CatchPlayer(Collider collision)
@@ -243,7 +244,7 @@ public class BoulierBehavior : MonoBehaviour
                 checkStich = true;
                 stichPos = collision.transform.position - transform.position;
                 collision.gameObject.GetComponent<EnnemiStock>().DetachPlayer();
-                collision.gameObject.GetComponent<PlayerMoveAlone>().currentPowerOfProjection= 0;
+                collision.gameObject.GetComponent<PlayerMoveAlone>().currentPowerOfProjection = 0;
                 isGrab = true;
                 gameObject.layer = 0;
                 gameObject.tag = "Untagged";
@@ -257,10 +258,10 @@ public class BoulierBehavior : MonoBehaviour
     {
         if (collision.gameObject == PlayerMoveAlone.Player1)
         {
-          CatchPlayer(collision.collider);
+            CatchPlayer(collision.collider);
         }
 
-        
+
     }
     public void OnDestroy()
     {
