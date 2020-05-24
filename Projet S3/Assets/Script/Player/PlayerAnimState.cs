@@ -60,6 +60,7 @@ public class PlayerAnimState : MonoBehaviour
             if(currentState == PlayerStateAnim.EntraveStart)
             {
                animator.Play("Anim_State_Chaine_Entrave_Lutte");
+               
             }
             if(currentState == PlayerStateAnim.EntraveFinish)
             {
@@ -68,5 +69,10 @@ public class PlayerAnimState : MonoBehaviour
             }
             playerCurrentState = currentState;
         }
+    }
+
+    public void ChangeSpeedAnimator(float value)
+    {
+        animator.speed = value;
     }
 }

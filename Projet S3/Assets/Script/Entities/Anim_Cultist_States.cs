@@ -50,6 +50,14 @@ public class Anim_Cultist_States : MonoBehaviour
                 activeOnetime = true;
             }
         break;
+        case (AnimCultistState.Projection_BackFloor):
+            
+            if(!activeOnetime)
+            {
+                animator.Play("Anim_Cultist_Percute_HitGroundV1");
+                activeOnetime = true;
+            }
+        break;
          case (AnimCultistState.Entrave_Idle):
             
             if(!activeOnetime)

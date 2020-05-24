@@ -268,8 +268,10 @@ public class MouseScope : MonoBehaviour
             {
                 InstantiateProjectile(aimDirection.normalized);
             }
+               if(ennemiStock.ennemiStock == null)
+            {
             FeedbackSnap(hitEntity.collider.gameObject);
-
+            }
         }
         else
         {
@@ -289,13 +291,17 @@ public class MouseScope : MonoBehaviour
                     entity = i;
                 }
             }
-            if (entity != 0 && disMin != DistanceMaxShoot())
+            if(ennemiStock.ennemiStock == null)
             {
-                FeedbackSnap(pos[entity].gameObject);
-            }
-            else
-            {
-                FeedbackSnap(null);
+
+                if (entity != 0 && disMin != DistanceMaxShoot())
+                {
+                    FeedbackSnap(pos[entity].gameObject);
+                }
+                else
+                {
+                    FeedbackSnap(null);
+                }
             }
             if (shoot)
             {
@@ -320,10 +326,12 @@ public class MouseScope : MonoBehaviour
         if (entitySnap != null)
         {
             entitySnap.GetComponent<MeshRenderer>().material.color = enemmiColor;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(false);
         }
         if (entityGive != null)
         {
             entitySnap = entityGive;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(true);
             enemmiColor = entitySnap.GetComponent<MeshRenderer>().material.color;
             entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
         }

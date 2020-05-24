@@ -35,7 +35,9 @@ public class CamMouvement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nbT = 0;
+
+        
+
         if (!smoothTransition)
         {
             transform.position = cams[i].startPos.position;

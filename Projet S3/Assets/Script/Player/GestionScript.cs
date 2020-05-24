@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GestionScript : MonoBehaviour
 {
-    public MonoBehaviour[] cinematics;
-  public  MonoBehaviour[] playtime;
-  public  MonoBehaviour[] transformation;
+    public  MonoBehaviour[] cinematics;
+    public  MonoBehaviour[] playtime;
+    public  MonoBehaviour[] transformation;
+    public  MonoBehaviour[] DefAndVictory;
 
     private bool maj = false;
 
@@ -14,7 +15,6 @@ public class GestionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic)
         {
             if (previousState != StateOfGames.currentState)
@@ -22,6 +22,7 @@ public class GestionScript : MonoBehaviour
                 ActiveCinematique(true);
                 ActivePlaytime(false);
                 ActiveTransformation(false);
+                ActiveDefaite(false);
                 previousState = StateOfGames.currentState;
             }
         }
@@ -38,6 +39,7 @@ public class GestionScript : MonoBehaviour
                 ActivePlaytime(false);
                 ActiveTransformation(false);
                 ActiveCinematique(true);
+                ActiveDefaite(false);
             }
             if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
@@ -45,13 +47,21 @@ public class GestionScript : MonoBehaviour
                 ActiveCinematique(false);
                 ActiveTransformation(false);
                 ActivePlaytime(true);
+                ActiveDefaite(false);
             }
             if (StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
             {
-
                 ActiveCinematique(false);
                 ActivePlaytime(false);
                 ActiveTransformation(true);
+                ActiveDefaite(false);
+            }
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.Defaite)
+            {
+                ActiveCinematique(false);
+                ActivePlaytime(false);
+                ActiveTransformation(false);
+                ActiveDefaite(true);
             }
             previousState = StateOfGames.currentState;
         }
@@ -83,8 +93,16 @@ public class GestionScript : MonoBehaviour
                 playtime[i].enabled = states;
             }
         }
-
     }
+
+    public void ActiveDefaite(bool states)
+    {
+         for (int i = 0; i < DefAndVictory.Length; i++)
+        {
+            DefAndVictory[i].enabled = states;       
+        }
+    }
+
     public void ActiveTransformation(bool states)
     {
         for (int i = 0; i < transformation.Length; i++)

@@ -131,7 +131,7 @@ public class MashingTrans : MonoBehaviour
             }
             if (activeMash)
             {
-
+                playerAnim.ChangeSpeedAnimator(1f);
                 if (timeSave + timeToDeacrese < compteur)
                 {
                     if (currentmax > minNumberToAim + 2)
@@ -172,7 +172,7 @@ public class MashingTrans : MonoBehaviour
                     {
                         activePos = false;
                     
-                        Physics.IgnoreLayerCollision(9, 10, false);
+                        
                         activeExplode = true;
                         PropulsionAtFinish();
 

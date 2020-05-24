@@ -151,9 +151,9 @@ public class TransformationPlayerStates : MonoBehaviour
                 compteurTime += Time.deltaTime;
             }
         }
-
-    }
-
+            
+        }
+     
     public void ChangeStates()
     {
         currentPalier++;
@@ -179,7 +179,9 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        playerAnim.ChangeSpeedAnimator(0.5f);
         SlowTime.StopTime();
+        CheckDistance.DistanceTransformation(transform.gameObject);
 
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateOfGames : MonoBehaviour
 {
-    public enum StateOfGame { DefaultPlayable, Cinematic, Transformation };
+    public enum StateOfGame { DefaultPlayable, Cinematic, Transformation, Defaite };
     public static StateOfGame currentState = StateOfGame.Cinematic;
     public StateOfGame currentStateOfGame;
 

@@ -145,7 +145,7 @@ public class TransformationAgent : MonoBehaviour
                 {
                     
                     
-                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax  )
+                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax && !agent[i].GetComponent<BoulierBehavior>()  )
                     {
                         if(agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation || agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.ReturnFormation )
                         {
@@ -250,9 +250,7 @@ public class TransformationAgent : MonoBehaviour
         if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
-            //Physics.IgnoreLayerCollision(9, 9, true);
-            Physics.IgnoreLayerCollision(9, 10, true);
-
+            
         }
       
         frame++;
