@@ -29,6 +29,12 @@ public class EntitiesManager : MonoBehaviour
 
     public int autoDestruction = 15;
 
+    public float circleDistance = 20;
+    private bool transformation;
+
+    private Vector3 dirTrans;
+
+
     void Start()
     {
         circle = GetComponent<CircleFormation>();
@@ -54,9 +60,14 @@ public class EntitiesManager : MonoBehaviour
     public void MovementOfManager(bool patrol)
     {
 
+    if(StateOfGames.currentState !=  StateOfGames.StateOfGame.Transformation)
+    {
         switch (cultisteBehavior)
         {
             case (BeheaviorCultiste.RituelPoint):
+               
+                   transformation =false;
+
                 if (circle.attack >= 0)
                 {
                     if (Vector3.Distance(transform.position, pointToGo.transform.position) > distanceActiveRituel)
@@ -143,7 +154,9 @@ public class EntitiesManager : MonoBehaviour
                     {
                         circle.ActiveRunPlayer();
                     }
-                }
+                    }
+                
+                
 
                 break;
             case (BeheaviorCultiste.Harass):
@@ -165,8 +178,32 @@ public class EntitiesManager : MonoBehaviour
                     ChangeIndex();
                 }
                 break;
+            }      
 
         }
+        else{
+                if(!transformation)
+                {   
+                    if(CheckDistance.activeCenter)
+                    {
+                      dirTrans  = PlayerMoveAlone.playerPos-  transform.position;
+                      dirTrans = dirTrans.normalized*circleDistance;
+                    }else
+                    {
+                        dirTrans = CheckDistance.dir;
+                        dirTrans = Quaternion.Euler(0,Random.Range(-30,30),0)* dirTrans;
+                        dirTrans = dirTrans.normalized *circleDistance;
+                    }
+                    transformation =true;
+
+                }
+                if(Vector3.Distance(transform.position,PlayerMoveAlone.playerPos)<circleDistance)
+                {
+                    circle.activeRituel = false;
+                    circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
+                    transform.position = Vector3.MoveTowards(transform.position, dirTrans, speedOfMouvement *5 * Time.deltaTime);
+                }
+            }
      
     }
 

@@ -65,9 +65,17 @@ public class CircleFormation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Formation();
-        
+        if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+        {
+            Formation();
+        }else
+        {
+            for (int i = 0; i < childEntities.Length ; i++)
+            {
+                childEntities[i].transform.eulerAngles = new Vector3(0,0,0);
+            }          
+            
+        }
         if(entityManage.autoDestruct && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             ActiveAutoDestruct();
@@ -234,10 +242,12 @@ public class CircleFormation : MonoBehaviour
                                 {
                                     childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
                                 }
-                                childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
-                                childEntities[i].transform.eulerAngles = Vector3.zero;
-                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
-
+                                 if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+                                {
+                                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                                }
+                                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
                                 if(Vector3.SignedAngle(Vector3.forward, dir.normalized, Vector3.up)!=0)
                                 {
                                     float angle = Vector3.SignedAngle(Vector3.forward,dir.normalized,Vector3.up);
@@ -247,11 +257,13 @@ public class CircleFormation : MonoBehaviour
                             }
                             else
                             {
-                                
-                                childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
-                                childEntities[i].transform.eulerAngles = Vector3.zero;
-                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
-                                
+                                if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+                                {       
+                                    childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
+                                }
+                                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
+
                                 Vector3 dirProjection = entityManage.GetPointToGo() - childEntities[i].transform.position;
                 
                                 if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)

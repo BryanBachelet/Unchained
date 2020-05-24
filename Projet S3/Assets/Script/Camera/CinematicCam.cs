@@ -67,6 +67,8 @@ public class CinematicCam : MonoBehaviour
     private float startTiming = 0.1f;
     private float compteurEffet;
 
+    private float vitesseTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,39 +87,7 @@ public class CinematicCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //  activeCinematicCam = activeBehavior; 
-
-        //   if(Input.GetKeyDown(KeyCode.C))
-        //   {
-        //       if(threshold.enabled == true)
-        //       {
-        //           threshold.enabled =false;
-        //       }else
-        //       {
-        //             threshold.enabled =true;
-        //       }
-        //   }
-        //    if(Input.GetKeyDown(KeyCode.X))
-        //   {
-        //       if(comicBook.enabled == true)
-        //       {
-        //           comicBook.enabled =false;
-        //       }else
-        //       {
-        //             comicBook.enabled =true;
-        //       }
-        //   }
-        //   if(Input.GetKeyDown(KeyCode.V))
-        //   {
-        //      if(negative.enabled == true)
-        //       {
-        //           negative.enabled =false;
-        //           shadows.enabled = false;
-        //       }else
-        //       {     shadows.enabled =true;
-        //             negative.enabled =true;
-        //       }
-        //   }
+      
         if(activeCinematicCam)
         {   
 
@@ -143,6 +113,7 @@ public class CinematicCam : MonoBehaviour
                     SetPosition(false);
                     compteurTimePlan = 0;
                     mashing.activeMash = true; 
+                    vitesseTime =0;
                 }
                 if(compteurTimePlan<stop)
                 {
@@ -158,11 +129,12 @@ public class CinematicCam : MonoBehaviour
                     compteurTimePlan +=Time.deltaTime;
                 }else
                 {
-                    compteurTimePlan +=Time.deltaTime;
+                    compteurTimePlan +=vitesseTime * Time.deltaTime;
                     ratioTimePlan = (compteurTimePlan-stop) /timeOfPlan;
-                    angleCompteur += speedAngle*Time.deltaTime * 1;
+                    angleCompteur += speedAngle* vitesseTime * Time.deltaTime * 1;
                 }
-              
+                
+                vitesseTime += 0.5f *Time.deltaTime;
                 transform.LookAt(pointFocus.transform);
 
                 break;
@@ -202,10 +174,10 @@ public class CinematicCam : MonoBehaviour
                     currentPlan =NamePlan.Plan3;
                     // SetPosition(false);
                 }
-                compteurTimePlan +=Time.deltaTime;
-                ratioTimePlan = compteurTimePlan /timeOfPlan;
-                angleCompteur += speedAngle*Time.deltaTime * 1;
-
+                compteurTimePlan += vitesseTime * Time.deltaTime;
+                ratioTimePlan =  compteurTimePlan /timeOfPlan;
+                angleCompteur += speedAngle * vitesseTime*Time.deltaTime * 1;
+                vitesseTime += 0.5f *Time.deltaTime;
                 transform.LookAt(pointFocus.transform);
 
                 break;
@@ -224,6 +196,7 @@ public class CinematicCam : MonoBehaviour
             startMouvement =false;
             compteurTimePlan =0;
             ratioTimePlan =0;
+            vitesseTime = 0;
         }
     }
 
