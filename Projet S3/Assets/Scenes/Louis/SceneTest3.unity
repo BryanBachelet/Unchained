@@ -1732,6 +1732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackTest1: event:/Music/v2Test1/RefraQ_RUK_Decoupe
   myTfP: {fileID: 2027631132}
+  tempsAvantMusic: 0
+  isCheckMusic: 0
 --- !u!4 &186359812
 Transform:
   m_ObjectHideFlags: 0
@@ -5326,6 +5328,7 @@ MonoBehaviour:
   i: 0
   posStart: 0
   myMP: {fileID: 186359811}
+  nbT: 0
 --- !u!114 &1246053375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
@@ -5422,6 +5425,7 @@ MonoBehaviour:
   - {fileID: 1246053375}
   - {fileID: 1246053381}
   transformation: []
+  DefAndVictory: []
 --- !u!114 &1246053381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5457,11 +5461,13 @@ MonoBehaviour:
   pointFocus: {fileID: 1259576773}
   timeOfPlan: 7
   numberofTurn: 2
+  stop: 0
   posFinish: {x: 0, y: -0.2, z: -10}
   timeOfPlan2: 10
   numberofTurn2: 0
   posFinish2: {x: 0, y: 2, z: -26}
   durationTotal: 0
+  magnitudeShake: 0
 --- !u!114 &1246053384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9200,6 +9206,7 @@ MonoBehaviour:
   posToStopMoving: {x: 550, y: 980, z: 1}
   tempsAvantResetCombo: 3
   tempsAvantResetGroup: 0.5
+  musicPlarye: {fileID: 0}
 --- !u!114 &2027631141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
@@ -9274,6 +9281,7 @@ MonoBehaviour:
   - {fileID: 2027631137}
   - {fileID: 2027631150}
   - {fileID: 2027631156}
+  DefAndVictory: []
 --- !u!114 &2027631150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9354,6 +9362,8 @@ MonoBehaviour:
     type: 3}
   feedbackSecondTransformation: {fileID: 3760582440097357505, guid: 7fdc829aa3cc6474283f61956490a1e1,
     type: 3}
+  fd: {fileID: 0}
+  roche: {fileID: 0}
 --- !u!114 &2027631157
 MonoBehaviour:
   m_ObjectHideFlags: 0

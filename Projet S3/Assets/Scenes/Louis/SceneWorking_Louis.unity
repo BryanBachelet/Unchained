@@ -1709,6 +1709,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackTest1: event:/Music/Track/ImportTitre1
   myTfP: {fileID: 2027631132}
+  tempsAvantMusic: 0
+  isCheckMusic: 0
 --- !u!4 &186359812
 Transform:
   m_ObjectHideFlags: 0
@@ -5152,6 +5154,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d09027ea5cba044a9a6882c12b910f1, type: 3}
+--- !u!1001 &1095467850
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1490979554}
+    m_Modifications:
+    - target: {fileID: 5576179419999048771, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_Name
+      value: Trail_chara
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581964762165773263, guid: 508e6c7058be83e488052aa2f60f554b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 508e6c7058be83e488052aa2f60f554b, type: 3}
 --- !u!4 &1136408708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5018898853266154360, guid: 229184031d37d5d448781648b66ba6e9,
@@ -5537,6 +5618,7 @@ MonoBehaviour:
   i: 0
   posStart: 0
   myMP: {fileID: 186359811}
+  nbT: 0
 --- !u!114 &1246053375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2923953865884390346, guid: 63309d3e81ed6a1448edc70662a09f96,
@@ -5633,6 +5715,7 @@ MonoBehaviour:
   - {fileID: 1246053375}
   - {fileID: 1246053381}
   transformation: []
+  DefAndVictory: []
 --- !u!114 &1246053381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5668,11 +5751,13 @@ MonoBehaviour:
   pointFocus: {fileID: 1259576773}
   timeOfPlan: 3.5
   numberofTurn: 2
+  stop: 0
   posFinish: {x: 0, y: -0.2, z: -10}
   timeOfPlan2: 7
   numberofTurn2: 0
   posFinish2: {x: 0, y: 2, z: -26}
   durationTotal: 0
+  magnitudeShake: 0
 --- !u!114 &1246053384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6450,7 +6535,7 @@ Transform:
   m_LocalScale: {x: 193.90263, y: 15.59893, z: 17.494091}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -29.949001, z: 0}
 --- !u!65 &1317178381
 BoxCollider:
@@ -6546,7 +6631,7 @@ Transform:
   - {fileID: 825722304}
   - {fileID: 1962645321}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1389786750
 GameObject:
@@ -7391,7 +7476,7 @@ PrefabInstance:
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2599016834285439583, guid: 6394fff4d6065524694b9d19799eecc4,
         type: 3}
@@ -10457,6 +10542,7 @@ MonoBehaviour:
   posToStopMoving: {x: 280, y: 800, z: 1}
   tempsAvantResetCombo: 3
   tempsAvantResetGroup: 0.5
+  musicPlarye: {fileID: 0}
 --- !u!114 &2027631141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2599016834285439579, guid: 6394fff4d6065524694b9d19799eecc4,
@@ -10531,6 +10617,7 @@ MonoBehaviour:
   - {fileID: 2027631137}
   - {fileID: 2027631150}
   - {fileID: 2027631156}
+  DefAndVictory: []
 --- !u!114 &2027631150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10611,6 +10698,8 @@ MonoBehaviour:
     type: 3}
   feedbackSecondTransformation: {fileID: 3760582440097357505, guid: 7fdc829aa3cc6474283f61956490a1e1,
     type: 3}
+  fd: {fileID: 0}
+  roche: {fileID: 0}
 --- !u!114 &2027631157
 MonoBehaviour:
   m_ObjectHideFlags: 0
