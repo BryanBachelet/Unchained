@@ -4,55 +4,84 @@ using UnityEngine;
 
 public class MashingFeedback : MonoBehaviour
 {
-    public int numberTransformation ;
+    public int numberTransformation;
     public GameObject FirstVfxFeedback;
+    public GameObject rockVfxFeedback;
+    public GameObject rockVfxFeedback2;
     public GameObject feedbackSecondTransformation;
-    
-    
-    public GameObject fd;
+
+    public CinematicCam cinematicCamScript;
+    private GameObject fd;
     private float duration;
 
-    public GameObject roche;
-
+    public float speedPlan1 = 50f;
+    public float speedPlan2 = 100f;
+    public ParticleSystem.MinMaxCurve minMaxPlan1Rock1;
+    public ParticleSystem.MinMaxCurve minMaxPlan2Rock1;
+    ParticleSystem.MainModule speedRock1;
+    public ParticleSystem.MinMaxCurve minMaxPlan1Rock2;
+    public ParticleSystem.MinMaxCurve minMaxPlan2Rock2;
+    ParticleSystem.MainModule speedRock2;
     public void Start()
     {
-      
+        cinematicCamScript = Camera.main.GetComponent<CinematicCam>();
     }
 
-   void Update()
+    void Update()
     {
-           if(fd != null)
+        if (fd != null)
         {
-        fd.transform.position = transform.position; 
-        }
-    }
-   
+            fd.transform.position = transform.position;
+            if (rockVfxFeedback != null)
+            {
+                if(cinematicCamScript.currentPlan == CinematicCam.NamePlan.Plan1)
+                {
+                    //speed.startSpeedMultiplier = speedPlan1;
+                    speedRock1.startSpeed = minMaxPlan1Rock1;
+                    speedRock2.startSpeed = minMaxPlan1Rock2;
+                }
+                if (cinematicCamScript.currentPlan == CinematicCam.NamePlan.Plan2)
+                {
+                    //speed.startSpeedMultiplier = speedPlan2;
+                    speedRock1.startSpeed = minMaxPlan2Rock1;
+                    speedRock2.startSpeed = minMaxPlan2Rock2;
+                }
 
-  public void ActiveFeedback()
-   {
-        bool activeTransformation =false;
+            }
+        }
+
+    }
+
+
+    public void ActiveFeedback()
+    {
+        bool activeTransformation = false;
         GetDuration();
-        if(!activeTransformation)
+        if (!activeTransformation)
         {
             numberTransformation++;
-            if(numberTransformation == 1 )
+            if (numberTransformation == 1)
             {
-              
-                fd =Instantiate(FirstVfxFeedback, transform.position+Vector3.up,Quaternion.Euler( 0,0,0)); 
+
+                fd = Instantiate(FirstVfxFeedback, transform.position + Vector3.up, Quaternion.Euler(0, 0, 0));
+                rockVfxFeedback = fd.transform.GetChild(0).transform.GetChild(4).gameObject;
+                speedRock1 = rockVfxFeedback.GetComponent<ParticleSystem>().main;
+                rockVfxFeedback2 = fd.transform.GetChild(0).transform.GetChild(13).gameObject;
+                speedRock2 = rockVfxFeedback2.GetComponent<ParticleSystem>().main;
                 fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;
             }
-            if(numberTransformation==2)
+            if (numberTransformation == 2)
             {
-                fd =Instantiate(feedbackSecondTransformation, transform.position,Quaternion.Euler( -90,0,0));   
-                fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;   
+                fd = Instantiate(feedbackSecondTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
+                fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;
             }
-            activeTransformation =true; 
-        }       
-     
-   }
+            activeTransformation = true;
+        }
+
+    }
     public void GetDuration()
     {
-         duration = Camera.main.GetComponent<CinematicCam>().durationTotal;
+        duration = Camera.main.GetComponent<CinematicCam>().durationTotal;
     }
 }
 
