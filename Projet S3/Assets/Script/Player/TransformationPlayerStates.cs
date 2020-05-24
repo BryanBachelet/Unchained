@@ -36,6 +36,8 @@ public class TransformationPlayerStates : MonoBehaviour
 
     private bool activePanel;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {      
@@ -92,9 +94,7 @@ public class TransformationPlayerStates : MonoBehaviour
             activePanel = false;
         }
         else
-        {
-            
-            
+        {             
             compteurTime +=Time.deltaTime;
         }   
     }
@@ -125,6 +125,7 @@ public class TransformationPlayerStates : MonoBehaviour
         CinematicCam.StartTransformation(true);
         StateOfGames.currentState = StateOfGames.StateOfGame.Transformation;
         playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        playerAnim.ChangeSpeedAnimator(0.5f);
         SlowTime.StopTime();
 
 

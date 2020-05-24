@@ -48,15 +48,15 @@ public class BoulierBehavior : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
+    { 
+       
         Vector3 playerDir = player.transform.position - transform.position;
-        float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir, Vector3.up);
-        transform.eulerAngles = new Vector3(0, angleAgent, 0);
-        rigidbody.velocity = new Vector3(0, 0, 0);
-        Debug.DrawLine(transform.position, hit.point);
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy
-        && stateOfEntity.entity != StateOfEntity.EntityState.Dead)
+        float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir,Vector3.up);
+        transform.eulerAngles = new Vector3(0,angleAgent,0);
+        rigidbody.velocity = new Vector3(0,0,0);
+        Debug.DrawLine(transform.position,hit.point);
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
+        && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
         {
 
             switch (dashState)
@@ -89,7 +89,14 @@ public class BoulierBehavior : MonoBehaviour
                         Debug.Log(true);
                         PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
                         ExitPlayer();
-
+                
+                    }else
+                    {
+                      
+                       if( Vector3.Distance(transform.position,player.transform.position)<1.5f)
+                       {
+                           CatchPlayer(player);
+                       }
                     }
 
                     if (Vector3.Distance(transform.position, hit.point) < distanceStopWall)
@@ -155,7 +162,7 @@ public class BoulierBehavior : MonoBehaviour
                 ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);
                 Destroy(gameObject);
             }
-
+        }
         }
     }
     private void Init()
@@ -235,7 +242,7 @@ public class BoulierBehavior : MonoBehaviour
 
     }
 
-    public void CatchPlayer(Collider collision)
+    public void CatchPlayer( GameObject collision)
     {
         if (dashState == DashEntityState.Dash && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
@@ -243,8 +250,8 @@ public class BoulierBehavior : MonoBehaviour
             {
                 checkStich = true;
                 stichPos = collision.transform.position - transform.position;
-                collision.gameObject.GetComponent<EnnemiStock>().DetachPlayer();
-                collision.gameObject.GetComponent<PlayerMoveAlone>().currentPowerOfProjection = 0;
+                collision.GetComponent<EnnemiStock>().DetachPlayer();
+                collision.GetComponent<PlayerMoveAlone>().currentPowerOfProjection= 0;
                 isGrab = true;
                 gameObject.layer = 0;
                 gameObject.tag = "Untagged";
@@ -258,7 +265,7 @@ public class BoulierBehavior : MonoBehaviour
     {
         if (collision.gameObject == PlayerMoveAlone.Player1)
         {
-            CatchPlayer(collision.collider);
+         // CatchPlayer(collision.collider);
         }
 
 

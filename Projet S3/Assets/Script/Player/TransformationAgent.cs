@@ -250,9 +250,7 @@ public class TransformationAgent : MonoBehaviour
         if (frame > 0 && frame < 3)
         {
             transform.GetComponent<PlayerMoveAlone>().enabled = false;
-            //Physics.IgnoreLayerCollision(9, 9, true);
-            Physics.IgnoreLayerCollision(9, 10, true);
-
+            
         }
       
         frame++;

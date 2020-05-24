@@ -97,10 +97,21 @@ public class EnnemiDestroy : MonoBehaviour
         {
             currentForceOfEjection -= deccelerationOfForceOfEjection * Time.deltaTime;
             RotateAgent();
-           if(anim_Cultist_States != null)
-           {
-            anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Projection_FallAir);
-           } 
+            if(transform.position.y>1.5f)
+            {
+                if(anim_Cultist_States != null && stateOfEntity.entity != StateOfEntity.EntityState.Catch )
+                {
+                    anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Projection_FallAir);
+                }
+            }
+           else 
+            {
+                if(anim_Cultist_States != null && stateOfEntity.entity != StateOfEntity.EntityState.Catch )
+                {
+                    anim_Cultist_States.ChangeAnimState( Anim_Cultist_States.AnimCultistState.Projection_BackFloor);
+                }
+                
+            }
         }
         else
         {

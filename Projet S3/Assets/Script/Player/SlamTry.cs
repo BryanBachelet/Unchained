@@ -37,6 +37,7 @@ public class SlamTry : MonoBehaviour
     [FMODUnity.EventRef]
     public string slamImpact;
 
+    private bool activeOnce;
     
     // Start is called before the first frame update
     void Start()
@@ -86,7 +87,9 @@ public class SlamTry : MonoBehaviour
                 PhaseTwo();
                 break;
             case ProjectioState.Projection:
-               ennemiStock.DetachPlayer(dir);
+                Debug.DrawRay(transform.position,dir.normalized * 100, Color.green);
+               // Debug.Break();
+               ennemiStock.DetachPlayer(dir.normalized);
                 currentState = ProjectioState.Finish;
                // Projection();
                 break;
@@ -147,16 +150,14 @@ public class SlamTry : MonoBehaviour
         agent.layer = 1;
         t = compteur / time2;
         compteur += Time.deltaTime;
-        if (t > 1)
+        if(!activeOnce)
         {
             Collider[] ennmi = Physics.OverlapSphere(point2.transform.position, 14, layer);
-
-            Debug.Log(ennmi.Length);
             for (int i = 0; i < ennmi.Length; i++)
             {
+               
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
                 countPlayer.ResetTiming();
-                //  ennmi[i].GetComponent<Rigidbody>().AddForce(dir * forceProjection, ForceMode.Impulse); 
                 if(!ennmi[i].GetComponent<StateOfEntity>())
                 {
                     Debug.Log(ennmi[i].name);
@@ -170,7 +171,11 @@ public class SlamTry : MonoBehaviour
 
                // countPlayer.HitEnnemi();
             }
+        }
+        if (t > 1)
+        {
 
+           
             compteur = 0;
             t = 0;
             currentState = ProjectioState.Projection;
