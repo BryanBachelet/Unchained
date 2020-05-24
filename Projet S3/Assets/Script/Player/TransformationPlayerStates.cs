@@ -38,10 +38,10 @@ public class TransformationPlayerStates : MonoBehaviour
 
 
     public float tempsAvantCheckLoop1 = 20.57f;
-    float tempsEcouleCheckLoop1;
+    public float tempsEcouleCheckLoop1;
     bool isActivable;
-    public float tempsAvantCheckLoop2 = 63.43f;
-    float tempsEcouleCheckLoop2;
+    public float tempsAvantCheckLoop2 = 42.9f;
+    public float tempsEcouleCheckLoop2;
     bool checkBoucle1 = false;
     // Start is called before the first frame update
     void Start()
@@ -89,11 +89,11 @@ public class TransformationPlayerStates : MonoBehaviour
         }
         else
         {
-            if (tempsEcouleCheckLoop1 <= tempsAvantCheckLoop1 && checkBoucle1)
+            if (tempsEcouleCheckLoop1 <= tempsAvantCheckLoop1 && !checkBoucle1)
             {
                 tempsEcouleCheckLoop1 += Time.deltaTime;
             }
-            if (tempsEcouleCheckLoop2 <= tempsAvantCheckLoop2 && !checkBoucle1)
+            if (tempsEcouleCheckLoop2 <= tempsAvantCheckLoop2 && checkBoucle1)
             {
                 tempsEcouleCheckLoop2 += Time.deltaTime;
             }
@@ -102,28 +102,33 @@ public class TransformationPlayerStates : MonoBehaviour
             {
                 if (countPlayer.countKillEnnemi > (palierCondition[palierStep]))
                 {
-                    if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && checkBoucle1)
+                    if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && !checkBoucle1 && palierStep == 3)
                     {
                         tempsEcouleCheckLoop1 = 0;
                         activePanel = true;
                     }
-                    if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && !checkBoucle1)
+                    if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && checkBoucle1 && palierStep == 6)
                     {
                         tempsEcouleCheckLoop2 = 0;
                         activePanel = true;
                     }
+                    if(palierStep != 3 || palierStep != 6)
+                    {
+                        activePanel = true;
+                    }
+
 
                 }
             }
-            if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && checkBoucle1)
+            if (tempsEcouleCheckLoop1 > tempsAvantCheckLoop1 && !checkBoucle1)
             {
                 tempsEcouleCheckLoop1 = 0;
                 tempsAvantCheckLoop1 = 10.19f;
             }
-            if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && !checkBoucle1)
+            if (tempsEcouleCheckLoop2 > tempsAvantCheckLoop2 && checkBoucle1)
             {
                 tempsEcouleCheckLoop2 = 0;
-                tempsAvantCheckLoop1 = 13.7f;
+                tempsAvantCheckLoop2 = 13.7f;
             }
         }
 
