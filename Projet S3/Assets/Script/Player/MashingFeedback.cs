@@ -19,11 +19,17 @@ public class MashingFeedback : MonoBehaviour
     public ParticleSystem.MinMaxCurve minMaxPlan1Rock1;
     public ParticleSystem.MinMaxCurve minMaxPlan2Rock1;
     ParticleSystem.MainModule speedRock1;
+    ParticleSystem.EmissionModule numberRock;
     public ParticleSystem.MinMaxCurve minMaxPlan1Rock2;
     public ParticleSystem.MinMaxCurve minMaxPlan2Rock2;
     ParticleSystem.MainModule speedRock2;
+
+    public AnimationCurve animCurveRockNumber;
+    float tempsEcouleGainRock;
+    public ParticleSystem.MinMaxCurve rockNumberCurve;
     public void Start()
     {
+        tempsEcouleGainRock = 0;
         cinematicCamScript = Camera.main.GetComponent<CinematicCam>();
     }
 
@@ -38,6 +44,7 @@ public class MashingFeedback : MonoBehaviour
                 {
                     //speed.startSpeedMultiplier = speedPlan1;
                     speedRock1.startSpeed = minMaxPlan1Rock1;
+                    numberRock.rateOverTime = rockNumberCurve;
                     speedRock2.startSpeed = minMaxPlan1Rock2;
                 }
                 if (cinematicCamScript.currentPlan == CinematicCam.NamePlan.Plan2)
@@ -66,6 +73,7 @@ public class MashingFeedback : MonoBehaviour
                 fd = Instantiate(FirstVfxFeedback, transform.position + Vector3.up, Quaternion.Euler(0, 0, 0));
                 rockVfxFeedback = fd.transform.GetChild(0).transform.GetChild(4).gameObject;
                 speedRock1 = rockVfxFeedback.GetComponent<ParticleSystem>().main;
+                numberRock = rockVfxFeedback.GetComponent<ParticleSystem>().emission;
                 rockVfxFeedback2 = fd.transform.GetChild(0).transform.GetChild(13).gameObject;
                 speedRock2 = rockVfxFeedback2.GetComponent<ParticleSystem>().main;
                 fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;
