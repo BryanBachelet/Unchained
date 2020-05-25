@@ -35,7 +35,7 @@ public class Anim_Cultist_States : MonoBehaviour
            case (AnimCultistState.Run):
            
                animator.Play("Anim_Cultist_Run");
-                
+              
            break;
            case (AnimCultistState.Invocation_Idle):
             
@@ -73,6 +73,16 @@ public class Anim_Cultist_States : MonoBehaviour
        }
     }
 
+    public void StopAnim()
+    {
+        animator.enabled =false;
+    }
+
+    public void StartAnim()
+    {
+        animator.enabled =true;
+    }
+
     public void ChangeAnimState(AnimCultistState animToChange)
     {
         if(animCultist != animToChange)
@@ -81,16 +91,6 @@ public class Anim_Cultist_States : MonoBehaviour
             activeOnetime = false;
         }
             
-    }
-
-    public void StopAnim()
-    {
-        animator.enabled = false;
-    }
-
-    public void StartAnim()
-    {
-        animator.enabled = true;
     }
 
 }
