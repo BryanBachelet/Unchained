@@ -83,5 +83,15 @@ public class Anim_Cultist_States : MonoBehaviour
             
     }
 
+    public void StopAnim()
+    {
+        animator.enabled = false;
+    }
+
+    public void StartAnim()
+    {
+        animator.enabled = true;
+    }
+
 }
 
