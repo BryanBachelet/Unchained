@@ -28,7 +28,7 @@ public class VfxTrailOnPlayer : MonoBehaviour
             {
                 if(!activeBeforePhase3)
                 {
-                    transform.position = new Vector3(playerTransform.position.x, 2, playerTransform.position.z);
+                    transform.position = new Vector3(playerTransform.position.x, 2, playerTransform.position.z ) +-playerTransform.forward *1;
                 }
 
             }
