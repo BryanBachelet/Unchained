@@ -190,6 +190,7 @@ public class MashingTrans : MonoBehaviour
                         ResetMash();
                         compteurFinishMash = 0;
                         activeMash = false;
+                        GetComponent<LightChange>().ChangeLight(false);
                         if(numberOfTransformation>= 2)
                         {
                             charaOne.SetActive(false);

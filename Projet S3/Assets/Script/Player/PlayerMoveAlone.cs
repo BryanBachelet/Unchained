@@ -116,7 +116,7 @@ public class PlayerMoveAlone : MonoBehaviour
                 isStickGround =true;
             }
             
-            aura.SetActive( auraActive);
+            //aura.SetActive( auraActive);
         }
         else
         {   
@@ -128,7 +128,7 @@ public class PlayerMoveAlone : MonoBehaviour
             blur.Strength -= (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,1);
             _timeProjection  = 0;
-            aura.SetActive(false);
+            //aura.SetActive(false);
            // blur.enabled = false;
         }
 

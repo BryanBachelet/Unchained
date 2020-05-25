@@ -65,14 +65,6 @@ public class TransformationPlayerStates : MonoBehaviour
     void Update()
     {
 
-        //if (tempsEcouleCheckLoop2 <= tempsAvantCheckLoop2)
-        //{
-        //    tempsEcouleCheckLoop2 += Time.deltaTime;
-        //}
-        //else
-        //{
-        //    tempsEcouleCheckLoop2 = 0;
-        //}
         if (!expulseSoundPlay && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && palierStep == 3)
         {
             expulseSoundPlay = true;
@@ -200,6 +192,7 @@ public class TransformationPlayerStates : MonoBehaviour
 
     public void GoTranformation()
     {
+        GetComponent<LightChange>().ChangeLight(true);
         mash.ActiveFeedback();
         playerMove.GoTransformation();
         CinematicCam.StartTransformation(true);

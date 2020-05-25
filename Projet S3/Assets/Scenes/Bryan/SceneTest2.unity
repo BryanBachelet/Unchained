@@ -1216,6 +1216,36 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1592513492943708118, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513492943708118, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493678745825, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592513493678745825, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fb76956f9a7b2143be4e9f89c1bfa50, type: 3}
 --- !u!1 &82983910 stripped
@@ -3531,6 +3561,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!108 &507995023 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1592513492943708118, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+    type: 3}
+  m_PrefabInstance: {fileID: 64458723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &525743353
 GameObject:
   m_ObjectHideFlags: 0
@@ -5031,7 +5067,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.75140506, g: 0.71564615, b: 0.8113208, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -5053,7 +5089,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -7083,6 +7119,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276205270}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!108 &1279886292 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1592513493031921298, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+    type: 3}
+  m_PrefabInstance: {fileID: 64458723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1285538618
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,6 +10728,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 120917293}
   m_PrefabAsset: {fileID: 0}
+--- !u!108 &1879612138 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1592513493678745825, guid: 2fb76956f9a7b2143be4e9f89c1bfa50,
+    type: 3}
+  m_PrefabInstance: {fileID: 64458723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1881001625 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5263924698137467093, guid: 229184031d37d5d448781648b66ba6e9,
@@ -10866,7 +10914,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -11356,7 +11404,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 0.56995374, g: 0.5496618, b: 0.6037736, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -11378,7 +11426,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -11557,6 +11605,27 @@ MonoBehaviour:
   feed: {fileID: 562058297}
   slamLaunch: event:/Player/Impact/Launch2
   slamImpact: event:/Player/Impact/Explosion
+--- !u!114 &2027631139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027631131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662e0023af6aad84daa28f17eb71bf6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightsToChange:
+  - {fileID: 1279886292}
+  - {fileID: 825722305}
+  - {fileID: 1922900783}
+  - {fileID: 507995023}
+  - {fileID: 1962645322}
+  - {fileID: 1879612138}
+  activePlayer: 0
+  timing: 1
 --- !u!114 &2027631140
 MonoBehaviour:
   m_ObjectHideFlags: 0
