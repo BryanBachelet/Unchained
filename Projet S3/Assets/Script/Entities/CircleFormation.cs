@@ -37,17 +37,28 @@ public class CircleFormation : MonoBehaviour
 
     [FMODUnity.EventRef]
     public string invoqSound;
+
+    public Material laser;
+
+    public Material other;
+
     void Start()
     {
         childEntities = new GameObject[transform.parent.childCount - 5];
+        entityManage = GetComponent<EntitiesManager>();
         for (int i = 0; i < childEntities.Length; i++)
         {
 
             childEntities[i] = transform.parent.GetChild(i).gameObject;
-
+            if(entityManage.cultisteBehavior == EntitiesManager.BeheaviorCultiste.Harass)
+            {
+                childEntities[i].GetComponentInChildren<SkinnedMeshRenderer>().material = laser;
+            }else
+            {
+                childEntities[i].GetComponentInChildren<SkinnedMeshRenderer>().material = other;
+            }
         }
         compteurOfMouvement = new float[childEntities.Length];
-        entityManage = GetComponent<EntitiesManager>();
         posAlea = new Vector3[childEntities.Length];
         float rangeAdd = 0;
         for(int i = 0 ; i<posAlea.Length;i++)
@@ -232,7 +243,7 @@ public class CircleFormation : MonoBehaviour
                         {
 
                                 
-                            if (distanceDestination > 1f)
+                            if (distanceDestination > 20)
                             {
                                 Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                                 if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
@@ -256,7 +267,7 @@ public class CircleFormation : MonoBehaviour
                             {
                                 if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
                                 {       
-                                    childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
+                                    childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);
                                 }
                                     childEntities[i].transform.eulerAngles = Vector3.zero;
                                     childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
@@ -301,9 +312,14 @@ public class CircleFormation : MonoBehaviour
                     Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                     if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                        childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                      childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);            
+                        //childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                    }else
+                    {
+                        Debug.Log("Ok");
+                        childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);    
                     }
-                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                 
                     childEntities[i].transform.eulerAngles = Vector3.zero;
                   
                     Vector3 orientationDir =  entityManage.GetPointToGo() - childEntities[i].transform.position;
@@ -400,6 +416,28 @@ public class CircleFormation : MonoBehaviour
             if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
             {
                 childEntities[i].GetComponentInChildren<Anim_Cultist_States>().animCultist =  animToChange;
+
+            }
+        }
+    }
+      public void StopAnimRituel()
+    {
+        for(int i = 0 ; i< childEntities.Length;i++)
+        {
+            if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
+            {
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().StopAnim();
+
+            }
+        }
+    }
+      public void StartAnimRituel()
+    {
+        for(int i = 0 ; i< childEntities.Length;i++)
+        {
+            if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
+            {
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().StartAnim();
 
             }
         }

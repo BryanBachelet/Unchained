@@ -61,7 +61,8 @@ public class EntitiesManager : MonoBehaviour
     {
 
     if(StateOfGames.currentState !=  StateOfGames.StateOfGame.Transformation)
-    {
+    { 
+        circle.StartAnimRituel();
         switch (cultisteBehavior)
         {
             case (BeheaviorCultiste.RituelPoint):
@@ -189,7 +190,9 @@ public class EntitiesManager : MonoBehaviour
                 }
                 if(Vector3.Distance(transform.position,PlayerMoveAlone.playerPos)<circleDistance)
                 {
+                    
                     circle.activeRituel = false;
+                    circle.StopAnimRituel();
                     circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
                     transform.position = Vector3.MoveTowards(transform.position, dirTrans, speedOfMouvement *5 * Time.deltaTime);
                 }
