@@ -5,39 +5,23 @@ using UnityEngine;
 public class CultistLaser : MonoBehaviour
 {
 
-    public enum StateAttackCultist{ Movement, Charging, Reload,FinishCharging, Attack}
-    public StateAttackCultist attackCultist;
-    public float speedOfDeplacement ;
+
     public float distance;
 
-    public GameObject spriteGo; 
-    
-    public GameObject  attackCollideGo;
-    public float timeBeforeHit;
-    private float _timeToHit;
-    public float timeToCharge;
+    public GameObject spriteGo;
 
-    public float timeReload;
+    public GameObject attackCollideGo;
 
-
-    public int frameAttackTime;
 
     public LayerMask wallHit;
 
-    public float strenghProjection;
-    
-    public float prediction;
-
-    public float anglePrediction;
 
     private GameObject player;
 
     private CircleFormation circle;
     private BoxCollider attackCollider;
-    private float _timeToCharge;
-    private float _timeReload;
-    private int _frameAttackTime;
-    
+
+
     private SpriteRenderer spriteRend;
     private CultistLaserEffect cultistLaserEffect;
 
@@ -47,223 +31,229 @@ public class CultistLaser : MonoBehaviour
     private RotationPlayer rotation;
 
     private Vector3 posToShoot;
-    // Start is called before the first frame update
+
+    [Header("Test")]
+    public bool test;
+
+    public bool isAttacking;
+    public float timeAttack;
+    private float _AttackTime;
+
+    public GameObject myMouseTargetLasersScript;
+    private ConLaser ConLaserScript;
+    private MouseTargetLasers lasersScript;
+    private Vector3 hitPos;
+    bool launchLaser = false;
+    public int maxFrameDelayAim = 10;
+    public List<Vector3> playPreviousPos = new List<Vector3>();
+    public float LaserDamagePerSecond = 10;
+    private LifePlayer lifePlayer;
+    public bool isMoving = true;
+    public Vector3 moveTo = new Vector3(4.2f, 0, 34.9f);
+    public float radiusRNDTogo;
+
+    public float timingMouvement = 2;
+
+    public float compteurMouvement;
+
+    public float playerDistanceMove;
+
+    public float speedMouvement = 10;
+
+    public float laserPositionHeight = 1;
+
+    public float percentShootTiming;
+
     void Start()
     {
         attackCollider = attackCollideGo.GetComponent<BoxCollider>();
         cultistLaserEffect = attackCollideGo.GetComponent<CultistLaserEffect>();
         player = PlayerMoveAlone.Player1;
         circle = GetComponent<CircleFormation>();
+        circle.activeCircle = true;
         spriteRend = spriteGo.GetComponent<SpriteRenderer>();
-        distance =  distance + ((((circle.childEntities.Length/circle.numberByCircle) * circle.sizeBetweenCircle) -circle.sizeBetweenCircle) + circle.radiusAtBase );
-    
-       
+        distance = distance + ((((circle.childEntities.Length / circle.numberByCircle) * circle.sizeBetweenCircle) - circle.sizeBetweenCircle) + circle.radiusAtBase);
+        lasersScript = myMouseTargetLasersScript.GetComponent<MouseTargetLasers>();
+        ConLaserScript =  myMouseTargetLasersScript.GetComponentInChildren<ConLaser>();
+        moveTo = new Vector3(4.2f, 0, 34.9f) + Random.insideUnitSphere * radiusRNDTogo;
+        moveTo = new Vector3(moveTo.x,0,moveTo.z);
+        isMoving =true;
+        percentShootTiming = Random.Range(100,200);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && circle.attack == 1)
-        {    
-            switch (attackCultist)
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
             {
-
-            case(StateAttackCultist.Movement):
-            if(Vector3.Distance(transform.position,player.transform.position)> distance )
-            {
-                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speedOfDeplacement*Time.deltaTime);
-            }
-            else
-            {
-            ChangeStateAttack(StateAttackCultist.Charging);
-            }
-            
-
-            break;
-
-
-            case (StateAttackCultist.Charging) :
-
-                posToShoot = PredictAttack();
-             
-                float angle = Vector3.SignedAngle( Vector3.forward ,  (posToShoot -transform.position).normalized, Vector3.up );
-                spriteGo.transform.rotation =  Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90 ,spriteGo.transform.eulerAngles.z);
-                RaycastHit hit ;
-             
-                if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
-                {    
-                    spriteRend.size = new Vector2(Vector3.Distance(transform.position,  hit.point), spriteRend.size.y);
-                }
-                if(_timeToCharge>timeToCharge)
+                if (!isMoving)
                 {
-                    ChangeStateAttack(StateAttackCultist.FinishCharging);
+                    if (isAttacking  & circle.attack == 1)
+                    {
+                       
+                        ActivationLaser();
+                        LaserHit();
+                    }  
+                        circle.activeCircle = true;
+                        GetPlayerPosition();
+                        OrientationEntities();
+                        OrientationCultist();                   
+                        TimingAttack();
                 }
                 else
                 {
-                    _timeToCharge +=Time.deltaTime;
-                }
-
-            break;
-
-            case(StateAttackCultist.FinishCharging):
-            
-                if(_timeToHit>timeBeforeHit)
-                {
-                    ChangeStateAttack(StateAttackCultist.Attack);
-                    FMODUnity.RuntimeManager.PlayOneShot(shotSound, transform.position);
-
+                    
+                        
+                    if(StateOfGames.currentPhase != StateOfGames.PhaseOfDefaultPlayable.Phase3)
+                    {
+                        MouvementPlay( moveTo,1f);
                     }
-                else
-                {
-                    _timeToHit +=Time.deltaTime;
+                    else
+                    {   
+                        MouvementPlay(PlayerMoveAlone.playerPos , playerDistanceMove);
+                    }
                 }
-
-            break;
-
-            case(StateAttackCultist.Attack):
-            
-            _frameAttackTime++ ;
-            if(_frameAttackTime>frameAttackTime)
-            {
-                ChangeStateAttack(StateAttackCultist.Reload);
-            } 
-            break;
-
-
-            case(StateAttackCultist.Reload):
-
-
-            if(_timeReload>timeReload)
-            {
-                ChangeStateAttack(StateAttackCultist.Movement);
-            }else
-            {
-                _timeReload +=Time.deltaTime;
             }
-            
-            break;
+            if (StateOfGames.currentState == StateOfGames.StateOfGame.Cinematic || StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
+            {
 
+                BreakBehavior();
             }
-        }else
+    }
+    
+    
+
+    public void OrientationCultist()
+    {
+        for(int i= 0;i <circle.childEntities.Length;i++)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, (speedOfDeplacement-1)*Time.deltaTime);
-            _timeToHit = 0;
-            _timeToCharge = 0;
-            spriteGo.SetActive(false);
-            attackCollideGo.GetComponent<MeshRenderer>().enabled =false;
-            attackCollider.enabled = false;
-            ChangeStateAttack(StateAttackCultist.Movement);
-        }
-        
+            if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
+            {
+                if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase +10)
+                {
+                    float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
+                    circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);      
+                }        
+            }             
+        }                   
     }
 
-
-    public void ChangeStateAttack(StateAttackCultist attackCultistState)
-     {
-           switch (attackCultistState)
-        {
-
-            case(StateAttackCultist.Movement) :
-
-            attackCultist= attackCultistState;
-
-            break;
-
-            case(StateAttackCultist.Charging):
-         
-            spriteGo.SetActive(true);
-            attackCultist = attackCultistState;
-            _timeToCharge = 0;
-            break;
-
-            case (StateAttackCultist.FinishCharging):
-            spriteGo.GetComponent<SpriteRenderer>().color = Color.black;
-            float distanceHit = 0;
-            RaycastHit hit ;
-            if(Physics.Raycast(transform.position + Vector3.up,spriteGo.transform.right, out hit,Mathf.Infinity,wallHit))
-            {   
-                distanceHit = Vector3.Distance(transform.position,  hit.point);
-                spriteRend.size = new Vector2(distanceHit, spriteRend.size.y);
-            } 
-            
-
-
-            Debug.DrawLine(transform.position, hit.point, Color.blue);
-            float angle = Vector3.SignedAngle(Vector3.forward,  (hit.point -transform.position).normalized, Vector3.up );
-            attackCollideGo.transform.rotation = Quaternion.Euler(attackCollideGo.transform.eulerAngles.x, angle, attackCollideGo.transform.eulerAngles.z);
-            attackCollideGo.transform.position = transform.position + (hit.point - transform.position).normalized *(distanceHit/2); 
-            attackCollideGo.transform.localScale = new Vector3(spriteRend.size.y ,  5, distanceHit); 
-          
-            cultistLaserEffect.ResetAttact();
-         
-            cultistLaserEffect.ejectionDirection = (hit.point -transform.position).normalized;
-            cultistLaserEffect.ejectionForce = strenghProjection;
-
-            _timeToHit = 0;
-            attackCultist = attackCultistState;
-
-            break;
-
-            case (StateAttackCultist.Attack):
-           
-            attackCollideGo.GetComponent<MeshRenderer>().enabled =true;
-            attackCollider.enabled = true;
-            attackCultist = attackCultistState;
-            _frameAttackTime = 0;
-            break;
-
-
-            case(StateAttackCultist.Reload):
-                spriteGo.GetComponent<SpriteRenderer>().color = Color.white;
-                spriteGo.SetActive(false);
-                attackCollideGo.GetComponent<MeshRenderer>().enabled =false;
-                attackCollider.enabled = false;
-                attackCultist = attackCultistState;
-                _timeReload =0;
-            break;
-        }
-     }
-
-    public Vector3 PredictAttack()
+    public void BreakBehavior()
     {
-        Vector3 pos =  Vector3.zero;
-        if(StateAnim.state ==  StateAnim.CurrentState.Rotate)
+        isAttacking = false;
+        _AttackTime = 0;
+        launchLaser = true;
+        isMoving = true;
+        myMouseTargetLasersScript.SetActive(false);
+    }
+
+    public void ActivationLaser()
+    {
+         if (launchLaser)
+        {   
+            //Laser
+            lasersScript.startWavePS.Emit(1);
+            ConLaserScript.hitPsArray[1].Emit(100);
+            lasersScript.startParticles.Emit(lasersScript.startParticlesCount);
+            myMouseTargetLasersScript.SetActive(true);
+
+            //Animation
+            circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Invocation_Idle);
+            launchLaser = false;
+        }
+    }
+
+    public void GetPlayerPosition()
+    {
+        if (playPreviousPos.Count <= maxFrameDelayAim)
         {
-            
-            if(rotation == null)
-            {
-                rotation = PlayerMoveAlone.Player1.GetComponent<RotationPlayer>();
-            }   
-                Vector3 dir = (PlayerMoveAlone.Player1.transform.position - rotation.pointPivot);
-                float distance = Vector3.Distance(PlayerMoveAlone.Player1.transform.position, rotation.pointPivot);
-
-              
-                if(rotation.right)
-                {
-                    pos= rotation.pointPivot + (Quaternion.Euler(0,50,0) *  dir.normalized * distance);
-                }
-                else
-                {
-                    pos = rotation.pointPivot + (Quaternion.Euler(0,-50,0) *  dir.normalized * distance);
-                }
-                
-            }
-
+            playPreviousPos.Add(player.transform.position);
+        }
         else
         {
-            if(PlayerMoveAlone.playerRigidStatic.velocity.magnitude >= 0.5f)
-            {
-                pos = PlayerMoveAlone.Player1.transform.position + PlayerMoveAlone.playerRigidStatic.velocity.normalized *prediction;
-            }
-            else
-            {
-                pos = PlayerMoveAlone.Player1.transform.position;
-            }
-            
+            playPreviousPos.RemoveAt(0);
+            playPreviousPos.Add(player.transform.position);
         }
-        return pos;
-
     }
 
+    public void TimingAttack()
+    {
+        if(_AttackTime>timeAttack)
+        {
+            isAttacking = false;
+            isMoving = true;
+            myMouseTargetLasersScript.SetActive(false);
+            _AttackTime  = 0;
+            percentShootTiming = Random.Range(100,200);
+        }
+        
+        _AttackTime +=Time.deltaTime;
+
+    }
+    public void LaserHit()
+    {
+        RaycastHit hit;
+        float distanceHit = 0;
+        myMouseTargetLasersScript.transform.position = transform.position+ Vector3.up* laserPositionHeight;
+        if (Physics.Raycast(transform.position, spriteGo.transform.right, out hit, Mathf.Infinity, wallHit))
+        {
+            distanceHit = Vector3.Distance(transform.position, hit.point);
+            hitPos = hit.point;
+            spriteRend.size = new Vector2(Vector3.Distance(transform.position, hit.point), spriteRend.size.y);
+            if(hit.collider.gameObject.layer == 10)
+            {
+                
+                if(lifePlayer == null)
+                {
+                    lifePlayer = hit.collider.gameObject.GetComponent<LifePlayer>();
+                }
+                lifePlayer.AddDamage(LaserDamagePerSecond*Time.deltaTime);
+            }
+        }
+       
+        lasersScript.mouseWorldPosition = hitPos;
+        lasersScript.anim.SetBool("Fire", true);
+        ConLaserScript.globalProgress = 0;
+    }
+
+    public void OrientationEntities()
+    {
+        float angle = Vector3.SignedAngle(Vector3.forward, (playPreviousPos[0] - transform.position).normalized, Vector3.up);
+        spriteGo.transform.rotation = Quaternion.Euler(spriteGo.transform.eulerAngles.x, angle - 90, spriteGo.transform.eulerAngles.z);           
+    }
+
+    public void MouvementPlay( Vector3 position,float distance)
+    {
+          circle.AnimRituel(Anim_Cultist_States.AnimCultistState.Run);
+     
+        Vector3 dirProjection =  position - transform.position;
+        if(Vector3.Distance(transform.position,position) > distance)
+         {
+            transform.position = Vector3.MoveTowards(transform.position, position, 10 * Time.deltaTime);
+            for(int i= 0;i <circle.childEntities.Length;i++)
+            {
+                if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
+                {
+                        if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                    {
+                        float angle = Vector3.SignedAngle(Vector3.forward,dirProjection.normalized,Vector3.up);
+                        circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angle,0);    
+                    }        
+                }     
+            }
+        }
+
+       if(compteurMouvement>timingMouvement * (percentShootTiming/100))
+       {
+            isMoving =false;
+            isAttacking = true;
+            launchLaser = true;
+            compteurMouvement = 0;
+       }
+       else
+       {
+           compteurMouvement += Time.deltaTime;
+       }
+    }
+   
 }

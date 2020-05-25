@@ -11,9 +11,11 @@ public class PlayerMoveAlone : MonoBehaviour
     [Header("Projection")]
     public float powerOfProjection;
     public float DecelerationOfProjection = 60;
+    public float currentDeprojectionOfProjection;
+    
     public AnimationCurve ratioOfExpulsion;
     [HideInInspector] public Vector3 DirProjection;
-    [HideInInspector] public float currentPowerOfProjection;
+   /* [HideInInspector]*/ public float currentPowerOfProjection;
 
     [Header("Expulsion")]
     public float expulsionStrengh;
@@ -37,6 +39,18 @@ public class PlayerMoveAlone : MonoBehaviour
 
     private Colorful.RadialBlur blur;
 
+    private RotationPlayer rotationPlayer;
+
+    private PlayerAnimState playerAnim;
+
+    private bool isTouchWall =false;
+
+    public int frameDetection = 3;
+
+    private int compteurFrameDetection= 0;
+
+    private bool auraActive;
+
     private void Awake()
     {
         Player1 = gameObject;
@@ -46,16 +60,19 @@ public class PlayerMoveAlone : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         stock = GetComponent<EnnemiStock>();
         isStickGround = true;
-        GetComponent<EnnemiStock>().powerOfProjection = powerOfProjection;
+        stock.powerOfProjection = powerOfProjection;
         GetComponent<WallRotate>().powerOfProjection = powerOfProjection;
         playerRigidStatic = playerRigid = GetComponent<Rigidbody>();
         mouseScop = GetComponent<MouseScope>();
         if( line == null ) { line = transform.GetComponentInChildren<LineRend>(); }
         TransmitionOfStrenghOfExpulsion();
         currentPowerOfProjection = 0;
-        blur = Camera.main.GetComponent<RadialBlur>();       
-       
+        blur = Camera.main.GetComponent<RadialBlur>();  
+        rotationPlayer = GetComponent<RotationPlayer>(); 
+        playerAnim = GetComponent<PlayerAnimState>();    
+     //  currentPowerOfProjection = DecelerationOfProjection;
     }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -71,7 +88,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {    
             if(!isStickGround)
             {
-            playerRigid.velocity = new Vector3(0,playerRigid.velocity.y,0)+ (DirProjection.normalized * currentPowerOfProjection);
+                playerRigid.velocity = new Vector3(0,playerRigid.velocity.y,0)+ (DirProjection.normalized * currentPowerOfProjection);
             }
             else
             {
@@ -80,21 +97,35 @@ public class PlayerMoveAlone : MonoBehaviour
         }
         AnimationAvatar();
         if (currentPowerOfProjection > 0)
-        {
+        {   
+            if(stock.ennemiStock == null)
+            {
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Projection);
+            }else
+            {
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Rotation);
+            }
             blur.Strength += (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,0.11f);
             _timeProjection  = 0;
             _timeProjection +=Time.deltaTime;
             float ratio =  ratioOfExpulsion.Evaluate(_timeProjection);
-            currentPowerOfProjection -= (DecelerationOfProjection* ratio )* Time.deltaTime;
+            currentPowerOfProjection -= (currentDeprojectionOfProjection* ratio )* Time.deltaTime;
             if(transform.position.y<1)
             {
                 isStickGround =true;
             }
-            aura.SetActive( true);
+            
+            aura.SetActive( auraActive);
         }
         else
-        {   blur.Strength -= (0.1f/15);
+        {   
+            if(stock.ennemiStock== null && mouseScop.instanceBullet == null)
+            {
+               
+                playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Idle);
+            }
+            blur.Strength -= (0.1f/15);
             blur.Strength = Mathf.Clamp(blur.Strength,0,1);
             _timeProjection  = 0;
             aura.SetActive(false);
@@ -104,15 +135,31 @@ public class PlayerMoveAlone : MonoBehaviour
          
         if(isStickGround)
         {
-            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+           transform.position = new Vector3(transform.position.x, 0.4f, transform.position.z);
         }
-        Ray ray = new Ray(transform.position, DirProjection.normalized);
-       // RaycastHit hit;
-
-       /* if (Physics.Raycast(ray, out hit, currentPowerOfProjection * Time.deltaTime) && hit.collider.tag == "wall")
+        Ray ray = new Ray(transform.position, DirProjection.normalized );
+        RaycastHit hit;
+       
+        if (Physics.Raycast(ray, out hit, frameDetection* currentPowerOfProjection * Time.deltaTime) && hit.collider.gameObject.layer == 13)
         {
-            DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        }*/
+            isTouchWall = true;
+            Debug.Log("isTouchWall");
+        }
+        if(isTouchWall)
+        {
+            if(compteurFrameDetection<frameDetection)
+            { 
+                compteurFrameDetection++;
+            }
+            else
+            {                
+                Debug.Log("Reflet");
+                DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+                isTouchWall =false;
+            }
+        }
+            
+        
     }
 
 
@@ -124,6 +171,7 @@ public class PlayerMoveAlone : MonoBehaviour
         {
             TransmitionOfStrenghOfExpulsion();
         }
+        
     }
 
 
@@ -139,11 +187,13 @@ public class PlayerMoveAlone : MonoBehaviour
         Ray ray = new Ray(transform.position, DirProjection.normalized);
         RaycastHit hit;
         Physics.Raycast(ray, out hit, currentPowerOfProjection);
-       // if (collision.collider.tag == "wall")
-        //{
-          //  DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
-        //}
+        if (collision.collider.gameObject.layer == 13)
+        {
+          DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+        }
     }
+
+ 
 
     public void TransmitionOfStrenghOfExpulsion()
     {
@@ -156,7 +206,9 @@ public class PlayerMoveAlone : MonoBehaviour
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * powerOfProjection, ForceMode.Impulse);
         DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = DecelerationOfProjection;
         currentPowerOfProjection = powerOfProjection;
+        auraActive = true;
     }
      public void AddProjection(Vector3 dir, float power)
     {
@@ -164,8 +216,32 @@ public class PlayerMoveAlone : MonoBehaviour
         playerRigid.velocity = Vector3.zero;
         playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
         DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = DecelerationOfProjection;
         currentPowerOfProjection = power;
+        auraActive = true;
     }
+       public void AddProjection(Vector3 dir, float power, float deprojection )
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
+        DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = deprojection;
+        currentPowerOfProjection = power;
+        auraActive = true;
+    }
+    
+      public void AddProjection(Vector3 dir, float power, float deprojection, bool activeAura )
+    {
+        StateAnim.ChangeState(StateAnim.CurrentState.Projection);     
+        playerRigid.velocity = Vector3.zero;
+        playerRigid.AddForce(dir.normalized * power, ForceMode.Impulse);
+        DirProjection = dir.normalized;
+        currentDeprojectionOfProjection = deprojection;
+        currentPowerOfProjection = power;
+        auraActive = activeAura;
+    }
+    
 
     public void AnimationAvatar()
     {
@@ -217,10 +293,17 @@ public class PlayerMoveAlone : MonoBehaviour
     }
     public void GoTransformation()
     {
-        stock.DetachPlayer();
+        stock.DetachPlayer(true);
         currentPowerOfProjection = 0;
+        
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, transform.position);
         aura.SetActive(false);
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.EntraveStart);
+        this.enabled =false;
+    }
+    public void  StopVelocity()
+    {
+        playerRigid.velocity = Vector3.zero;
     }
 }

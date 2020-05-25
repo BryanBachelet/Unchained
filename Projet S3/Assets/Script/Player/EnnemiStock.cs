@@ -26,6 +26,9 @@ public class EnnemiStock : MonoBehaviour
     public string OrbitSound;
     public AnimationCurve curveVolumeOrbitation;
     public float OrbitVolume = 10;
+    [FMODUnity.EventRef]
+    public string Propulsion;
+    public float PropulsionVolume = 20;
 
     private Klak.Motion.SmoothFollow mySmoothFollow;
     private LineRenderer lineRenderer;
@@ -41,6 +44,7 @@ public class EnnemiStock : MonoBehaviour
     private bool isOnZoom = false;
     private FMOD.Studio.EventInstance OrbitEvent;
     private FMOD.Studio.EventInstance contactSound;
+    private FMOD.Studio.EventInstance PropulsionSound;
     private bool startBool;
     private Rigidbody playerRigid;
     private float tempsEcoule;
@@ -51,8 +55,20 @@ public class EnnemiStock : MonoBehaviour
     private SlamTry slamTry;
     private bool isSlaming;
     private StateOfEntity  stateOfEntity;
-private float input ;
-    // Start is called before the first frame update
+    private float input ;
+    
+    [Header("Propulsion")]
+    public float maxValueOFVarationOfProjection;
+    public AnimationCurve powerOfStrengh;
+
+    public AnimationCurve declerationStrengh;
+
+    private float _declerationStrengh;
+    
+    private float _powerOfStrengh;
+    private GainVelocitySystem myGainVelocitySystScript;
+    
+    private PlayerAnimState playerAnim;
     void Start()
     {
         line = GetComponentInChildren<LineRend>();
@@ -61,6 +77,9 @@ private float input ;
         myFOV = Camera.main.fieldOfView;
         rotationPlayer = GetComponent<RotationPlayer>();
         playerRigid = GetComponent<Rigidbody>();
+        slamTry = GetComponent<SlamTry>();
+        myGainVelocitySystScript = GetComponent<GainVelocitySystem>();
+        playerAnim = GetComponent<PlayerAnimState>();
         
 
 // Line Renderer
@@ -72,8 +91,11 @@ private float input ;
         contactSound = FMODUnity.RuntimeManager.CreateInstance(contact);
         contactSound.setVolume(ContactVolume);
         OrbitEvent = FMODUnity.RuntimeManager.CreateInstance(OrbitSound);
-        slamTry = GetComponent<SlamTry>();
-        
+        PropulsionSound = FMODUnity.RuntimeManager.CreateInstance(Propulsion);
+
+
+
+
 
     }
 
@@ -176,12 +198,13 @@ private float input ;
 
     private void FeedbackHit()
     {
-    Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
-    baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
-    ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-    #region  Son
-    contactSound.start();
-    #endregion
+        Instantiate(onHitEnemy, ennemiStock.transform.position, transform.rotation /*, ennemiStock.transform */);
+        baseColor = ennemiStock.gameObject.GetComponent<Renderer>().material.color;
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Rotation);
+        #region  Son
+        contactSound.start();
+        #endregion
     }
 
     private void ActiveSlam()
@@ -254,7 +277,8 @@ private float input ;
         stateOfEntity.DestroyProjection(false,Vector3.up);
             ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
         }
-        rotationPlayer.StopRotation(false);
+        GetProjectionStat();
+        rotationPlayer.StopRotation(false, _powerOfStrengh,_declerationStrengh);
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -264,17 +288,49 @@ private float input ;
     {
         stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
         ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
-        rotationPlayer.StopRotation(dir);
+        GetProjectionStat();
+        rotationPlayer.StopRotation(dir, _powerOfStrengh,_declerationStrengh) ;
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
     }
-
+     public void DetachPlayer(bool active)
+    {
+        stateOfEntity.entity = StateOfEntity.EntityState.Destroy;
+        if( ennemiStock != null&& ennemiStock.gameObject.GetComponent<Renderer>()!= null)
+        {
+        ennemiStock.gameObject.GetComponent<Renderer>().material.color = baseColor;
+        }
+        GetProjectionStat();
+        if(active)
+        {
+        rotationPlayer.StopRotation(false, 0,0) ;
+        }
+        isSlaming =false;
+        ennemiStock = null;
+        OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+    
     
     public void ResetPlayer()
     {
         DetachPlayer();
         playerRigid.velocity = Vector3.zero;
+    }
+
+
+    public void GetProjectionStat()
+    {
+     
+        PropulsionSound.start();
+        PropulsionSound.setParameterByName("P1", 0.90F);
+        PropulsionSound.setParameterByName("Power1", 0.90F);
+        //if()
+        float angleReturn = rotationPlayer.GetAngle();
+        angleReturn =  Mathf.Clamp(angleReturn,0,maxValueOFVarationOfProjection);
+        _powerOfStrengh = myGainVelocitySystScript.CalculGain(powerOfStrengh.Evaluate(angleReturn));
+        _declerationStrengh = declerationStrengh.Evaluate(angleReturn);
+    
     }
 
     public void StopRotate()

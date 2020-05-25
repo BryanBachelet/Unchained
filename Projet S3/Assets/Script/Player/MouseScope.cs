@@ -11,7 +11,10 @@ public class MouseScope : MonoBehaviour
 
     [Header("Input")]
     public bool controllerPc;
+    static bool stateOfController = true;
     public LayerMask maskPC = 12;
+    public GameObject uiImageGamePad;
+    public GameObject uiImageKeyboard;
 
     [Tooltip("Only for Contoller")]
     public float deadZone = 0.1f;
@@ -58,16 +61,18 @@ public class MouseScope : MonoBehaviour
 
     private float _compteurBetweenBullet;
 
-   private Color enemmiColor;
+    private Color enemmiColor;
 
+    private PlayerAnimState playerAnim;
 
     void Start()
     {
+        controllerPc = stateOfController;
         Cursor.visible = true;
         directionIMG = uIGOAim.GetComponent<RectTransform>();
         ennemiStock = GetComponent<EnnemiStock>();
         lineRenderer = GetComponent<LineRenderer>();
-
+        playerAnim = GetComponent<PlayerAnimState>();
 
         shotSound = FMODUnity.RuntimeManager.CreateInstance(shootEvent);
         shotSound.setVolume(volume);
@@ -77,15 +82,19 @@ public class MouseScope : MonoBehaviour
 
     void Update()
     {
+        stateOfController = controllerPc;
         aimDirection = DirectionOfAim(controllerPc);
 
 
         if (ennemiStock.ennemiStock == null)
         {
+            Vector3 rotDir = new Vector3(-aimDirection.x,0,aimDirection.z);
+            float angleChara = Vector3.SignedAngle(rotDir.normalized,Vector3.forward,Vector3.up);
+            transform.eulerAngles =  new Vector3(0,angleChara,0);
 
             if (!resetShoot && FireInputActive(controllerPc))
             {
-             
+                DataPlayer.nbShot++;
                 if (!activeSnap)
                 {
                     InstantiateProjectile(aimDirection.normalized);
@@ -98,12 +107,17 @@ public class MouseScope : MonoBehaviour
                 {
                     lastInput = 1;
                     resetShoot = true;
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Shoot);
+                    playerAnim.right = true;
+
                 }
 
                 if (FireInputValue(controllerPc) < 0)
                 {
                     lastInput = 0;
                     resetShoot = true;
+                    playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Shoot);
+                    playerAnim.right = false;
                 }
 
             }
@@ -153,6 +167,7 @@ public class MouseScope : MonoBehaviour
     {
         float aimHorizontal = Input.GetAxis("AimHorizontal1");
         float aimVertical = -Input.GetAxis("AimVertical1");
+       
         Vector3 aimInputDirection = new Vector3(aimHorizontal, aimVertical, 0);
         return aimInputDirection.magnitude > deadZone ? aimInputDirection : Vector3.zero;
     }
@@ -175,11 +190,10 @@ public class MouseScope : MonoBehaviour
        
         if (Physics.Raycast(camera, out hit, Mathf.Infinity, maskPC))
         {
-
-      
             posConvert = hit.point + Vector3.up;
         }
         Vector3 dir = (posConvert - transform.position).normalized;
+      
         return dir;
     }
 
@@ -254,8 +268,10 @@ public class MouseScope : MonoBehaviour
             {
                 InstantiateProjectile(aimDirection.normalized);
             }
+               if(ennemiStock.ennemiStock == null)
+            {
             FeedbackSnap(hitEntity.collider.gameObject);
-
+            }
         }
         else
         {
@@ -275,13 +291,20 @@ public class MouseScope : MonoBehaviour
                     entity = i;
                 }
             }
-            if (entity != 0 && disMin != DistanceMaxShoot())
+            if(ennemiStock.ennemiStock == null)
             {
-                FeedbackSnap(pos[entity].gameObject);
-            }
-            else
+
+                if (entity != 0 && disMin != DistanceMaxShoot())
+                {
+                    FeedbackSnap(pos[entity].gameObject);
+                }
+                else
+                {
+                    FeedbackSnap(null);
+                }
+            }else
             {
-                FeedbackSnap(null);
+               FeedbackSnap(null);
             }
             if (shoot)
             {
@@ -306,10 +329,12 @@ public class MouseScope : MonoBehaviour
         if (entitySnap != null)
         {
             entitySnap.GetComponent<MeshRenderer>().material.color = enemmiColor;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(false);
         }
         if (entityGive != null)
         {
             entitySnap = entityGive;
+            entitySnap.GetComponent<UI_Feedback>().ActiveFeedback(true);
             enemmiColor = entitySnap.GetComponent<MeshRenderer>().material.color;
             entitySnap.GetComponent<MeshRenderer>().material.color = colorSnap;
         }
@@ -325,7 +350,7 @@ public class MouseScope : MonoBehaviour
     {
         StateAnim.ChangeState(StateAnim.CurrentState.Tir);
         instanceBullet = Instantiate(prefabBullet, transform.position + (directionOfProjectileMouvement).normalized, Quaternion.identity);
-
+     
         _timerOfBullet = 0;
 
         projectils = instanceBullet.GetComponent<Projectils>();
@@ -354,7 +379,7 @@ public class MouseScope : MonoBehaviour
 
     public void DestroyBullet()
     {
-        StateAnim.ChangeState(StateAnim.CurrentState.Idle);
+    
         Destroy(instanceBullet);
         lineRenderer.SetPosition(0, transform.position);
     }
@@ -364,10 +389,14 @@ public class MouseScope : MonoBehaviour
         if(!controllerPc)
         {
             controllerPc = true;
+            uiImageKeyboard.SetActive(true);
+            uiImageGamePad.SetActive(false);
         }
         else if(controllerPc)
         {
             controllerPc = false;
+            uiImageKeyboard.SetActive(false);
+            uiImageGamePad.SetActive(true);
         }
     }
 

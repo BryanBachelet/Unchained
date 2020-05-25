@@ -6,46 +6,73 @@ public class Spawner : MonoBehaviour
 {
     public EntitiesManager.BeheaviorCultiste startBehavior;
     public GameObject objectToInstantiate;
-    [Header("Caractéristique du spawner")]
-    public float timeOfSpawn;
     public GameObject target;
-    public bool patrolMode;
-    public Transform[] listOfPoint;
-    public float speedOfAgent;
+    [Header("Temps de spawn")]
+    public float timeOfSpawnPhase1 = 30 ;
+
+    public float timeOfSpawnPhase2 = 20;
+    [Header("Vitesse Agent")]
+    public float speedOfAgentCultist = 10;
+
+    public float speedOfAgentLaser = 6;
+
+    public float speedOfAgentRitualist = 4;
 
     private float compteur;
-    private bool followPlayer;
 
+    private float compteSpawn;
+    private float conditionSpawn;
+ 
     private void Start()
     {
-        compteur = timeOfSpawn - 7;
-
-
+        compteur = timeOfSpawnPhase1 - 7;
     }
+
     void Update()
     {
-        if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
         {
-            
-        }
-        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
-        {
-            if (compteur > timeOfSpawn + 10)
+            if (compteur > timeOfSpawnPhase2)
             {
-                SpawnEntities(patrolMode);
-                compteur = 0;
+                if(ManageEntity.CheckNumber())
+                {
+                    bool hasSpawn = SpawnEntities();
+                    if(hasSpawn)
+                    {
+                        compteur = 0;
+                    }
+                }
             }
             else
             {
                 compteur += Time.deltaTime;
             }
         }
-        else if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase1)
+        
+        if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase2)
         {
-            if (compteur > timeOfSpawn)
+            if (compteur > timeOfSpawnPhase2)
             {
-                SpawnEntities(patrolMode);
-                compteur = 0;
+                bool hasSpawn = SpawnEntities();
+                if(hasSpawn)
+                {
+                    compteur = 0;
+                }
+            }
+            else
+            {
+                compteur += Time.deltaTime;
+            }
+        }
+        if (StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase1)
+        {
+            if (compteur > timeOfSpawnPhase1)
+            {
+                bool hasSpawn = SpawnEntities();
+                if(hasSpawn)
+                {
+                    compteur = 0;
+                }
             }
             else
             {
@@ -55,41 +82,65 @@ public class Spawner : MonoBehaviour
     }
 
 
-    private void SpawnEntities(bool patrol)
+    private bool SpawnEntities()
     {
-        GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
-        EntitiesManager manager = instantiate.GetComponent<EntitiesManager>();
-   
+       
+        if(ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Patrole))
+        {  
+            
+                compteSpawn++;
+                GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+                ManageEntity.nbEntity += 20;
+                ManageEntity.nbEntityTotal += 20;
+                EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
 
-        if (patrol)
-        {
-            manager.cultisteBehavior  = EntitiesManager.BeheaviorCultiste.Patrol;
-            manager.listOfPointOfPatrol = listOfPoint;
+                manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Patrol;  
+                manager.listOfPointOfPatrol = ManageEntity.ritualPoint;
+                manager.speedOfMouvement = speedOfAgentCultist;
+                if(StateOfGames.currentPhase == StateOfGames.PhaseOfDefaultPlayable.Phase3)
+                {
+                    ManageEntity.CompteurPhase3();
+                }
+                return true;
+            
+            
         }
-        else
+     
+        if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Cultiste))
         {
-            manager.cultisteBehavior  = startBehavior;
+            compteSpawn++;
+            GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+            ManageEntity.nbEntity += 20;
+            ManageEntity.nbEntityTotal += 20;
+            EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
+
+            manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.RituelPoint;
             manager.pointToGo = target.transform;
-            
+            manager.speedOfMouvement = speedOfAgentRitualist;
+            return true;
         }
+        
+           if(compteSpawn>conditionSpawn)
+        {
+            if (ManageEntity.CheckInstantiateInvoq(ManageEntity.EntityType.Distance) )
+            {
+                compteSpawn++;
+                GameObject instantiate = Instantiate(objectToInstantiate, transform.position, transform.rotation);
+                ManageEntity.nbEntity += 20;
+                ManageEntity.nbEntityTotal += 20;
+                EntitiesManager manager = instantiate.GetComponentInChildren<EntitiesManager>();
 
-        manager.speedOfMouvement = speedOfAgent;
-    }
+                manager.cultisteBehavior = EntitiesManager.BeheaviorCultiste.Harass;
+                manager.speedOfMouvement = speedOfAgentLaser;
+                return true;
+            }
+        }
+     
 
-
-
-private bool CheckInterestPointFree(GameObject target)
-{
-    CenterTag tagCenter = target.GetComponent<CenterTag>();
-    if(!tagCenter.isInvoking)
-    {
         return false;
     }
-    else
-    {
-        return true;
-    }
-}
+
+
 
 }
 

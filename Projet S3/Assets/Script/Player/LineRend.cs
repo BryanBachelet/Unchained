@@ -23,6 +23,8 @@ public class LineRend : MonoBehaviour
     private float distance;
     private EnnemiStock ennemiStock;
 
+    public GameObject pointplayer2;
+    public GameObject pointplayer;
 
     [Header("Feedback")]
     public GameObject particuleContact;
@@ -41,6 +43,7 @@ public class LineRend : MonoBehaviour
     private MouseScope mouseScope;
     private PlayerMoveAlone moveAlone;
     private KillCountPlayer countPlayer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,11 @@ public class LineRend : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(StateOfGames.currentPhase ==StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        {
+            pointplayer = pointplayer2;
+        }
+
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             if (ennemiStock != null)
@@ -148,6 +156,9 @@ public class LineRend : MonoBehaviour
             {
 
                 Collision(collision);
+                float rnd = Random.Range(0f, 0.70f);
+                contactSound.start();
+                contactSound.setParameterByName("Entitipersec2", rnd);
 
             }
             else
@@ -190,7 +201,6 @@ public class LineRend : MonoBehaviour
         if (ennemi.entity != StateOfEntity.EntityState.Destroy && collision.gameObject != ennemiStock.ennemiStock)
         {
 
-            FMODUnity.RuntimeManager.PlayOneShot(contact, collision.transform.position);
             countPlayer.HitEnnemi();
             Vector3 dir = p2 - p1;
             EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();

@@ -44,8 +44,7 @@ public class MashingTransSimple : MonoBehaviour
                         agentTransfo.ActiveExplosion();
                         activeExplode = true;
                     }
-                    //Physics.IgnoreLayerCollision(9, 9, false);
-                    Physics.IgnoreLayerCollision(9, 10, false);
+                    
                     if (compteur > timing + 0.7f)
                     {
                         transform.GetComponent<PlayerMoveAlone>().enabled = true;
@@ -56,8 +55,7 @@ public class MashingTransSimple : MonoBehaviour
                 }
                 else
                 {
-                    //Physics.IgnoreLayerCollision(9, 9, false);
-                    Physics.IgnoreLayerCollision(9, 10, false);
+                  
                     text.gameObject.SetActive(false);
                     resetPlayerScript.ResetFonction(true);
                     Debug.Log("Lose");

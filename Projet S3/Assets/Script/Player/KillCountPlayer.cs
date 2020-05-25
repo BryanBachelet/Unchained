@@ -16,7 +16,7 @@ public class KillCountPlayer : MonoBehaviour
     public float maxEffectTimeBeforDeath;
     public float timeToWeightReturn;
 
-    public Image uiFeedback;
+  //  public Image uiFeedback;
 
     public float speedOfUiFeedback = 10;
 
@@ -39,6 +39,7 @@ public class KillCountPlayer : MonoBehaviour
     public float compteur;
     public  int countKillEnnemi;
 
+    public float multiLoseCondition;
 
     public MusicPlayer myMP;
 
@@ -49,7 +50,8 @@ public class KillCountPlayer : MonoBehaviour
     private float realTimeToWeightRetur;
     private float compteurWeightReturn;
 
-
+    float tempsEcouleComboReset;
+    public float tempsAvantComboReset = 3;
     public void Awake()
     {
         loseCondition = FMODUnity.RuntimeManager.CreateInstance(Lose);
@@ -64,15 +66,25 @@ public class KillCountPlayer : MonoBehaviour
     {
         if(FastTest.debugLoseCondition)
         {
-            timeBeforeDeath = 100;
+            timeBeforeDeath = 10000;
         }
 
         compteur = compteurOfDeath;
         
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {   
-           
-            uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
+        {
+            tempsEcouleComboReset += Time.deltaTime;
+            if(tempsEcouleComboReset > tempsAvantComboReset)
+            {
+                DataPlayer.comboMultiplier = 1;
+                countKillEnnemi = 0;
+            }
+            else
+            {
+                DataPlayer.comboMultiplier = 1 + (countKillEnnemi / 40);
+                Debug.LogError(DataPlayer.comboMultiplier + "MON CUL LE SCORE D ECOMBO IL EST PETER");
+            }
+          //  uiFeedback.fillAmount = Mathf.Lerp(uiFeedback.fillAmount , 1-(compteurOfDeath/timeBeforeDeath),speedOfUiFeedback* Time.deltaTime);
 
             if (compteurOfDeath > timeBeforeDeath)
             {
@@ -81,7 +93,7 @@ public class KillCountPlayer : MonoBehaviour
             else
             {
 
-                compteurOfDeath += Time.deltaTime;
+                compteurOfDeath += (Time.deltaTime * (1 + multiLoseCondition ));
             }
 
             if (compteurOfDeath > activeLoseEffect)
@@ -147,12 +159,16 @@ public class KillCountPlayer : MonoBehaviour
     public void HitEnnemi()
     {
         ResetTiming();
+        DataPlayer.killCountEnnemi++;
+        DataPlayer.tempsEcouleCombo = 0;
+        DataPlayer.entityHit++;
         countKillEnnemi++;
     }
 
     public  void ResetTiming()
     {
         loseCondition.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        tempsEcouleComboReset = 0;
         compteurOfDeath = 0;
         activeReset = true;
         myMP.track1.setParameterByName("TrackEffect", 1.0F);
