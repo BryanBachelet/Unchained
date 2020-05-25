@@ -23,6 +23,7 @@ public class LineRend : MonoBehaviour
     private float distance;
     private EnnemiStock ennemiStock;
 
+    public GameObject pointplayer2;
     public GameObject pointplayer;
 
     [Header("Feedback")]
@@ -66,6 +67,11 @@ public class LineRend : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(StateOfGames.currentPhase ==StateOfGames.PhaseOfDefaultPlayable.Phase3)
+        {
+            pointplayer = pointplayer2;
+        }
+
         if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             if (ennemiStock != null)

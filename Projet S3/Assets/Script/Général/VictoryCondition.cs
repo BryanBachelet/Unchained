@@ -15,6 +15,9 @@ public class VictoryCondition : MonoBehaviour
     public GameObject victoryText;
     private bool victoryRestart = false;
     public float timeBeforeRestart = 2f;
+
+    public LayerMask layer;
+    public bool presentation = true;
     private float compteurRestart = 0;
 
     private int firstFramePhase3;
@@ -26,6 +29,10 @@ public class VictoryCondition : MonoBehaviour
     if(StateOfGames.currentPhase ==  StateOfGames.PhaseOfDefaultPlayable.Phase3)
     {
         ReseachFormation();
+        if(Input.GetKeyDown(KeyCode.C) && presentation)
+        {
+            ActiveVictory();
+        }
     }
 
         if (victoryRestart)
@@ -56,7 +63,11 @@ public class VictoryCondition : MonoBehaviour
     {
         if(victoryRestart==false)
         {
-       
+        Collider[] agent = Physics.OverlapSphere(Vector3.zero,300,layer);
+        for(int i =0;i<agent.Length;i++)
+        {
+            agent[i].gameObject.SetActive(false);
+        }
         victoryRestart = true;
         victoryText.SetActive(true);
         victoryText.transform.GetChild(0).gameObject.SetActive(true);

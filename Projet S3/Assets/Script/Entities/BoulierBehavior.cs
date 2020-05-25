@@ -52,7 +52,10 @@ public class BoulierBehavior : MonoBehaviour
        
         Vector3 playerDir = player.transform.position - transform.position;
         float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir,Vector3.up);
+        if(dashState != DashEntityState.Dash)
+        {
         transform.eulerAngles = new Vector3(0,angleAgent,0);
+        }
         rigidbody.velocity = new Vector3(0,0,0);
         Debug.DrawLine(transform.position,hit.point);
         if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
