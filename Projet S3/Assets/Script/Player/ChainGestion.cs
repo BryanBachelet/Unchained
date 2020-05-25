@@ -30,7 +30,7 @@ public class ChainGestion : MonoBehaviour
         {
           PosChain(lineRend.pointplayer.transform.position, ennemiStock.ennemiStock.transform.position);
         }
-        if(ennemiStock.ennemiStock == null && mouseScope.instanceBullet ==null)
+        if(ennemiStock.ennemiStock == null && mouseScope.instanceBullet ==null||StateOfGames.currentState == StateOfGames.StateOfGame.Transformation)
         {
             PosChain();
         }

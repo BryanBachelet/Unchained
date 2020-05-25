@@ -11,11 +11,6 @@ public class GestionFormationGroup : MonoBehaviour
 
     private GameObject reformation;
 
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -30,26 +25,7 @@ public class GestionFormationGroup : MonoBehaviour
         }
     }
     
-    private void ActiveReformation()
-   {
-   // {
-    //     reformation =  formationList[0];
-    //     CircleFormation currentCircle = reformation.GetComponent<CircleFormation>();
-    //     for(int i = 1; i<formationList.Count;i++)
-    //     {
-    //         CircleFormation circle = formationList[i].GetComponent<CircleFormation>();
-    //         for(int j = 0 ; j<circle.childEntities.Count;i++)
-    //         {
-    //            if( circle.childEntities[j].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Dead &&  circle.childEntities[j].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Destroy &&  circle.childEntities[j].GetComponent<StateOfEntity>().entity != StateOfEntity.EntityState.Catch)
-    //            {
-    //                 circle.childEntities[j].transform.SetParent(reformation.transform);
-    //                 currentCircle.childEntities.Add(circle.childEntities[j]);
-    //                 circle.childEntities.RemoveAt(j);
-    //            } 
-    //         }
-    //     }
-    }
-
+  
     private bool CountEntities()
     {   
         bool activeReformation = false;

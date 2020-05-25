@@ -256,11 +256,11 @@ public class CamMouvement : MonoBehaviour
             startMouvement = false;
             compteurDep = 0;
             compteurStart = 0;
-            Debug.Log("JE PASSSSSSSE PAAAAAAAAAAAAAAAAAAAAAAS     " + nbT);
+            
             if (nbT == 1 && myMP != null)
             {
                 DataPlayer.isCountingTime = true;
-                Debug.Log("JE PASSSSSSSE");
+                
                 //myMP.track1.start();
             }
 

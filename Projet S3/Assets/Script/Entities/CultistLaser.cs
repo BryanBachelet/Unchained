@@ -129,7 +129,7 @@ public class CultistLaser : MonoBehaviour
         {
             if(Vector3.SignedAngle(Vector3.forward, spriteGo.transform.right, Vector3.up)!=0)
             {
-                if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase)
+                if(Vector3.Distance(circle.childEntities[i].transform.position,transform.position)<= circle.radiusAtBase +10)
                 {
                     float angleAgent = Vector3.SignedAngle(Vector3.forward,spriteGo.transform.right,Vector3.up);
                     circle.childEntities[i].transform.eulerAngles =  new Vector3(0, angleAgent,0);      

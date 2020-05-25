@@ -37,17 +37,28 @@ public class CircleFormation : MonoBehaviour
 
     [FMODUnity.EventRef]
     public string invoqSound;
+
+    public Material laser;
+
+    public Material other;
+
     void Start()
     {
         childEntities = new GameObject[transform.parent.childCount - 5];
+        entityManage = GetComponent<EntitiesManager>();
         for (int i = 0; i < childEntities.Length; i++)
         {
 
             childEntities[i] = transform.parent.GetChild(i).gameObject;
-
+            if(entityManage.cultisteBehavior == EntitiesManager.BeheaviorCultiste.Harass)
+            {
+                childEntities[i].GetComponentInChildren<SkinnedMeshRenderer>().material = laser;
+            }else
+            {
+                childEntities[i].GetComponentInChildren<SkinnedMeshRenderer>().material = other;
+            }
         }
         compteurOfMouvement = new float[childEntities.Length];
-        entityManage = GetComponent<EntitiesManager>();
         posAlea = new Vector3[childEntities.Length];
         float rangeAdd = 0;
         for(int i = 0 ; i<posAlea.Length;i++)
@@ -65,22 +76,32 @@ public class CircleFormation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Formation();
-        
+        if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+        {
+            Formation();
+        }else
+        {
+            for (int i = 0; i < childEntities.Length ; i++)
+            {
+                childEntities[i].transform.eulerAngles = new Vector3(0,0,0);
+            }          
+            
+        }
         if(entityManage.autoDestruct && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             ActiveAutoDestruct();
         }
-        
-
+        if(entityManage.pointToGo != null)
+        {
+        fbCastInvoq.transform.position = entityManage.pointToGo.transform.position + Vector3.up * fxInvocationHeight ;
+        }
         if (startInvoq && activeRituel)
         {
           
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
-                fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
+               // fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
                 fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
             }
 
@@ -197,10 +218,7 @@ public class CircleFormation : MonoBehaviour
     private void Formation()
     { 
         int numFor = 0;
-        if(activeRituel)
-        {     
-            //angle += rotateRituelSpeed*Time.deltaTime;
-        }
+       
           int vertical = 0;
           int horizontal = 0;
         for (int i = 0; i < childEntities.Length ; i++)
@@ -227,17 +245,19 @@ public class CircleFormation : MonoBehaviour
                         {
 
                                 
-                            if (distanceDestination > 1f)
+                            if (distanceDestination > 20)
                             {
                                 Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                                 if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                                 {
                                     childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
                                 }
-                                childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
-                                childEntities[i].transform.eulerAngles = Vector3.zero;
-                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
-
+                                 if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+                                {
+                                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                                }
+                                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.ReturnFormation;
                                 if(Vector3.SignedAngle(Vector3.forward, dir.normalized, Vector3.up)!=0)
                                 {
                                     float angle = Vector3.SignedAngle(Vector3.forward,dir.normalized,Vector3.up);
@@ -247,11 +267,13 @@ public class CircleFormation : MonoBehaviour
                             }
                             else
                             {
-                                
-                                childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,20*Time.deltaTime);
-                                childEntities[i].transform.eulerAngles = Vector3.zero;
-                                childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
-                                
+                                if( StateOfGames.currentState != StateOfGames.StateOfGame.Transformation)
+                                {       
+                                    childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);
+                                }
+                                    childEntities[i].transform.eulerAngles = Vector3.zero;
+                                    childEntities[i].GetComponent<StateOfEntity>().entity = StateOfEntity.EntityState.Formation;
+
                                 Vector3 dirProjection = entityManage.GetPointToGo() - childEntities[i].transform.position;
                 
                                 if(Vector3.SignedAngle(Vector3.forward, dirProjection.normalized, Vector3.up)!=0)
@@ -292,9 +314,14 @@ public class CircleFormation : MonoBehaviour
                     Vector3 testPosCamView = Camera.main.WorldToScreenPoint(childEntities[i].transform.position);
                     if(testPosCamView.x > 0 || testPosCamView.x < 1920 || testPosCamView.y < 0 || testPosCamView.y > 1080)
                     {
-                        childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                      childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);            
+                        //childEntities[i].transform.position += (dir.normalized * speedAgent * 4 * Time.deltaTime);
+                    }else
+                    {
+                        Debug.Log("Ok");
+                        childEntities[i].transform.position = Vector3.Lerp(childEntities[i].transform.position, pos,Time.deltaTime);    
                     }
-                    childEntities[i].transform.position += (dir.normalized * speedAgent * Time.deltaTime);
+                 
                     childEntities[i].transform.eulerAngles = Vector3.zero;
                   
                     Vector3 orientationDir =  entityManage.GetPointToGo() - childEntities[i].transform.position;
@@ -391,6 +418,28 @@ public class CircleFormation : MonoBehaviour
             if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
             {
                 childEntities[i].GetComponentInChildren<Anim_Cultist_States>().animCultist =  animToChange;
+
+            }
+        }
+    }
+      public void StopAnimRituel()
+    {
+        for(int i = 0 ; i< childEntities.Length;i++)
+        {
+            if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
+            {
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().StopAnim();
+
+            }
+        }
+    }
+      public void StartAnimRituel()
+    {
+        for(int i = 0 ; i< childEntities.Length;i++)
+        {
+            if(childEntities[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation)
+            {
+                childEntities[i].GetComponentInChildren<Anim_Cultist_States>().StartAnim();
 
             }
         }

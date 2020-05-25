@@ -155,6 +155,7 @@ public class PlayerMoveAlone : MonoBehaviour
             {                
                 Debug.Log("Reflet");
                 DirProjection = Vector3.Reflect(DirProjection.normalized, hit.normal);
+                isTouchWall =false;
             }
         }
             

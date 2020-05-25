@@ -145,7 +145,7 @@ public class TransformationAgent : MonoBehaviour
                 {
                     
                     
-                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax  )
+                    if (agent[i].tag == "Ennemi" && agentList.Count<=numberMax && !agent[i].GetComponent<BoulierBehavior>()  )
                     {
                         if(agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.Formation || agent[i].GetComponent<StateOfEntity>().entity == StateOfEntity.EntityState.ReturnFormation )
                         {

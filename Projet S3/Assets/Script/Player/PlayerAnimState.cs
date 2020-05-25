@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimState : MonoBehaviour
 {
-    public enum PlayerStateAnim {Idle,Shoot, Rotation, Projection,EntraveStart,EntraveFinish}
+    public enum PlayerStateAnim {Idle,Shoot, Rotation, Projection,EntraveStart,EntraveFinish, Slam, Death}
     public PlayerStateAnim playerCurrentState;
 
     public Animator animator;
@@ -66,6 +66,14 @@ public class PlayerAnimState : MonoBehaviour
             {
                 animator.Play("Anim_State_Chaine_Entrave_breakEntrave");
                 
+            }
+            if(currentState == PlayerStateAnim.Slam)
+            {
+                animator.Play("Anim_State_Chaine_StartTurnRotate");
+            }
+             if(currentState == PlayerStateAnim.Death)
+            {
+                animator.Play("Anim_State_Chaine_StartTurnRotate");
             }
             playerCurrentState = currentState;
         }
