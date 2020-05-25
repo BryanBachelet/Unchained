@@ -91,15 +91,17 @@ public class CircleFormation : MonoBehaviour
         {
             ActiveAutoDestruct();
         }
-        
-
+        if(entityManage.pointToGo != null)
+        {
+        fbCastInvoq.transform.position = entityManage.pointToGo.transform.position + Vector3.up * fxInvocationHeight ;
+        }
         if (startInvoq && activeRituel)
         {
           
             tempsEcouleInvoq += Time.deltaTime;
             if(fbCastInvoq.transform.localScale.x < 5)
             {
-                fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
+               // fbCastInvoq.transform.position = transform.position + Vector3.up * fxInvocationHeight ;
                 fbCastInvoq.transform.localScale = new Vector3(1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq, 1 + tempsEcouleInvoq);
             }
 

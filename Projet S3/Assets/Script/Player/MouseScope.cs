@@ -302,6 +302,9 @@ public class MouseScope : MonoBehaviour
                 {
                     FeedbackSnap(null);
                 }
+            }else
+            {
+               FeedbackSnap(null);
             }
             if (shoot)
             {

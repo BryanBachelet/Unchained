@@ -71,6 +71,12 @@ public class MashingTrans : MonoBehaviour
     private  float tempsminBtwPulse;
     private bool winMashing;
 
+    public GameObject charaOne;
+
+    public GameObject charaTwo;
+
+    private int numberOfTransformation;
+
     void Start()
     {
         resetPlayerScript = GetComponent<ResetPlayer>();
@@ -125,6 +131,7 @@ public class MashingTrans : MonoBehaviour
             // Camera.main.GetComponent<Threshold>().enabled =true;
             if (!activationTransformation)
             {
+                numberOfTransformation++;
                 agentTransfo.startTranformationAnim(timing);
                 activationTransformation = true;
                 SetupMash();
@@ -183,6 +190,12 @@ public class MashingTrans : MonoBehaviour
                         ResetMash();
                         compteurFinishMash = 0;
                         activeMash = false;
+                        if(numberOfTransformation>= 2)
+                        {
+                            charaOne.SetActive(false);
+                            charaTwo.SetActive(true);
+                            playerAnim.animator =  charaTwo.GetComponent<Animator>();
+                        }
                         if(winMashing)
                         {                                                                                 
                             if ((i.Count/tempsMinMashing) <= 5)                                                                
