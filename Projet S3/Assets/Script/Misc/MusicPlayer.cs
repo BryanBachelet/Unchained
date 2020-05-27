@@ -43,7 +43,7 @@ public class MusicPlayer : MonoBehaviour
         {
             tempsEcouleMusic += Time.deltaTime;
         }
-        else
+        if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
         {
             if (!isCheckMusic)
             {
