@@ -69,6 +69,8 @@ public class EnnemiStock : MonoBehaviour
     private GainVelocitySystem myGainVelocitySystScript;
     
     private PlayerAnimState playerAnim;
+
+    public GameObject fxPropulsion;
     void Start()
     {
         line = GetComponentInChildren<LineRend>();
@@ -282,6 +284,7 @@ public class EnnemiStock : MonoBehaviour
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        Instantiate(fxPropulsion, transform.position, transform.rotation);
     }
 
    public void DetachPlayer(Vector3 dir)
@@ -293,6 +296,7 @@ public class EnnemiStock : MonoBehaviour
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        Instantiate(fxPropulsion, transform.position, transform.rotation);
     }
      public void DetachPlayer(bool active)
     {
@@ -309,6 +313,7 @@ public class EnnemiStock : MonoBehaviour
         isSlaming =false;
         ennemiStock = null;
         OrbitEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        Instantiate(fxPropulsion, transform.position, transform.rotation);
     }
     
     

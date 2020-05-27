@@ -156,7 +156,7 @@ public class LifePlayer : MonoBehaviour
 
                 loseRestart = true;
                 loseTxt.SetActive(true);
-                loseTxt.transform.GetChild(1).gameObject.SetActive(true);
+                loseTxt.transform.GetChild(0).gameObject.SetActive(true);
                 DataPlayer.isGivingData = true;
             }
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

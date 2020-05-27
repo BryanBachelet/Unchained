@@ -65,6 +65,8 @@ public class MouseScope : MonoBehaviour
 
     private PlayerAnimState playerAnim;
 
+    public GameObject visor;
+
     void Start()
     {
         controllerPc = stateOfController;
@@ -88,6 +90,8 @@ public class MouseScope : MonoBehaviour
 
         if (ennemiStock.ennemiStock == null)
         {
+            visor.SetActive(true);
+            Debug.Log("J'active le viseur --> ennemi");
             Vector3 rotDir = new Vector3(-aimDirection.x,0,aimDirection.z);
             float angleChara = Vector3.SignedAngle(rotDir.normalized,Vector3.forward,Vector3.up);
             transform.eulerAngles =  new Vector3(0,angleChara,0);
@@ -121,6 +125,16 @@ public class MouseScope : MonoBehaviour
                 }
 
             }
+        }
+        if(StateOfGames.currentState != StateOfGames.StateOfGame.DefaultPlayable)
+        {
+            visor.SetActive(false);
+            Debug.Log("Je desactive le viseur --> State");
+        }
+        if(ennemiStock.ennemiStock != null)
+        {
+            visor.SetActive(false);
+            Debug.Log("Je desactive le viseur --> Ennemi");
         }
         Snap(false);
 
@@ -403,39 +417,39 @@ public class MouseScope : MonoBehaviour
 
 
 
-    private void OnRenderObject()
-    {
-        if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
-        {
-
-
-            GL.Begin(GL.LINES);
-            glMaterial.SetPass(0);
-
-            GL.Color(Color.red);
-            GL.Vertex(transform.position);
-            GL.Vertex(transform.position + aimDirection.normalized * DistanceMaxShoot());
-            GL.End();
-
-            GL.Begin(GL.LINES);
-            glMaterial.SetPass(0);
-
-            GL.Color(Color.red);
-            GL.Vertex(transform.position);
-            GL.Vertex(transform.position + (Quaternion.Euler(0, Mathf.Rad2Deg * (1 - angleSnap), 0) * aimDirection.normalized) * DistanceMaxShoot());
-            GL.End();
-
-            GL.Begin(GL.LINES);
-            glMaterial.SetPass(0);
-
-            GL.Color(Color.red);
-            GL.Vertex(transform.position);
-
-            GL.Vertex(transform.position + (Quaternion.Euler(0, (Mathf.Rad2Deg * (-1 + angleSnap)), 0) * aimDirection.normalized) * DistanceMaxShoot());
-            GL.End();
-
-        }
-
-    }
+    //private void OnRenderObject()
+    //{
+    //    if (Camera.current.name == "Camera" && StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+    //    {
+    //
+    //
+    //        GL.Begin(GL.LINES);
+    //        glMaterial.SetPass(0);
+    //
+    //        GL.Color(Color.red);
+    //        GL.Vertex(transform.position);
+    //        GL.Vertex(transform.position + aimDirection.normalized * DistanceMaxShoot());
+    //        GL.End();
+    //
+    //        GL.Begin(GL.LINES);
+    //        glMaterial.SetPass(0);
+    //
+    //        GL.Color(Color.red);
+    //        GL.Vertex(transform.position);
+    //        GL.Vertex(transform.position + (Quaternion.Euler(0, Mathf.Rad2Deg * (1 - angleSnap), 0) * aimDirection.normalized) * DistanceMaxShoot());
+    //        GL.End();
+    //
+    //        GL.Begin(GL.LINES);
+    //        glMaterial.SetPass(0);
+    //
+    //        GL.Color(Color.red);
+    //        GL.Vertex(transform.position);
+    //
+    //        GL.Vertex(transform.position + (Quaternion.Euler(0, (Mathf.Rad2Deg * (-1 + angleSnap)), 0) * aimDirection.normalized) * DistanceMaxShoot());
+    //        GL.End();
+    //
+    //    }
+    //
+    //}
 
 }
