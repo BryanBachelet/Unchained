@@ -31,6 +31,7 @@ public class SlamTry : MonoBehaviour
     private PlayerMoveAlone playerMove;
     private Vector3 dir;
     public GameObject feed;
+    public GameObject vfx_Slam;
 
     [FMODUnity.EventRef]
     public string slamLaunch;
@@ -38,6 +39,8 @@ public class SlamTry : MonoBehaviour
     public string slamImpact;
 
     private bool activeOnce;
+
+    bool checkSlam = false;
     
     // Start is called before the first frame update
     void Start()
@@ -99,7 +102,7 @@ public class SlamTry : MonoBehaviour
                 t = 0;
                 point2.transform.position = transform.position;
                 point1.transform.position = transform.position;
-                feed.SetActive(false);
+                //feed.SetActive(false);
                 break;
         }
 
@@ -127,7 +130,7 @@ public class SlamTry : MonoBehaviour
     }
     private void PhaseOne()
     {
-
+        checkSlam = false;
         agent.transform.position = Vector3.Lerp(posAgent, point1.transform.position, t);
         t = compteur / time1;
         compteur += Time.deltaTime;
@@ -143,9 +146,15 @@ public class SlamTry : MonoBehaviour
 
     private void PhaseTwo()
     {
-        feed.SetActive(true);
-        feed.transform.position = point2.transform.position;
-        feed.transform.localScale = Vector3.one *25;
+        //feed.SetActive(true);
+        if(!checkSlam)
+        {
+            GameObject vfxSlam = Instantiate(vfx_Slam, point2.transform.position, point2.transform.rotation);
+            checkSlam = true;
+        }
+
+        //feed.transform.position = point2.transform.position;
+        //feed.transform.localScale = Vector3.one *25;
         agent.transform.position = Vector3.Lerp(point1.transform.position, point2.transform.position, t);
         agent.layer = 1;
         t = compteur / time2;

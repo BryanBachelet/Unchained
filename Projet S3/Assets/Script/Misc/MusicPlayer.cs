@@ -14,14 +14,24 @@ public class MusicPlayer : MonoBehaviour
     public float tempsAvantMusic;
     float tempsEcouleMusic;
     public bool isCheckMusic = false;
+
+    [FMODUnity.EventRef]
+    public string breathIntro;
+    public FMOD.Studio.EventInstance bearthIntroEvent;
+
+    public float volumeUp;
+    public float volumeDown;
     // Start is called before the first frame update
     void Start()
     {
+
         isCheckMusic = false;
         checkP1 = false;
         checkP2 = false;
         tempsEcouleMusic = 0;
         track1 = FMODUnity.RuntimeManager.CreateInstance(trackTest1);
+        bearthIntroEvent = FMODUnity.RuntimeManager.CreateInstance(breathIntro);
+        bearthIntroEvent.start();
         track1.setParameterByName("TransiP1", 0F);
         track1.setParameterByName("TransiP2", 0F);
     }
@@ -49,6 +59,15 @@ public class MusicPlayer : MonoBehaviour
         if (checkP2)
         {
             track1.setParameterByName("TransiP2", 1F);
+        }
+
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            track1.setVolume(volumeDown);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            track1.setVolume(volumeUp);
         }
     }
 }

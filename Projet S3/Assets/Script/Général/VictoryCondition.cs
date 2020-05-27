@@ -70,7 +70,7 @@ public class VictoryCondition : MonoBehaviour
         }
         victoryRestart = true;
         victoryText.SetActive(true);
-        victoryText.transform.GetChild(0).gameObject.SetActive(true);
+        victoryText.transform.GetChild(1).gameObject.SetActive(true);
         DataPlayer.isGivingData = true;
         }
     }
