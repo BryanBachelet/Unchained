@@ -236,7 +236,7 @@ public class TransformationAgent : MonoBehaviour
             { 
                 line.SetPosition(0, menotte2.transform.position);
             }
-            line.SetPosition(1,agentList[i].transform.position + Vector3.up*2.5f);
+            line.SetPosition(1, agentList[i].GetComponent<MenettoTransformation>().point.transform.position);
 
         
 
