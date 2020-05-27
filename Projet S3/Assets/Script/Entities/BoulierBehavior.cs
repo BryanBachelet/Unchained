@@ -52,7 +52,7 @@ public class BoulierBehavior : MonoBehaviour
        
         Vector3 playerDir = player.transform.position - transform.position;
         float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir,Vector3.up);
-        if(dashState != DashEntityState.Dash)
+        if(dashState != DashEntityState.Dash || !isGrab)
         {
         transform.eulerAngles = new Vector3(0,angleAgent,0);
         }
@@ -89,7 +89,7 @@ public class BoulierBehavior : MonoBehaviour
                     }
                     if (isGrab)
                     {
-                        Debug.Log(true);
+                        
                         PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
                         ExitPlayer();
                 
@@ -252,7 +252,7 @@ public class BoulierBehavior : MonoBehaviour
             if (checkStich == false)
             {
                 checkStich = true;
-                stichPos = collision.transform.position - transform.position;
+                stichPos = transform.forward*1.5f + transform.up *2;
                 collision.GetComponent<EnnemiStock>().DetachPlayer();
                 collision.GetComponent<PlayerMoveAlone>().currentPowerOfProjection= 0;
                 isGrab = true;
@@ -264,15 +264,7 @@ public class BoulierBehavior : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == PlayerMoveAlone.Player1)
-        {
-         // CatchPlayer(collision.collider);
-        }
 
-
-    }
     public void OnDestroy()
     {
         ManageEntity.DestroyEntity(ManageEntity.EntityType.Coloss);

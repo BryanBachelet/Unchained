@@ -28,9 +28,9 @@ public class VictoryCondition : MonoBehaviour
 
     if(StateOfGames.currentPhase ==  StateOfGames.PhaseOfDefaultPlayable.Phase3)
     {
-        ReseachFormation();
         if(Input.GetKeyDown(KeyCode.C) && presentation)
         {
+            ReseachFormation();
             ActiveVictory();
         }
     }

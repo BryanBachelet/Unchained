@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DataPlayer : MonoBehaviour
 {
-    
+
     static public float tempsEcoulePartie;
     static public int entityHit;
     static public int entityKill;
@@ -22,6 +22,8 @@ public class DataPlayer : MonoBehaviour
     static Text datakill;
     static Text dataRythme;
     static Text dataAim;
+
+    public GameObject DataContainer;
     public Text goTextTime;
     public Text goTextKill;
     public Text goTextRythme;
@@ -229,6 +231,8 @@ public class DataPlayer : MonoBehaviour
         if(isGivingData)
         {
             musPlayerStatic.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            Debug.Log("12");
+            DataContainer.SetActive(true);
             GiveData();
         }
     }
@@ -245,10 +249,11 @@ public class DataPlayer : MonoBehaviour
         {
             affichePercentAim = Mathf.Lerp(affichePercentAim, nbShotHit * 100 / nbShot, tempsEcouleWin);
         }
-
+      
+      
         dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min";
         datakill.text = "Entitées tuées : " + afficheKill;
-        dataRythme.text = "RythmeKill : " + ManageEntity.PercentKill + " %";
+        dataRythme.text = "Rythme Kill : " + ManageEntity.PercentKill + " %";
         dataAim.text = "Aiming : " + affichePercentAim + " %";
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
