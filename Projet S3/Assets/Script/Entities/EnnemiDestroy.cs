@@ -32,6 +32,8 @@ public class EnnemiDestroy : MonoBehaviour
 
     private Anim_Cultist_States anim_Cultist_States;
 
+ 
+
     void Awake()
     {
         stateOfEntity = GetComponent<StateOfEntity>();

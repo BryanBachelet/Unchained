@@ -69,11 +69,11 @@ public class PlayerAnimState : MonoBehaviour
             }
             if(currentState == PlayerStateAnim.Slam)
             {
-                animator.Play("Anim_State_Chaine_StartTurnRotate");
+                animator.Play("__Grab And Slam");
             }
              if(currentState == PlayerStateAnim.Death)
             {
-                animator.Play("Anim_State_Chaine_StartTurnRotate");
+                animator.Play("Anim_State_PerteVie");
             }
             playerCurrentState = currentState;
         }

@@ -40,9 +40,13 @@ public class LineRend : MonoBehaviour
     [HideInInspector]
     public float strenghOfExpulsion;
 
+    public bool test;
+
     private MouseScope mouseScope;
     private PlayerMoveAlone moveAlone;
     private KillCountPlayer countPlayer;
+
+
 
 
     // Start is called before the first frame update
@@ -72,7 +76,7 @@ public class LineRend : MonoBehaviour
             pointplayer = pointplayer2;
         }
 
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable ||test)
         {
             if (ennemiStock != null)
             {
@@ -123,7 +127,7 @@ public class LineRend : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable || test)
         {
             if (collision.transform.tag == "Ennemi")
             {
@@ -150,7 +154,7 @@ public class LineRend : MonoBehaviour
 
     public void OnTriggerStay(Collider collision)
     {
-        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable)
+        if (StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable || test)
         {
             if (collision.transform.tag == "Ennemi")
             {
@@ -200,8 +204,10 @@ public class LineRend : MonoBehaviour
         StateOfEntity ennemi = collision.GetComponent<StateOfEntity>();
         if (ennemi.entity != StateOfEntity.EntityState.Destroy && collision.gameObject != ennemiStock.ennemiStock)
         {
-
-            countPlayer.HitEnnemi();
+            if(!test)
+            {
+             countPlayer.HitEnnemi();
+            }
             Vector3 dir = p2 - p1;
             EnnemiDestroy  ennemiDestroy = ennemi.GetComponent<EnnemiDestroy>();
             float sensRotate = Vector3.Dot( (ennemi.transform.position -transform.parent.position), dir.normalized);

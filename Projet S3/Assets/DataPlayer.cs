@@ -231,7 +231,7 @@ public class DataPlayer : MonoBehaviour
         if(isGivingData)
         {
             musPlayerStatic.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            Debug.Log("12");
+         
             DataContainer.SetActive(true);
             GiveData();
         }
@@ -251,9 +251,9 @@ public class DataPlayer : MonoBehaviour
         }
       
       
-        dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F2") + "min";
+        dataTime.text = "Temps : " + (afficheTempsEcoulePartie / 60).ToString("F0") + " min " +  (afficheTempsEcoulePartie - (afficheTempsEcoulePartie / 60)).ToString("F0") + " seconde";
         datakill.text = "Entitées tuées : " + afficheKill;
-        dataRythme.text = "Rythme Kill : " + ManageEntity.PercentKill + " %";
+        dataRythme.text = "Rythme Kill : " + ManageEntity.PercentKill.ToString("F0") + " %";
         dataAim.text = "Aiming : " + affichePercentAim + " %";
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }

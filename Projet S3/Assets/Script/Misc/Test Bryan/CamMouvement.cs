@@ -5,6 +5,7 @@ using UnityEngine;
 public class CamMouvement : MonoBehaviour
 {
 
+
     public bool smoothTransition = false;
     public StateOfGames.StateOfGame state = StateOfGames.StateOfGame.DefaultPlayable;
     

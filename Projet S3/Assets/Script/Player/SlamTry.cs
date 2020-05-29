@@ -40,7 +40,10 @@ public class SlamTry : MonoBehaviour
 
     private bool activeOnce;
 
+    public bool test;
     bool checkSlam = false;
+
+    private PlayerAnimState playerAnim;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,7 @@ public class SlamTry : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         playerMove = GetComponent<PlayerMoveAlone>();
         rigid = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<PlayerAnimState>();
 
     }
 
@@ -90,11 +94,9 @@ public class SlamTry : MonoBehaviour
                 PhaseTwo();
                 break;
             case ProjectioState.Projection:
-                Debug.DrawRay(transform.position,dir.normalized * 100, Color.green);
-               // Debug.Break();
+
                ennemiStock.DetachPlayer(dir.normalized);
                 currentState = ProjectioState.Finish;
-               // Projection();
                 break;
             case ProjectioState.Finish:
                 agent = null;
@@ -102,6 +104,7 @@ public class SlamTry : MonoBehaviour
                 t = 0;
                 point2.transform.position = transform.position;
                 point1.transform.position = transform.position;
+            
                 //feed.SetActive(false);
                 break;
         }
@@ -121,6 +124,7 @@ public class SlamTry : MonoBehaviour
         point1.transform.position += Vector3.up * jumpPlayer;
         currentState = ProjectioState.Jump;
         playerMove.DeactiveStickHGround();
+        playerAnim.ChangeStateAnim(PlayerAnimState.PlayerStateAnim.Slam);
 
     }
     private void JumpSlam()
@@ -166,7 +170,10 @@ public class SlamTry : MonoBehaviour
             {
                
                 Vector3 dir = ennmi[i].transform.position - point2.transform.position;
-                countPlayer.ResetTiming();
+                if(!test)
+                {
+                    countPlayer.ResetTiming();
+                }
                 if(!ennmi[i].GetComponent<StateOfEntity>())
                 {
                     Debug.Log(ennmi[i].name);

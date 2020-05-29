@@ -37,8 +37,14 @@ public class BoulierBehavior : MonoBehaviour
     private AnimBoulier animBoulier;
     private Rigidbody rigidbody;
 
+   private Vector3 keepAngle;
+
+    public GameObject stich;
+
     [FMODUnity.EventRef]
     public string chargeSound;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,12 +58,7 @@ public class BoulierBehavior : MonoBehaviour
        
         Vector3 playerDir = player.transform.position - transform.position;
         float angleAgent = Vector3.SignedAngle(Vector3.forward, playerDir,Vector3.up);
-        if(dashState != DashEntityState.Dash || !isGrab)
-        {
-        transform.eulerAngles = new Vector3(0,angleAgent,0);
-        }
         rigidbody.velocity = new Vector3(0,0,0);
-        Debug.DrawLine(transform.position,hit.point);
         if(StateOfGames.currentState == StateOfGames.StateOfGame.DefaultPlayable && stateOfEntity.entity != StateOfEntity.EntityState.Destroy 
         && stateOfEntity.entity != StateOfEntity.EntityState.Dead )
         {
@@ -82,6 +83,8 @@ public class BoulierBehavior : MonoBehaviour
                     break;
 
                 case (DashEntityState.Dash):
+
+                    transform.eulerAngles = keepAngle;
                     transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
                     if (!isFall)
                     {
@@ -90,7 +93,7 @@ public class BoulierBehavior : MonoBehaviour
                     if (isGrab)
                     {
                         
-                        PlayerMoveAlone.Player1.transform.position = transform.position + stichPos;
+                        PlayerMoveAlone.Player1.transform.position = stich.transform.position;
                         ExitPlayer();
                 
                     }else
@@ -102,7 +105,7 @@ public class BoulierBehavior : MonoBehaviour
                        }
                     }
 
-                    if (Vector3.Distance(transform.position, hit.point) < distanceStopWall)
+                    if ( Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, distanceStopWall, wallHit))
                     {
                         if (isGrab)
                         {
@@ -192,6 +195,7 @@ public class BoulierBehavior : MonoBehaviour
 
             case (DashEntityState.Dash):
 
+                keepAngle = transform.eulerAngles;
                 animBoulier.ChangeState(AnimBoulier.StateColoss.Charge);
                 dirDash = player.transform.position - transform.position;
                 Physics.Raycast(transform.position + Vector3.up, dirDash, out hit, Mathf.Infinity, wallHit);

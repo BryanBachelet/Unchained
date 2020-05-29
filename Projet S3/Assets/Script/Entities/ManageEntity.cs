@@ -159,7 +159,7 @@ public class ManageEntity : MonoBehaviour
             if (nbColoss < maxColoss && !isColossSpawn)
             {
                 nbColoss++;
-                Debug.Log(nbColoss + "current number of coloss" + ", max number is " + maxColoss);
+         
                 isColossSpawn = true;
                 return true;
             }
