@@ -59,9 +59,9 @@ public class EnnemiStock : MonoBehaviour
     
     [Header("Propulsion")]
     public float maxValueOFVarationOfProjection;
-    public AnimationCurve powerOfStrengh;
+    public AnimationCurve powerOfStrength;
 
-    public AnimationCurve declerationStrengh;
+    public AnimationCurve decelerationOfStrength;
 
     private float _declerationStrengh;
     
@@ -333,8 +333,8 @@ public class EnnemiStock : MonoBehaviour
         //if()
         float angleReturn = rotationPlayer.GetAngle();
         angleReturn =  Mathf.Clamp(angleReturn,0,maxValueOFVarationOfProjection);
-        _powerOfStrengh = myGainVelocitySystScript.CalculGain(powerOfStrengh.Evaluate(angleReturn));
-        _declerationStrengh = declerationStrengh.Evaluate(angleReturn);
+        _powerOfStrengh = myGainVelocitySystScript.CalculGain(powerOfStrength.Evaluate(angleReturn));
+        _declerationStrengh = decelerationOfStrength.Evaluate(angleReturn);
     
     }
 

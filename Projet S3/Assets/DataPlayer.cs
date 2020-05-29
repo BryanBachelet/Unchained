@@ -22,6 +22,8 @@ public class DataPlayer : MonoBehaviour
     static Text datakill;
     static Text dataRythme;
     static Text dataAim;
+    
+    static Text scoreTwo;
 
     public GameObject DataContainer;
     public Text goTextTime;
@@ -30,6 +32,7 @@ public class DataPlayer : MonoBehaviour
     public Text goTextAim;
     public Text scoringText;
     public Text scoreMultiplyText;
+    public Text secondScore;
     Image imgTempsMultiplier;
     static float scoreToGo;
     public float scoreCurrent;
@@ -94,6 +97,7 @@ public class DataPlayer : MonoBehaviour
         datakill = goTextKill;
         dataRythme = goTextRythme;
         dataAim = goTextAim;
+        scoreTwo = secondScore;
         tempsEcouleScale = 0;
         tempsEcouleGroupe = 0;
         isOnCombo = false;
@@ -233,11 +237,11 @@ public class DataPlayer : MonoBehaviour
             musPlayerStatic.track1.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
          
             DataContainer.SetActive(true);
-            GiveData();
+            GiveData(scoreCurrent);
         }
     }
 
-    static public void GiveData()
+    static public void GiveData(float score)
     {
         isCountingTime = false;
         tempsEcouleWin += 0.1f * Time.deltaTime;
@@ -255,6 +259,7 @@ public class DataPlayer : MonoBehaviour
         datakill.text = "Entitées tuées : " + afficheKill;
         dataRythme.text = "Rythme Kill : " + ManageEntity.PercentKill.ToString("F0") + " %";
         dataAim.text = "Aiming : " + affichePercentAim + " %";
+        scoreTwo.text = "Score : "  + score;
         //dataText.text = "Temps : " + tempsEcoulePartie / 60 + "min" + "\nEntitées frappées : " + entityHit + "\nEntitées tuées : " + entityKill;
     }
 

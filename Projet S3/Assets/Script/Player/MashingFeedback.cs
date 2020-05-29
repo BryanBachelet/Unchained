@@ -37,7 +37,7 @@ public class MashingFeedback : MonoBehaviour
     {
         if (fd != null)
         {
-            fd.transform.position = transform.position;
+           
             if (rockVfxFeedback != null)
             {
                 if(cinematicCamScript.currentPlan == CinematicCam.NamePlan.Plan1)
@@ -70,7 +70,7 @@ public class MashingFeedback : MonoBehaviour
             if (numberTransformation == 1)
             {
 
-                fd = Instantiate(FirstVfxFeedback, transform.position + Vector3.up, Quaternion.Euler(0, 0, 0));
+                fd = Instantiate(FirstVfxFeedback, transform.position , Quaternion.Euler(0, 0, 0));
                 rockVfxFeedback = fd.transform.GetChild(0).transform.GetChild(4).gameObject;
                 speedRock1 = rockVfxFeedback.GetComponent<ParticleSystem>().main;
                 numberRock = rockVfxFeedback.GetComponent<ParticleSystem>().emission;
@@ -80,7 +80,7 @@ public class MashingFeedback : MonoBehaviour
             }
             if (numberTransformation == 2)
             {
-                fd = Instantiate(feedbackSecondTransformation, transform.position, Quaternion.Euler(-90, 0, 0));
+                fd = Instantiate(feedbackSecondTransformation, transform.position-(Vector3.up *1) , Quaternion.Euler(-90, 0, 0));
                 fd.GetComponent<MagicalFX.FX_LifeTime>().LifeTime = duration;
             }
             activeTransformation = true;
