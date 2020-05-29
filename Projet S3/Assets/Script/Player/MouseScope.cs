@@ -65,6 +65,8 @@ public class MouseScope : MonoBehaviour
 
     private PlayerAnimState playerAnim;
 
+    public bool test;
+
     public GameObject visor;
 
     void Start()
@@ -128,7 +130,10 @@ public class MouseScope : MonoBehaviour
         }
         if(StateOfGames.currentState != StateOfGames.StateOfGame.DefaultPlayable)
         {
-            visor.SetActive(false);
+            if(!test)
+            {
+                visor.SetActive(false);
+            }
             Debug.Log("Je desactive le viseur --> State");
         }
         if(ennemiStock.ennemiStock != null)

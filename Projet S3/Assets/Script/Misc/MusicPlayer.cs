@@ -34,6 +34,7 @@ public class MusicPlayer : MonoBehaviour
         bearthIntroEvent.start();
         track1.setParameterByName("TransiP1", 0F);
         track1.setParameterByName("TransiP2", 0F);
+        track1.setVolume(volumeDown);
     }
 
     // Update is called once per frame
