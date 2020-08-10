@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &412217197119277412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412217197119277415}
+  - component: {fileID: 412217197119277414}
+  - component: {fileID: 412217197119277417}
+  - component: {fileID: 5155567636582038809}
+  - component: {fileID: 135593847278972914}
+  m_Layer: 0
+  m_Name: Formation One
+  m_TagString: Formation
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &412217197119277415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412217197119277412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.03, y: 0.28, z: 2.526637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &412217197119277414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412217197119277412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd9e02eeb3745c4098d97ca30e27de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childEntities: []
+  numberByCircle: 20
+  radiusAtBase: 10
+  sizeBetweenCircle: 1.5
+  speedAgent: 4
+  positionMouvement: 0
+  rotateRituelSpeed: 50
+  activeRituel: 0
+  timeForInvoq: 5
+  startInvoq: 0
+  tempsEcouleInvoq: 0
+  attack: 0
+  invoq1: {fileID: 415062070903515780, guid: 90473cd232531ec4393338e0160d5b33, type: 3}
+  fbCastInvoq: {fileID: 0}
+  activeCircle: 0
+--- !u!114 &412217197119277417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412217197119277412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07852a1182193b740901912b70b0bf18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cultisteBehavior: 2
+  pointToGo: {fileID: 0}
+  patrolMode: 0
+  listOfPointOfPatrol: []
+  distanceMinToGo: 1
+  speedOfMouvement: 4
+--- !u!114 &5155567636582038809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412217197119277412}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a93a8b62dacb340952d2fe563d59a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 40
+  spriteGo: {fileID: 0}
+  attackCollideGo: {fileID: 0}
+  wallHit:
+    serializedVersion: 2
+    m_Bits: 9216
+  shotSound: event:/Mob/WindPropulsion
+  test: 0
+  isAttacking: 0
+  timeAttack: 3
+  myMouseTargetLasersScript: {fileID: 0}
+  maxFrameDelayAim: 10
+  playPreviousPos: []
+  LaserDamagePerSecond: 10
+  isMoving: 1
+  moveTo: {x: 4.2, y: 0, z: 34.9}
+  radiusRNDTogo: 10
+  timingMouvement: 2
+  compteurMouvement: 0
+  playerDistanceMove: 10
+  speedMouvement: 10
+--- !u!135 &135593847278972914
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412217197119277412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
